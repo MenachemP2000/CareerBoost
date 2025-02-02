@@ -2,17 +2,17 @@ import React from "react";
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 function NavbarComponent() {
     return (
         <Navbar bg="dark" data-bs-theme="dark">
             <Container>
-                <Link to="/" class="nav-link active"> CareerBoost</Link>
-                <Nav className="me-auto">
-                    <Link to="/" class="nav-link active"> Home</Link>
-                    <Link to="/aboutus" class="nav-link active"> About Us</Link>
-                    <Link to="/contact" class="nav-link active"> Contact Us</Link>
+                <Navbar.Brand as={Link} to="/">CareerBoost</Navbar.Brand>
+                <Nav className="ml-auto">
+                    <Link to="/" className="nav-link">Home</Link>
+                    <Link to="/aboutus" className="nav-link">About Us</Link>
+                    <Link to="/contact" className="nav-link">Contact Us</Link>
                 </Nav>
             </Container>
         </Navbar>
