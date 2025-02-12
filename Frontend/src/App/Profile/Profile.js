@@ -23,7 +23,8 @@ const Profile = ({ toggleScreen, isSignedIn, toggleSignendIn }) => {
     const handlePredict = async (e) => {
         e.preventDefault();
         const payload = { _id: isSignedIn._id, username: isSignedIn.username };
-        payload.prediction = 100000;
+        let random = Math.floor(Math.random() * 1000000) + 1;
+        payload.prediction = random;
         try {
             // Send the registration data to the server
             const response = await fetch(`${config.apiBaseUrl}/api/users/${isSignedIn._id}`, {
