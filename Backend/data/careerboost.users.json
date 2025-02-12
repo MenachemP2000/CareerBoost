@@ -1,0 +1,47 @@
+[
+  {
+    "_id": { "$oid": "666ef3f6333d2d5f5656511c" },
+    "username": "meny",
+    "password": "meny1234",
+    "country": "Israel",
+    "experience": 5,
+    "age": 25,
+    "education": "Bachelor's degree (B.A., B.S., B.Eng., etc.)"
+  },
+  {
+    "_id": { "$oid": "666ef3f6333d2d5f5656511d" },
+    "username": "baby",
+    "password": "baby1234",
+    "country": "United States of America",
+    "experience": 2,
+    "age": 22,
+    "education": "Some college/university study without earning a degree"
+  },
+  {
+    "_id": { "$oid": "666ef3f6333d2d5f5656511e" },
+    "username": "kobi",
+    "password": "kobi1234",
+    "country": "Canada",
+    "experience": 7,
+    "age": 30,
+    "education": "Master's degree (M.A., M.S., M.Eng., MBA, etc.)"
+  },
+  {
+    "_id": { "$oid": "667ef040194986d512853536" },
+    "username": "jhon",
+    "password": "jhon1234",
+    "country": "United Kingdom of Great Britain and Northern Ireland",
+    "experience": 3,
+    "age": 27,
+    "education": "Professional degree (JD, MD, Ph.D, Ed.D, etc.)"
+  },
+  {
+    "_id": { "$oid": "667ef09b194986d5128535db" },
+    "username": "toby",
+    "password": "toby1234",
+    "country": "Germany",
+    "experience": 4,
+    "age": 28,
+    "education": "Secondary school (e.g. American high school, German Realschule or Gymnasium, etc.)"
+  }
+]
