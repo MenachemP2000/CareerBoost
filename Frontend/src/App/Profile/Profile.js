@@ -122,7 +122,7 @@ const Profile = ({ toggleScreen, isSignedIn, toggleSignendIn }) => {
                                 </Card>
 
                             }
-                            {(isSignedIn.prediction !== 0) &&
+                            {(isSignedIn.prediction && isSignedIn.prediction !== 0) &&
                                 <Card style={{ width: '18rem', margin: "10px" }}>
                                     <Card.Header>Salary Prediction</Card.Header>
                                     <Card.Body >
