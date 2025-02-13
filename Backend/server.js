@@ -4,7 +4,7 @@ const cors = require('cors'); // Import CORS middleware
 const fileUpload = require('express-fileupload');
 const path = require('path');
 const app = express();
-const port = process.env.PORT || 4000;
+const port = process.env.PORT || 4001;
 const mongodbUri = process.env.MONGODB_URI || "mongodb://localhost:27017/careerboost";
 
 // Middleware to increase payload size limit
