@@ -22,11 +22,33 @@ const Profile = ({ toggleScreen, isSignedIn, toggleSignendIn }) => {
     }
     const handlePredict = async (e) => {
         e.preventDefault();
+
         const payload = { _id: isSignedIn._id, username: isSignedIn.username };
-        let random = Math.floor(Math.random() * 1000000) + 1;
-        payload.prediction = random;
         try {
+            const userprofile = { Country: isSignedIn.country, WorkExp: isSignedIn.experience, EdLevel: isSignedIn.education, Age: isSignedIn.age };
             // Send the registration data to the server
+            console.log(userprofile);
+            const response = await fetch(`${config.apiBaseUrl}/api/model/predict`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(userprofile)
+            });
+
+            const result = await response.json();
+            payload.prediction = Math.floor(result.prediction);
+
+            if (!response.ok) {
+                // If the server responds with an error, set the error message
+                setError(result.message);
+                return;
+            }
+        } catch (error) {
+            setError('An error occurred. Please try again.');
+            console.error('Error:', error);
+        }
+        try {
             const response = await fetch(`${config.apiBaseUrl}/api/users/${isSignedIn._id}`, {
                 method: 'PATCH',
                 headers: {

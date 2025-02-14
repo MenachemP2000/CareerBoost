@@ -15,11 +15,11 @@ const userSchema = new mongoose.Schema({
     required: true
   },
   experience: {
-    type: Number,
+    type: String,
     required: true
   },
   age: {
-    type: Number,
+    type: String,
     required: true
   },
   education: {
@@ -27,7 +27,10 @@ const userSchema = new mongoose.Schema({
     required: true
   },
   prediction: {
-    type: Number
+    type: String
+  },
+  topRecommendations: {
+    type: Object
   }
 });
 

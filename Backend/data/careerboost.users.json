@@ -4,8 +4,8 @@
     "username": "meny",
     "password": "meny1234",
     "country": "Israel",
-    "experience": 5,
-    "age": 25,
+    "experience": "5",
+    "age": "25-34 years old",
     "education": "Bachelor's degree (B.A., B.S., B.Eng., etc.)"
   },
   {
@@ -13,8 +13,8 @@
     "username": "baby",
     "password": "baby1234",
     "country": "United States of America",
-    "experience": 2,
-    "age": 22,
+    "experience": "2",
+    "age": "18-24 years old",
     "education": "Some college/university study without earning a degree"
   },
   {
@@ -22,8 +22,8 @@
     "username": "kobi",
     "password": "kobi1234",
     "country": "Canada",
-    "experience": 7,
-    "age": 30,
+    "experience": "7",
+    "age": "25-34 years old",
     "education": "Master's degree (M.A., M.S., M.Eng., MBA, etc.)"
   },
   {
@@ -31,8 +31,8 @@
     "username": "jhon",
     "password": "jhon1234",
     "country": "United Kingdom of Great Britain and Northern Ireland",
-    "experience": 3,
-    "age": 27,
+    "experience": "3",
+    "age": "25-34 years old",
     "education": "Professional degree (JD, MD, Ph.D, Ed.D, etc.)"
   },
   {
@@ -40,8 +40,8 @@
     "username": "toby",
     "password": "toby1234",
     "country": "Germany",
-    "experience": 4,
-    "age": 28,
+    "experience": "4",
+    "age": "25-34 years old",
     "education": "Secondary school (e.g. American high school, German Realschule or Gymnasium, etc.)"
   }
 ]

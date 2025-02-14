@@ -1,6 +1,4 @@
 const User = require("../models/User");
-const path = require("path");
-const fs = require("fs");
 const jwt = require("jsonwebtoken");
 const key = "Some super secret key";
 
