@@ -31,7 +31,40 @@ const userSchema = new mongoose.Schema({
   },
   topRecommendations: {
     type: Object
-  }
+  },
+  MainBranch: {
+    type: String
+  },
+  RemoteWork: {
+    type: String
+  },
+  DevType: {
+    type: String
+  },
+  OrgSize: {
+    type: String
+  },
+  ICorPM: {
+    type: String
+  },
+  Industry: {
+    type: String
+  },
+  YearsCode: {
+    type: String
+  },
+  YearsCodePro: {
+    type: String
+  },
+  JobSat: {
+    type: String
+  },
+  languages: {
+    type: Object
+  },
+  employments: {
+    type: Object
+  },
 });
 
 module.exports = mongoose.model('User', userSchema);

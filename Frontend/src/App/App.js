@@ -11,6 +11,8 @@ import SignIn from "./SignIn/SignIn";
 import Profile from "./Profile/Profile";
 import ModifyAccount from "./ModifyAccount/ModifyAccount";
 import Recommendations from "./Recommendations/Recommendations";
+import AdvancedProfile from "./AdvancedProfile/AdvancedProfile";
+import ModifyAdvanced from "./ModifyAdvanced/ModifyAdvanced";
 
 
 
@@ -86,6 +88,14 @@ function App() {
                         toggleScreen={toggleScreen}
                         isSignedIn={isSignedIn} />} />
                     <Route path="/profile" element={<Profile
+                        toggleSignendIn={toggleSignendIn}
+                        toggleScreen={toggleScreen}
+                        isSignedIn={isSignedIn} />} />
+                    <Route path="/AdvancedProfile" element={<AdvancedProfile
+                        toggleSignendIn={toggleSignendIn}
+                        toggleScreen={toggleScreen}
+                        isSignedIn={isSignedIn} />} />
+                    <Route path="/ModifyAdvanced" element={<ModifyAdvanced
                         toggleSignendIn={toggleSignendIn}
                         toggleScreen={toggleScreen}
                         isSignedIn={isSignedIn} />} />

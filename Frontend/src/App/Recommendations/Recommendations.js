@@ -1,7 +1,6 @@
 import React from "react";
 import { Container, Row, Col, Card, Button } from 'react-bootstrap';
 import { Link } from "react-router-dom";
-import image1 from "../images/image3.jpg";
 import { useEffect, useState } from "react";
 import { useNavigate } from 'react-router-dom';
 import config from '../config';
@@ -27,8 +26,44 @@ const Recommendations = ({ toggleScreen, isSignedIn, toggleSignendIn }) => {
 
         try {
             const userprofile = { Country: isSignedIn.country, WorkExp: isSignedIn.experience, EdLevel: isSignedIn.education, Age: isSignedIn.age };
+            if (isSignedIn.MainBranch) {
+                userprofile.MainBranch = isSignedIn.MainBranch;
+            }
+            if (isSignedIn.RemoteWork) {
+                userprofile.RemoteWork = isSignedIn.RemoteWork;
+            }
+            if (isSignedIn.DevType) {
+                userprofile.DevType = isSignedIn.DevType;
+            }
+            if (isSignedIn.OrgSize) {
+                userprofile.OrgSize = isSignedIn.OrgSize;
+            }
+            if (isSignedIn.ICorPM) {
+                userprofile.ICorPM = isSignedIn.ICorPM;
+            }
+            if (isSignedIn.Industry) {
+                userprofile.Industry = isSignedIn.Industry;
+            }
+            if (isSignedIn.YearsCode) {
+                userprofile.YearsCode = isSignedIn.YearsCode;
+            }
+            if (isSignedIn.YearsCodePro) {
+                userprofile.YearsCodePro = isSignedIn.YearsCodePro;
+            }
+            if (isSignedIn.JobSat) {
+                userprofile.JobSat = isSignedIn.JobSat;
+            }
+            if (isSignedIn.languages) {
+                for (let i = 0; i < isSignedIn.languages.length; i++) {
+                    userprofile[isSignedIn.languages[i]] = 1;
+                }  
+            }
+            if (isSignedIn.employments) {
+                for (let i = 0; i < isSignedIn.employments.length; i++) {
+                    userprofile[isSignedIn.employments[i]] = 1;
+                }
+            }
             // Send the registration data to the server
-            console.log(userprofile);
             const response = await fetch(`${config.apiBaseUrl}/api/model/recommend`, {
                 method: 'POST',
                 headers: {
@@ -77,9 +112,8 @@ const Recommendations = ({ toggleScreen, isSignedIn, toggleSignendIn }) => {
     return (
 
         <div>
-            <div className="position-relative text-white text-center">
-                <img src={image1} className="d-block w-100" alt="..." style={{ height: "100vh", objectFit: "cover" }} />
-                <div className="position-absolute top-0 start-0 w-100 h-100 bg-dark bg-opacity-50 d-flex flex-column align-items-center justify-content-center">
+            <div className="position-relative text-white text-center" style={{ height: "100vh" }}>
+                <div className=" top-0 start-0 w-100 h-100 bg-dark bg-opacity-50 d-flex flex-column align-items-center justify-content-center">
                     <h3 className="display-4 fw-bold">Recommendations</h3>
                     <div className="underline mx-auto mb-3"></div>
 

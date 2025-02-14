@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { Container, Row, Col, Card, Button, Form } from 'react-bootstrap';
 import * as XLSX from 'xlsx';
-import image1 from "../images/image3.jpg";
 import countriesData from '../data/countries.xlsx';
 import educationsData from '../data/educations.xlsx';
+import agesData from '../data/ages.xlsx';
 import { useNavigate } from 'react-router-dom';
 import config from '../config';
 
@@ -20,7 +20,7 @@ const CreateAccount = ({ toggleSignendIn, toggleScreen, isSignedIn }) => {
 
     const logIn = async () => {
         localStorage.setItem('token', '');
-        const { username, password, country, experience, age, education } = formData;
+        const { username, password} = formData;
         const data = { username: username, password: password }
         try {
             const response = await fetch(`${config.apiBaseUrl}/api/tokens`, {
@@ -88,6 +88,25 @@ const CreateAccount = ({ toggleSignendIn, toggleScreen, isSignedIn }) => {
         fetchEducations();
     }, []);
 
+    const [ages, setAges] = useState([]);
+
+    useEffect(() => {
+        // Load the Excel file and extract country list
+        const fetchAges = async () => {
+            const file = await fetch(agesData);
+            const arrayBuffer = await file.arrayBuffer();
+            const workbook = XLSX.read(arrayBuffer, { type: 'array' });
+
+            // Assuming countries are in the first sheet and first column
+            const sheet = workbook.Sheets[workbook.SheetNames[0]];
+            const educationsArray = XLSX.utils.sheet_to_json(sheet, { header: 1 });
+
+            setAges(educationsArray.map(row => row[0])); // Get countries from first column
+        };
+
+        fetchAges();
+    }, []);
+
     const handleChange = (e) => {
         const { name, value } = e.target;
         setFormData({
@@ -131,9 +150,8 @@ const CreateAccount = ({ toggleSignendIn, toggleScreen, isSignedIn }) => {
 
     return (
         <div>
-            <div className="position-relative text-white text-center">
-                <img src={image1} className="d-block w-100" alt="..." style={{ height: "100vh", objectFit: "cover" }} />
-                <div className="position-absolute top-0 start-0 w-100 h-100 bg-dark bg-opacity-50 d-flex flex-column align-items-center justify-content-center">
+            <div className="position-relative text-white text-center" style={{ height: "100vh" }}>
+                <div className=" top-0 start-0 w-100 h-100 bg-dark bg-opacity-50 d-flex flex-column align-items-center justify-content-center">
                     <h3 className="display-4 fw-bold">Create Account</h3>
                     <div className="underline mx-auto mb-3"></div>
 
@@ -216,12 +234,18 @@ const CreateAccount = ({ toggleSignendIn, toggleScreen, isSignedIn }) => {
                                             <Form.Group controlId="formAge" className="mb-3">
                                                 <Form.Label>Age</Form.Label>
                                                 <Form.Control
-                                                    type="number"
-                                                    placeholder="Enter your age"
+                                                    as="select"
                                                     name="age"
-                                                    value={formData.age}
+                                                    value={formData.education}
                                                     onChange={handleChange}
-                                                />
+                                                >
+                                                    <option value="">Select your age range</option>
+                                                    {ages.map((age, index) => (
+                                                        <option key={index} value={age}>
+                                                            {age}
+                                                        </option>
+                                                    ))}
+                                                </Form.Control>
                                             </Form.Group>
 
                                             <Button variant="primary" style={{ width: '10rem', margin: "10px" }} type="submit">
