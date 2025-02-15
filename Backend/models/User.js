@@ -65,6 +65,13 @@ const userSchema = new mongoose.Schema({
   employments: {
     type: Object
   },
+  combined: {
+    type: String
+  },
+  recommendations: {
+    type: Object
+  }
+  
 });
 
 module.exports = mongoose.model('User', userSchema);

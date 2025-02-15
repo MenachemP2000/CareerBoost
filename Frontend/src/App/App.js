@@ -13,6 +13,7 @@ import ModifyAccount from "./ModifyAccount/ModifyAccount";
 import Recommendations from "./Recommendations/Recommendations";
 import AdvancedProfile from "./AdvancedProfile/AdvancedProfile";
 import ModifyAdvanced from "./ModifyAdvanced/ModifyAdvanced";
+import AdvancedRecommendations from "./AdvancedRecommendations/AdvancedRecommendations";
 
 
 
@@ -100,6 +101,11 @@ function App() {
                         toggleScreen={toggleScreen}
                         isSignedIn={isSignedIn} />} />
                     <Route path="/Recommendations" element={<Recommendations
+                        toggleSignendIn={toggleSignendIn}
+                        toggleScreen={toggleScreen}
+                        isSignedIn={isSignedIn} />} />
+                        
+                    <Route path="/AdvancedRecommendations" element={<AdvancedRecommendations
                         toggleSignendIn={toggleSignendIn}
                         toggleScreen={toggleScreen}
                         isSignedIn={isSignedIn} />} />

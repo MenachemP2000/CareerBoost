@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from 'react-router-dom';
 import config from '../config';
 
-const Recommendations = ({ toggleScreen, isSignedIn, toggleSignendIn }) => {
+const AdvancedRecommendations = ({ toggleScreen, isSignedIn, toggleSignendIn }) => {
     const navigate = useNavigate();
     const [recommendations, setRecommendations] = useState(false);
     const [error, setError] = useState('');
@@ -114,15 +114,15 @@ const Recommendations = ({ toggleScreen, isSignedIn, toggleSignendIn }) => {
     return (
 
         <div>
-            <div className="position-relative text-white text-center" style={{ height: "100vh" }}>
+            <div className="position-relative text-white text-center" >
                 <div className=" top-0 start-0 w-100 h-100 bg-dark bg-opacity-50 d-flex flex-column align-items-center justify-content-center">
                     <h3 className="display-4 fw-bold">Recommendations</h3>
                     <div className="underline mx-auto mb-3"></div>
 
                     <p className="lead">
-                        Here's an overview of your top Recommendations:
+                        Here's your full Recommendations list:
                     </p>
-                    {(!isSignedIn.topRecommendations) &&
+                    {(!isSignedIn.recommendations) &&
                         <Row className="d-flex justify-content-center">
                             <Card style={{ width: '18rem', margin: "10px" }}>
                                 <Card.Header>Get Recommendations</Card.Header>
@@ -140,17 +140,16 @@ const Recommendations = ({ toggleScreen, isSignedIn, toggleSignendIn }) => {
                         </Row>
                     }
 
-                    {(isSignedIn.topRecommendations) &&
-                        <Card style={{ margin: "10px" }}>
+                    {(isSignedIn.recommendations) &&
+                        <Card style={{ margin: "10px"}}>
                             <Card.Header>Recommendations</Card.Header>
                             <Card.Body >
-                                <Card.Text>
-                                    {isSignedIn.topRecommendations.map((recommendation, index) => {
-                                        return <li key={index}>{recommendation}</li>
-                                    })}
-                                </Card.Text>
-                                <Card.Text>
-                                    {isSignedIn.combined}
+                                <Card.Text >
+                                    <ul className="list-none space-y-2">
+                                        {isSignedIn.recommendations.map((recommendation, index) => (
+                                            <li style={{listStyle: "none", textAlign: "left"} }  key={index} className="p-2">{recommendation}</li>
+                                        ))}
+                                    </ul>
                                 </Card.Text>
                                 <Card.Text>
                                     if you change your information, you can ask to be re-recommended
@@ -163,7 +162,7 @@ const Recommendations = ({ toggleScreen, isSignedIn, toggleSignendIn }) => {
 
                     <Container className="d-flex justify-content-center" >
                         <Button as={Link} to="/Profile" style={{ width: "10rem", margin: "10px" }} variant="primary" className="px-5 py-3">Profile</Button>
-                        <Button as={Link} to="/AdvancedRecommendations" style={{ margin: "10px" }} variant="primary" className="px-5 py-3">Advanced</Button>
+                        <Button as={Link} to="/Recommendations" style={{ margin: "10px" }} variant="primary" className="px-5 py-3">Basic</Button>
                         <Button as={Button} style={{ width: '10rem', margin: "10px" }} onClick={handleSignout} variant="primary" className="px-5 py-3">Sign Out</Button>
                     </Container>
 
@@ -173,4 +172,4 @@ const Recommendations = ({ toggleScreen, isSignedIn, toggleSignendIn }) => {
     );
 }
 
-export default Recommendations;
+export default AdvancedRecommendations;
