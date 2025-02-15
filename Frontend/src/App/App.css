@@ -13,3 +13,16 @@
   margin-top: 10px;
   margin-bottom: 10px;
 }
+body {
+  background-image: url('./images/image3.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  height: 100vh;
+  margin: 0;
+  overflow-x: hidden;
+  position: relative;
+}
+
+

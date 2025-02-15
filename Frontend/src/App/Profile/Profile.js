@@ -1,7 +1,6 @@
 import React from "react";
 import { Container, Row, Col, Card, Button } from 'react-bootstrap';
 import { Link } from "react-router-dom";
-import image1 from "../images/image3.jpg";
 import { useEffect, useState } from "react";
 import { useNavigate } from 'react-router-dom';
 import config from '../config';
@@ -22,11 +21,71 @@ const Profile = ({ toggleScreen, isSignedIn, toggleSignendIn }) => {
     }
     const handlePredict = async (e) => {
         e.preventDefault();
+
         const payload = { _id: isSignedIn._id, username: isSignedIn.username };
-        let random = Math.floor(Math.random() * 1000000) + 1;
-        payload.prediction = random;
         try {
+            const userprofile = { Country: isSignedIn.country, WorkExp: isSignedIn.experience,
+                 EdLevel: isSignedIn.education, Age: isSignedIn.age }; //basic user profile
+            if (isSignedIn.MainBranch) {
+                userprofile.MainBranch = isSignedIn.MainBranch;
+            }
+            if (isSignedIn.RemoteWork) {
+                userprofile.RemoteWork = isSignedIn.RemoteWork;
+            }
+            if (isSignedIn.DevType) {
+                userprofile.DevType = isSignedIn.DevType;
+            }
+            if (isSignedIn.OrgSize) {
+                userprofile.OrgSize = isSignedIn.OrgSize;
+            }
+            if (isSignedIn.ICorPM) {
+                userprofile.ICorPM = isSignedIn.ICorPM;
+            }
+            if (isSignedIn.Industry) {
+                userprofile.Industry = isSignedIn.Industry;
+            }
+            if (isSignedIn.YearsCode) {
+                userprofile.YearsCode = isSignedIn.YearsCode;
+            }
+            if (isSignedIn.YearsCodePro) {
+                userprofile.YearsCodePro = isSignedIn.YearsCodePro;
+            }
+            if (isSignedIn.JobSat) {
+                userprofile.JobSat = isSignedIn.JobSat;
+            }
+            if (isSignedIn.languages) {
+                for (let i = 0; i < isSignedIn.languages.length; i++) {
+                    userprofile[isSignedIn.languages[i]] = 1;
+                }  
+            }
+            if (isSignedIn.employments) {
+                for (let i = 0; i < isSignedIn.employments.length; i++) {
+                    userprofile[isSignedIn.employments[i]] = 1;
+                }
+            }
             // Send the registration data to the server
+            console.log(userprofile);
+            const response = await fetch(`${config.apiBaseUrl}/api/model/predict`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(userprofile)
+            });
+
+            const result = await response.json();
+            payload.prediction = Math.floor(result.prediction);
+
+            if (!response.ok) {
+                // If the server responds with an error, set the error message
+                setError(result.message);
+                return;
+            }
+        } catch (error) {
+            setError('An error occurred. Please try again.');
+            console.error('Error:', error);
+        }
+        try {
             const response = await fetch(`${config.apiBaseUrl}/api/users/${isSignedIn._id}`, {
                 method: 'PATCH',
                 headers: {
@@ -80,9 +139,8 @@ const Profile = ({ toggleScreen, isSignedIn, toggleSignendIn }) => {
     return (
 
         <div>
-            <div className="position-relative text-white text-center">
-                <img src={image1} className="d-block w-100" alt="..." style={{ height: "100vh", objectFit: "cover" }} />
-                <div className="position-absolute top-0 start-0 w-100 h-100 bg-dark bg-opacity-50 d-flex flex-column align-items-center justify-content-center">
+            <div className="position-relative text-white text-center" style={{ height: "100vh" }}>
+                <div className=" top-0 start-0 w-100 h-100 bg-dark bg-opacity-50 d-flex flex-column align-items-center justify-content-center">
                     <h3 className="display-4 fw-bold">Profile</h3>
                     <div className="underline mx-auto mb-3"></div>
 
@@ -91,6 +149,11 @@ const Profile = ({ toggleScreen, isSignedIn, toggleSignendIn }) => {
                     </p>
                     {isSignedIn &&
                         <Row className="d-flex justify-content-center">
+                            
+                            <Container className="d-flex justify-content-center" >
+                                <Button as={Link} to="/AdvancedProfile" style={{ width: '15rem', margin: "10px" }} variant="primary" className="px-5 py-3">AdvancedProfile</Button>
+                                <Button as={Link} to="/ModifyAccount" style={{ width: '15rem', margin: "10px" }} variant="primary" className="px-5 py-3">Modify</Button>
+                            </Container>
                             <Card style={{ width: '18rem', margin: "10px" }}>
                                 <Card.Header>{isSignedIn.username}</Card.Header>
                                 <Card.Body >
@@ -140,9 +203,8 @@ const Profile = ({ toggleScreen, isSignedIn, toggleSignendIn }) => {
 
                             }
                             <Container className="d-flex justify-content-center" >
-                                <Button as={Link} to="/ModifyAccount" style={{ width: '10rem', margin: "10px" }} variant="primary" className="px-5 py-3">Modify</Button>
-                                <Button as={Link} to="/Recommendations" style={{ margin: "10px" }} variant="primary" className="px-5 py-3">Recommendations</Button>
-                                <Button as={Button} style={{ width: '10rem', margin: "10px" }} onClick={handleSignout} variant="primary" className="px-5 py-3">Sign Out</Button>
+                                <Button as={Link} to="/Recommendations" style={{  width: '15rem',margin: "10px" }} variant="primary" className="px-5 py-3">Recommendations</Button>
+                                <Button as={Button} style={{ width: '15rem', margin: "10px" }} onClick={handleSignout} variant="primary" className="px-5 py-3">Sign Out</Button>
                             </Container>
                         </Row>
                     }

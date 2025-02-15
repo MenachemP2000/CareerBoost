@@ -15,11 +15,11 @@ const userSchema = new mongoose.Schema({
     required: true
   },
   experience: {
-    type: Number,
+    type: String,
     required: true
   },
   age: {
-    type: Number,
+    type: String,
     required: true
   },
   education: {
@@ -27,8 +27,51 @@ const userSchema = new mongoose.Schema({
     required: true
   },
   prediction: {
-    type: Number
+    type: String
+  },
+  topRecommendations: {
+    type: Object
+  },
+  MainBranch: {
+    type: String
+  },
+  RemoteWork: {
+    type: String
+  },
+  DevType: {
+    type: String
+  },
+  OrgSize: {
+    type: String
+  },
+  ICorPM: {
+    type: String
+  },
+  Industry: {
+    type: String
+  },
+  YearsCode: {
+    type: String
+  },
+  YearsCodePro: {
+    type: String
+  },
+  JobSat: {
+    type: String
+  },
+  languages: {
+    type: Object
+  },
+  employments: {
+    type: Object
+  },
+  combined: {
+    type: String
+  },
+  recommendations: {
+    type: Object
   }
+  
 });
 
 module.exports = mongoose.model('User', userSchema);

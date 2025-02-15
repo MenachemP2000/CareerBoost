@@ -1,6 +1,4 @@
 const User = require("../models/User");
-const path = require("path");
-const fs = require("fs");
 const jwt = require("jsonwebtoken");
 const key = "Some super secret key";
 
@@ -166,12 +164,9 @@ exports.partialUpdateUser = async (req, res) => {
     if (data.username !== test.username) {
       return res.status(403).send("Forbidden");
     }
-    
-    if (req.body.username && req.body.username !== test.username) {
-      return res.status(400).send({ message: "Cannot change username" });
-    }
 
     if (req.body.password) {
+      const { password } = req.body;
       if (password.length < 8) {
         return res
           .status(400)
@@ -185,6 +180,7 @@ exports.partialUpdateUser = async (req, res) => {
           .json({ message: "Password must contain both letters and numbers" });
       }
     }
+    console.log(req.body);
 
     const user = await User.findByIdAndUpdate(req.params.id, req.body, {
       new: true,

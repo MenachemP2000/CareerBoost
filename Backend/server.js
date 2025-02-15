@@ -10,13 +10,15 @@ const mongodbUri = process.env.MONGODB_URI || "mongodb://localhost:27017/careerb
 // Middleware to increase payload size limit
 app.use(express.json({ limit: '1000mb' })); // You can adjust the limit as needed
 app.use(express.urlencoded({ limit: '1000mb', extended: true })); // Also increase for URL-encoded payloads
-const jwt = require("jsonwebtoken")
 
 if (!mongodbUri) {
   console.error('MONGODB_URI is not defined');
   process.exit(1);
 }
 // Middleware
+
+
+// Use express.json middleware
 
 app.use(express.json());
 
@@ -37,10 +39,12 @@ mongoose.connect(mongodbUri, { useNewUrlParser: true, useUnifiedTopology: true }
 // Import routes
 const userRoutes = require('./routes/userRoutes');
 const tokenRoutes = require('./routes/tokenRoutes');
+const modelRoutes = require('./routes/modelRoutes');
 
 // Use routes
 app.use('/api/users', userRoutes);
 app.use('/api/tokens', tokenRoutes);
+app.use('/api/model', modelRoutes);
 
 // Serve static files from the React app
 app.use(express.static(path.join(__dirname, '../Frontend/build')));

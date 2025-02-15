@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { Container, Row, Col, Card, Button, Form } from 'react-bootstrap';
 import * as XLSX from 'xlsx';
-import image1 from "../images/image3.jpg";
+
 import countriesData from '../data/countries.xlsx';
 import educationsData from '../data/educations.xlsx';
+import agesData from '../data/ages.xlsx';
+
 import { useNavigate } from 'react-router-dom';
 import config from '../config';
 
@@ -20,6 +22,10 @@ const ModifyAccount = ({ toggleSignendIn, toggleScreen, isSignedIn }) => {
 
 
     const [formData, setFormData] = useState({
+        ...(isSignedIn.experience && { experience: isSignedIn.experience }),
+        ...(isSignedIn.country && { country: isSignedIn.country }),
+        ...(isSignedIn.education && { education: isSignedIn.education }),
+        ...(isSignedIn.age && { age: isSignedIn.age }),
     });
     const [countries, setCountries] = useState([]);
 
@@ -59,6 +65,25 @@ const ModifyAccount = ({ toggleSignendIn, toggleScreen, isSignedIn }) => {
         fetchEducations();
     }, []);
 
+    const [ages, setAges] = useState([]);
+
+    useEffect(() => {
+        // Load the Excel file and extract country list
+        const fetchAges = async () => {
+            const file = await fetch(agesData);
+            const arrayBuffer = await file.arrayBuffer();
+            const workbook = XLSX.read(arrayBuffer, { type: 'array' });
+
+            // Assuming countries are in the first sheet and first column
+            const sheet = workbook.Sheets[workbook.SheetNames[0]];
+            const educationsArray = XLSX.utils.sheet_to_json(sheet, { header: 1 });
+
+            setAges(educationsArray.map(row => row[0])); // Get countries from first column
+        };
+
+        fetchAges();
+    }, []);
+
     const handleChange = (e) => {
         const { name, value } = e.target;
         setFormData({
@@ -70,6 +95,7 @@ const ModifyAccount = ({ toggleSignendIn, toggleScreen, isSignedIn }) => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         const payload = { _id: isSignedIn._id, ...formData };
+        console.log(payload);
         try {
             // Send the registration data to the server
             const response = await fetch(`${config.apiBaseUrl}/api/users/${isSignedIn._id}`, {
@@ -84,12 +110,18 @@ const ModifyAccount = ({ toggleSignendIn, toggleScreen, isSignedIn }) => {
             const result = await response.json();
 
             if (!response.ok) {
-                // If the server responds with an error, set the error message
                 setError(result.message);
                 return;
             }
-            toggleSignendIn(false);
-            navigate("/");
+            if (formData.password || formData.username) {
+                localStorage.removeItem('token');
+                toggleSignendIn(false);
+                navigate("/");
+            }
+            else {
+                toggleSignendIn(isSignedIn.username);
+                navigate("/Profile");
+            }
         } catch (error) {
             setError('An error occurred. Please try again.');
             console.error('Error:', error);
@@ -98,9 +130,8 @@ const ModifyAccount = ({ toggleSignendIn, toggleScreen, isSignedIn }) => {
 
     return (
         <div>
-            <div className="position-relative text-white text-center">
-                <img src={image1} className="d-block w-100" alt="..." style={{ height: "100vh", objectFit: "cover" }} />
-                <div className="position-absolute top-0 start-0 w-100 h-100 bg-dark bg-opacity-50 d-flex flex-column align-items-center justify-content-center">
+            <div className="position-relative text-white text-center" >
+                <div className="w-100 h-100 bg-dark bg-opacity-50 d-flex flex-column align-items-center justify-content-center">
                     <h3 className="display-4 fw-bold">Modify Account</h3>
                     <div className="underline mx-auto mb-3"></div>
 
@@ -109,31 +140,33 @@ const ModifyAccount = ({ toggleSignendIn, toggleScreen, isSignedIn }) => {
                             <Col md={{ span: 6, offset: 3 }}>
                                 <Card>
                                     <Card.Body>
-                                        <Card.Title>Personal Information</Card.Title>
+                                        <Card.Title>Login Information</Card.Title>
                                         <Form onSubmit={handleSubmit}>
 
                                             <Form.Group controlId="formUsername" className="mb-3">
                                                 <Form.Label>Username</Form.Label>
                                                 <Form.Control
+
                                                     type="text"
-                                                    placeholder="Enter username"
+                                                    placeholder="Enter new username"
                                                     name="username"
                                                     value={formData.username}
                                                     onChange={handleChange}
                                                 />
                                             </Form.Group>
-                                            
                                             <Form.Group controlId="formPassword" className="mb-3">
                                                 <Form.Label>Password</Form.Label>
                                                 <Form.Control
+
                                                     type="password"
-                                                    placeholder="Enter password"
+                                                    placeholder="Enter new password"
                                                     name="password"
                                                     value={formData.password}
                                                     onChange={handleChange}
                                                 />
                                             </Form.Group>
 
+                                            <Card.Title>Basic Information</Card.Title>
                                             <Form.Group controlId="formCountry" className="mb-3">
                                                 <Form.Label>Country</Form.Label>
                                                 <Form.Control
@@ -183,12 +216,18 @@ const ModifyAccount = ({ toggleSignendIn, toggleScreen, isSignedIn }) => {
                                             <Form.Group controlId="formAge" className="mb-3">
                                                 <Form.Label>Age</Form.Label>
                                                 <Form.Control
-                                                    type="number"
-                                                    placeholder="Enter your age"
+                                                    as="select"
                                                     name="age"
                                                     value={formData.age}
                                                     onChange={handleChange}
-                                                />
+                                                >
+                                                    <option value="">Select your age range</option>
+                                                    {ages.map((age, index) => (
+                                                        <option key={index} value={age}>
+                                                            {age}
+                                                        </option>
+                                                    ))}
+                                                </Form.Control>
                                             </Form.Group>
 
                                             <Button variant="primary" style={{ width: '10rem', margin: "10px" }} type="submit">
