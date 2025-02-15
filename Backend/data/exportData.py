@@ -23,6 +23,10 @@ def export_json_to_mongodb(uri, db_name, collections_files):
     client = connect_to_mongodb(uri)
     db = create_database(client, db_name)
     
+    if db_name in client.list_database_names():
+        client.drop_database(db_name)
+        print(f"Database '{db_name}' already exists and has been dropped.")
+    
     for collection_name, file_path in collections_files.items():
         data = read_json_file(file_path)
         collection = db[collection_name]
