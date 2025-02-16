@@ -134,9 +134,6 @@ const AdvancedRecommendations = ({ toggleScreen, isSignedIn, toggleSignendIn }) 
 
                                 </Card.Body>
                             </Card>
-                            <Container className="d-flex justify-content-center" >
-                                <Button as={Link} to="/Profile" style={{ margin: "10px" }} variant="primary" className="px-5 py-3">Profile</Button>
-                            </Container>
                         </Row>
                     }
 
