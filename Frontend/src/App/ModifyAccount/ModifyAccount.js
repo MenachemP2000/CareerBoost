@@ -27,6 +27,7 @@ const ModifyAccount = ({ toggleSignendIn, toggleScreen, isSignedIn }) => {
         ...(isSignedIn.education && { education: isSignedIn.education }),
         ...(isSignedIn.age && { age: isSignedIn.age }),
     });
+    
     const [countries, setCountries] = useState([]);
 
     useEffect(() => {
@@ -130,8 +131,8 @@ const ModifyAccount = ({ toggleSignendIn, toggleScreen, isSignedIn }) => {
 
     return (
         <div>
-            <div className="position-relative text-white text-center" >
-                <div className="w-100 h-100 bg-dark bg-opacity-50 d-flex flex-column align-items-center justify-content-center">
+            <div  className="position-relative text-white text-center" >
+                <div style={{ minHeight: "100vh" }} className="w-100 h-100 bg-dark bg-opacity-50 d-flex flex-column align-items-center justify-content-center">
                     <h3 className="display-4 fw-bold">Modify Account</h3>
                     <div className="underline mx-auto mb-3"></div>
 

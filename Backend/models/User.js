@@ -70,8 +70,17 @@ const userSchema = new mongoose.Schema({
   },
   recommendations: {
     type: Object
+  },
+  experiment:
+  {
+    type: Object
+  },
+  savedRecommendations:
+  {
+    type: Object
   }
-  
+
+
 });
 
 module.exports = mongoose.model('User', userSchema);

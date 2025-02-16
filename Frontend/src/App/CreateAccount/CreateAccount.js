@@ -150,8 +150,8 @@ const CreateAccount = ({ toggleSignendIn, toggleScreen, isSignedIn }) => {
 
     return (
         <div>
-            <div className="position-relative text-white text-center" style={{ height: "100vh" }}>
-                <div className=" top-0 start-0 w-100 h-100 bg-dark bg-opacity-50 d-flex flex-column align-items-center justify-content-center">
+            <div  className="position-relative text-white text-center" >
+                <div  style={{ minHeight: "100vh" }} className=" top-0 start-0 w-100 h-100 bg-dark bg-opacity-50 d-flex flex-column align-items-center justify-content-center">
                     <h3 className="display-4 fw-bold">Create Account</h3>
                     <div className="underline mx-auto mb-3"></div>
 
@@ -160,7 +160,7 @@ const CreateAccount = ({ toggleSignendIn, toggleScreen, isSignedIn }) => {
                             <Col md={{ span: 6, offset: 3 }}>
                                 <Card>
                                     <Card.Body>
-                                        <Card.Title>Personal Information</Card.Title>
+                                        <Card.Title>Login Information</Card.Title>
                                         <Form onSubmit={handleSubmit}>
 
                                             <Form.Group controlId="formUsername" className="mb-3">
@@ -184,6 +184,7 @@ const CreateAccount = ({ toggleSignendIn, toggleScreen, isSignedIn }) => {
                                                     onChange={handleChange}
                                                 />
                                             </Form.Group>
+                                            <Card.Title>Basic Information</Card.Title>
 
                                             <Form.Group controlId="formCountry" className="mb-3">
                                                 <Form.Label>Country</Form.Label>
@@ -236,7 +237,7 @@ const CreateAccount = ({ toggleSignendIn, toggleScreen, isSignedIn }) => {
                                                 <Form.Control
                                                     as="select"
                                                     name="age"
-                                                    value={formData.education}
+                                                    value={formData.age}
                                                     onChange={handleChange}
                                                 >
                                                     <option value="">Select your age range</option>
@@ -249,7 +250,7 @@ const CreateAccount = ({ toggleSignendIn, toggleScreen, isSignedIn }) => {
                                             </Form.Group>
 
                                             <Button variant="primary" style={{ width: '10rem', margin: "10px" }} type="submit">
-                                                Save Information
+                                                Create Account
                                             </Button>
                                             <Button variant="primary" style={{ width: '10rem', margin: "10px" }} type="button" onClick={() => navigate("/SignIn")}>
                                                 Sign In  

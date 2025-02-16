@@ -13,7 +13,7 @@ const Recommendations = ({ toggleScreen, isSignedIn, toggleSignendIn }) => {
     useEffect(() => {
         toggleScreen("Recommendations");
         if (!isSignedIn) {
-            navigate("/");
+            navigate("/signin");
         }
     });
 
@@ -114,8 +114,8 @@ const Recommendations = ({ toggleScreen, isSignedIn, toggleSignendIn }) => {
     return (
 
         <div>
-            <div className="position-relative text-white text-center" style={{ height: "100vh" }}>
-                <div className=" top-0 start-0 w-100 h-100 bg-dark bg-opacity-50 d-flex flex-column align-items-center justify-content-center">
+            <div className="position-relative text-white text-center" >
+                <div style={{ minHeight: "100vh" }} className=" top-0 start-0 w-100 h-100 bg-dark bg-opacity-50 d-flex flex-column align-items-center justify-content-center">
                     <h3 className="display-4 fw-bold">Recommendations</h3>
                     <div className="underline mx-auto mb-3"></div>
 
@@ -155,15 +155,15 @@ const Recommendations = ({ toggleScreen, isSignedIn, toggleSignendIn }) => {
                                 <Card.Text>
                                     if you change your information, you can ask to be re-recommended
                                 </Card.Text>
-                                <Button as={Button} onClick={handleRecommendations} variant="primary" className="px-5 py-3">Reccomand</Button>
+                                <Button as={Button} onClick={handleRecommendations} variant="primary" className="px-5 py-3">Reccomend</Button>
                             </Card.Body>
                         </Card>
 
                     }
 
                     <Container className="d-flex justify-content-center" >
-                        <Button as={Link} to="/Profile" style={{ width: "10rem", margin: "10px" }} variant="primary" className="px-5 py-3">Profile</Button>
-                        <Button as={Link} to="/AdvancedRecommendations" style={{ margin: "10px" }} variant="primary" className="px-5 py-3">Advanced</Button>
+                        <Button as={Link} to="/AdvancedRecommendations" style={{width: '10rem', margin: "10px" }} variant="primary" className="px-5 py-3">Advanced</Button>
+                        <Button as={Link} to="/SavedRecommendations" style={{width: '10rem', margin: "10px" }} variant="primary" className="px-5 py-3">Saved</Button>
                         <Button as={Button} style={{ width: '10rem', margin: "10px" }} onClick={handleSignout} variant="primary" className="px-5 py-3">Sign Out</Button>
                     </Container>
 

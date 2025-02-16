@@ -1,14 +1,14 @@
 import Select from 'react-select';
 import React, { useState, useEffect } from "react";
 import { Container, Row, Col, Card, Button, Form } from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom';
+import config from '../config';
+
 import * as XLSX from 'xlsx';
 
 import countriesData from '../data/countries.xlsx';
 import educationsData from '../data/educations.xlsx';
 import agesData from '../data/ages.xlsx';
-
-import { useNavigate } from 'react-router-dom';
-import config from '../config';
 
 const ModifyAdvanced = ({ toggleSignendIn, toggleScreen, isSignedIn }) => {
     const navigate = useNavigate();
@@ -25,35 +25,21 @@ const ModifyAdvanced = ({ toggleSignendIn, toggleScreen, isSignedIn }) => {
     const [formData, setFormData] = useState({
         languages: isSignedIn.languages ? isSignedIn.languages : [],
         employments: isSignedIn.employments ? isSignedIn.employments : [],
-        ...(isSignedIn.MainBranch && { MainBranch: isSignedIn.MainBranch }) ,
-        ...(isSignedIn.RemoteWork && { RemoteWork: isSignedIn.RemoteWork }) ,
-        ...(isSignedIn.DevType && { DevType: isSignedIn.DevType }) ,
-        ...(isSignedIn.OrgSize && { OrgSize: isSignedIn.OrgSize }) ,
-        ...(isSignedIn.ICorPM && { ICorPM: isSignedIn.ICorPM }) ,
-        ...(isSignedIn.Industry && { Industry: isSignedIn.Industry }) ,
-        ...(isSignedIn.YearsCode && { YearsCode: isSignedIn.YearsCode }) ,
-        ...(isSignedIn.YearsCodePro && { YearsCodePro: isSignedIn.YearsCodePro }) ,
-        ...(isSignedIn.JobSat && { JobSat: isSignedIn.JobSat })
+        ...(isSignedIn.MainBranch && { MainBranch: isSignedIn.MainBranch }),
+        ...(isSignedIn.RemoteWork && { RemoteWork: isSignedIn.RemoteWork }),
+        ...(isSignedIn.DevType && { DevType: isSignedIn.DevType }),
+        ...(isSignedIn.OrgSize && { OrgSize: isSignedIn.OrgSize }),
+        ...(isSignedIn.ICorPM && { ICorPM: isSignedIn.ICorPM }),
+        ...(isSignedIn.Industry && { Industry: isSignedIn.Industry }),
+        ...(isSignedIn.YearsCode && { YearsCode: isSignedIn.YearsCode }),
+        ...(isSignedIn.YearsCodePro && { YearsCodePro: isSignedIn.YearsCodePro }),
+        ...(isSignedIn.JobSat && { JobSat: isSignedIn.JobSat }),
+
+        ...(isSignedIn.experience && { experience: isSignedIn.experience }),
+        ...(isSignedIn.country && { country: isSignedIn.country }),
+        ...(isSignedIn.education && { education: isSignedIn.education }),
+        ...(isSignedIn.age && { age: isSignedIn.age }),
     });
-
-    const [ages, setAges] = useState([]);
-
-    useEffect(() => {
-        // Load the Excel file and extract country list
-        const fetchAges = async () => {
-            const file = await fetch(agesData);
-            const arrayBuffer = await file.arrayBuffer();
-            const workbook = XLSX.read(arrayBuffer, { type: 'array' });
-
-            // Assuming countries are in the first sheet and first column
-            const sheet = workbook.Sheets[workbook.SheetNames[0]];
-            const educationsArray = XLSX.utils.sheet_to_json(sheet, { header: 1 });
-
-            setAges(educationsArray.map(row => row[0])); // Get countries from first column
-        };
-
-        fetchAges();
-    }, []);
 
     const MainBranchs = ["I am a developer by profession", "I am not primarily a developer, but I write code sometimes as part of my work/studies"];
 
@@ -148,6 +134,62 @@ const ModifyAdvanced = ({ toggleSignendIn, toggleScreen, isSignedIn }) => {
 
     const employmentOptions = employments.map(employ => ({ value: employ, label: employ }));
 
+    const [countries, setCountries] = useState([]);
+
+    useEffect(() => {
+        // Load the Excel file and extract country list
+        const fetchCountries = async () => {
+            const file = await fetch(countriesData);
+            const arrayBuffer = await file.arrayBuffer();
+            const workbook = XLSX.read(arrayBuffer, { type: 'array' });
+
+            // Assuming countries are in the first sheet and first column
+            const sheet = workbook.Sheets[workbook.SheetNames[0]];
+            const countriesArray = XLSX.utils.sheet_to_json(sheet, { header: 1 });
+
+            setCountries(countriesArray.map(row => row[0])); // Get countries from first column
+        };
+
+        fetchCountries();
+    }, []);
+
+    const [educations, setEducations] = useState([]);
+
+    useEffect(() => {
+        // Load the Excel file and extract country list
+        const fetchEducations = async () => {
+            const file = await fetch(educationsData);
+            const arrayBuffer = await file.arrayBuffer();
+            const workbook = XLSX.read(arrayBuffer, { type: 'array' });
+
+            // Assuming countries are in the first sheet and first column
+            const sheet = workbook.Sheets[workbook.SheetNames[0]];
+            const educationsArray = XLSX.utils.sheet_to_json(sheet, { header: 1 });
+
+            setEducations(educationsArray.map(row => row[0])); // Get countries from first column
+        };
+
+        fetchEducations();
+    }, []);
+
+    const [ages, setAges] = useState([]);
+
+    useEffect(() => {
+        // Load the Excel file and extract country list
+        const fetchAges = async () => {
+            const file = await fetch(agesData);
+            const arrayBuffer = await file.arrayBuffer();
+            const workbook = XLSX.read(arrayBuffer, { type: 'array' });
+
+            // Assuming countries are in the first sheet and first column
+            const sheet = workbook.Sheets[workbook.SheetNames[0]];
+            const educationsArray = XLSX.utils.sheet_to_json(sheet, { header: 1 });
+
+            setAges(educationsArray.map(row => row[0])); // Get countries from first column
+        };
+
+        fetchAges();
+    }, []);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -190,7 +232,7 @@ const ModifyAdvanced = ({ toggleSignendIn, toggleScreen, isSignedIn }) => {
 
     return (
         <div>
-            <div className="position-relative text-white text-center " >
+            <div style={{ minHeight: "100vh" }} className="position-relative text-white text-center " >
                 <div className="w-100 h-100 bg-dark bg-opacity-50 d-flex flex-column align-items-center justify-content-center">
                     <h3 className="display-4 fw-bold">Modify Advanced</h3>
                     <div className="underline mx-auto mb-3"></div>
@@ -203,8 +245,72 @@ const ModifyAdvanced = ({ toggleSignendIn, toggleScreen, isSignedIn }) => {
                             <Col md={{ span: 6, offset: 3 }}>
                                 <Card>
                                     <Card.Body>
-                                        <Card.Title>Advanced Information</Card.Title>
+                                        <Card.Title>Basic Information</Card.Title>
                                         <Form onSubmit={handleSubmit}>
+                                            <Form.Group controlId="formCountry" className="mb-3">
+                                                <Form.Label>Country</Form.Label>
+                                                <Form.Control
+                                                    as="select"
+                                                    name="country"
+                                                    value={formData.country}
+                                                    onChange={handleChange}
+                                                >
+                                                    <option value="">Select your country</option>
+                                                    {countries.map((country, index) => (
+                                                        <option key={index} value={country}>
+                                                            {country}
+                                                        </option>
+                                                    ))}
+                                                </Form.Control>
+                                            </Form.Group>
+
+
+                                            <Form.Group controlId="formEducation" className="mb-3">
+                                                <Form.Label>Education</Form.Label>
+                                                <Form.Control
+                                                    as="select"
+                                                    name="education"
+                                                    value={formData.education}
+                                                    onChange={handleChange}
+                                                >
+                                                    <option value="">Select your education</option>
+                                                    {educations.map((education, index) => (
+                                                        <option key={index} value={education}>
+                                                            {education}
+                                                        </option>
+                                                    ))}
+                                                </Form.Control>
+                                            </Form.Group>
+
+                                            <Form.Group controlId="formExperience" className="mb-3">
+                                                <Form.Label>Years of Experience</Form.Label>
+                                                <Form.Control
+                                                    type="number"
+                                                    placeholder="Enter your years of experience"
+                                                    name="experience"
+                                                    value={formData.experience}
+                                                    onChange={handleChange}
+                                                />
+                                            </Form.Group>
+
+                                            <Form.Group controlId="formAge" className="mb-3">
+                                                <Form.Label>Age</Form.Label>
+                                                <Form.Control
+                                                    as="select"
+                                                    name="age"
+                                                    value={formData.age}
+                                                    onChange={handleChange}
+                                                >
+                                                    <option value="">Select your age range</option>
+                                                    {ages.map((age, index) => (
+                                                        <option key={index} value={age}>
+                                                            {age}
+                                                        </option>
+                                                    ))}
+                                                </Form.Control>
+                                            </Form.Group>
+
+                                            <Card.Title>Advanced Information</Card.Title>
 
                                             <Form.Group controlId="formMainBranch" className="mb-3">
                                                 <Form.Label>Devloper by profession</Form.Label>

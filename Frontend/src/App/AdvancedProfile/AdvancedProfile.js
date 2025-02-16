@@ -18,14 +18,103 @@ const AdvancedProfile = ({ toggleScreen, isSignedIn, toggleSignendIn }) => {
 
         <div>
             <div className="position-relative text-white text-center" >
-                <div className=" top-0 start-0 w-100 h-100 bg-dark bg-opacity-50 d-flex flex-column align-items-center justify-content-center">
+                <div style={{ minHeight: "100vh" }} className=" top-0 start-0 w-100 h-100 bg-dark bg-opacity-50 d-flex flex-column align-items-center justify-content-center">
                     <h3 className="display-4 fw-bold">Advanced Profile</h3>
                     <div className="underline mx-auto mb-3"></div>
 
                     <p className="lead">
-                        Here you can see advanced information about yourself:
+                        Here your advanced profile information:
                     </p>
+
                     <Row className="d-flex justify-content-center">
+                        {!isSignedIn.age &&
+                            <Card style={{ width: '30rem', margin: "10px" }}>
+                                <Card.Header>Age</Card.Header>
+                                <Card.Body >
+                                    <Card.Text>
+                                        no answer
+                                    </Card.Text>
+
+                                </Card.Body>
+                            </Card>
+                        }
+                        {isSignedIn.age &&
+                            <Card style={{ width: '30rem', margin: "10px" }}>
+                                <Card.Header>Age</Card.Header>
+                                <Card.Body >
+                                    <Card.Text>
+                                        {isSignedIn.age}
+                                    </Card.Text>
+
+                                </Card.Body>
+                            </Card>
+                        }
+                        {!isSignedIn.country &&
+                            <Card style={{ width: '30rem', margin: "10px" }}>
+                                <Card.Header>Country</Card.Header>
+                                <Card.Body >
+                                    <Card.Text>
+                                        no answer
+                                    </Card.Text>
+
+                                </Card.Body>
+                            </Card>
+                        }
+                        {isSignedIn.country &&
+                            <Card style={{ width: '30rem', margin: "10px" }}>
+                                <Card.Header>Country</Card.Header>
+                                <Card.Body >
+                                    <Card.Text>
+                                        {isSignedIn.country}
+                                    </Card.Text>
+
+                                </Card.Body>
+                            </Card>
+                        }
+                        {!isSignedIn.experience &&
+                            <Card style={{ width: '30rem', margin: "10px" }}>
+                                <Card.Header>Experience</Card.Header>
+                                <Card.Body >
+                                    <Card.Text>
+                                        no answer
+                                    </Card.Text>
+
+                                </Card.Body>
+                            </Card>
+                        }
+                        {isSignedIn.experience &&
+                            <Card style={{ width: '30rem', margin: "10px" }}>
+                                <Card.Header>Experience</Card.Header>
+                                <Card.Body >
+                                    <Card.Text>
+                                        {isSignedIn.experience}
+                                    </Card.Text>
+
+                                </Card.Body>
+                            </Card>
+                        }
+                        {!isSignedIn.education &&
+                            <Card style={{ width: '30rem', margin: "10px" }}>
+                                <Card.Header>Education</Card.Header>
+                                <Card.Body >
+                                    <Card.Text>
+                                        no answer
+                                    </Card.Text>
+
+                                </Card.Body>
+                            </Card>
+                        }
+                        {isSignedIn.education &&
+                            <Card style={{ width: '30rem', margin: "10px" }}>
+                                <Card.Header>Education</Card.Header>
+                                <Card.Body >
+                                    <Card.Text>
+                                        {isSignedIn.education}
+                                    </Card.Text>
+
+                                </Card.Body>
+                            </Card>
+                        }
                         {!isSignedIn.MainBranch &&
                             <Card style={{ width: '30rem', margin: "10px" }}>
                                 <Card.Header>Developer by Profession</Card.Header>
@@ -75,7 +164,7 @@ const AdvancedProfile = ({ toggleScreen, isSignedIn, toggleSignendIn }) => {
                                 <Card.Header>Years of Coding</Card.Header>
                                 <Card.Body >
                                     <Card.Text>
-                                         no answer
+                                        no answer
                                     </Card.Text>
 
                                 </Card.Body>
@@ -223,7 +312,7 @@ const AdvancedProfile = ({ toggleScreen, isSignedIn, toggleSignendIn }) => {
                     </Row>
 
                     <Row className="d-flex justify-content-center">
-                        {(!isSignedIn.languages || (isSignedIn.languages  && isSignedIn.languages.length < 1)) &&
+                        {(!isSignedIn.languages || (isSignedIn.languages && isSignedIn.languages.length < 1)) &&
                             <Card style={{ width: '30rem', margin: "10px" }}>
                                 <Card.Header>Programming Languages</Card.Header>
                                 <Card.Body >
@@ -267,6 +356,7 @@ const AdvancedProfile = ({ toggleScreen, isSignedIn, toggleSignendIn }) => {
                             </Card>
                         )}
                     </Row>
+
 
 
                     <Container className="d-flex justify-content-center" >
