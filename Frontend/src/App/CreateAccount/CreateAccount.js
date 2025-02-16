@@ -236,7 +236,7 @@ const CreateAccount = ({ toggleSignendIn, toggleScreen, isSignedIn }) => {
                                                 <Form.Control
                                                     as="select"
                                                     name="age"
-                                                    value={formData.education}
+                                                    value={formData.age}
                                                     onChange={handleChange}
                                                 >
                                                     <option value="">Select your age range</option>

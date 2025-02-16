@@ -27,6 +27,7 @@ const ModifyAccount = ({ toggleSignendIn, toggleScreen, isSignedIn }) => {
         ...(isSignedIn.education && { education: isSignedIn.education }),
         ...(isSignedIn.age && { age: isSignedIn.age }),
     });
+    
     const [countries, setCountries] = useState([]);
 
     useEffect(() => {

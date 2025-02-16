@@ -14,6 +14,7 @@ import Recommendations from "./Recommendations/Recommendations";
 import AdvancedProfile from "./AdvancedProfile/AdvancedProfile";
 import ModifyAdvanced from "./ModifyAdvanced/ModifyAdvanced";
 import AdvancedRecommendations from "./AdvancedRecommendations/AdvancedRecommendations";
+import Experiment from "./Experiment/Experiment";
 
 
 
@@ -104,8 +105,12 @@ function App() {
                         toggleSignendIn={toggleSignendIn}
                         toggleScreen={toggleScreen}
                         isSignedIn={isSignedIn} />} />
-                        
+
                     <Route path="/AdvancedRecommendations" element={<AdvancedRecommendations
+                        toggleSignendIn={toggleSignendIn}
+                        toggleScreen={toggleScreen}
+                        isSignedIn={isSignedIn} />} />
+                    <Route path="/Experiment" element={<Experiment
                         toggleSignendIn={toggleSignendIn}
                         toggleScreen={toggleScreen}
                         isSignedIn={isSignedIn} />} />

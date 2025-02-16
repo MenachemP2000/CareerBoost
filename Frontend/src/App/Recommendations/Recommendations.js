@@ -155,7 +155,7 @@ const Recommendations = ({ toggleScreen, isSignedIn, toggleSignendIn }) => {
                                 <Card.Text>
                                     if you change your information, you can ask to be re-recommended
                                 </Card.Text>
-                                <Button as={Button} onClick={handleRecommendations} variant="primary" className="px-5 py-3">Reccomand</Button>
+                                <Button as={Button} onClick={handleRecommendations} variant="primary" className="px-5 py-3">Reccomend</Button>
                             </Card.Body>
                         </Card>
 

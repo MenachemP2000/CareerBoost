@@ -116,7 +116,7 @@ const AdvancedRecommendations = ({ toggleScreen, isSignedIn, toggleSignendIn }) 
         <div>
             <div className="position-relative text-white text-center" >
                 <div className=" top-0 start-0 w-100 h-100 bg-dark bg-opacity-50 d-flex flex-column align-items-center justify-content-center">
-                    <h3 className="display-4 fw-bold">Recommendations</h3>
+                    <h3 className="display-4 fw-bold">Advanced Recommendations</h3>
                     <div className="underline mx-auto mb-3"></div>
 
                     <p className="lead">
@@ -154,7 +154,7 @@ const AdvancedRecommendations = ({ toggleScreen, isSignedIn, toggleSignendIn }) 
                                 <Card.Text>
                                     if you change your information, you can ask to be re-recommended
                                 </Card.Text>
-                                <Button as={Button} onClick={handleRecommendations} variant="primary" className="px-5 py-3">Reccomand</Button>
+                                <Button as={Button} onClick={handleRecommendations} variant="primary" className="px-5 py-3">Reccomend</Button>
                             </Card.Body>
                         </Card>
 
