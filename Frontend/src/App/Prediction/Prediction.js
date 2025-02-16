@@ -12,7 +12,7 @@ const Prediction = ({ toggleScreen, isSignedIn, toggleSignendIn }) => {
     useEffect(() => {
         toggleScreen("Prediction");
         if (!isSignedIn) {
-            navigate("/");
+            navigate("/signin");
         }
     });
 

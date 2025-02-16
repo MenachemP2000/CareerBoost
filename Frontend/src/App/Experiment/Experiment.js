@@ -576,7 +576,7 @@ const Experiment = ({ toggleSignendIn, toggleScreen, isSignedIn }) => {
                                                 Experiment
                                             </Button>
                                             <Button variant="primary" style={{ width: '10rem', margin: "10px" }} type="button" onClick={() => navigate("/Prediction")}>
-                                                Cancel
+                                                Back
                                             </Button>
                                         </Form>
                                     </Card.Body>

@@ -15,9 +15,12 @@ const Home = ({ toggleScreen, isSignedIn, toggleSignendIn }) => {
     return (
         <div  className="position-relative text-white text-center" >
             <div style={{ minHeight: "100vh" }} className="top-0 start-0 w-100 h-100 bg-dark bg-opacity-50 d-flex flex-column align-items-center justify-content-center" >
-                <h3 className="display-4 fw-bold">CareerBoost</h3>
+                
+                <h3 className="display-4 fw-bold">
+                <img src="careerboost.ico" alt="CareerBoost" style={{ width: "5rem"}} /> CareerBoost</h3>
                 <div className="underline mx-auto mb-3"></div>
                 <p className="display-6">
+                    
                     Plan Your Career, Improve Your Future!
                 </p>
 
@@ -33,10 +36,10 @@ const Home = ({ toggleScreen, isSignedIn, toggleSignendIn }) => {
                 {isSignedIn &&
                     <Row className="d-flex justify-content-center">
                         <p className="lead">
-                            hello {isSignedIn.username}!
+                            Hello {isSignedIn.username}!
                         </p>
                         <div className="d-flex justify-content-center">
-                            <Button as={Link} to="/Profile" variant="primary" style={{ width: '15rem', margin: "10px" }} className="px-5 py-3">Profile</Button>
+                            <Button as={Link} to="/Profile" variant="primary" style={{ width: '15rem', margin: "10px" }} className="px-5 py-3">Start</Button>
                             <Button as={Button} onClick={handleSignout} variant="primary" style={{ width: '15rem', margin: "10px" }} className="px-5 py-3">Sign Out</Button>
                         </div>
                     </Row>

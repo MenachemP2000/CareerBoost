@@ -13,7 +13,7 @@ const Recommendations = ({ toggleScreen, isSignedIn, toggleSignendIn }) => {
     useEffect(() => {
         toggleScreen("Recommendations");
         if (!isSignedIn) {
-            navigate("/");
+            navigate("/signin");
         }
     });
 
@@ -162,9 +162,8 @@ const Recommendations = ({ toggleScreen, isSignedIn, toggleSignendIn }) => {
                     }
 
                     <Container className="d-flex justify-content-center" >
-                        <Button as={Link} to="/Profile" style={{ width: "10rem", margin: "10px" }} variant="primary" className="px-5 py-3">Profile</Button>
-                        <Button as={Link} to="/AdvancedRecommendations" style={{ margin: "10px" }} variant="primary" className="px-5 py-3">Advanced</Button>
-                        <Button as={Link} to="/SavedRecommendations" style={{ margin: "10px" }} variant="primary" className="px-5 py-3">Saved</Button>
+                        <Button as={Link} to="/AdvancedRecommendations" style={{width: '10rem', margin: "10px" }} variant="primary" className="px-5 py-3">Advanced</Button>
+                        <Button as={Link} to="/SavedRecommendations" style={{width: '10rem', margin: "10px" }} variant="primary" className="px-5 py-3">Saved</Button>
                         <Button as={Button} style={{ width: '10rem', margin: "10px" }} onClick={handleSignout} variant="primary" className="px-5 py-3">Sign Out</Button>
                     </Container>
 

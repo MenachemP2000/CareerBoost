@@ -12,7 +12,7 @@ const Profile = ({ toggleScreen, isSignedIn, toggleSignendIn }) => {
     useEffect(() => {
         toggleScreen("Profile");
         if (!isSignedIn) {
-            navigate("/");
+            navigate("/signin");
         }
     });
 

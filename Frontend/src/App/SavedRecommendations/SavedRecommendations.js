@@ -238,9 +238,8 @@ const SavedRecommendations = ({ toggleScreen, isSignedIn, toggleSignendIn }) => 
 
 
                     <Container className="d-flex justify-content-center" >
-                        <Button as={Link} to="/Profile" style={{ width: "10rem", margin: "10px" }} variant="primary" className="px-5 py-3">Profile</Button>
-                        <Button as={Link} to="/Recommendations" style={{ margin: "10px" }} variant="primary" className="px-5 py-3">Basic</Button>
-                        <Button as={Link} to="/AdvancedRecommendations" style={{ margin: "10px" }} variant="primary" className="px-5 py-3">Advanced</Button>
+                        <Button as={Link} to="/Recommendations" style={{ width: '10rem', margin: "10px" }} variant="primary" className="px-5 py-3">Basic</Button>
+                        <Button as={Link} to="/AdvancedRecommendations" style={{ width: '10rem', margin: "10px" }} variant="primary" className="px-5 py-3">Advanced</Button>
                         <Button as={Button} style={{ width: '10rem', margin: "10px" }} onClick={handleSignout} variant="primary" className="px-5 py-3">SignOut</Button>
                     </Container>
 

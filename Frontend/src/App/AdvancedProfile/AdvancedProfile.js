@@ -23,7 +23,7 @@ const AdvancedProfile = ({ toggleScreen, isSignedIn, toggleSignendIn }) => {
                     <div className="underline mx-auto mb-3"></div>
 
                     <p className="lead">
-                        Here you can do advanced profile actions
+                        Here your advanced profile information:
                     </p>
 
                     <Row className="d-flex justify-content-center">

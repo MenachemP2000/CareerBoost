@@ -80,8 +80,8 @@ const SignIn = ({ toggleScreen, isSignedIn, toggleSignendIn }) => {
     return (
         <div>
             <div className="position-relative text-white text-center">
-                <div  style={{ minHeight: "100vh" }} className=" top-0 start-0 w-100 h-100 bg-dark bg-opacity-50 d-flex flex-column align-items-center justify-content-center">
-                    <h3 className="display-4 fw-bold">Create Account</h3>
+                <div style={{ minHeight: "100vh" }} className=" top-0 start-0 w-100 h-100 bg-dark bg-opacity-50 d-flex flex-column align-items-center justify-content-center">
+                    <h3 className="display-4 fw-bold">Sign in</h3>
                     <div className="underline mx-auto mb-3"></div>
 
                     <Container className="py-6">
@@ -113,17 +113,13 @@ const SignIn = ({ toggleScreen, isSignedIn, toggleSignendIn }) => {
                                                     onChange={handleChange}
                                                 />
                                             </Form.Group>
-                                            <Col className="d-flex justify-content-between">
 
-                                                <Button variant="primary" type="submit">
-                                                    Sign in
-                                                </Button>
-                                                <Button variant="primary" type="button" onClick={handleCreateAccount}>
-                                                    Create account
-                                                </Button>
-
-
-                                            </Col>
+                                            <Button variant="primary" type="submit" style={{ width: '10rem', margin: "10px" }}>
+                                                Sign in
+                                            </Button>
+                                            <Button variant="primary" type="button" onClick={handleCreateAccount} style={{ width: '10rem', margin: "10px" }}>
+                                                Create account
+                                            </Button>
 
 
                                         </Form>
