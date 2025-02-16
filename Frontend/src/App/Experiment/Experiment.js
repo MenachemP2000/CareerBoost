@@ -558,7 +558,7 @@ const Experiment = ({ toggleSignendIn, toggleScreen, isSignedIn }) => {
                                                 />
                                             </Form.Group>
 
-                                            {(isSignedIn.experiment.prediction && isSignedIn.experiment.prediction !== 0) &&
+                                            {(isSignedIn.experiment && isSignedIn.experiment.prediction) &&
                                                 <Card style={{ margin: "10px" }}>
                                                     <Card.Header>Salary Prediction</Card.Header>
                                                     <Card.Body >
