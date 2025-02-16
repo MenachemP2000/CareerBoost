@@ -232,7 +232,7 @@ const ModifyAdvanced = ({ toggleSignendIn, toggleScreen, isSignedIn }) => {
 
     return (
         <div>
-            <div className="position-relative text-white text-center " >
+            <div style={{ minHeight: "100vh" }} className="position-relative text-white text-center " >
                 <div className="w-100 h-100 bg-dark bg-opacity-50 d-flex flex-column align-items-center justify-content-center">
                     <h3 className="display-4 fw-bold">Modify Advanced</h3>
                     <div className="underline mx-auto mb-3"></div>
@@ -245,6 +245,7 @@ const ModifyAdvanced = ({ toggleSignendIn, toggleScreen, isSignedIn }) => {
                             <Col md={{ span: 6, offset: 3 }}>
                                 <Card>
                                     <Card.Body>
+                                        <Card.Title>Basic Information</Card.Title>
                                         <Form onSubmit={handleSubmit}>
                                             <Form.Group controlId="formCountry" className="mb-3">
                                                 <Form.Label>Country</Form.Label>
@@ -308,6 +309,8 @@ const ModifyAdvanced = ({ toggleSignendIn, toggleScreen, isSignedIn }) => {
                                                     ))}
                                                 </Form.Control>
                                             </Form.Group>
+
+                                            <Card.Title>Advanced Information</Card.Title>
 
                                             <Form.Group controlId="formMainBranch" className="mb-3">
                                                 <Form.Label>Devloper by profession</Form.Label>

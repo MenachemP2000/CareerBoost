@@ -5,13 +5,12 @@ import { useEffect, useState } from "react";
 import { useNavigate } from 'react-router-dom';
 import config from '../config';
 
-const Recommendations = ({ toggleScreen, isSignedIn, toggleSignendIn }) => {
+const Prediction = ({ toggleScreen, isSignedIn, toggleSignendIn }) => {
     const navigate = useNavigate();
-    const [recommendations, setRecommendations] = useState(false);
     const [error, setError] = useState('');
 
     useEffect(() => {
-        toggleScreen("Recommendations");
+        toggleScreen("Prediction");
         if (!isSignedIn) {
             navigate("/");
         }
@@ -20,12 +19,13 @@ const Recommendations = ({ toggleScreen, isSignedIn, toggleSignendIn }) => {
     const handleSignout = () => {
         toggleSignendIn(false);
     }
-    const handleRecommendations = async (e) => {
+    const handlePredict = async (e) => {
         e.preventDefault();
-        const payload = { _id: isSignedIn._id, username: isSignedIn.username };
 
+        const payload = { _id: isSignedIn._id, username: isSignedIn.username };
         try {
-            const userprofile = { Country: isSignedIn.country, WorkExp: isSignedIn.experience, EdLevel: isSignedIn.education, Age: isSignedIn.age };
+            const userprofile = { Country: isSignedIn.country, WorkExp: isSignedIn.experience,
+                 EdLevel: isSignedIn.education, Age: isSignedIn.age }; //basic user profile
             if (isSignedIn.MainBranch) {
                 userprofile.MainBranch = isSignedIn.MainBranch;
             }
@@ -56,7 +56,7 @@ const Recommendations = ({ toggleScreen, isSignedIn, toggleSignendIn }) => {
             if (isSignedIn.languages) {
                 for (let i = 0; i < isSignedIn.languages.length; i++) {
                     userprofile[isSignedIn.languages[i]] = 1;
-                }
+                }  
             }
             if (isSignedIn.employments) {
                 for (let i = 0; i < isSignedIn.employments.length; i++) {
@@ -64,7 +64,8 @@ const Recommendations = ({ toggleScreen, isSignedIn, toggleSignendIn }) => {
                 }
             }
             // Send the registration data to the server
-            const response = await fetch(`${config.apiBaseUrl}/api/model/recommend`, {
+            console.log(userprofile);
+            const response = await fetch(`${config.apiBaseUrl}/api/model/predict`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -73,9 +74,7 @@ const Recommendations = ({ toggleScreen, isSignedIn, toggleSignendIn }) => {
             });
 
             const result = await response.json();
-            payload.topRecommendations = result.topRecommendations;
-            payload.combined = result.combined;
-            payload.recommendations = result.recommendations;
+            payload.prediction = Math.floor(result.prediction);
 
             if (!response.ok) {
                 // If the server responds with an error, set the error message
@@ -86,7 +85,33 @@ const Recommendations = ({ toggleScreen, isSignedIn, toggleSignendIn }) => {
             setError('An error occurred. Please try again.');
             console.error('Error:', error);
         }
+        try {
+            const response = await fetch(`${config.apiBaseUrl}/api/users/${isSignedIn._id}`, {
+                method: 'PATCH',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`
+                },
+                body: JSON.stringify(payload)
+            });
 
+            const result = await response.json();
+
+            if (!response.ok) {
+                // If the server responds with an error, set the error message
+                setError(result.message);
+                return;
+            }
+            toggleSignendIn(isSignedIn.username);
+        } catch (error) {
+            setError('An error occurred. Please try again.');
+            console.error('Error:', error);
+        }
+    }
+    const handleReset = async (e) => {
+        e.preventDefault();
+        const payload = { _id: isSignedIn._id, username: isSignedIn.username };
+        payload.prediction = 0;
         try {
             // Send the registration data to the server
             const response = await fetch(`${config.apiBaseUrl}/api/users/${isSignedIn._id}`, {
@@ -116,57 +141,52 @@ const Recommendations = ({ toggleScreen, isSignedIn, toggleSignendIn }) => {
         <div>
             <div className="position-relative text-white text-center" >
                 <div style={{ minHeight: "100vh" }} className=" top-0 start-0 w-100 h-100 bg-dark bg-opacity-50 d-flex flex-column align-items-center justify-content-center">
-                    <h3 className="display-4 fw-bold">Recommendations</h3>
+                    <h3 className="display-4 fw-bold">Prediction</h3>
                     <div className="underline mx-auto mb-3"></div>
 
                     <p className="lead">
-                        Here's an overview of your top Recommendations:
+                        Here's our model's Prediction:
                     </p>
-                    {(!isSignedIn.topRecommendations) &&
+                    {isSignedIn &&
                         <Row className="d-flex justify-content-center">
-                            <Card style={{ width: '18rem', margin: "10px" }}>
-                                <Card.Header>Get Recommendations</Card.Header>
-                                <Card.Body >
-                                    <Card.Text>
-                                        Click the button below to get recommendations Based on your profile
-                                    </Card.Text>
-                                    <Button as={Button} onClick={handleRecommendations} variant="primary" className="px-5 py-3">Recommendations</Button>
+                            {((!isSignedIn.prediction) || isSignedIn.prediction === 0) &&
+                                <Card style={{ width: '18rem', margin: "10px" }}>
+                                    <Card.Header>Salary Prediction</Card.Header>
+                                    <Card.Body >
+                                        <Card.Text>
+                                            We Havent Predicted your Salary Yet,
+                                            click the button below to 
+                                            Let our AI predict your salary!
+                                        </Card.Text>
+                                        <Button as={Button} onClick={handlePredict} variant="primary" className="px-5 py-3">Predict</Button>
+                                    </Card.Body>
+                                </Card>
 
-                                </Card.Body>
-                            </Card>
+                            }
+                            {(isSignedIn.prediction && isSignedIn.prediction !== 0) &&
+                                <Card style={{ width: '20rem', margin: "10px" }}>
+                                    <Card.Header>Salary Prediction</Card.Header>
+                                    <Card.Body >
+                                        <Card.Text >
+                                            The model predicts your salary to be around:
+                                            <br />
+                                            <br />
+
+                                            <Card.Title style={{ color: "green" }}>{isSignedIn.prediction} $ per year</Card.Title>
+                                            <br />
+                                            if you change your information, you can repredict your salary
+                                        </Card.Text>
+                                        <Button as={Button} onClick={handlePredict} variant="primary" className="px-5 py-3">Repredict</Button>
+                                    </Card.Body>
+                                </Card>
+
+                            }
                             <Container className="d-flex justify-content-center" >
-                                <Button as={Link} to="/Profile" style={{ margin: "10px" }} variant="primary" className="px-5 py-3">Profile</Button>
+                                                    <Button as={Link} to="/Experiment" style={{ width: '10rem', margin: "10px" }} variant="primary" className="px-5 py-3">Experiment</Button>
+                                <Button as={Button} style={{ width: '10rem', margin: "10px" }} onClick={handleSignout} variant="primary" className="px-5 py-3">SignOut</Button>
                             </Container>
                         </Row>
                     }
-
-                    {(isSignedIn.topRecommendations) &&
-                        <Card style={{ margin: "10px" }}>
-                            <Card.Header>Recommendations</Card.Header>
-                            <Card.Body >
-                                <Card.Text>
-                                    {isSignedIn.topRecommendations.map((recommendation, index) => {
-                                        return <li key={index}>{recommendation}</li>
-                                    })}
-                                </Card.Text>
-                                <Card.Text>
-                                    {isSignedIn.combined}
-                                </Card.Text>
-                                <Card.Text>
-                                    if you change your information, you can ask to be re-recommended
-                                </Card.Text>
-                                <Button as={Button} onClick={handleRecommendations} variant="primary" className="px-5 py-3">Reccomend</Button>
-                            </Card.Body>
-                        </Card>
-
-                    }
-
-                    <Container className="d-flex justify-content-center" >
-                        <Button as={Link} to="/Profile" style={{ width: "10rem", margin: "10px" }} variant="primary" className="px-5 py-3">Profile</Button>
-                        <Button as={Link} to="/AdvancedRecommendations" style={{ margin: "10px" }} variant="primary" className="px-5 py-3">Advanced</Button>
-                        <Button as={Link} to="/SavedRecommendations" style={{ margin: "10px" }} variant="primary" className="px-5 py-3">Saved</Button>
-                        <Button as={Button} style={{ width: '10rem', margin: "10px" }} onClick={handleSignout} variant="primary" className="px-5 py-3">Sign Out</Button>
-                    </Container>
 
                 </div>
             </div>
@@ -174,4 +194,4 @@ const Recommendations = ({ toggleScreen, isSignedIn, toggleSignendIn }) => {
     );
 }
 
-export default Recommendations;
+export default Prediction;

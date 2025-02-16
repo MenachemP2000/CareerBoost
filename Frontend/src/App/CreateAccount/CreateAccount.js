@@ -150,8 +150,8 @@ const CreateAccount = ({ toggleSignendIn, toggleScreen, isSignedIn }) => {
 
     return (
         <div>
-            <div className="position-relative text-white text-center" style={{ height: "100vh" }}>
-                <div className=" top-0 start-0 w-100 h-100 bg-dark bg-opacity-50 d-flex flex-column align-items-center justify-content-center">
+            <div  className="position-relative text-white text-center" >
+                <div  style={{ minHeight: "100vh" }} className=" top-0 start-0 w-100 h-100 bg-dark bg-opacity-50 d-flex flex-column align-items-center justify-content-center">
                     <h3 className="display-4 fw-bold">Create Account</h3>
                     <div className="underline mx-auto mb-3"></div>
 

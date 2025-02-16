@@ -139,8 +139,8 @@ const Profile = ({ toggleScreen, isSignedIn, toggleSignendIn }) => {
     return (
 
         <div>
-            <div className="position-relative text-white text-center" style={{ height: "100vh" }}>
-                <div className=" top-0 start-0 w-100 h-100 bg-dark bg-opacity-50 d-flex flex-column align-items-center justify-content-center">
+            <div className="position-relative text-white text-center" >
+                <div style={{ minHeight: "100vh" }} className=" top-0 start-0 w-100 h-100 bg-dark bg-opacity-50 d-flex flex-column align-items-center justify-content-center">
                     <h3 className="display-4 fw-bold">Profile</h3>
                     <div className="underline mx-auto mb-3"></div>
 
@@ -150,10 +150,6 @@ const Profile = ({ toggleScreen, isSignedIn, toggleSignendIn }) => {
                     {isSignedIn &&
                         <Row className="d-flex justify-content-center">
                             
-                            <Container className="d-flex justify-content-center" >
-                                <Button as={Link} to="/AdvancedProfile" style={{ width: '15rem', margin: "10px" }} variant="primary" className="px-5 py-3">AdvancedProfile</Button>
-                                <Button as={Link} to="/ModifyAccount" style={{ width: '15rem', margin: "10px" }} variant="primary" className="px-5 py-3">Modify</Button>
-                            </Container>
                             <Card style={{ width: '18rem', margin: "10px" }}>
                                 <Card.Header>{isSignedIn.username}</Card.Header>
                                 <Card.Body >
@@ -171,40 +167,10 @@ const Profile = ({ toggleScreen, isSignedIn, toggleSignendIn }) => {
                                     </Card.Text>
                                 </Card.Body>
                             </Card>
-                            {((!isSignedIn.prediction) || isSignedIn.prediction === 0) &&
-                                <Card style={{ width: '18rem', margin: "10px" }}>
-                                    <Card.Header>Salary Prediction</Card.Header>
-                                    <Card.Body >
-                                        <Card.Text>
-                                            We Havent Predicted your Salary Yet,
-                                            click the button below to 
-                                            Let our AI predict your salary!
-                                        </Card.Text>
-                                        <Button as={Button} onClick={handlePredict} variant="primary" className="px-5 py-3">Predict</Button>
-                                    </Card.Body>
-                                </Card>
-
-                            }
-                            {(isSignedIn.prediction && isSignedIn.prediction !== 0) &&
-                                <Card style={{ width: '18rem', margin: "10px" }}>
-                                    <Card.Header>Salary Prediction</Card.Header>
-                                    <Card.Body >
-                                        <Card.Text>
-                                            Our advanced AI model predicts your salary to be around:
-                                            <br />
-
-                                            {isSignedIn.prediction} $ per year
-                                            <br />
-                                            if you change your information, you can repredict your salary
-                                        </Card.Text>
-                                        <Button as={Button} onClick={handlePredict} variant="primary" className="px-5 py-3">Repredict</Button>
-                                    </Card.Body>
-                                </Card>
-
-                            }
                             <Container className="d-flex justify-content-center" >
-                                <Button as={Link} to="/Recommendations" style={{  width: '15rem',margin: "10px" }} variant="primary" className="px-5 py-3">Recommendations</Button>
-                                <Button as={Button} style={{ width: '15rem', margin: "10px" }} onClick={handleSignout} variant="primary" className="px-5 py-3">Sign Out</Button>
+                                <Button as={Link} to="/AdvancedProfile" style={{ width: '10rem', margin: "10px" }} variant="primary" className="px-5 py-3">Advanced</Button>
+                                <Button as={Link} to="/ModifyAccount" style={{ width: '10rem', margin: "10px" }} variant="primary" className="px-5 py-3">Modify</Button>
+                                <Button as={Button} style={{ width: '10rem', margin: "10px" }} onClick={handleSignout} variant="primary" className="px-5 py-3">SignOut</Button>
                             </Container>
                         </Row>
                     }

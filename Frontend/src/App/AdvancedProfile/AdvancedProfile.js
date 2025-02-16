@@ -18,26 +18,15 @@ const AdvancedProfile = ({ toggleScreen, isSignedIn, toggleSignendIn }) => {
 
         <div>
             <div className="position-relative text-white text-center" >
-                <div className=" top-0 start-0 w-100 h-100 bg-dark bg-opacity-50 d-flex flex-column align-items-center justify-content-center">
+                <div style={{ minHeight: "100vh" }} className=" top-0 start-0 w-100 h-100 bg-dark bg-opacity-50 d-flex flex-column align-items-center justify-content-center">
                     <h3 className="display-4 fw-bold">Advanced Profile</h3>
                     <div className="underline mx-auto mb-3"></div>
-                    
+
                     <p className="lead">
                         Here you can do advanced profile actions
                     </p>
 
-
-
-                    <Container className="d-flex justify-content-center" >
-                        <Button as={Link} to="/Profile" style={{ width: '10rem', margin: "10px" }} variant="primary" className="px-5 py-3">Profile</Button>
-                        <Button as={Link} to="/Experiment" style={{ width: '10rem', margin: "10px" }} variant="primary" className="px-5 py-3">Experiment</Button>
-                        <Button as={Link} to="/ModifyAdvanced" style={{ width: '10rem', margin: "10px" }} variant="primary" className="px-5 py-3">Modify</Button>
-                    </Container>
-
                     <Row className="d-flex justify-content-center">
-
-
-
                         {!isSignedIn.age &&
                             <Card style={{ width: '30rem', margin: "10px" }}>
                                 <Card.Header>Age</Card.Header>
@@ -84,7 +73,7 @@ const AdvancedProfile = ({ toggleScreen, isSignedIn, toggleSignendIn }) => {
                         }
                         {!isSignedIn.experience &&
                             <Card style={{ width: '30rem', margin: "10px" }}>
-                                <Card.Header>Expariance</Card.Header>
+                                <Card.Header>Experience</Card.Header>
                                 <Card.Body >
                                     <Card.Text>
                                         no answer
@@ -95,7 +84,7 @@ const AdvancedProfile = ({ toggleScreen, isSignedIn, toggleSignendIn }) => {
                         }
                         {isSignedIn.experience &&
                             <Card style={{ width: '30rem', margin: "10px" }}>
-                                <Card.Header>Expariance</Card.Header>
+                                <Card.Header>Experience</Card.Header>
                                 <Card.Body >
                                     <Card.Text>
                                         {isSignedIn.experience}
@@ -367,6 +356,13 @@ const AdvancedProfile = ({ toggleScreen, isSignedIn, toggleSignendIn }) => {
                             </Card>
                         )}
                     </Row>
+
+
+
+                    <Container className="d-flex justify-content-center" >
+                        <Button as={Link} to="/Profile" style={{ width: '10rem', margin: "10px" }} variant="primary" className="px-5 py-3">Profile</Button>
+                        <Button as={Link} to="/ModifyAdvanced" style={{ width: '10rem', margin: "10px" }} variant="primary" className="px-5 py-3">Modify</Button>
+                    </Container>
 
 
                 </div>

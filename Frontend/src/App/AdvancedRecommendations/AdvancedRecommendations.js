@@ -11,7 +11,7 @@ const AdvancedRecommendations = ({ toggleScreen, isSignedIn, toggleSignendIn }) 
     const [error, setError] = useState('');
 
     useEffect(() => {
-        toggleScreen("Recommendations");
+        toggleScreen("AdvancedRecommendations");
         if (!isSignedIn) {
             navigate("/");
         }
@@ -114,8 +114,8 @@ const AdvancedRecommendations = ({ toggleScreen, isSignedIn, toggleSignendIn }) 
     return (
 
         <div>
-            <div className="position-relative text-white text-center" >
-                <div className=" top-0 start-0 w-100 h-100 bg-dark bg-opacity-50 d-flex flex-column align-items-center justify-content-center">
+            <div  className="position-relative text-white text-center" >
+                <div style={{ minHeight: "100vh" }} className=" top-0 start-0 w-100 h-100 bg-dark bg-opacity-50 d-flex flex-column align-items-center justify-content-center">
                     <h3 className="display-4 fw-bold">Advanced Recommendations</h3>
                     <div className="underline mx-auto mb-3"></div>
 
@@ -141,13 +141,13 @@ const AdvancedRecommendations = ({ toggleScreen, isSignedIn, toggleSignendIn }) 
                     }
 
                     {(isSignedIn.recommendations) &&
-                        <Card style={{ margin: "10px"}}>
+                        <Card style={{ margin: "10px" }}>
                             <Card.Header>Recommendations</Card.Header>
                             <Card.Body >
                                 <Card.Text >
                                     <ul className="list-none space-y-2">
                                         {isSignedIn.recommendations.map((recommendation, index) => (
-                                            <li style={{listStyle: "none", textAlign: "left"} }  key={index} className="p-2">{recommendation}</li>
+                                            <li style={{ listStyle: "none", textAlign: "left" }} key={index} className="p-2">{recommendation}</li>
                                         ))}
                                     </ul>
                                 </Card.Text>
@@ -163,6 +163,7 @@ const AdvancedRecommendations = ({ toggleScreen, isSignedIn, toggleSignendIn }) 
                     <Container className="d-flex justify-content-center" >
                         <Button as={Link} to="/Profile" style={{ width: "10rem", margin: "10px" }} variant="primary" className="px-5 py-3">Profile</Button>
                         <Button as={Link} to="/Recommendations" style={{ margin: "10px" }} variant="primary" className="px-5 py-3">Basic</Button>
+                        <Button as={Link} to="/SavedRecommendations" style={{ margin: "10px" }} variant="primary" className="px-5 py-3">Saved</Button>
                         <Button as={Button} style={{ width: '10rem', margin: "10px" }} onClick={handleSignout} variant="primary" className="px-5 py-3">Sign Out</Button>
                     </Container>
 

@@ -15,7 +15,7 @@ const Experiment = ({ toggleSignendIn, toggleScreen, isSignedIn }) => {
     const [error, setError] = useState('');
 
     useEffect(() => {
-        toggleScreen("modifyAccount");
+        toggleScreen("Experiment");
         if (!isSignedIn) {
             navigate("/");
         }
@@ -305,8 +305,8 @@ const Experiment = ({ toggleSignendIn, toggleScreen, isSignedIn }) => {
 
     return (
         <div>
-            <div className="position-relative text-white text-center " >
-                <div className="w-100 h-100 bg-dark bg-opacity-50 d-flex flex-column align-items-center justify-content-center">
+            <div  className="position-relative text-white text-center " >
+                <div style={{ minHeight: "100vh" }} className="w-100 h-100 bg-dark bg-opacity-50 d-flex flex-column align-items-center justify-content-center">
                     <h3 className="display-4 fw-bold">Experiment</h3>
                     <div className="underline mx-auto mb-3"></div>
 
@@ -562,7 +562,7 @@ const Experiment = ({ toggleSignendIn, toggleScreen, isSignedIn }) => {
                                                 <Card style={{ margin: "10px" }}>
                                                     <Card.Header>Salary Prediction</Card.Header>
                                                     <Card.Body >
-                                                        <Card.Text>
+                                                        <Card.Text style={{ color: "green" }}>
 
                                                             {isSignedIn.experiment.prediction} $ per year
                                                             <br />
@@ -573,9 +573,9 @@ const Experiment = ({ toggleSignendIn, toggleScreen, isSignedIn }) => {
                                             }
                                             
                                             <Button variant="primary" style={{ width: '10rem', margin: "10px" }} type="submit">
-                                                Predict
+                                                Experiment
                                             </Button>
-                                            <Button variant="primary" style={{ width: '10rem', margin: "10px" }} type="button" onClick={() => navigate("/AdvancedProfile")}>
+                                            <Button variant="primary" style={{ width: '10rem', margin: "10px" }} type="button" onClick={() => navigate("/Prediction")}>
                                                 Cancel
                                             </Button>
                                         </Form>

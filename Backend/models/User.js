@@ -74,7 +74,12 @@ const userSchema = new mongoose.Schema({
   experiment:
   {
     type: Object
+  },
+  savedRecommendations:
+  {
+    type: Object
   }
+
 
 });
 
