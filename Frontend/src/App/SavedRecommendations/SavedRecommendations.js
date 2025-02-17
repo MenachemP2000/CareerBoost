@@ -120,8 +120,8 @@ const SavedRecommendations = ({ toggleScreen, isSignedIn, toggleSignendIn }) => 
                         Here's your saved Recommendations:
                     </p>
                     {isSignedIn.recommendations &&
-                        <Row className="d-flex justify-content-center">
-                            <Card style={{ margin: "10px" , maxWidth: '95vw'}}>
+                        <Col className="d-flex justify-content-center">
+                            <Card style={{ maxWidth: '95vw'}}>
                                 <Card.Header>Saved Recommendations</Card.Header>
                                 {!isSignedIn.savedRecommendations || (isSignedIn.savedRecommendations && isSignedIn.savedRecommendations.length == 0) &&
                                     <Card.Body >
@@ -221,7 +221,7 @@ const SavedRecommendations = ({ toggleScreen, isSignedIn, toggleSignendIn }) => 
                                 }
 
                             </Card>
-                        </Row>
+                        </Col>
                     }
 
                     {!isSignedIn.recommendations &&
