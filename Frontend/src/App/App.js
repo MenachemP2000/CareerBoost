@@ -17,6 +17,7 @@ import AdvancedRecommendations from "./AdvancedRecommendations/AdvancedRecommend
 import Experiment from "./Experiment/Experiment";
 import SavedRecommendations from "./SavedRecommendations/SavedRecommendations";
 import Prediction from "./Prediction/Prediction";
+import Guide from "./Guide/Guide";
 
 
 
@@ -74,6 +75,10 @@ function App() {
 
                 <Routes>
                     <Route path="/" element={<Home
+                        toggleScreen={toggleScreen}
+                        isSignedIn={isSignedIn}
+                        toggleSignendIn={toggleSignendIn} />} />
+                    <Route path="/Guide" element={<Guide
                         toggleScreen={toggleScreen}
                         isSignedIn={isSignedIn}
                         toggleSignendIn={toggleSignendIn} />} />
