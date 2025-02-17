@@ -31,13 +31,15 @@ const Home = ({ toggleScreen, isSignedIn, toggleSignendIn }) => {
                     Click on the <strong>Guide</strong> to learn how to get started and make the most of our platform.
                 </p>
                 {!isSignedIn &&
-                    <div className="d-flex justify-content-center">
-                        <Button as={Link} to="/Createaccount" style={{ width: '15rem', margin: "10px" }} variant="primary" className="px-5 py-3">Create Account</Button>
-                        <Button as={Link} to="/Signin" variant="primary" style={{ width: '15rem', margin: "10px" }} className="px-5 py-3">Sign In</Button>
-                    </div>
+                    <Row className="d-flex justify-content-center">
+                        <Container className=" justify-content-center" >
+                            <Button as={Link} to="/Createaccount" style={{ width: '15rem', margin: "10px", maxWidth: '60vw', whiteSpace: "nowrap" }} variant="primary" className="px-5 py-3">Create Account</Button>
+                            <Button as={Link} to="/Signin" variant="primary" style={{ width: '15rem', maxWidth: '60vw', margin: "10px", whiteSpace: "nowrap" }} className="px-5 py-3">Sign In</Button>
+                        </Container>
+                    </Row>
                 }
                 {isSignedIn &&
-                    <Row className="d-flex justify-content-center">
+                    <Row className=" justify-content-center">
                         <p className="lead">
                             Hello {isSignedIn.username}!
                         </p>

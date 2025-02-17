@@ -28,7 +28,7 @@ const AdvancedProfile = ({ toggleScreen, isSignedIn, toggleSignendIn }) => {
 
                     <Row className="d-flex justify-content-center">
                         {!isSignedIn.age &&
-                            <Card style={{ width: '30rem', margin: "10px" }}>
+                            <Card style={{ width: '30rem',maxWidth: '90vw', margin: "10px" }}>
                                 <Card.Header>Age</Card.Header>
                                 <Card.Body >
                                     <Card.Text>
@@ -39,7 +39,7 @@ const AdvancedProfile = ({ toggleScreen, isSignedIn, toggleSignendIn }) => {
                             </Card>
                         }
                         {isSignedIn.age &&
-                            <Card style={{ width: '30rem', margin: "10px" }}>
+                            <Card style={{ width: '30rem',maxWidth: '90vw', margin: "10px" }}>
                                 <Card.Header>Age</Card.Header>
                                 <Card.Body >
                                     <Card.Text>
@@ -50,7 +50,7 @@ const AdvancedProfile = ({ toggleScreen, isSignedIn, toggleSignendIn }) => {
                             </Card>
                         }
                         {!isSignedIn.country &&
-                            <Card style={{ width: '30rem', margin: "10px" }}>
+                            <Card style={{ width: '30rem',maxWidth: '90vw', margin: "10px" }}>
                                 <Card.Header>Country</Card.Header>
                                 <Card.Body >
                                     <Card.Text>
@@ -61,7 +61,7 @@ const AdvancedProfile = ({ toggleScreen, isSignedIn, toggleSignendIn }) => {
                             </Card>
                         }
                         {isSignedIn.country &&
-                            <Card style={{ width: '30rem', margin: "10px" }}>
+                            <Card style={{ width: '30rem',maxWidth: '90vw', margin: "10px" }}>
                                 <Card.Header>Country</Card.Header>
                                 <Card.Body >
                                     <Card.Text>
@@ -72,7 +72,7 @@ const AdvancedProfile = ({ toggleScreen, isSignedIn, toggleSignendIn }) => {
                             </Card>
                         }
                         {!isSignedIn.experience &&
-                            <Card style={{ width: '30rem', margin: "10px" }}>
+                            <Card style={{ width: '30rem',maxWidth: '90vw', margin: "10px" }}>
                                 <Card.Header>Experience</Card.Header>
                                 <Card.Body >
                                     <Card.Text>
@@ -83,7 +83,7 @@ const AdvancedProfile = ({ toggleScreen, isSignedIn, toggleSignendIn }) => {
                             </Card>
                         }
                         {isSignedIn.experience &&
-                            <Card style={{ width: '30rem', margin: "10px" }}>
+                            <Card style={{ width: '30rem',maxWidth: '90vw', margin: "10px" }}>
                                 <Card.Header>Experience</Card.Header>
                                 <Card.Body >
                                     <Card.Text>
@@ -94,7 +94,7 @@ const AdvancedProfile = ({ toggleScreen, isSignedIn, toggleSignendIn }) => {
                             </Card>
                         }
                         {!isSignedIn.education &&
-                            <Card style={{ width: '30rem', margin: "10px" }}>
+                            <Card style={{ width: '30rem',maxWidth: '90vw', margin: "10px" }}>
                                 <Card.Header>Education</Card.Header>
                                 <Card.Body >
                                     <Card.Text>
@@ -105,7 +105,7 @@ const AdvancedProfile = ({ toggleScreen, isSignedIn, toggleSignendIn }) => {
                             </Card>
                         }
                         {isSignedIn.education &&
-                            <Card style={{ width: '30rem', margin: "10px" }}>
+                            <Card style={{ width: '30rem',maxWidth: '90vw', margin: "10px" }}>
                                 <Card.Header>Education</Card.Header>
                                 <Card.Body >
                                     <Card.Text>
@@ -116,7 +116,7 @@ const AdvancedProfile = ({ toggleScreen, isSignedIn, toggleSignendIn }) => {
                             </Card>
                         }
                         {!isSignedIn.MainBranch &&
-                            <Card style={{ width: '30rem', margin: "10px" }}>
+                            <Card style={{ width: '30rem',maxWidth: '90vw', margin: "10px" }}>
                                 <Card.Header>Developer by Profession</Card.Header>
                                 <Card.Body >
                                     <Card.Text>
@@ -127,7 +127,7 @@ const AdvancedProfile = ({ toggleScreen, isSignedIn, toggleSignendIn }) => {
                             </Card>
                         }
                         {isSignedIn.MainBranch &&
-                            <Card style={{ width: '30rem', margin: "10px" }}>
+                            <Card style={{ width: '30rem',maxWidth: '90vw', margin: "10px" }}>
                                 <Card.Header>Developer by Profession</Card.Header>
                                 <Card.Body >
                                     <Card.Text>
@@ -138,7 +138,7 @@ const AdvancedProfile = ({ toggleScreen, isSignedIn, toggleSignendIn }) => {
                             </Card>
                         }
                         {!isSignedIn.RemoteWork &&
-                            <Card style={{ width: '30rem', margin: "10px" }}>
+                            <Card style={{ width: '30rem',maxWidth: '90vw', margin: "10px" }}>
                                 <Card.Header>Remote Work</Card.Header>
                                 <Card.Body >
                                     <Card.Text>
@@ -149,7 +149,7 @@ const AdvancedProfile = ({ toggleScreen, isSignedIn, toggleSignendIn }) => {
                             </Card>
                         }
                         {isSignedIn.RemoteWork &&
-                            <Card style={{ width: '30rem', margin: "10px" }}>
+                            <Card style={{ width: '30rem',maxWidth: '90vw', margin: "10px" }}>
                                 <Card.Header>Remote Work</Card.Header>
                                 <Card.Body >
                                     <Card.Text>
@@ -160,7 +160,7 @@ const AdvancedProfile = ({ toggleScreen, isSignedIn, toggleSignendIn }) => {
                             </Card>
                         }
                         {!isSignedIn.YearsCode &&
-                            <Card style={{ width: '30rem', margin: "10px" }}>
+                            <Card style={{ width: '30rem',maxWidth: '90vw', margin: "10px" }}>
                                 <Card.Header>Years of Coding</Card.Header>
                                 <Card.Body >
                                     <Card.Text>
@@ -171,7 +171,7 @@ const AdvancedProfile = ({ toggleScreen, isSignedIn, toggleSignendIn }) => {
                             </Card>
                         }
                         {isSignedIn.YearsCode &&
-                            <Card style={{ width: '30rem', margin: "10px" }}>
+                            <Card style={{ width: '30rem',maxWidth: '90vw', margin: "10px" }}>
                                 <Card.Header>Years of Coding</Card.Header>
                                 <Card.Body >
                                     <Card.Text>
@@ -182,7 +182,7 @@ const AdvancedProfile = ({ toggleScreen, isSignedIn, toggleSignendIn }) => {
                             </Card>
                         }
                         {!isSignedIn.YearsCodePro &&
-                            <Card style={{ width: '30rem', margin: "10px" }}>
+                            <Card style={{ width: '30rem',maxWidth: '90vw',maxWidth: '90vw', margin: "10px" }}>
                                 <Card.Header>Years of Professional Coding</Card.Header>
                                 <Card.Body >
                                     <Card.Text>
@@ -193,7 +193,7 @@ const AdvancedProfile = ({ toggleScreen, isSignedIn, toggleSignendIn }) => {
                             </Card>
                         }
                         {isSignedIn.YearsCodePro &&
-                            <Card style={{ width: '30rem', margin: "10px" }}>
+                            <Card style={{ width: '30rem',maxWidth: '90vw', margin: "10px" }}>
                                 <Card.Header>Years of Professional Coding</Card.Header>
                                 <Card.Body >
                                     <Card.Text>
@@ -204,7 +204,7 @@ const AdvancedProfile = ({ toggleScreen, isSignedIn, toggleSignendIn }) => {
                             </Card>
                         }
                         {!isSignedIn.DevType &&
-                            <Card style={{ width: '30rem', margin: "10px" }}>
+                            <Card style={{ width: '30rem',maxWidth: '90vw', margin: "10px" }}>
                                 <Card.Header>Developer Type</Card.Header>
                                 <Card.Body >
                                     <Card.Text>
@@ -215,7 +215,7 @@ const AdvancedProfile = ({ toggleScreen, isSignedIn, toggleSignendIn }) => {
                             </Card>
                         }
                         {isSignedIn.DevType &&
-                            <Card style={{ width: '30rem', margin: "10px" }}>
+                            <Card style={{ width: '30rem',maxWidth: '90vw', margin: "10px" }}>
                                 <Card.Header>Developer Type</Card.Header>
                                 <Card.Body >
                                     <Card.Text>
@@ -226,7 +226,7 @@ const AdvancedProfile = ({ toggleScreen, isSignedIn, toggleSignendIn }) => {
                             </Card>
                         }
                         {!isSignedIn.OrgSize &&
-                            <Card style={{ width: '30rem', margin: "10px" }}>
+                            <Card style={{ width: '30rem',maxWidth: '90vw', margin: "10px" }}>
                                 <Card.Header>Organization Size</Card.Header>
                                 <Card.Body >
                                     <Card.Text>
@@ -237,7 +237,7 @@ const AdvancedProfile = ({ toggleScreen, isSignedIn, toggleSignendIn }) => {
                             </Card>
                         }
                         {isSignedIn.OrgSize &&
-                            <Card style={{ width: '30rem', margin: "10px" }}>
+                            <Card style={{ width: '30rem',maxWidth: '90vw', margin: "10px" }}>
                                 <Card.Header>Organization Size</Card.Header>
                                 <Card.Body >
                                     <Card.Text>
@@ -247,7 +247,7 @@ const AdvancedProfile = ({ toggleScreen, isSignedIn, toggleSignendIn }) => {
                             </Card>
                         }
                         {!isSignedIn.ICorPM &&
-                            <Card style={{ width: '30rem', margin: "10px" }}>
+                            <Card style={{ width: '30rem',maxWidth: '90vw', margin: "10px" }}>
                                 <Card.Header>Individual contributor or People manager</Card.Header>
                                 <Card.Body >
                                     <Card.Text>
@@ -258,7 +258,7 @@ const AdvancedProfile = ({ toggleScreen, isSignedIn, toggleSignendIn }) => {
                             </Card>
                         }
                         {isSignedIn.ICorPM &&
-                            <Card style={{ width: '30rem', margin: "10px" }}>
+                            <Card style={{ width: '30rem',maxWidth: '90vw', margin: "10px" }}>
                                 <Card.Header>Individual Contributor or People Manager</Card.Header>
                                 <Card.Body >
                                     <Card.Text>
@@ -268,7 +268,7 @@ const AdvancedProfile = ({ toggleScreen, isSignedIn, toggleSignendIn }) => {
                             </Card>
                         }
                         {!isSignedIn.Industry &&
-                            <Card style={{ width: '30rem', margin: "10px" }}>
+                            <Card style={{ width: '30rem',maxWidth: '90vw', margin: "10px" }}>
                                 <Card.Header>Industry</Card.Header>
                                 <Card.Body >
                                     <Card.Text>
@@ -279,7 +279,7 @@ const AdvancedProfile = ({ toggleScreen, isSignedIn, toggleSignendIn }) => {
                             </Card>
                         }
                         {isSignedIn.Industry &&
-                            <Card style={{ width: '30rem', margin: "10px" }}>
+                            <Card style={{ width: '30rem',maxWidth: '90vw', margin: "10px" }}>
                                 <Card.Header>Industry</Card.Header>
                                 <Card.Body >
                                     <Card.Text>
@@ -289,7 +289,7 @@ const AdvancedProfile = ({ toggleScreen, isSignedIn, toggleSignendIn }) => {
                             </Card>
                         }
                         {!isSignedIn.JobSat &&
-                            <Card style={{ width: '30rem', margin: "10px" }}>
+                            <Card style={{ width: '30rem',maxWidth: '90vw', margin: "10px" }}>
                                 <Card.Header>Job satisfaction</Card.Header>
                                 <Card.Body >
                                     <Card.Text>
@@ -300,7 +300,7 @@ const AdvancedProfile = ({ toggleScreen, isSignedIn, toggleSignendIn }) => {
                             </Card>
                         }
                         {isSignedIn.JobSat &&
-                            <Card style={{ width: '30rem', margin: "10px" }}>
+                            <Card style={{ width: '30rem',maxWidth: '90vw', margin: "10px" }}>
                                 <Card.Header>Job satisfaction</Card.Header>
                                 <Card.Body >
                                     <Card.Text>
@@ -313,7 +313,7 @@ const AdvancedProfile = ({ toggleScreen, isSignedIn, toggleSignendIn }) => {
 
                     <Row className="d-flex justify-content-center">
                         {(!isSignedIn.languages || (isSignedIn.languages && isSignedIn.languages.length < 1)) &&
-                            <Card style={{ width: '30rem', margin: "10px" }}>
+                            <Card style={{ width: '30rem',maxWidth: '90vw', margin: "10px" }}>
                                 <Card.Header>Programming Languages</Card.Header>
                                 <Card.Body >
                                     <Card.Text>
@@ -324,7 +324,7 @@ const AdvancedProfile = ({ toggleScreen, isSignedIn, toggleSignendIn }) => {
                             </Card>
                         }
                         {(isSignedIn.languages && isSignedIn.languages.length > 0) && (
-                            <Card style={{ width: '30rem', margin: "10px" }}>
+                            <Card style={{ width: '30rem',maxWidth: '90vw', margin: "10px" }}>
                                 <Card.Header>Programming Languages</Card.Header>
                                 <Card.Body>
                                     <Card.Text>
@@ -335,7 +335,7 @@ const AdvancedProfile = ({ toggleScreen, isSignedIn, toggleSignendIn }) => {
                         )}
 
                         {(!isSignedIn.employments || (isSignedIn.employments && isSignedIn.employments.length < 1)) &&
-                            <Card style={{ width: '30rem', margin: "10px" }}>
+                            <Card style={{ width: '30rem',maxWidth: '90vw', margin: "10px" }}>
                                 <Card.Header>Employments Status</Card.Header>
                                 <Card.Body >
                                     <Card.Text>
@@ -346,7 +346,7 @@ const AdvancedProfile = ({ toggleScreen, isSignedIn, toggleSignendIn }) => {
                             </Card>
                         }
                         {(isSignedIn.employments && isSignedIn.employments.length > 0) && (
-                            <Card style={{ width: '30rem', margin: "10px" }}>
+                            <Card style={{ width: '30rem',maxWidth: '90vw', margin: "10px" }}>
                                 <Card.Header>Employments Status</Card.Header>
                                 <Card.Body>
                                     <Card.Text>

@@ -111,7 +111,7 @@ const SavedRecommendations = ({ toggleScreen, isSignedIn, toggleSignendIn }) => 
     return (
 
         <div >
-            <div  className="position-relative text-white text-center" >
+            <div className="position-relative text-white text-center" >
                 <div style={{ minHeight: "100vh" }} className=" top-0 start-0 w-100 h-100 bg-dark bg-opacity-50 d-flex flex-column align-items-center justify-content-center">
                     <h3 className="display-4 fw-bold">Saved Recommendations</h3>
                     <div className="underline mx-auto mb-3"></div>
@@ -121,7 +121,7 @@ const SavedRecommendations = ({ toggleScreen, isSignedIn, toggleSignendIn }) => 
                     </p>
                     {isSignedIn.recommendations &&
                         <Row className="d-flex justify-content-center">
-                            <Card style={{ margin: "10px" }}>
+                            <Card style={{ margin: "10px" , maxWidth: '95vw'}}>
                                 <Card.Header>Saved Recommendations</Card.Header>
                                 {!isSignedIn.savedRecommendations || (isSignedIn.savedRecommendations && isSignedIn.savedRecommendations.length == 0) &&
                                     <Card.Body >
@@ -136,7 +136,7 @@ const SavedRecommendations = ({ toggleScreen, isSignedIn, toggleSignendIn }) => 
                                         <Card.Text >
                                             <ul className="list-none space-y-2">
                                                 {isSignedIn.savedRecommendations.map((recommendation, index) => (
-                                                    <li style={{ listStyle: "none", textAlign: "left" }} key={index} className="p-2">{recommendation}</li>
+                                                    <li style={{ listStyle: "none", textAlign: "left" }} key={index} className="p-0">{recommendation}</li>
                                                 ))}
                                             </ul>
                                         </Card.Text>
@@ -236,12 +236,14 @@ const SavedRecommendations = ({ toggleScreen, isSignedIn, toggleSignendIn }) => 
 
 
 
+                    <Row className="d-flex justify-content-center">
+                        <Container className=" justify-content-center" >
+                            <Button as={Link} to="/Recommendations" style={{ width: '10rem', margin: "10px" }} variant="primary" className="px-5 py-3">Basic</Button>
+                            <Button as={Link} to="/AdvancedRecommendations" style={{ width: '10rem', margin: "10px" }} variant="primary" className="px-5 py-3">Advanced</Button>
+                            <Button as={Button} style={{ width: '10rem', margin: "10px", whiteSpace: "nowrap" }} onClick={handleSignout} variant="primary" className="px-5 py-3">Sign Out</Button>
+                        </Container>
+                    </Row>
 
-                    <Container className="d-flex justify-content-center" >
-                        <Button as={Link} to="/Recommendations" style={{ width: '10rem', margin: "10px" }} variant="primary" className="px-5 py-3">Basic</Button>
-                        <Button as={Link} to="/AdvancedRecommendations" style={{ width: '10rem', margin: "10px" }} variant="primary" className="px-5 py-3">Advanced</Button>
-                        <Button as={Button} style={{ width: '10rem', margin: "10px",whiteSpace:"nowrap" }} onClick={handleSignout} variant="primary" className="px-5 py-3">Sign Out</Button>
-                    </Container>
 
                 </div>
             </div>
