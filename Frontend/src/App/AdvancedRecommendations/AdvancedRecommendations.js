@@ -62,7 +62,7 @@ const AdvancedRecommendations = ({ toggleScreen, isSignedIn, toggleSignendIn }) 
         }
         setRecommendations(sortedRecommendations);
 
-    }, [showPath, showLanguages, backwardsort,isSignedIn]);
+    }, [showPath, showLanguages, backwardsort, isSignedIn]);
 
     useEffect(() => {
         toggleScreen("AdvancedRecommendations");
@@ -196,44 +196,47 @@ const AdvancedRecommendations = ({ toggleScreen, isSignedIn, toggleSignendIn }) 
                     {(isSignedIn.recommendations) &&
                         <Card style={{ margin: "10px", width: '80vw' }}>
                             <Card.Header>Recommendations</Card.Header>
-                            <Container className="d-flex justify-content-center">
-                                <div className="form-check">
-                                    <input
-                                        className="form-check-input"
-                                        type="checkbox"
-                                        id="checkbox1"
-                                        checked={showLanguages}
-                                        onChange={() => setShowLanguages(!showLanguages)}
-                                    />
-                                    <label className="form-check-label " htmlFor="checkbox1" style={{ marginRight: "10px" }}>
-                                        Show Recommendations for Languages
-                                    </label>
-                                </div>
-                                <div className="form-check">
-                                    <input
-                                        className="form-check-input"
-                                        type="checkbox"
-                                        id="checkbox2"
-                                        checked={showPath}
-                                        onChange={() => setShowPath(!showPath)}
-                                    />
-                                    <label className="form-check-label" htmlFor="checkbox2" style={{ marginRight: "10px" }}>
-                                    Show Recommendations for Career Path
-                                    </label>
-                                </div>
-                                <div className="form-check">
-                                    <input
-                                        className="form-check-input"
-                                        type="checkbox"
-                                        id="checkbox3"
-                                        checked={backwardsort}
-                                        onChange={() => setBackwardsort(!backwardsort)}
-                                    />
-                                    <label className="form-check-label" htmlFor="checkbox3" style={{ marginRight: "10px" }}>
-                                        Sort Low to High
-                                    </label>
-                                </div>
-                            </Container>
+                            <Col className="d-flex justify-content-center">
+
+                                <Container className=" justify-content-center">
+                                    <div className="form-check d-flex align-items-center">
+                                        <input
+                                            className="form-check-input"
+                                            type="checkbox"
+                                            id="checkbox1"
+                                            checked={showLanguages}
+                                            onChange={() => setShowLanguages(!showLanguages)}
+                                        />
+                                        <label className="form-check-label" htmlFor="checkbox1" style={{ marginLeft: "10px" }}>
+                                            Show Recommendations for Languages
+                                        </label>
+                                    </div>
+                                    <div className="form-check d-flex align-items-center">
+                                        <input
+                                            className="form-check-input"
+                                            type="checkbox"
+                                            id="checkbox2"
+                                            checked={showPath}
+                                            onChange={() => setShowPath(!showPath)}
+                                        />
+                                        <label className="form-check-label" htmlFor="checkbox2" style={{ marginLeft: "10px" }}>
+                                            Show Recommendations for Career Path
+                                        </label>
+                                    </div>
+                                    <div className="form-check d-flex align-items-center">
+                                        <input
+                                            className="form-check-input"
+                                            type="checkbox"
+                                            id="checkbox3"
+                                            checked={backwardsort}
+                                            onChange={() => setBackwardsort(!backwardsort)}
+                                        />
+                                        <label className="form-check-label" htmlFor="checkbox3" style={{ marginLeft: "10px" }}>
+                                            Sort Low to High
+                                        </label>
+                                    </div>
+                                </Container>
+                            </Col>
                             <Card.Body >
                                 <Card.Text >
                                     <ul className="list-none space-y-2">
@@ -251,11 +254,13 @@ const AdvancedRecommendations = ({ toggleScreen, isSignedIn, toggleSignendIn }) 
 
                     }
 
-                    <Container className="d-flex justify-content-center" >
-                        <Button as={Link} to="/Recommendations" style={{ width: '10rem', margin: "10px" }} variant="primary" className="px-5 py-3">Basic</Button>
-                        <Button as={Link} to="/SavedRecommendations" style={{ width: '10rem', margin: "10px" }} variant="primary" className="px-5 py-3">Saved</Button>
-                        <Button as={Button} style={{ width: '10rem', margin: "10px",whiteSpace:"nowrap" }} onClick={handleSignout} variant="primary" className="px-5 py-3">Sign Out</Button>
-                    </Container>
+                    <Row className="d-flex justify-content-center">
+                        <Container className="justify-content-center" >
+                            <Button as={Link} to="/Recommendations" style={{ width: '10rem', margin: "10px" }} variant="primary" className="px-5 py-3">Basic</Button>
+                            <Button as={Link} to="/SavedRecommendations" style={{ width: '10rem', margin: "10px" }} variant="primary" className="px-5 py-3">Saved</Button>
+                            <Button as={Button} style={{ width: '10rem', margin: "10px", whiteSpace: "nowrap" }} onClick={handleSignout} variant="primary" className="px-5 py-3">Sign Out</Button>
+                        </Container>
+                    </Row>
 
                 </div>
             </div>
