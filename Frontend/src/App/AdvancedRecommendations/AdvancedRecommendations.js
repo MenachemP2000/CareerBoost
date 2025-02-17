@@ -194,8 +194,10 @@ const AdvancedRecommendations = ({ toggleScreen, isSignedIn, toggleSignendIn }) 
                     }
 
                     {(isSignedIn.recommendations) &&
-                        <Card style={{ margin: "10px", width: '80vw' }}>
+                        <Card style={{ margin: "10px", maxWidth: '95vw' }}>
+
                             <Card.Header>Recommendations</Card.Header>
+                            <br />
                             <Col className="d-flex justify-content-center">
 
                                 <Container className=" justify-content-center">
@@ -237,14 +239,17 @@ const AdvancedRecommendations = ({ toggleScreen, isSignedIn, toggleSignendIn }) 
                                     </div>
                                 </Container>
                             </Col>
+
+                            <br/>
+
+                            <Card.Text >
+                                <ul className="list-none space-y-2">
+                                    {recommendations.map((recommendation, index) => (
+                                        <li style={{ listStyle: "none", textAlign: "left" }} key={index} className="p-2">{recommendation}</li>
+                                    ))}
+                                </ul>
+                            </Card.Text>
                             <Card.Body >
-                                <Card.Text >
-                                    <ul className="list-none space-y-2">
-                                        {recommendations.map((recommendation, index) => (
-                                            <li style={{ listStyle: "none", textAlign: "left" }} key={index} className="p-2">{recommendation}</li>
-                                        ))}
-                                    </ul>
-                                </Card.Text>
                                 <Card.Text>
                                     if you change your information, you can ask to be re-recommended
                                 </Card.Text>
