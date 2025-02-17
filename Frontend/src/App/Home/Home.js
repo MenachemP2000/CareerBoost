@@ -39,7 +39,7 @@ const Home = ({ toggleScreen, isSignedIn, toggleSignendIn }) => {
                     </Row>
                 }
                 {isSignedIn &&
-                    <Row className=" justify-content-center">
+                    <Row className=" justify-content-center" >
                         <p className="lead">
                             Hello {isSignedIn.username}!
                         </p>
