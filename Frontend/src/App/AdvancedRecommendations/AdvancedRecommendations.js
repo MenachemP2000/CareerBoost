@@ -7,8 +7,62 @@ import config from '../config';
 
 const AdvancedRecommendations = ({ toggleScreen, isSignedIn, toggleSignendIn }) => {
     const navigate = useNavigate();
-    const [recommendations, setRecommendations] = useState(false);
     const [error, setError] = useState('');
+    const [showLanguages, setShowLanguages] = useState(true);
+    const [showPath, setShowPath] = useState(true);
+    const [backwardsort, setBackwardsort] = useState(false);
+
+    const languages = [
+        "Assembly", "Bash/Shell (all shells)", "C", "C++", "HTML/CSS", "Java", "JavaScript",
+        "Python", "R", "SQL", "TypeScript", "Fortran", "MATLAB", "Julia", "C#", "MicroPython",
+        "Go", "Kotlin", "Ruby", "PowerShell", "Groovy", "Elixir", "Rust", "Dart", "Delphi",
+        "Apex", "PHP", "F#", "GDScript", "Perl", "Lua", "Objective-C", "VBA", "Ada", "Swift",
+        "Scala", "Visual Basic (.Net)", "Lisp", "Clojure", "Erlang", "Haskell", "OCaml", "Prolog",
+        "Nim", "Cobol", "Solidity", "Zig", "Zephyr", "Crystal"
+    ];
+
+    const languageRecommendations = isSignedIn.recommendations?.length
+        ? isSignedIn.recommendations
+            .map((recommendation, i) => ({ recommendation, i }))
+            .filter(({ i }) => isSignedIn.recommendationsFeature?.[i] && languages.includes(isSignedIn.recommendationsFeature[i])) // Filter by feature
+            .sort((a, b) => (isSignedIn.recommendationsIncrese?.[b.i] || 0) - (isSignedIn.recommendationsIncrese?.[a.i] || 0)) // Sort by increase
+            .map(({ recommendation }) => recommendation)
+        : [];
+
+    const [recommendations, setRecommendations] = useState([]);
+
+    useEffect(() => {
+
+        let filteredRecommendations = [];
+
+        if (showLanguages && !showPath) {
+            filteredRecommendations = isSignedIn.recommendations?.length
+                ? isSignedIn.recommendations
+                    .map((recommendation, i) => ({ recommendation, i }))
+                    .filter(({ i }) => isSignedIn.recommendationsFeature?.[i] && languages.includes(isSignedIn.recommendationsFeature[i]))
+                    .map(({ recommendation }) => recommendation)
+                : [];
+        } else if (!showLanguages && showPath) {
+            filteredRecommendations = isSignedIn.recommendations?.length
+                ? isSignedIn.recommendations
+                    .map((recommendation, i) => ({ recommendation, i }))
+                    .filter(({ i }) => !languages.includes(isSignedIn.recommendationsFeature[i]))
+                    .map(({ recommendation }) => recommendation)
+                : [];
+        }
+        else if (showLanguages && showPath) {
+            filteredRecommendations = isSignedIn.recommendations?.length
+                ? isSignedIn.recommendations
+                : [];
+        }
+        let sortedRecommendations = [...filteredRecommendations]; // Copy to avoid mutation
+
+        if (backwardsort) {
+            sortedRecommendations.reverse(); // Simply flip the order
+        }
+        setRecommendations(sortedRecommendations);
+
+    }, [showPath, showLanguages, backwardsort,isSignedIn]);
 
     useEffect(() => {
         toggleScreen("AdvancedRecommendations");
@@ -76,6 +130,8 @@ const AdvancedRecommendations = ({ toggleScreen, isSignedIn, toggleSignendIn }) 
             payload.topRecommendations = result.topRecommendations;
             payload.combined = result.combined;
             payload.recommendations = result.recommendations;
+            payload.recommendationsIncrese = result.recommendationsIncrese;
+            payload.recommendationsFeature = result.recommendationsFeature;
 
             if (!response.ok) {
                 // If the server responds with an error, set the error message
@@ -114,7 +170,7 @@ const AdvancedRecommendations = ({ toggleScreen, isSignedIn, toggleSignendIn }) 
     return (
 
         <div>
-            <div  className="position-relative text-white text-center" >
+            <div className="position-relative text-white text-center" >
                 <div style={{ minHeight: "100vh" }} className=" top-0 start-0 w-100 h-100 bg-dark bg-opacity-50 d-flex flex-column align-items-center justify-content-center">
                     <h3 className="display-4 fw-bold">Advanced Recommendations</h3>
                     <div className="underline mx-auto mb-3"></div>
@@ -138,12 +194,50 @@ const AdvancedRecommendations = ({ toggleScreen, isSignedIn, toggleSignendIn }) 
                     }
 
                     {(isSignedIn.recommendations) &&
-                        <Card style={{ margin: "10px" }}>
+                        <Card style={{ margin: "10px", width: '80vw' }}>
                             <Card.Header>Recommendations</Card.Header>
+                            <Container className="d-flex justify-content-center">
+                                <div className="form-check">
+                                    <input
+                                        className="form-check-input"
+                                        type="checkbox"
+                                        id="checkbox1"
+                                        checked={showLanguages}
+                                        onChange={() => setShowLanguages(!showLanguages)}
+                                    />
+                                    <label className="form-check-label " htmlFor="checkbox1" style={{ marginRight: "10px" }}>
+                                        Show Recommendations for Languages
+                                    </label>
+                                </div>
+                                <div className="form-check">
+                                    <input
+                                        className="form-check-input"
+                                        type="checkbox"
+                                        id="checkbox2"
+                                        checked={showPath}
+                                        onChange={() => setShowPath(!showPath)}
+                                    />
+                                    <label className="form-check-label" htmlFor="checkbox2" style={{ marginRight: "10px" }}>
+                                    Show Recommendations for Career Path
+                                    </label>
+                                </div>
+                                <div className="form-check">
+                                    <input
+                                        className="form-check-input"
+                                        type="checkbox"
+                                        id="checkbox3"
+                                        checked={backwardsort}
+                                        onChange={() => setBackwardsort(!backwardsort)}
+                                    />
+                                    <label className="form-check-label" htmlFor="checkbox3" style={{ marginRight: "10px" }}>
+                                        Sort Low to High
+                                    </label>
+                                </div>
+                            </Container>
                             <Card.Body >
                                 <Card.Text >
                                     <ul className="list-none space-y-2">
-                                        {isSignedIn.recommendations.map((recommendation, index) => (
+                                        {recommendations.map((recommendation, index) => (
                                             <li style={{ listStyle: "none", textAlign: "left" }} key={index} className="p-2">{recommendation}</li>
                                         ))}
                                     </ul>
@@ -158,8 +252,8 @@ const AdvancedRecommendations = ({ toggleScreen, isSignedIn, toggleSignendIn }) 
                     }
 
                     <Container className="d-flex justify-content-center" >
-                        <Button as={Link} to="/Recommendations" style={{width: '10rem', margin: "10px" }} variant="primary" className="px-5 py-3">Basic</Button>
-                        <Button as={Link} to="/SavedRecommendations" style={{width: '10rem', margin: "10px" }} variant="primary" className="px-5 py-3">Saved</Button>
+                        <Button as={Link} to="/Recommendations" style={{ width: '10rem', margin: "10px" }} variant="primary" className="px-5 py-3">Basic</Button>
+                        <Button as={Link} to="/SavedRecommendations" style={{ width: '10rem', margin: "10px" }} variant="primary" className="px-5 py-3">Saved</Button>
                         <Button as={Button} style={{ width: '10rem', margin: "10px" }} onClick={handleSignout} variant="primary" className="px-5 py-3">Sign Out</Button>
                     </Container>
 

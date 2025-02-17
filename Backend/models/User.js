@@ -78,7 +78,15 @@ const userSchema = new mongoose.Schema({
   savedRecommendations:
   {
     type: Object
-  }
+  },
+  recommendationsFeature:
+  {
+    type: Object
+  },
+  recommendationsIncrese:
+  {
+    type: Object
+  },
 
 
 });

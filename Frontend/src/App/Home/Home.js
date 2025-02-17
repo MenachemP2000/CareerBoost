@@ -17,7 +17,7 @@ const Home = ({ toggleScreen, isSignedIn, toggleSignendIn }) => {
             <div style={{ minHeight: "100vh" }} className="top-0 start-0 w-100 h-100 bg-dark bg-opacity-50 d-flex flex-column align-items-center justify-content-center" >
                 
                 <h3 className="display-4 fw-bold">
-                <img src="careerboost.ico" alt="CareerBoost" style={{ width: "5rem"}} /> CareerBoost</h3>
+                <img src="careerboost.ico" alt="CareerBoost" style={{ width: "6rem"}} /> CareerBoost</h3>
                 <div className="underline mx-auto mb-3"></div>
                 <p className="display-6">
                     

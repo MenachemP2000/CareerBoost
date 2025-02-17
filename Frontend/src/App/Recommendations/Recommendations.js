@@ -76,6 +76,8 @@ const Recommendations = ({ toggleScreen, isSignedIn, toggleSignendIn }) => {
             payload.topRecommendations = result.topRecommendations;
             payload.combined = result.combined;
             payload.recommendations = result.recommendations;
+            payload.recommendationsIncrese = result.recommendationsIncrese;
+            payload.recommendationsFeature = result.recommendationsFeature;
 
             if (!response.ok) {
                 // If the server responds with an error, set the error message
@@ -159,8 +161,8 @@ const Recommendations = ({ toggleScreen, isSignedIn, toggleSignendIn }) => {
                     }
 
                     <Container className="d-flex justify-content-center" >
-                        <Button as={Link} to="/AdvancedRecommendations" style={{width: '10rem', margin: "10px" }} variant="primary" className="px-5 py-3">Advanced</Button>
-                        <Button as={Link} to="/SavedRecommendations" style={{width: '10rem', margin: "10px" }} variant="primary" className="px-5 py-3">Saved</Button>
+                        <Button as={Link} to="/AdvancedRecommendations" style={{ width: '10rem', margin: "10px" }} variant="primary" className="px-5 py-3">Advanced</Button>
+                        <Button as={Link} to="/SavedRecommendations" style={{ width: '10rem', margin: "10px" }} variant="primary" className="px-5 py-3">Saved</Button>
                         <Button as={Button} style={{ width: '10rem', margin: "10px" }} onClick={handleSignout} variant="primary" className="px-5 py-3">Sign Out</Button>
                     </Container>
 

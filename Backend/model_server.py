@@ -126,7 +126,7 @@ def recommend_skills_individual_with_best_value(user_profile,top_n=5):
             isLanguage = False
         
         
-        recommendations.append((best_value_str, best_salary_increase, recommendation, i, best_value))
+        recommendations.append((best_value_str, best_salary_increase, recommendation, i, best_value, feature))
         
     
     # Sort the recommendations by the salary increase, descending order
@@ -144,8 +144,12 @@ def recommend_skills_individual_with_best_value(user_profile,top_n=5):
     prediction = model.predict(user_profile_copy.reshape(1, -1))[0]
     combined = f"By following this top recommendations, your salary could increase to approximately $ {int(prediction)}."
     
+    recommendationsIncrese = [recommendation[1] for recommendation in recommendations if ((recommendation[1] > 0) & (recommendation[0] != "nan"))]
+    recommendationsIncrese = [ int(recommendation) for recommendation in recommendationsIncrese]
+    recommendationsFeature = [recommendation[5] for recommendation in recommendations if ((recommendation[1] > 0) & (recommendation[0] != "nan"))]
     recommendations = [recommendation[2] for recommendation in recommendations if ((recommendation[1] > 0) & (recommendation[0] != "nan"))]
-    return top_recommendations,combined,recommendations
+    
+    return top_recommendations,combined,recommendations, recommendationsIncrese, recommendationsFeature
 
 while True:
     try:
@@ -182,10 +186,15 @@ while True:
             print(json.dumps(response), flush=True)
 
         elif request_type == "recommend":
-            topRecommendations, combined,recommendations = recommend_skills_individual_with_best_value(df)
+            topRecommendations, combined,recommendations, recommendationsIncrese, recommendationsFeature = recommend_skills_individual_with_best_value(df)
 
             # Send response
-            response = {"topRecommendations": list(topRecommendations), "recommendations": list(recommendations), "combined": combined}
+            response = {"topRecommendations": list(topRecommendations),
+                        "recommendations": list(recommendations),
+                        "combined": combined,
+                        "recommendationsIncrese": list(recommendationsIncrese),
+                        "recommendationsFeature": list(recommendationsFeature)}
+            
             print(json.dumps(response), flush=True)
 
         else:
