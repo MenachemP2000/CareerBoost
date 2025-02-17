@@ -24,8 +24,10 @@ const Prediction = ({ toggleScreen, isSignedIn, toggleSignendIn }) => {
 
         const payload = { _id: isSignedIn._id, username: isSignedIn.username };
         try {
-            const userprofile = { Country: isSignedIn.country, WorkExp: isSignedIn.experience,
-                 EdLevel: isSignedIn.education, Age: isSignedIn.age }; //basic user profile
+            const userprofile = {
+                Country: isSignedIn.country, WorkExp: isSignedIn.experience,
+                EdLevel: isSignedIn.education, Age: isSignedIn.age
+            }; //basic user profile
             if (isSignedIn.MainBranch) {
                 userprofile.MainBranch = isSignedIn.MainBranch;
             }
@@ -56,7 +58,7 @@ const Prediction = ({ toggleScreen, isSignedIn, toggleSignendIn }) => {
             if (isSignedIn.languages) {
                 for (let i = 0; i < isSignedIn.languages.length; i++) {
                     userprofile[isSignedIn.languages[i]] = 1;
-                }  
+                }
             }
             if (isSignedIn.employments) {
                 for (let i = 0; i < isSignedIn.employments.length; i++) {
@@ -155,7 +157,7 @@ const Prediction = ({ toggleScreen, isSignedIn, toggleSignendIn }) => {
                                     <Card.Body >
                                         <Card.Text>
                                             We Havent Predicted your Salary Yet,
-                                            click the button below to 
+                                            click the button below to
                                             Let our AI predict your salary!
                                         </Card.Text>
                                         <Button as={Button} onClick={handlePredict} variant="primary" className="px-5 py-3">Predict</Button>
@@ -182,8 +184,8 @@ const Prediction = ({ toggleScreen, isSignedIn, toggleSignendIn }) => {
 
                             }
                             <Container className="d-flex justify-content-center" >
-                                                    <Button as={Link} to="/Experiment" style={{ width: '10rem', margin: "10px" }} variant="primary" className="px-5 py-3">Experiment</Button>
-                                <Button as={Button} style={{ width: '10rem', margin: "10px" }} onClick={handleSignout} variant="primary" className="px-5 py-3">SignOut</Button>
+                                <Button as={Link} to="/Experiment" style={{ width: '10rem', margin: "10px" }} variant="primary" className="px-5 py-3">Experiment</Button>
+                                <Button as={Button} style={{ width: '10rem', margin: "10px", whiteSpace: "nowrap" }} onClick={handleSignout} variant="primary" className="px-5 py-3">Sign Out</Button>
                             </Container>
                         </Row>
                     }

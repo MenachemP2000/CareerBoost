@@ -334,7 +334,7 @@ const AdvancedProfile = ({ toggleScreen, isSignedIn, toggleSignendIn }) => {
                             </Card>
                         )}
 
-                        {!isSignedIn.employments &&
+                        {(!isSignedIn.employments || (isSignedIn.employments && isSignedIn.employments.length < 1)) &&
                             <Card style={{ width: '30rem', margin: "10px" }}>
                                 <Card.Header>Employments Status</Card.Header>
                                 <Card.Body >
