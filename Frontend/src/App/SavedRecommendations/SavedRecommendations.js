@@ -120,19 +120,17 @@ const SavedRecommendations = ({ toggleScreen, isSignedIn, toggleSignendIn }) => 
                         Here's your saved Recommendations:
                     </p>
                     {isSignedIn.recommendations &&
-                        <Col className="d-flex justify-content-center">
-                            <Card style={{ maxWidth: '95vw'}}>
-                                <Card.Header>Saved Recommendations</Card.Header>
-                                {!isSignedIn.savedRecommendations || (isSignedIn.savedRecommendations && isSignedIn.savedRecommendations.length == 0) &&
-                                    <Card.Body >
+                        <Card style={{ maxWidth: '95vw', margin: "10px", width: "fit-content" }}>
+                            <Card.Header>Saved Recommendations</Card.Header>
+                            <Row className="d-flex justify-content-center " >
+                                <Card.Body >
+                                    {!isSignedIn.savedRecommendations || (isSignedIn.savedRecommendations && isSignedIn.savedRecommendations.length == 0) &&
                                         <Card.Text >
                                             No saved recommendations yet, add some!
                                         </Card.Text>
-                                    </Card.Body>
-                                }
+                                    }
 
-                                {isSignedIn.savedRecommendations && isSignedIn.savedRecommendations.length > 0 &&
-                                    <Card.Body >
+                                    {isSignedIn.savedRecommendations && isSignedIn.savedRecommendations.length > 0 &&
                                         <Card.Text >
                                             <ul className="list-none space-y-2">
                                                 {isSignedIn.savedRecommendations.map((recommendation, index) => (
@@ -140,9 +138,7 @@ const SavedRecommendations = ({ toggleScreen, isSignedIn, toggleSignendIn }) => 
                                                 ))}
                                             </ul>
                                         </Card.Text>
-                                    </Card.Body>
-                                }
-                                <Card.Body >
+                                    }
                                     {!isSignedIn.savedRecommendations &&
                                         <Form onSubmit={handleAdd}>
                                             <Form.Group controlId="formaddRecommendation" className="mb-3">
@@ -191,9 +187,7 @@ const SavedRecommendations = ({ toggleScreen, isSignedIn, toggleSignendIn }) => 
                                             </Button>
                                         </Form>
                                     }
-                                </Card.Body>
-                                {isSignedIn.savedRecommendations && isSignedIn.savedRecommendations.length > 0 &&
-                                    <Card.Body >
+                                    {isSignedIn.savedRecommendations && isSignedIn.savedRecommendations.length > 0 &&
                                         <Form onSubmit={handleRemove}>
                                             <Form.Group controlId="formaremoveRecommendation" className="mb-3">
                                                 <Form.Control
@@ -217,11 +211,11 @@ const SavedRecommendations = ({ toggleScreen, isSignedIn, toggleSignendIn }) => 
                                                 Remove
                                             </Button>
                                         </Form>
-                                    </Card.Body>
-                                }
+                                    }
+                                </Card.Body>
 
-                            </Card>
-                        </Col>
+                            </Row>
+                        </Card>
                     }
 
                     {!isSignedIn.recommendations &&
