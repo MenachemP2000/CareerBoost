@@ -28,6 +28,15 @@ function App() {
         return savedStatus ? JSON.parse(savedStatus) : false;
     });
 
+    const languages = [
+        "Assembly", "Bash/Shell (all shells)", "C", "C++", "HTML/CSS", "Java", "JavaScript",
+        "Python", "R", "SQL", "TypeScript", "Fortran", "MATLAB", "Julia", "C#", "MicroPython",
+        "Go", "Kotlin", "Ruby", "PowerShell", "Groovy", "Elixir", "Rust", "Dart", "Delphi",
+        "Apex", "PHP", "F#", "GDScript", "Perl", "Lua", "Objective-C", "VBA", "Ada", "Swift",
+        "Scala", "Visual Basic (.Net)", "Lisp", "Clojure", "Erlang", "Haskell", "OCaml", "Prolog",
+        "Nim", "Cobol", "Solidity", "Zig", "Zephyr", "Crystal"
+    ];
+
     useEffect(() => {
         localStorage.setItem('isSignedIn', JSON.stringify(isSignedIn));
     }, [isSignedIn]);
@@ -111,12 +120,13 @@ function App() {
                     <Route path="/Recommendations" element={<Recommendations
                         toggleSignendIn={toggleSignendIn}
                         toggleScreen={toggleScreen}
-                        isSignedIn={isSignedIn} />} />
+                        isSignedIn={isSignedIn}/>} />
 
                     <Route path="/AdvancedRecommendations" element={<AdvancedRecommendations
                         toggleSignendIn={toggleSignendIn}
                         toggleScreen={toggleScreen}
-                        isSignedIn={isSignedIn} />} />
+                        isSignedIn={isSignedIn} 
+                        languages={languages} />} />
 
                     <Route path="/SavedRecommendations" element={<SavedRecommendations
                         toggleSignendIn={toggleSignendIn}

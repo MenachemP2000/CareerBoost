@@ -33,6 +33,11 @@ def recommend_skills_individual_with_best_value(user_profile,top_n=5):
     recommendations = []
     isLanguage = False
     isEmployment = False
+    isDataBase = False
+    isPlatform = False
+    isFramework = False
+    isTool = False
+    isOS = False
     
     # Iterate through all features to calculate the salary impact of improving each feature
     for i, feature in enumerate(X_columns):
@@ -80,11 +85,33 @@ def recommend_skills_individual_with_best_value(user_profile,top_n=5):
             isLanguage = True
         if feature == 'Employed, full-time' :
             isEmployment = True
+        if feature == 'MongoDB' :
+            isDataBase = True
+        if feature == 'Microsoft Azure' :
+            isPlatform = True
+        if feature == 'Angular' :
+            isFramework = True
+        if feature == 'Docker' :
+            isTool = True
+        if feature == 'No OpSys Professional' :
+            isOS = True
+            continue
+        if feature == 'NoDataBase' :
+            continue
+        if feature == 'NoPlatforms' :
+            continue
+        if feature == 'NoWebframes' :
+            continue
+        if feature == 'NoToolsTech' :
+            continue
+        
+        
+        
         if isLanguage:
             if best_value_str == 1:
-                recommendation = f"You should use {feature} to increase your salary by approximately $ {int(best_salary_increase)}."
+                recommendation = f"You should learn {feature} to increase your salary by approximately $ {int(best_salary_increase)}."
             else:
-                recommendation = f"You should not use {feature} to increase your salary by approximately $ {int(best_salary_increase)}."
+                recommendation = f"You should stop using {feature} to increase your salary by approximately $ {int(best_salary_increase)}."
         elif feature == 'MainBranch' :
             if not best_value_str == "I am a developer by profession" :
                 recommendation = f"You should become developer by profession to increase your salary by approximately $ {int(best_salary_increase)}."
@@ -119,12 +146,48 @@ def recommend_skills_individual_with_best_value(user_profile,top_n=5):
                 recommendation = f"You should have {feature} in your employment status to increase your salary by approximately $ {int(best_salary_increase)}."
             else :
                 recommendation = f"You should not have {feature} in your employment status to increase your salary by approximately $ {int(best_salary_increase)}."
+        elif isDataBase :
+            if best_value_str == 1:
+                recommendation = f"You should learn to work with {feature} to increase your salary by approximately $ {int(best_salary_increase)}."
+            else :
+                recommendation = f"You should not work with {feature} to increase your salary by approximately $ {int(best_salary_increase)}."
+        elif isPlatform :
+            if best_value_str == 1:
+                recommendation = f"You should learn to work with {feature} to increase your salary by approximately $ {int(best_salary_increase)}."
+            else :
+                recommendation = f"You should not work with {feature} to increase your salary by approximately $ {int(best_salary_increase)}."
+        elif isFramework :
+            if best_value_str == 1:
+                recommendation = f"You should learn {feature} to increase your salary by approximately $ {int(best_salary_increase)}."
+            else :
+                recommendation = f"You should stop using {feature} to increase your salary by approximately $ {int(best_salary_increase)}."
+        elif isTool :
+            if best_value_str == 1:
+                recommendation = f"You should learn to use {feature} to increase your salary by approximately $ {int(best_salary_increase)}."
+            else :
+                recommendation = f"You should stop using {feature} to increase your salary by approximately $ {int(best_salary_increase)}."
+        elif isOS :
+            if best_value_str == 1:
+                recommendation = f"You should use {feature} as your operating system to increase your salary by approximately $ {int(best_salary_increase)}."
+            else :
+                recommendation = f"You should stop using {feature} as your operating system to increase your salary by approximately $ {int(best_salary_increase)}."       
         else:
             recommendation = f"Change your {feature} to {best_value_str} to increase your salary by approximately ${int(best_salary_increase)}."
         
         if feature == 'Crystal' :
             isLanguage = False
-        
+        if feature == 'Not employed, and not looking for work' :
+            isEmployment = False
+        if feature == 'Datomic' :
+            isDataBase = False
+        if feature == 'PythonAnywhere' :
+            isPlatform = False
+        if feature == 'Solid.js' :
+            isFramework = False
+        if feature == 'Pulumi' :
+            isTool = False
+        if feature == 'Haiku' :
+            isOS = False
         
         recommendations.append((best_value_str, best_salary_increase, recommendation, i, best_value, feature))
         

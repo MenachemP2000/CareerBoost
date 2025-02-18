@@ -5,31 +5,18 @@ import { useEffect, useState } from "react";
 import { useNavigate } from 'react-router-dom';
 import config from '../config';
 
-const AdvancedRecommendations = ({ toggleScreen, isSignedIn, toggleSignendIn }) => {
+const AdvancedRecommendations = ({ toggleScreen, isSignedIn, toggleSignendIn,languages }) => {
     const navigate = useNavigate();
     const [error, setError] = useState('');
-    const [showLanguages, setShowLanguages] = useState(true);
-    const [showPath, setShowPath] = useState(true);
     const [backwardsort, setBackwardsort] = useState(false);
-
-    const languages = [
-        "Assembly", "Bash/Shell (all shells)", "C", "C++", "HTML/CSS", "Java", "JavaScript",
-        "Python", "R", "SQL", "TypeScript", "Fortran", "MATLAB", "Julia", "C#", "MicroPython",
-        "Go", "Kotlin", "Ruby", "PowerShell", "Groovy", "Elixir", "Rust", "Dart", "Delphi",
-        "Apex", "PHP", "F#", "GDScript", "Perl", "Lua", "Objective-C", "VBA", "Ada", "Swift",
-        "Scala", "Visual Basic (.Net)", "Lisp", "Clojure", "Erlang", "Haskell", "OCaml", "Prolog",
-        "Nim", "Cobol", "Solidity", "Zig", "Zephyr", "Crystal"
-    ];
-
-    const languageRecommendations = isSignedIn.recommendations?.length
-        ? isSignedIn.recommendations
-            .map((recommendation, i) => ({ recommendation, i }))
-            .filter(({ i }) => isSignedIn.recommendationsFeature?.[i] && languages.includes(isSignedIn.recommendationsFeature[i])) // Filter by feature
-            .sort((a, b) => (isSignedIn.recommendationsIncrese?.[b.i] || 0) - (isSignedIn.recommendationsIncrese?.[a.i] || 0)) // Sort by increase
-            .map(({ recommendation }) => recommendation)
-        : [];
-
     const [recommendations, setRecommendations] = useState([]);
+    const [showPath, setShowPath] = useState(true);
+    const [showLanguages, setShowLanguages] = useState(true);
+    const [showDatabases, setShowDatabases] = useState(true);
+    const [showPlatforms, setShowPlatforms] = useState(true);
+    const [showWebframesworks, setShowWebframesworks] = useState(true);
+    const [showTools, setShowTools] = useState(true);
+    const [showOpSys, setShowOpSys] = useState(true);
 
     useEffect(() => {
 
@@ -62,7 +49,7 @@ const AdvancedRecommendations = ({ toggleScreen, isSignedIn, toggleSignendIn }) 
         }
         setRecommendations(sortedRecommendations);
 
-    }, [showPath, showLanguages, backwardsort, isSignedIn]);
+    }, [showPath, showLanguages,showDatabases, backwardsort, isSignedIn]);
 
     useEffect(() => {
         toggleScreen("AdvancedRecommendations");
@@ -115,6 +102,31 @@ const AdvancedRecommendations = ({ toggleScreen, isSignedIn, toggleSignendIn }) 
             if (isSignedIn.employments) {
                 for (let i = 0; i < isSignedIn.employments.length; i++) {
                     userprofile[isSignedIn.employments[i]] = 1;
+                }
+            }
+            if (isSignedIn.databases) {
+                for (let i = 0; i < isSignedIn.databases.length; i++) {
+                    userprofile[isSignedIn.databases[i]] = 1;
+                }
+            }
+            if (isSignedIn.platforms) {
+                for (let i = 0; i < isSignedIn.platforms.length; i++) {
+                    userprofile[isSignedIn.platforms[i]] = 1;
+                }
+            }
+            if (isSignedIn.webframesworks) {
+                for (let i = 0; i < isSignedIn.webframesworks.length; i++) {
+                    userprofile[isSignedIn.webframesworks[i]] = 1;
+                }
+            }
+            if (isSignedIn.tools) {
+                for (let i = 0; i < isSignedIn.tools.length; i++) {
+                    userprofile[isSignedIn.tools[i]] = 1;
+                }
+            }
+            if (isSignedIn.OpSys) {
+                for (let i = 0; i < isSignedIn.OpSys.length; i++) {
+                    userprofile[isSignedIn.OpSys[i]] = 1;
                 }
             }
             // Send the registration data to the server
@@ -187,7 +199,6 @@ const AdvancedRecommendations = ({ toggleScreen, isSignedIn, toggleSignendIn }) 
                                         Click the button below to get recommendations Based on your profile
                                     </Card.Text>
                                     <Button as={Button} onClick={handleRecommendations} variant="primary" className="px-5 py-3">Recommendations</Button>
-
                                 </Card.Body>
                             </Card>
                         </Row>
@@ -211,6 +222,66 @@ const AdvancedRecommendations = ({ toggleScreen, isSignedIn, toggleSignendIn }) 
                                         />
                                         <label className="form-check-label" htmlFor="checkbox1" style={{ marginLeft: "10px" }}>
                                             Show Recommendations for Languages
+                                        </label>
+                                    </div>
+                                    <div className="form-check d-flex align-items-center">
+                                        <input
+                                            className="form-check-input"
+                                            type="checkbox"
+                                            id="checkboxDatabases"
+                                            checked={showDatabases}
+                                            onChange={() => setShowDatabases(!showDatabases)}
+                                        />
+                                        <label className="form-check-label" htmlFor="checkbox1" style={{ marginLeft: "10px" }}>
+                                            Show Recommendations for Databases
+                                        </label>
+                                    </div>
+                                    <div className="form-check d-flex align-items-center">
+                                        <input
+                                            className="form-check-input"
+                                            type="checkbox"
+                                            id="checkboxPlatforms"
+                                            checked={showPlatforms}
+                                            onChange={() => setShowPlatforms(!showPlatforms)}
+                                        />
+                                        <label className="form-check-label" htmlFor="checkbox1" style={{ marginLeft: "10px" }}>
+                                            Show Recommendations for Platforms
+                                        </label>
+                                    </div>
+                                    <div className="form-check d-flex align-items-center">
+                                        <input
+                                            className="form-check-input"
+                                            type="checkbox"
+                                            id="checkboxWebframesworks"
+                                            checked={showWebframesworks}
+                                            onChange={() => setShowPlatforms(!showWebframesworks)}
+                                        />
+                                        <label className="form-check-label" htmlFor="checkbox1" style={{ marginLeft: "10px" }}>
+                                            Show Recommendations for Webframesworks
+                                        </label>
+                                    </div>
+                                    <div className="form-check d-flex align-items-center">
+                                        <input
+                                            className="form-check-input"
+                                            type="checkbox"
+                                            id="checkboxTools"
+                                            checked={showTools}
+                                            onChange={() => setShowTools(!showTools)}
+                                        />
+                                        <label className="form-check-label" htmlFor="checkbox1" style={{ marginLeft: "10px" }}>
+                                            Show Recommendations for Tools
+                                        </label>
+                                    </div>
+                                    <div className="form-check d-flex align-items-center">
+                                        <input
+                                            className="form-check-input"
+                                            type="checkbox"
+                                            id="checkboxOpSys"
+                                            checked={showOpSys}
+                                            onChange={() => setShowOpSys(!showOpSys)}
+                                        />
+                                        <label className="form-check-label" htmlFor="checkbox1" style={{ marginLeft: "10px" }}>
+                                            Show Recommendations for Operating Systems
                                         </label>
                                     </div>
                                     <div className="form-check d-flex align-items-center">

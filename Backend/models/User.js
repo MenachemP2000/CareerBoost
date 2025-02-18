@@ -87,7 +87,21 @@ const userSchema = new mongoose.Schema({
   {
     type: Object
   },
-
+  databases: {
+    type: Object
+  },
+  platforms: {
+    type: Object
+  },
+  webframesworks: {
+    type: Object
+  },
+  tools: {
+    type: Object
+  },
+  OpSys: {
+    type: Object
+  },
 
 });
 
