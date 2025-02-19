@@ -355,6 +355,116 @@ const AdvancedProfile = ({ toggleScreen, isSignedIn, toggleSignendIn }) => {
                                 </Card.Body>
                             </Card>
                         )}
+
+                        {(!isSignedIn.databases || (isSignedIn.databases && isSignedIn.databases.length < 1)) &&
+                            <Card style={{ width: '30rem',maxWidth: '90vw', margin: "10px" }}>
+                                <Card.Header>Used Databases</Card.Header>
+                                <Card.Body >
+                                    <Card.Text>
+                                        no used databases
+                                    </Card.Text>
+
+                                </Card.Body>
+                            </Card>
+                        }
+                        {(isSignedIn.databases && isSignedIn.databases.length > 0) && (
+                            <Card style={{ width: '30rem',maxWidth: '90vw', margin: "10px" }}>
+                                <Card.Header>Used databases</Card.Header>
+                                <Card.Body>
+                                    <Card.Text>
+                                        {isSignedIn.databases.join("; ")}
+                                    </Card.Text>
+                                </Card.Body>
+                            </Card>
+                        )}
+
+                        {(!isSignedIn.platforms || (isSignedIn.platforms && isSignedIn.platforms.length < 1)) &&
+                            <Card style={{ width: '30rem',maxWidth: '90vw', margin: "10px" }}>
+                                <Card.Header>Used platforms</Card.Header>
+                                <Card.Body >
+                                    <Card.Text>
+                                        no used platforms
+                                    </Card.Text>
+
+                                </Card.Body>
+                            </Card>
+                        }
+                        {(isSignedIn.platforms && isSignedIn.platforms.length > 0) && (
+                            <Card style={{ width: '30rem',maxWidth: '90vw', margin: "10px" }}>
+                                <Card.Header>Used platforms</Card.Header>
+                                <Card.Body>
+                                    <Card.Text>
+                                        {isSignedIn.platforms.join("; ")}
+                                    </Card.Text>
+                                </Card.Body>
+                            </Card>
+                        )}
+
+                        {(!isSignedIn.webframesworks || (isSignedIn.webframesworks && isSignedIn.webframesworks.length < 1)) &&
+                            <Card style={{ width: '30rem',maxWidth: '90vw', margin: "10px" }}>
+                                <Card.Header>Used webframesworks</Card.Header>
+                                <Card.Body >
+                                    <Card.Text>
+                                        no used webframesworks
+                                    </Card.Text>
+
+                                </Card.Body>
+                            </Card>
+                        }
+                        {(isSignedIn.webframesworks && isSignedIn.webframesworks.length > 0) && (
+                            <Card style={{ width: '30rem',maxWidth: '90vw', margin: "10px" }}>
+                                <Card.Header>Used webframesworks</Card.Header>
+                                <Card.Body>
+                                    <Card.Text>
+                                        {isSignedIn.webframesworks.join("; ")}
+                                    </Card.Text>
+                                </Card.Body>
+                            </Card>
+                        )}
+
+                        {(!isSignedIn.tools || (isSignedIn.tools && isSignedIn.tools.length < 1)) &&
+                            <Card style={{ width: '30rem',maxWidth: '90vw', margin: "10px" }}>
+                                <Card.Header>Used tools</Card.Header>
+                                <Card.Body >
+                                    <Card.Text>
+                                        no used tools
+                                    </Card.Text>
+
+                                </Card.Body>
+                            </Card>
+                        }
+                        {(isSignedIn.tools && isSignedIn.tools.length > 0) && (
+                            <Card style={{ width: '30rem',maxWidth: '90vw', margin: "10px" }}>
+                                <Card.Header>Used tools</Card.Header>
+                                <Card.Body>
+                                    <Card.Text>
+                                        {isSignedIn.tools.join("; ")}
+                                    </Card.Text>
+                                </Card.Body>
+                            </Card>
+                        )}
+
+                        {(!isSignedIn.OpSys || (isSignedIn.OpSys && isSignedIn.OpSys.length < 1)) &&
+                            <Card style={{ width: '30rem',maxWidth: '90vw', margin: "10px" }}>
+                                <Card.Header>Used Operating Systems</Card.Header>
+                                <Card.Body >
+                                    <Card.Text>
+                                        no used tools
+                                    </Card.Text>
+
+                                </Card.Body>
+                            </Card>
+                        }
+                        {(isSignedIn.OpSys && isSignedIn.OpSys.length > 0) && (
+                            <Card style={{ width: '30rem',maxWidth: '90vw', margin: "10px" }}>
+                                <Card.Header>Used Operating Systems</Card.Header>
+                                <Card.Body>
+                                    <Card.Text>
+                                        {isSignedIn.OpSys.join("; ")}
+                                    </Card.Text>
+                                </Card.Body>
+                            </Card>
+                        )}
                     </Row>
 
 

@@ -65,6 +65,31 @@ const Prediction = ({ toggleScreen, isSignedIn, toggleSignendIn }) => {
                     userprofile[isSignedIn.employments[i]] = 1;
                 }
             }
+            if (isSignedIn.databases) {
+                for (let i = 0; i < isSignedIn.databases.length; i++) {
+                    userprofile[isSignedIn.databases[i]] = 1;
+                }
+            }
+            if (isSignedIn.platforms) {
+                for (let i = 0; i < isSignedIn.platforms.length; i++) {
+                    userprofile[isSignedIn.platforms[i]] = 1;
+                }
+            }
+            if (isSignedIn.webframesworks) {
+                for (let i = 0; i < isSignedIn.webframesworks.length; i++) {
+                    userprofile[isSignedIn.webframesworks[i]] = 1;
+                }
+            }
+            if (isSignedIn.tools) {
+                for (let i = 0; i < isSignedIn.tools.length; i++) {
+                    userprofile[isSignedIn.tools[i]] = 1;
+                }
+            }
+            if (isSignedIn.OpSys) {
+                for (let i = 0; i < isSignedIn.OpSys.length; i++) {
+                    userprofile[isSignedIn.OpSys[i]] = 1;
+                }
+            }
             // Send the registration data to the server
             console.log(userprofile);
             const response = await fetch(`${config.apiBaseUrl}/api/model/predict`, {
