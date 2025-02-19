@@ -1,15 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { Container, Row, Col, Card, Button, Form } from 'react-bootstrap';
-import * as XLSX from 'xlsx';
-
-import countriesData from '../data/countries.xlsx';
-import educationsData from '../data/educations.xlsx';
-import agesData from '../data/ages.xlsx';
-
 import { useNavigate } from 'react-router-dom';
 import config from '../config';
 
-const ModifyAccount = ({ toggleSignendIn, toggleScreen, isSignedIn }) => {
+const ModifyAccount = ({ toggleSignendIn, toggleScreen, isSignedIn,countries,educations,ages }) => {
     const navigate = useNavigate();
     const [error, setError] = useState('');
 
@@ -20,70 +14,12 @@ const ModifyAccount = ({ toggleSignendIn, toggleScreen, isSignedIn }) => {
         }
     });
 
-
     const [formData, setFormData] = useState({
         ...(isSignedIn.experience && { experience: isSignedIn.experience }),
         ...(isSignedIn.country && { country: isSignedIn.country }),
         ...(isSignedIn.education && { education: isSignedIn.education }),
         ...(isSignedIn.age && { age: isSignedIn.age }),
     });
-    
-    const [countries, setCountries] = useState([]);
-
-    useEffect(() => {
-        // Load the Excel file and extract country list
-        const fetchCountries = async () => {
-            const file = await fetch(countriesData);
-            const arrayBuffer = await file.arrayBuffer();
-            const workbook = XLSX.read(arrayBuffer, { type: 'array' });
-
-            // Assuming countries are in the first sheet and first column
-            const sheet = workbook.Sheets[workbook.SheetNames[0]];
-            const countriesArray = XLSX.utils.sheet_to_json(sheet, { header: 1 });
-
-            setCountries(countriesArray.map(row => row[0])); // Get countries from first column
-        };
-
-        fetchCountries();
-    }, []);
-
-    const [educations, setEducations] = useState([]);
-
-    useEffect(() => {
-        // Load the Excel file and extract country list
-        const fetchEducations = async () => {
-            const file = await fetch(educationsData);
-            const arrayBuffer = await file.arrayBuffer();
-            const workbook = XLSX.read(arrayBuffer, { type: 'array' });
-
-            // Assuming countries are in the first sheet and first column
-            const sheet = workbook.Sheets[workbook.SheetNames[0]];
-            const educationsArray = XLSX.utils.sheet_to_json(sheet, { header: 1 });
-
-            setEducations(educationsArray.map(row => row[0])); // Get countries from first column
-        };
-
-        fetchEducations();
-    }, []);
-
-    const [ages, setAges] = useState([]);
-
-    useEffect(() => {
-        // Load the Excel file and extract country list
-        const fetchAges = async () => {
-            const file = await fetch(agesData);
-            const arrayBuffer = await file.arrayBuffer();
-            const workbook = XLSX.read(arrayBuffer, { type: 'array' });
-
-            // Assuming countries are in the first sheet and first column
-            const sheet = workbook.Sheets[workbook.SheetNames[0]];
-            const educationsArray = XLSX.utils.sheet_to_json(sheet, { header: 1 });
-
-            setAges(educationsArray.map(row => row[0])); // Get countries from first column
-        };
-
-        fetchAges();
-    }, []);
 
     const handleChange = (e) => {
         const { name, value } = e.target;

@@ -8,6 +8,7 @@ import config from '../config';
 const Recommendations = ({ toggleScreen, isSignedIn, toggleSignendIn }) => {
     const navigate = useNavigate();
     const [recommendations, setRecommendations] = useState(false);
+    const [recommendationsIncrese, setRecommendationsIncrese] = useState(false);
     const [error, setError] = useState('');
 
     useEffect(() => {
@@ -16,6 +17,34 @@ const Recommendations = ({ toggleScreen, isSignedIn, toggleSignendIn }) => {
             navigate("/signin");
         }
     });
+
+    useEffect(() => {
+        if (!isSignedIn.recommendations || !isSignedIn.recommendationsIncrese) {
+            setRecommendations(false);
+            setRecommendationsIncrese({});
+            return;
+        }
+        if (isSignedIn.recommendations.length === 0 || isSignedIn.recommendationsIncrese.length === 0) {
+            setRecommendations(false);
+            setRecommendationsIncrese(false);
+            return;
+        }
+
+        let filteredRecommendations = [];
+        let increaseDictionary = {}
+
+        for (let i = 0; i < Math.min(5, isSignedIn.recommendations.length); i++) {
+            filteredRecommendations.push(isSignedIn.recommendations[i]);
+        }
+
+        isSignedIn.recommendations.forEach((value, i) => {
+            increaseDictionary[value] = isSignedIn.recommendationsIncrese[i];
+        });
+        setRecommendationsIncrese(increaseDictionary);
+
+        setRecommendations(filteredRecommendations);
+
+    }, [isSignedIn]);
 
     const handleSignout = () => {
         toggleSignendIn(false);
@@ -63,6 +92,32 @@ const Recommendations = ({ toggleScreen, isSignedIn, toggleSignendIn }) => {
                     userprofile[isSignedIn.employments[i]] = 1;
                 }
             }
+            if (isSignedIn.databases) {
+                for (let i = 0; i < isSignedIn.databases.length; i++) {
+                    userprofile[isSignedIn.databases[i]] = 1;
+                }
+            }
+            if (isSignedIn.platforms) {
+                for (let i = 0; i < isSignedIn.platforms.length; i++) {
+                    userprofile[isSignedIn.platforms[i]] = 1;
+                }
+            }
+            if (isSignedIn.webframesworks) {
+                for (let i = 0; i < isSignedIn.webframesworks.length; i++) {
+                    userprofile[isSignedIn.webframesworks[i]] = 1;
+                }
+            }
+            if (isSignedIn.tools) {
+                for (let i = 0; i < isSignedIn.tools.length; i++) {
+                    userprofile[isSignedIn.tools[i]] = 1;
+                }
+            }
+            if (isSignedIn.OpSys) {
+                for (let i = 0; i < isSignedIn.OpSys.length; i++) {
+                    userprofile[isSignedIn.OpSys[i]] = 1;
+                }
+            }
+
             // Send the registration data to the server
             const response = await fetch(`${config.apiBaseUrl}/api/model/recommend`, {
                 method: 'POST',
@@ -124,7 +179,7 @@ const Recommendations = ({ toggleScreen, isSignedIn, toggleSignendIn }) => {
                     <p className="lead">
                         Here's an overview of your top Recommendations:
                     </p>
-                    {(!isSignedIn.topRecommendations) &&
+                    {(!recommendations || !recommendationsIncrese) &&
                         <Row className="d-flex justify-content-center">
                             <Card style={{ width: '18rem', margin: "10px" }}>
                                 <Card.Header>Get Recommendations</Card.Header>
@@ -139,17 +194,17 @@ const Recommendations = ({ toggleScreen, isSignedIn, toggleSignendIn }) => {
                         </Row>
                     }
 
-                    {(isSignedIn.topRecommendations) &&
+                    {(recommendations && recommendationsIncrese) &&
                         <Card style={{ margin: "10px" }}>
                             <Card.Header>Recommendations</Card.Header>
                             <Card.Body >
                                 <Card.Text>
-                                    {isSignedIn.topRecommendations.map((recommendation, index) => {
-                                        return <li key={index}>{recommendation}</li>
+                                    {recommendations.map((recommendation, index) => {
+                                        return <li key={index}>{recommendation} <span  style ={{color: "green"}} > $ {recommendationsIncrese[recommendation]}</span ></li>
                                     })}
                                 </Card.Text>
                                 <Card.Text>
-                                    {isSignedIn.combined}
+                                    By following this top recommendations, your salary could increase to approximately <span  style ={{color: "green"}} > $ {isSignedIn.combined}</span >
                                 </Card.Text>
                                 <Card.Text>
                                     if you change your information, you can ask to be re-recommended

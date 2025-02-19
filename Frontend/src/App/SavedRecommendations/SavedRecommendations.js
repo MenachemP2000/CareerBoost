@@ -10,6 +10,7 @@ import { Form } from 'react-bootstrap';
 const SavedRecommendations = ({ toggleScreen, isSignedIn, toggleSignendIn }) => {
     const navigate = useNavigate();
     const [recommendations, setRecommendations] = useState(false);
+    const [recommendationsIncrese, setRecommendationsIncrese] = useState(false);
     const [error, setError] = useState('');
 
     useEffect(() => {
@@ -18,6 +19,34 @@ const SavedRecommendations = ({ toggleScreen, isSignedIn, toggleSignendIn }) => 
             navigate("/");
         }
     });
+
+    useEffect(() => {
+        if (!isSignedIn.recommendations || !isSignedIn.recommendationsIncrese) {
+            setRecommendations(false);
+            setRecommendationsIncrese(false);
+            return;
+        }
+        if (isSignedIn.recommendations.length === 0 || isSignedIn.recommendationsIncrese.length === 0) {
+            setRecommendations(false);
+            setRecommendationsIncrese(false);
+            return;
+        }
+
+        let filteredRecommendations = [];
+        let increaseDictionary = {}
+
+        for (let i = 0; i < isSignedIn.recommendations.length; i++) {
+            filteredRecommendations.push(isSignedIn.recommendations[i]);
+        }
+
+        isSignedIn.recommendations.forEach((value, i) => {
+            increaseDictionary[value] = isSignedIn.recommendationsIncrese[i];
+        });
+        setRecommendationsIncrese(increaseDictionary);
+
+        setRecommendations(filteredRecommendations);
+
+    }, [isSignedIn]);
 
     const [formData, setFormData] = useState({
     });
@@ -134,7 +163,7 @@ const SavedRecommendations = ({ toggleScreen, isSignedIn, toggleSignendIn }) => 
                                         <Card.Text >
                                             <ul className="list-none space-y-2">
                                                 {isSignedIn.savedRecommendations.map((recommendation, index) => (
-                                                    <li style={{ listStyle: "none", textAlign: "left" }} key={index} className="p-0">{recommendation}</li>
+                                                    <li style={{ listStyle: "none", textAlign: "left" }} key={index} className="p-0">{recommendation}<span  style ={{color: "green"}} > $ {recommendationsIncrese[recommendation]}</span >.</li>
                                                 ))}
                                             </ul>
                                         </Card.Text>
@@ -152,8 +181,7 @@ const SavedRecommendations = ({ toggleScreen, isSignedIn, toggleSignendIn }) => 
                                                     {isSignedIn.recommendations
                                                         .map((recommendation, index) => (
                                                             <option key={index} value={recommendation}>
-                                                                {recommendation}
-                                                            </option>
+                                                                {`${recommendation} $${recommendationsIncrese[recommendation]}`}                                                            </option>
                                                         ))}
                                                 </Form.Control>
                                             </Form.Group>
@@ -176,7 +204,7 @@ const SavedRecommendations = ({ toggleScreen, isSignedIn, toggleSignendIn }) => 
                                                         .filter(recommendation => !isSignedIn.savedRecommendations.includes(recommendation))
                                                         .map((recommendation, index) => (
                                                             <option key={index} value={recommendation}>
-                                                                {recommendation}
+                                                                {`${recommendation} $${recommendationsIncrese[recommendation]}`}
                                                             </option>
                                                         ))}
                                                 </Form.Control>
@@ -201,7 +229,7 @@ const SavedRecommendations = ({ toggleScreen, isSignedIn, toggleSignendIn }) => 
                                                     {isSignedIn.savedRecommendations
                                                         .map((recommendation, index) => (
                                                             <option key={index} value={recommendation}>
-                                                                {recommendation}
+                                                                {`${recommendation} $${recommendationsIncrese[recommendation]}`}
                                                             </option>
                                                         ))}
                                                 </Form.Control>

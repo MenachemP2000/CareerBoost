@@ -3,13 +3,16 @@ import { Container, Row, Col, Card, Button } from 'react-bootstrap';
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useNavigate } from 'react-router-dom';
+import { Dropdown, DropdownButton, Form } from "react-bootstrap";
 import config from '../config';
 
-const AdvancedRecommendations = ({ toggleScreen, isSignedIn, toggleSignendIn,languages }) => {
+const AdvancedRecommendations = ({ toggleScreen, isSignedIn, toggleSignendIn, languages, databases,
+    platforms, webframesworks, tools, OpSys, employments }) => {
     const navigate = useNavigate();
     const [error, setError] = useState('');
     const [backwardsort, setBackwardsort] = useState(false);
     const [recommendations, setRecommendations] = useState([]);
+    const [recommendationsIncrese, setRecommendationsIncrese] = useState({});
     const [showPath, setShowPath] = useState(true);
     const [showLanguages, setShowLanguages] = useState(true);
     const [showDatabases, setShowDatabases] = useState(true);
@@ -17,29 +20,45 @@ const AdvancedRecommendations = ({ toggleScreen, isSignedIn, toggleSignendIn,lan
     const [showWebframesworks, setShowWebframesworks] = useState(true);
     const [showTools, setShowTools] = useState(true);
     const [showOpSys, setShowOpSys] = useState(true);
+    const [showEmployments, setShowEmployments] = useState(true);
+
+    const paths = [
+        "MainBranch", "Age", "RemoteWork", "EdLevel", "YearsCode", "YearsCodePro", "DevType",
+        "OrgSize", "Country", "ICorPM", "WorkExp", "Industry", "JobSat"
+    ];
 
     useEffect(() => {
 
         let filteredRecommendations = [];
+        let dict = {
+            languages: [showLanguages, languages],
+            databases: [showDatabases, databases],
+            platforms: [showPlatforms, platforms],
+            webframesworks: [showWebframesworks, webframesworks],
+            tools: [showTools, tools],
+            OpSys: [showOpSys, OpSys],
+            employments: [showEmployments, employments],
+            paths: [showPath, paths]
+        };
 
-        if (showLanguages && !showPath) {
+        let increaseDictionary = {}
+        setRecommendationsIncrese(increaseDictionary);
+
+        isSignedIn.recommendations.forEach((value, i) => {
+            increaseDictionary[value] = isSignedIn.recommendationsIncrese[i];
+        });
+
+        if (Object.values(dict).some(([show]) => show)) {
             filteredRecommendations = isSignedIn.recommendations?.length
                 ? isSignedIn.recommendations
                     .map((recommendation, i) => ({ recommendation, i }))
-                    .filter(({ i }) => isSignedIn.recommendationsFeature?.[i] && languages.includes(isSignedIn.recommendationsFeature[i]))
+                    .filter(({ i }) =>
+                        isSignedIn.recommendationsFeature?.[i] &&
+                        Object.entries(dict).some(([key, [show, values]]) =>
+                            show && values.includes(isSignedIn.recommendationsFeature[i])
+                        )
+                    )
                     .map(({ recommendation }) => recommendation)
-                : [];
-        } else if (!showLanguages && showPath) {
-            filteredRecommendations = isSignedIn.recommendations?.length
-                ? isSignedIn.recommendations
-                    .map((recommendation, i) => ({ recommendation, i }))
-                    .filter(({ i }) => !languages.includes(isSignedIn.recommendationsFeature[i]))
-                    .map(({ recommendation }) => recommendation)
-                : [];
-        }
-        else if (showLanguages && showPath) {
-            filteredRecommendations = isSignedIn.recommendations?.length
-                ? isSignedIn.recommendations
                 : [];
         }
         let sortedRecommendations = [...filteredRecommendations]; // Copy to avoid mutation
@@ -49,7 +68,8 @@ const AdvancedRecommendations = ({ toggleScreen, isSignedIn, toggleSignendIn,lan
         }
         setRecommendations(sortedRecommendations);
 
-    }, [showPath, showLanguages,showDatabases, backwardsort, isSignedIn]);
+    }, [showPath, showLanguages, showDatabases, showPlatforms, showWebframesworks, showTools, showOpSys,
+        showEmployments, backwardsort, isSignedIn]);
 
     useEffect(() => {
         toggleScreen("AdvancedRecommendations");
@@ -209,114 +229,36 @@ const AdvancedRecommendations = ({ toggleScreen, isSignedIn, toggleSignendIn,lan
 
                             <Card.Header>Recommendations</Card.Header>
                             <br />
-                            <Col className="d-flex justify-content-center">
+                            <DropdownButton id="filter-dropdown" title="Options" variant="primary">
+                                {[
+                                    { id: "checkbox1", state: showLanguages, setState: setShowLanguages, label: "Show Recommendations for Languages" },
+                                    { id: "checkboxDatabases", state: showDatabases, setState: setShowDatabases, label: "Show Recommendations for Databases" },
+                                    { id: "checkboxPlatforms", state: showPlatforms, setState: setShowPlatforms, label: "Show Recommendations for Platforms" },
+                                    { id: "checkboxWebframesworks", state: showWebframesworks, setState: setShowWebframesworks, label: "Show Recommendations for Web Frameworks" },
+                                    { id: "checkboxTools", state: showTools, setState: setShowTools, label: "Show Recommendations for Tools" },
+                                    { id: "checkboxOpSys", state: showOpSys, setState: setShowOpSys, label: "Show Recommendations for Operating Systems" },
+                                    { id: "checkboxEmployments", state: showEmployments, setState: setShowEmployments, label: "Show Recommendations for Employment Status" },
+                                    { id: "checkbox2", state: showPath, setState: setShowPath, label: "Show Recommendations for Career Path" },
+                                    { id: "checkbox3", state: backwardsort, setState: setBackwardsort, label: "Sort Low to High" }
+                                ].map(({ id, state, setState, label }) => (
+                                    <Dropdown.Item as="div" key={id} className="px-3">
+                                        <Form.Check
+                                            type="checkbox"
+                                            id={id}
+                                            checked={state}
+                                            onChange={() => setState(!state)}
+                                            label={label}
+                                        />
+                                    </Dropdown.Item>
+                                ))}
+                            </DropdownButton>
 
-                                <Container className=" justify-content-center">
-                                    <div className="form-check d-flex align-items-center">
-                                        <input
-                                            className="form-check-input"
-                                            type="checkbox"
-                                            id="checkbox1"
-                                            checked={showLanguages}
-                                            onChange={() => setShowLanguages(!showLanguages)}
-                                        />
-                                        <label className="form-check-label" htmlFor="checkbox1" style={{ marginLeft: "10px" }}>
-                                            Show Recommendations for Languages
-                                        </label>
-                                    </div>
-                                    <div className="form-check d-flex align-items-center">
-                                        <input
-                                            className="form-check-input"
-                                            type="checkbox"
-                                            id="checkboxDatabases"
-                                            checked={showDatabases}
-                                            onChange={() => setShowDatabases(!showDatabases)}
-                                        />
-                                        <label className="form-check-label" htmlFor="checkbox1" style={{ marginLeft: "10px" }}>
-                                            Show Recommendations for Databases
-                                        </label>
-                                    </div>
-                                    <div className="form-check d-flex align-items-center">
-                                        <input
-                                            className="form-check-input"
-                                            type="checkbox"
-                                            id="checkboxPlatforms"
-                                            checked={showPlatforms}
-                                            onChange={() => setShowPlatforms(!showPlatforms)}
-                                        />
-                                        <label className="form-check-label" htmlFor="checkbox1" style={{ marginLeft: "10px" }}>
-                                            Show Recommendations for Platforms
-                                        </label>
-                                    </div>
-                                    <div className="form-check d-flex align-items-center">
-                                        <input
-                                            className="form-check-input"
-                                            type="checkbox"
-                                            id="checkboxWebframesworks"
-                                            checked={showWebframesworks}
-                                            onChange={() => setShowPlatforms(!showWebframesworks)}
-                                        />
-                                        <label className="form-check-label" htmlFor="checkbox1" style={{ marginLeft: "10px" }}>
-                                            Show Recommendations for Webframesworks
-                                        </label>
-                                    </div>
-                                    <div className="form-check d-flex align-items-center">
-                                        <input
-                                            className="form-check-input"
-                                            type="checkbox"
-                                            id="checkboxTools"
-                                            checked={showTools}
-                                            onChange={() => setShowTools(!showTools)}
-                                        />
-                                        <label className="form-check-label" htmlFor="checkbox1" style={{ marginLeft: "10px" }}>
-                                            Show Recommendations for Tools
-                                        </label>
-                                    </div>
-                                    <div className="form-check d-flex align-items-center">
-                                        <input
-                                            className="form-check-input"
-                                            type="checkbox"
-                                            id="checkboxOpSys"
-                                            checked={showOpSys}
-                                            onChange={() => setShowOpSys(!showOpSys)}
-                                        />
-                                        <label className="form-check-label" htmlFor="checkbox1" style={{ marginLeft: "10px" }}>
-                                            Show Recommendations for Operating Systems
-                                        </label>
-                                    </div>
-                                    <div className="form-check d-flex align-items-center">
-                                        <input
-                                            className="form-check-input"
-                                            type="checkbox"
-                                            id="checkbox2"
-                                            checked={showPath}
-                                            onChange={() => setShowPath(!showPath)}
-                                        />
-                                        <label className="form-check-label" htmlFor="checkbox2" style={{ marginLeft: "10px" }}>
-                                            Show Recommendations for Career Path
-                                        </label>
-                                    </div>
-                                    <div className="form-check d-flex align-items-center">
-                                        <input
-                                            className="form-check-input"
-                                            type="checkbox"
-                                            id="checkbox3"
-                                            checked={backwardsort}
-                                            onChange={() => setBackwardsort(!backwardsort)}
-                                        />
-                                        <label className="form-check-label" htmlFor="checkbox3" style={{ marginLeft: "10px" }}>
-                                            Sort Low to High
-                                        </label>
-                                    </div>
-                                </Container>
-                            </Col>
-
-                            <br/>
+                            <br />
 
                             <Card.Text >
                                 <ul className="list-none space-y-2">
                                     {recommendations.map((recommendation, index) => (
-                                        <li style={{ listStyle: "none", textAlign: "left" }} key={index} className="p-2">{recommendation}</li>
+                                        <li style={{ listStyle: "none", textAlign: "left" }} key={index} className="p-2">{recommendation} <span  style ={{color: "green"}} > $ {recommendationsIncrese[recommendation]}</span >.</li>
                                     ))}
                                 </ul>
                             </Card.Text>

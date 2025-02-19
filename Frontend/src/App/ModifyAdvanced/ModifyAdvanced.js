@@ -4,13 +4,10 @@ import { Container, Row, Col, Card, Button, Form } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import config from '../config';
 
-import * as XLSX from 'xlsx';
-
-import countriesData from '../data/countries.xlsx';
-import educationsData from '../data/educations.xlsx';
-import agesData from '../data/ages.xlsx';
-
-const ModifyAdvanced = ({ toggleSignendIn, toggleScreen, isSignedIn }) => {
+const ModifyAdvanced = ({ toggleSignendIn, toggleScreen, isSignedIn, languages, employments, MainBranchs,
+    RemoteWork, DevType, OrgSize, ICorPM, Industry, countries, educations, ages, databases, platforms,
+    webframesworks, tools, OpSys
+}) => {
     const navigate = useNavigate();
     const [error, setError] = useState('');
 
@@ -21,10 +18,14 @@ const ModifyAdvanced = ({ toggleSignendIn, toggleScreen, isSignedIn }) => {
         }
     });
 
-
     const [formData, setFormData] = useState({
         languages: isSignedIn.languages ? isSignedIn.languages : [],
         employments: isSignedIn.employments ? isSignedIn.employments : [],
+        databases: isSignedIn.databases ? isSignedIn.databases : [],
+        platforms: isSignedIn.platforms ? isSignedIn.platforms : [],
+        webframesworks: isSignedIn.webframesworks ? isSignedIn.webframesworks : [],
+        tools: isSignedIn.tools ? isSignedIn.tools : [],
+        OpSys: isSignedIn.OpSys ? isSignedIn.OpSys : [],
         ...(isSignedIn.MainBranch && { MainBranch: isSignedIn.MainBranch }),
         ...(isSignedIn.RemoteWork && { RemoteWork: isSignedIn.RemoteWork }),
         ...(isSignedIn.DevType && { DevType: isSignedIn.DevType }),
@@ -34,162 +35,25 @@ const ModifyAdvanced = ({ toggleSignendIn, toggleScreen, isSignedIn }) => {
         ...(isSignedIn.YearsCode && { YearsCode: isSignedIn.YearsCode }),
         ...(isSignedIn.YearsCodePro && { YearsCodePro: isSignedIn.YearsCodePro }),
         ...(isSignedIn.JobSat && { JobSat: isSignedIn.JobSat }),
-
         ...(isSignedIn.experience && { experience: isSignedIn.experience }),
         ...(isSignedIn.country && { country: isSignedIn.country }),
         ...(isSignedIn.education && { education: isSignedIn.education }),
         ...(isSignedIn.age && { age: isSignedIn.age }),
     });
 
-    const MainBranchs = ["I am a developer by profession", "I am not primarily a developer, but I write code sometimes as part of my work/studies"];
-
-    const RemoteWork = ["Hybrid (some remote, some in-person)", "Remote", "In-person"];
-
-    const DevType = [
-        "Developer, full-stack",
-        "Developer, back-end",
-        "Developer, front-end",
-        "Developer, desktop or enterprise applications",
-        "Developer, mobile",
-        "Developer, embedded applications or devices",
-        "Data engineer",
-        "Engineering manager",
-        "DevOps specialist",
-        "Data scientist or machine learning specialist",
-        "Research & Development role",
-        "Academic researcher",
-        "Senior Executive (C-Suite, VP, etc.)",
-        "Cloud infrastructure engineer",
-        "Developer, QA or test",
-        "Developer, game or graphics",
-        "Data or business analyst",
-        "Developer, AI",
-        "System administrator",
-        "Student",
-        "Engineer, site reliability",
-        "Project manager",
-        "Scientist",
-        "Security professional",
-        "Educator",
-        "Blockchain",
-        "Developer Experience",
-        "Product manager",
-        "Hardware Engineer",
-        "Database administrator",
-        "Developer Advocate",
-        "Designer",
-        "Marketing or sales professional",
-        "Other (please specify):",
-    ].sort();
-
-    const OrgSize = [
-        "Just me - I am a freelancer, sole proprietor, etc.",
-        "2 to 9 employees",
-        "10 to 19 employees",
-        "20 to 99 employees",
-        "100 to 499 employees",
-        "500 to 999 employees",
-        "1,000 to 4,999 employees",
-        "5,000 to 9,999 employees",
-        "10,000 or more employees"];
-
-    const ICorPM = ["Individual contributor", "People manager"];
-
-    const Industry = ["Banking/Financial Services",
-        "Computer Systems Design and Services",
-        "Energy",
-        "Fintech",
-        "Government",
-        "Healthcare",
-        "Higher Education",
-        "Insurance",
-        "Internet, Telecomm or Information Services",
-        "Manufacturing",
-        "Media & Advertising Services",
-        "Retail and Consumer Services",
-        "Software Development",
-        "Transportation, or Supply Chain",
-        "Other:"].sort();
-    const languages = [
-        "Assembly", "Bash/Shell (all shells)", "C", "C++", "HTML/CSS", "Java", "JavaScript",
-        "Python", "R", "SQL", "TypeScript", "Fortran", "MATLAB", "Julia", "C#", "MicroPython",
-        "Go", "Kotlin", "Ruby", "PowerShell", "Groovy", "Elixir", "Rust", "Dart", "Delphi",
-        "Apex", "PHP", "F#", "GDScript", "Perl", "Lua", "Objective-C", "VBA", "Ada", "Swift",
-        "Scala", "Visual Basic (.Net)", "Lisp", "Clojure", "Erlang", "Haskell", "OCaml", "Prolog",
-        "Nim", "Cobol", "Solidity", "Zig", "Zephyr", "Crystal"
-    ].sort();
-
     const languageOptions = languages.map(lang => ({ value: lang, label: lang }));
-
-    const employments = [
-        "Employed, full-time",
-        "Employed, part-time",
-        "Independent contractor, freelancer, or self-employed",
-        "Not employed, and not looking for work",
-        "Not employed, but looking for work",
-        "Retired",
-        "Student, full-time",
-        "Student, part-time"
-    ];
 
     const employmentOptions = employments.map(employ => ({ value: employ, label: employ }));
 
-    const [countries, setCountries] = useState([]);
+    const databaseOptions = databases.map(db => ({ value: db, label: db }));
 
-    useEffect(() => {
-        // Load the Excel file and extract country list
-        const fetchCountries = async () => {
-            const file = await fetch(countriesData);
-            const arrayBuffer = await file.arrayBuffer();
-            const workbook = XLSX.read(arrayBuffer, { type: 'array' });
+    const platformOptions = platforms.map(platform => ({ value: platform, label: platform }));
 
-            // Assuming countries are in the first sheet and first column
-            const sheet = workbook.Sheets[workbook.SheetNames[0]];
-            const countriesArray = XLSX.utils.sheet_to_json(sheet, { header: 1 });
+    const webframeOptions = webframesworks.map(webframe => ({ value: webframe, label: webframe }));
 
-            setCountries(countriesArray.map(row => row[0])); // Get countries from first column
-        };
+    const toolOptions = tools.map(tool => ({ value: tool, label: tool }));
 
-        fetchCountries();
-    }, []);
-
-    const [educations, setEducations] = useState([]);
-
-    useEffect(() => {
-        // Load the Excel file and extract country list
-        const fetchEducations = async () => {
-            const file = await fetch(educationsData);
-            const arrayBuffer = await file.arrayBuffer();
-            const workbook = XLSX.read(arrayBuffer, { type: 'array' });
-
-            // Assuming countries are in the first sheet and first column
-            const sheet = workbook.Sheets[workbook.SheetNames[0]];
-            const educationsArray = XLSX.utils.sheet_to_json(sheet, { header: 1 });
-
-            setEducations(educationsArray.map(row => row[0])); // Get countries from first column
-        };
-
-        fetchEducations();
-    }, []);
-
-    const [ages, setAges] = useState([]);
-
-    useEffect(() => {
-        // Load the Excel file and extract country list
-        const fetchAges = async () => {
-            const file = await fetch(agesData);
-            const arrayBuffer = await file.arrayBuffer();
-            const workbook = XLSX.read(arrayBuffer, { type: 'array' });
-
-            // Assuming countries are in the first sheet and first column
-            const sheet = workbook.Sheets[workbook.SheetNames[0]];
-            const educationsArray = XLSX.utils.sheet_to_json(sheet, { header: 1 });
-
-            setAges(educationsArray.map(row => row[0])); // Get countries from first column
-        };
-
-        fetchAges();
-    }, []);
+    const OpSysOptions = OpSys.map(opsys => ({ value: opsys, label: opsys }));
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -466,6 +330,88 @@ const ModifyAdvanced = ({ toggleSignendIn, toggleScreen, isSignedIn }) => {
                                                     })}
                                                     menuPlacement="top"
                                                     placeholder="Select the languages you've used extensively in the past year"
+                                                />
+                                            </Form.Group>
+
+
+
+                                            <Form.Group controlId="formDatabases" className="mb-3">
+                                                <Form.Label>Databases</Form.Label>
+                                                <Select
+                                                    isMulti
+                                                    name="databases"
+                                                    options={databaseOptions}
+                                                    value={databaseOptions.filter(opt => formData.databases.includes(opt.value))}
+                                                    onChange={(selectedOptions) => setFormData({
+                                                        ...formData,
+                                                        databases: selectedOptions.map(opt => opt.value),
+                                                    })}
+                                                    menuPlacement="top"
+                                                    placeholder="Select the databases you've used extensively in the past year"
+                                                />
+                                            </Form.Group>
+
+                                            <Form.Group controlId="formplatforms" className="mb-3">
+                                                <Form.Label>Platforms</Form.Label>
+                                                <Select
+                                                    isMulti
+                                                    name="platforms"
+                                                    options={platformOptions}
+                                                    value={platformOptions.filter(opt => formData.platforms.includes(opt.value))}
+                                                    onChange={(selectedOptions) => setFormData({
+                                                        ...formData,
+                                                        platforms: selectedOptions.map(opt => opt.value),
+                                                    })}
+                                                    menuPlacement="top"
+                                                    placeholder="Select the platforms you've used extensively in the past year"
+                                                />
+                                            </Form.Group>
+
+                                            <Form.Group controlId="formwebframeworks" className="mb-3">
+                                                <Form.Label>Web Frameworks</Form.Label>
+                                                <Select
+                                                    isMulti
+                                                    name="webframesworks"
+                                                    options={webframeOptions}
+                                                    value={webframeOptions.filter(opt => formData.webframesworks.includes(opt.value))}
+                                                    onChange={(selectedOptions) => setFormData({
+                                                        ...formData,
+                                                        webframesworks: selectedOptions.map(opt => opt.value),
+                                                    })}
+                                                    menuPlacement="top"
+                                                    placeholder="Select the web frameworks you've used extensively in the past year"
+                                                />
+                                            </Form.Group>
+
+                                            <Form.Group controlId="formtools" className="mb-3">
+                                                <Form.Label>Tools</Form.Label>
+                                                <Select
+                                                    isMulti
+                                                    name="tools"
+                                                    options={toolOptions}
+                                                    value={toolOptions.filter(opt => formData.tools.includes(opt.value))}
+                                                    onChange={(selectedOptions) => setFormData({
+                                                        ...formData,
+                                                        tools: selectedOptions.map(opt => opt.value),
+                                                    })}
+                                                    menuPlacement="top"
+                                                    placeholder="Select the tools you've used extensively in the past year"
+                                                />
+                                            </Form.Group>
+
+                                            <Form.Group controlId="formopsys" className="mb-3">
+                                                <Form.Label>Operrating Systems</Form.Label>
+                                                <Select
+                                                    isMulti
+                                                    name="tools"
+                                                    options={OpSysOptions}
+                                                    value={OpSysOptions.filter(opt => formData.OpSys.includes(opt.value))}
+                                                    onChange={(selectedOptions) => setFormData({
+                                                        ...formData,
+                                                        OpSys: selectedOptions.map(opt => opt.value),
+                                                    })}
+                                                    menuPlacement="top"
+                                                    placeholder="Select the Operrating Systems you've used extensively in the past year"
                                                 />
                                             </Form.Group>
 
