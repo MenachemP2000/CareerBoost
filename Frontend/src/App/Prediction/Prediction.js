@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from 'react-router-dom';
 import config from '../config';
 
-const Prediction = ({ toggleScreen, isSignedIn, toggleSignendIn }) => {
+const Prediction = ({ toggleScreen, isSignedIn, toggleSignendIn, selectedCurrency, exchangeRate }) => {
     const navigate = useNavigate();
     const [error, setError] = useState('');
 
@@ -199,7 +199,11 @@ const Prediction = ({ toggleScreen, isSignedIn, toggleSignendIn }) => {
                                             <br />
                                             <br />
 
-                                            <Card.Title style={{ color: "green" }}>{isSignedIn.prediction} $ per year</Card.Title>
+                                            <Card.Title style={{ color: "green" }}>{new Intl.NumberFormat('en', {
+                                                style: 'currency',
+                                                currency: selectedCurrency,
+                                                maximumFractionDigits: 0
+                                            }).format(Math.floor(isSignedIn.prediction * exchangeRate))} per year</Card.Title>
                                             <br />
                                             if you change your information, you can repredict your salary
                                         </Card.Text>

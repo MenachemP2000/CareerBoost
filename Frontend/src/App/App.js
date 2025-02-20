@@ -193,6 +193,16 @@ function App() {
         'AIX', 'Android', 'Arch', 'BSD', 'ChromeOS', 'Cygwin', 'Debian', 'Fedora', 'Haiku', 'MacOS', 'Other (please specify):', 'Other Linux-based', 'Red Hat', 'Solaris', 'Ubuntu', 'Windows', 'Windows Subsystem for Linux (WSL)', 'iOS', 'iPadOS'
     ];
 
+    const [exchangeRates, setExchangeRates] = useState({});
+    const [selectedCurrency, setSelectedCurrency] = useState(() => {
+        return localStorage.getItem("selectedCurrency") || "USD"; // Default to USD
+    });
+    const [exchangeRate, setExchangeRate] = useState(1);
+
+    useEffect(() => {
+        localStorage.setItem("selectedCurrency", selectedCurrency);
+    }, [selectedCurrency]);
+
     useEffect(() => {
         localStorage.setItem('isSignedIn', JSON.stringify(isSignedIn));
     }, [isSignedIn]);
@@ -237,7 +247,15 @@ function App() {
     return (
         <Router>
             <div>
-                <NavbarComponent />
+                <NavbarComponent
+                    exchangeRates={exchangeRates}
+                    selectedCurrency={selectedCurrency}
+                    exchangeRate={exchangeRate}
+
+                    setSelectedCurrency={setSelectedCurrency}
+                    setExchangeRates={setExchangeRates}
+                    setExchangeRate={setExchangeRate}
+                />
 
                 <Routes>
                     <Route path="/" element={<Home
@@ -253,11 +271,11 @@ function App() {
                     <Route path="/createaccount" element={<CreateAccount
                         toggleSignendIn={toggleSignendIn}
                         toggleScreen={toggleScreen}
-                        isSignedIn={isSignedIn} 
+                        isSignedIn={isSignedIn}
                         countries={countries}
                         ages={ages}
                         educations={educations}
-                        />} />
+                    />} />
                     <Route path="/modifyaccount" element={<ModifyAccount
                         toggleSignendIn={toggleSignendIn}
                         toggleScreen={toggleScreen}
@@ -293,34 +311,43 @@ function App() {
                         countries={countries}
                         educations={educations}
                         ages={ages}
-                        databases ={databases}
-                        platforms ={platforms}
-                        webframesworks ={webframesworks}
-                        tools ={tools}
-                        OpSys ={OpSys}
-                         />} />
+                        databases={databases}
+                        platforms={platforms}
+                        webframesworks={webframesworks}
+                        tools={tools}
+                        OpSys={OpSys}
+                    />} />
                     <Route path="/Recommendations" element={<Recommendations
                         toggleSignendIn={toggleSignendIn}
                         toggleScreen={toggleScreen}
-                        isSignedIn={isSignedIn} />} />
+                        isSignedIn={isSignedIn}
+                        selectedCurrency={selectedCurrency}
+                        exchangeRate={exchangeRate}
+
+                    />} />
 
                     <Route path="/AdvancedRecommendations" element={<AdvancedRecommendations
                         toggleSignendIn={toggleSignendIn}
                         toggleScreen={toggleScreen}
                         isSignedIn={isSignedIn}
                         languages={languages}
-                        databases ={databases}
-                        platforms ={platforms}
-                        webframesworks ={webframesworks}
-                        tools ={tools}
-                        OpSys ={OpSys}
+                        databases={databases}
+                        platforms={platforms}
+                        webframesworks={webframesworks}
+                        tools={tools}
+                        OpSys={OpSys}
                         employments={employments}
-                        />} />
+                        selectedCurrency={selectedCurrency}
+                        exchangeRate={exchangeRate}
+                    />} />
 
                     <Route path="/SavedRecommendations" element={<SavedRecommendations
                         toggleSignendIn={toggleSignendIn}
                         toggleScreen={toggleScreen}
-                        isSignedIn={isSignedIn} />} />
+                        isSignedIn={isSignedIn}
+                        selectedCurrency={selectedCurrency}
+                        exchangeRate={exchangeRate}
+                         />} />
                     <Route path="/Experiment" element={<Experiment
                         toggleSignendIn={toggleSignendIn}
                         toggleScreen={toggleScreen}
@@ -336,16 +363,22 @@ function App() {
                         countries={countries}
                         educations={educations}
                         ages={ages}
-                        databases ={databases}
-                        platforms ={platforms}
-                        webframesworks ={webframesworks}
-                        tools ={tools}
-                        OpSys ={OpSys}
+                        databases={databases}
+                        platforms={platforms}
+                        webframesworks={webframesworks}
+                        tools={tools}
+                        OpSys={OpSys}
+                        selectedCurrency={selectedCurrency}
+                        exchangeRate={exchangeRate}
                     />} />
                     <Route path="/Prediction" element={<Prediction
                         toggleSignendIn={toggleSignendIn}
                         toggleScreen={toggleScreen}
-                        isSignedIn={isSignedIn} />} />
+                        isSignedIn={isSignedIn}
+                        selectedCurrency={selectedCurrency}
+                        exchangeRate={exchangeRate}
+
+                    />} />
                 </Routes>
             </div>
         </Router>

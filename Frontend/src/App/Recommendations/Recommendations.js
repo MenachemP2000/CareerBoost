@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from 'react-router-dom';
 import config from '../config';
 
-const Recommendations = ({ toggleScreen, isSignedIn, toggleSignendIn }) => {
+const Recommendations = ({ toggleScreen, isSignedIn, toggleSignendIn, exchangeRate, selectedCurrency }) => {
     const navigate = useNavigate();
     const [recommendations, setRecommendations] = useState(false);
     const [recommendationsIncrese, setRecommendationsIncrese] = useState(false);
@@ -200,11 +200,23 @@ const Recommendations = ({ toggleScreen, isSignedIn, toggleSignendIn }) => {
                             <Card.Body >
                                 <Card.Text>
                                     {recommendations.map((recommendation, index) => {
-                                        return <li key={index}>{recommendation} <span  style ={{color: "green"}} > $ {recommendationsIncrese[recommendation]}</span ></li>
+                                        return <li key={index}>{recommendation} <span style={{ color: "green" }} > {new Intl.NumberFormat('en', {
+                                            style: 'currency',
+                                            currency: selectedCurrency,
+                                            maximumFractionDigits: 0
+                                        }).format(Math.floor(recommendationsIncrese[recommendation] * exchangeRate))}
+                                        </span ></li>
                                     })}
                                 </Card.Text>
+
                                 <Card.Text>
-                                    By following this top recommendations, your salary could increase to approximately <span  style ={{color: "green"}} > $ {isSignedIn.combined}</span >
+                                    By following this top recommendations, your salary could increase to approximately
+                                    <span style={{ color: "green" }} > {new Intl.NumberFormat('en', {
+                                        style: 'currency',
+                                        currency: selectedCurrency,
+                                        maximumFractionDigits: 0
+                                    }).format(Math.floor(isSignedIn.combined * exchangeRate))}
+                                    </span >
                                 </Card.Text>
                                 <Card.Text>
                                     if you change your information, you can ask to be re-recommended

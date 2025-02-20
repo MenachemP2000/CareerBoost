@@ -7,7 +7,7 @@ import config from '../config';
 
 const Experiment = ({ toggleSignendIn, toggleScreen, isSignedIn, languages, employments, MainBranchs,
     RemoteWork, DevType, OrgSize, ICorPM, Industry, countries, educations, ages, databases, platforms,
-    webframesworks, tools, OpSys }) => {
+    webframesworks, tools, OpSys, selectedCurrency, exchangeRate }) => {
 
     const navigate = useNavigate();
     const [error, setError] = useState('');
@@ -536,7 +536,11 @@ const Experiment = ({ toggleSignendIn, toggleScreen, isSignedIn, languages, empl
                                                     <Card.Body >
                                                         <Card.Text style={{ color: "green" }}>
 
-                                                            {isSignedIn.experiment.prediction} $ per year
+                                                            {new Intl.NumberFormat('en', {
+                                                                style: 'currency',
+                                                                currency: selectedCurrency,
+                                                                maximumFractionDigits: 0
+                                                            }).format(Math.floor(isSignedIn.experiment.prediction * exchangeRate))} per year
                                                             <br />
                                                         </Card.Text>
                                                     </Card.Body>
