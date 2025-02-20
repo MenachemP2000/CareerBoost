@@ -199,19 +199,29 @@ const Recommendations = ({ toggleScreen, isSignedIn, toggleSignendIn, exchangeRa
                             <Card.Header>Recommendations</Card.Header>
                             <Card.Body >
                                 <Card.Text>
-                                    {recommendations.map((recommendation, index) => {
-                                        return <li key={index}>{recommendation} <span style={{ color: "green" }} > {new Intl.NumberFormat('en', {
-                                            style: 'currency',
-                                            currency: selectedCurrency,
-                                            maximumFractionDigits: 0
-                                        }).format(Math.floor(recommendationsIncrese[recommendation] * exchangeRate))}
-                                        </span ></li>
-                                    })}
+                                    <ul style={{ paddingLeft: "20px" }}>
+                                        {recommendations.map((recommendation, index) => {
+                                            return (
+                                                <li key={index} style={{ marginBottom: "10px", display: "flex", justifyContent: "space-between" }}>
+                                                    <span>{recommendation}</span>
+                                                    <span style={{ color: "green", fontWeight: "bold" }}>
+                                                        {new Intl.NumberFormat('en', {
+                                                            style: 'currency',
+                                                            currency: selectedCurrency,
+                                                            maximumFractionDigits: 0
+                                                        }).format(Math.floor(recommendationsIncrese[recommendation] * exchangeRate))}
+                                                    </span>
+                                                </li>
+                                            );
+                                        })}
+                                    </ul>
+                                    <br/>
                                 </Card.Text>
+
 
                                 <Card.Text>
                                     By following this top recommendations, your salary could increase to approximately
-                                    <span style={{ color: "green" }} > {new Intl.NumberFormat('en', {
+                                    <span style={{ color: "green", fontWeight: "bold" }} > {new Intl.NumberFormat('en', {
                                         style: 'currency',
                                         currency: selectedCurrency,
                                         maximumFractionDigits: 0
