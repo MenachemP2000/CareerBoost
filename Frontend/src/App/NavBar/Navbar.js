@@ -4,9 +4,13 @@ import { useState } from 'react';
 import { useEffect } from 'react';
 import config from '../config';
 
-function NavbarComponent({exchangeRates, setExchangeRates, selectedCurrency, setSelectedCurrency,
-     exchangeRate, setExchangeRate}) {
+function NavbarComponent({ exchangeRates, setExchangeRates, selectedCurrency, setSelectedCurrency,
+    exchangeRate, setExchangeRate, currencyFlags, setCurrencyFlags }) {
     const [isExpanded, setIsExpanded] = useState(false);
+
+
+
+
 
     useEffect(() => {
         const fetchExchangeRates = async () => {
@@ -31,9 +35,28 @@ function NavbarComponent({exchangeRates, setExchangeRates, selectedCurrency, set
                 console.error('Error fetching exchange rates:', error);
             }
         };
-
+        
+        const fetchCurrencyFlags = async () => {
+            try {
+                const response = await fetch(`${config.apiBaseUrl}/api/exchange/flags`, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                });
+                if (!response.ok) {
+                    throw new Error("Failed to fetch currency flags");
+                }
+                const data = await response.json();
+                setCurrencyFlags(data);
+            } catch (error) {
+                console.error('Error fetching currency flags:', error);
+            }
+        };
         fetchExchangeRates();
+        fetchCurrencyFlags(); 
     }, []);
+
 
     useEffect(() => {
         if (exchangeRates[selectedCurrency]) {
@@ -56,7 +79,7 @@ function NavbarComponent({exchangeRates, setExchangeRates, selectedCurrency, set
                 zIndex: "9999",
                 maxWidth: "100%",
             }} expanded={isExpanded}>
-                <Container 
+                <Container
                 >
                     <Navbar.Brand as={Link} to="/">
                         <img src="careerboost.ico" width="32px" alt="CareerBoost" /> CareerBoost
@@ -76,7 +99,7 @@ function NavbarComponent({exchangeRates, setExchangeRates, selectedCurrency, set
                                     position: "relative"
                                 }}>
                                 <Dropdown.Toggle variant="success">
-                                    {selectedCurrency}
+                                    <img src={currencyFlags[selectedCurrency]} width="30" alt={selectedCurrency} />
                                 </Dropdown.Toggle>
 
                                 {/* Mobile dropdown style */}
@@ -95,7 +118,7 @@ function NavbarComponent({exchangeRates, setExchangeRates, selectedCurrency, set
                                 >
                                     {Object.keys(exchangeRates).map((currency) => (
                                         <Dropdown.Item key={currency} onClick={() => handleCurrencyChange(currency)}>
-                                            {currency}
+                                            <img src={currencyFlags[currency]} width="30" alt={currency} /> {currency}
                                         </Dropdown.Item>
                                     ))}
                                 </Dropdown.Menu>
@@ -113,8 +136,8 @@ function NavbarComponent({exchangeRates, setExchangeRates, selectedCurrency, set
                 </Container>
             </Navbar>
             <div
-            className="bg-dark bg-opacity-50"
-            style={{height:"80px"}}
+                className="bg-dark bg-opacity-50"
+                style={{ height: "80px" }}
             >
 
             </div>

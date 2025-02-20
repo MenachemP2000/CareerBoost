@@ -21,6 +21,7 @@ import Guide from "./Guide/Guide";
 
 function App() {
     const [screen, setScreen] = useState(false);
+    
 
     const [isSignedIn, setSignedInStatus] = useState(() => {
         const savedStatus = localStorage.getItem('isSignedIn');
@@ -198,6 +199,7 @@ function App() {
         return localStorage.getItem("selectedCurrency") || "USD"; // Default to USD
     });
     const [exchangeRate, setExchangeRate] = useState(1);
+    const [currencyFlags, setCurrencyFlags] = useState({});
 
     useEffect(() => {
         localStorage.setItem("selectedCurrency", selectedCurrency);
@@ -251,10 +253,13 @@ function App() {
                     exchangeRates={exchangeRates}
                     selectedCurrency={selectedCurrency}
                     exchangeRate={exchangeRate}
+                    currencyFlags = {currencyFlags}
 
                     setSelectedCurrency={setSelectedCurrency}
                     setExchangeRates={setExchangeRates}
                     setExchangeRate={setExchangeRate}
+                    setCurrencyFlags={setCurrencyFlags}
+
                 />
 
                 <Routes>
