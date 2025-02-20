@@ -95,7 +95,7 @@ const CreateAccount = ({ toggleSignendIn, toggleScreen, isSignedIn,countries,edu
                     <h3 className="display-4 fw-bold">Create Account</h3>
                     <div className="underline mx-auto mb-3"></div>
 
-                    <Container className="py-6">
+                    <Container style={{ marginLeft: "0" }}>
                         <Row>
                             <Col md={{ span: 6, offset: 3 }}>
                                 <Card>
