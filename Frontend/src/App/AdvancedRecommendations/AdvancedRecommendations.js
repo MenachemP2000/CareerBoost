@@ -7,7 +7,7 @@ import { Dropdown, DropdownButton, Form } from "react-bootstrap";
 import config from '../config';
 
 const AdvancedRecommendations = ({ toggleScreen, isSignedIn, toggleSignendIn, languages, databases,
-    platforms, webframesworks, tools, OpSys, employments }) => {
+    platforms, webframesworks, tools, OpSys, employments, exchangeRate, selectedCurrency }) => {
     const navigate = useNavigate();
     const [error, setError] = useState('');
     const [backwardsort, setBackwardsort] = useState(false);
@@ -258,7 +258,14 @@ const AdvancedRecommendations = ({ toggleScreen, isSignedIn, toggleSignendIn, la
                             <Card.Text >
                                 <ul className="list-none space-y-2">
                                     {recommendations.map((recommendation, index) => (
-                                        <li style={{ listStyle: "none", textAlign: "left" }} key={index} className="p-2">{recommendation} <span  style ={{color: "green"}} > $ {recommendationsIncrese[recommendation]}</span >.</li>
+                                        <li style={{ listStyle: "none", textAlign: "left" }} key={index} className="p-2">{recommendation}
+                                            <span style={{ color: "green" }} > {new Intl.NumberFormat('en', {
+                                                style: 'currency',
+                                                currency: selectedCurrency,
+                                                maximumFractionDigits: 0
+                                            }).format(Math.floor(recommendationsIncrese[recommendation] * exchangeRate))}
+                                            </span >
+                                        </li>
                                     ))}
                                 </ul>
                             </Card.Text>

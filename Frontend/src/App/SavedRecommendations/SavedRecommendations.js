@@ -7,7 +7,7 @@ import config from '../config';
 import { Form } from 'react-bootstrap';
 
 
-const SavedRecommendations = ({ toggleScreen, isSignedIn, toggleSignendIn }) => {
+const SavedRecommendations = ({ toggleScreen, isSignedIn, toggleSignendIn, exchangeRate, selectedCurrency }) => {
     const navigate = useNavigate();
     const [recommendations, setRecommendations] = useState(false);
     const [recommendationsIncrese, setRecommendationsIncrese] = useState(false);
@@ -163,7 +163,14 @@ const SavedRecommendations = ({ toggleScreen, isSignedIn, toggleSignendIn }) => 
                                         <Card.Text >
                                             <ul className="list-none space-y-2">
                                                 {isSignedIn.savedRecommendations.map((recommendation, index) => (
-                                                    <li style={{ listStyle: "none", textAlign: "left" }} key={index} className="p-0">{recommendation}<span  style ={{color: "green"}} > $ {recommendationsIncrese[recommendation]}</span >.</li>
+                                                    <li style={{ listStyle: "none", textAlign: "left" }} key={index} className="p-0">{recommendation}
+                                                        <span style={{ color: "green" }} > {new Intl.NumberFormat('en', {
+                                                            style: 'currency',
+                                                            currency: selectedCurrency,
+                                                            maximumFractionDigits: 0
+                                                        }).format(Math.floor(recommendationsIncrese[recommendation] * exchangeRate))}
+                                                        </span >
+                                                    </li>
                                                 ))}
                                             </ul>
                                         </Card.Text>
@@ -181,7 +188,11 @@ const SavedRecommendations = ({ toggleScreen, isSignedIn, toggleSignendIn }) => 
                                                     {isSignedIn.recommendations
                                                         .map((recommendation, index) => (
                                                             <option key={index} value={recommendation}>
-                                                                {`${recommendation} $${recommendationsIncrese[recommendation]}`}                                                            </option>
+                                                                {`${recommendation} ${new Intl.NumberFormat('en', {
+                                                                    style: 'currency',
+                                                                    currency: selectedCurrency,
+                                                                    maximumFractionDigits: 0
+                                                                }).format(Math.floor(recommendationsIncrese[recommendation] * exchangeRate))}`}                                                            </option>
                                                         ))}
                                                 </Form.Control>
                                             </Form.Group>
@@ -204,7 +215,11 @@ const SavedRecommendations = ({ toggleScreen, isSignedIn, toggleSignendIn }) => 
                                                         .filter(recommendation => !isSignedIn.savedRecommendations.includes(recommendation))
                                                         .map((recommendation, index) => (
                                                             <option key={index} value={recommendation}>
-                                                                {`${recommendation} $${recommendationsIncrese[recommendation]}`}
+                                                                {`${recommendation} ${new Intl.NumberFormat('en', {
+                                                                    style: 'currency',
+                                                                    currency: selectedCurrency,
+                                                                    maximumFractionDigits: 0
+                                                                }).format(Math.floor(recommendationsIncrese[recommendation] * exchangeRate))}`}
                                                             </option>
                                                         ))}
                                                 </Form.Control>
@@ -229,7 +244,11 @@ const SavedRecommendations = ({ toggleScreen, isSignedIn, toggleSignendIn }) => 
                                                     {isSignedIn.savedRecommendations
                                                         .map((recommendation, index) => (
                                                             <option key={index} value={recommendation}>
-                                                                {`${recommendation} $${recommendationsIncrese[recommendation]}`}
+                                                                {`${recommendation} ${new Intl.NumberFormat('en', {
+                                                                    style: 'currency',
+                                                                    currency: selectedCurrency,
+                                                                    maximumFractionDigits: 0
+                                                                }).format(Math.floor(recommendationsIncrese[recommendation] * exchangeRate))}   `}
                                                             </option>
                                                         ))}
                                                 </Form.Control>
