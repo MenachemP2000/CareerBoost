@@ -25,7 +25,10 @@ const SignIn = ({ toggleScreen, isSignedIn, toggleSignendIn }) => {
                 body: JSON.stringify(data)
             });
             if (!response.ok) {
-                throw new Error('Failed to fetch token');
+                if (response.status == "404") {
+                    setError("Invalid username/password")
+                }
+                return false
             }
             const { token } = await response.json();
             localStorage.setItem('token', token);
@@ -49,11 +52,8 @@ const SignIn = ({ toggleScreen, isSignedIn, toggleSignendIn }) => {
                 toggleSignendIn(formData.username);
                 toggleScreen("Home");
                 navigate("/");
-            } else {
-                setError(true);
             }
         }
-        setError(true);
     }
 
     const handleCreateAccount = () => {
@@ -121,13 +121,13 @@ const SignIn = ({ toggleScreen, isSignedIn, toggleSignendIn }) => {
                                                 Create account
                                             </Button>
 
+                                            {error && <div className="error-message" style={{ color: "red" }}>{error}</div>}
 
                                         </Form>
                                     </Card.Body>
                                 </Card>
                             </Col>
                         </Row>
-                        {error && <div className="error-message">{error}</div>}
                     </Container>
                 </div>
             </div>

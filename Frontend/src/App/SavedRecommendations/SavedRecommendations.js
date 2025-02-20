@@ -161,17 +161,21 @@ const SavedRecommendations = ({ toggleScreen, isSignedIn, toggleSignendIn, excha
 
                                     {isSignedIn.savedRecommendations && isSignedIn.savedRecommendations.length > 0 &&
                                         <Card.Text >
-                                            <ul className="list-none space-y-2">
-                                                {isSignedIn.savedRecommendations.map((recommendation, index) => (
-                                                    <li style={{ listStyle: "none", textAlign: "left" }} key={index} className="p-0">{recommendation}
-                                                        <span style={{ color: "green" }} > {new Intl.NumberFormat('en', {
-                                                            style: 'currency',
-                                                            currency: selectedCurrency,
-                                                            maximumFractionDigits: 0
-                                                        }).format(Math.floor(recommendationsIncrese[recommendation] * exchangeRate))}
-                                                        </span >
-                                                    </li>
-                                                ))}
+                                            <ul style={{ paddingLeft: "20px" }}>
+                                                {isSignedIn.savedRecommendations.map((recommendation, index) => {
+                                                    return (
+                                                        <li key={index} style={{ marginBottom: "10px", display: "flex", justifyContent: "space-between" }}>
+                                                            <span>{recommendation}</span>
+                                                            <span style={{ color: "green", fontWeight: "bold" }}>
+                                                                {new Intl.NumberFormat('en', {
+                                                                    style: 'currency',
+                                                                    currency: selectedCurrency,
+                                                                    maximumFractionDigits: 0
+                                                                }).format(Math.floor(recommendationsIncrese[recommendation] * exchangeRate))}
+                                                            </span>
+                                                        </li>
+                                                    );
+                                                })}
                                             </ul>
                                         </Card.Text>
                                     }

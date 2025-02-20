@@ -78,6 +78,7 @@ function NavbarComponent({ exchangeRates, setExchangeRates, selectedCurrency, se
                 position: "absolute",
                 zIndex: "9999",
                 maxWidth: "100%",
+                padding: "10px",
             }} expanded={isExpanded}>
                 <Container
                 >

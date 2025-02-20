@@ -196,11 +196,11 @@ const CreateAccount = ({ toggleSignendIn, toggleScreen, isSignedIn,countries,edu
                                                 Sign In  
                                             </Button>
                                         </Form>
+                                        {error && <div className="error-message" style={{ color: "red"}}>{error}</div>}
                                     </Card.Body>
                                 </Card>
                             </Col>
                         </Row>
-                        {error && <div className="error-message">{error}</div>}
                     </Container>
                 </div>
             </div>
