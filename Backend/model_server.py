@@ -207,10 +207,10 @@ def recommend_skills_individual_with_best_value(user_profile,top_n=5):
     prediction = model.predict(user_profile_copy.reshape(1, -1))[0]
     combined = int(prediction)
     
-    recommendationsIncrese = [recommendation[1] for recommendation in recommendations if ((recommendation[1] > 0) & (recommendation[0] != "nan"))]
+    recommendationsIncrese = [recommendation[1] for recommendation in recommendations if ((recommendation[1] >= 1) & (recommendation[0] != "nan"))]
     recommendationsIncrese = [ int(recommendation) for recommendation in recommendationsIncrese]
-    recommendationsFeature = [recommendation[5] for recommendation in recommendations if ((recommendation[1] > 0) & (recommendation[0] != "nan"))]
-    recommendations = [recommendation[2] for recommendation in recommendations if ((recommendation[1] > 0) & (recommendation[0] != "nan"))]
+    recommendationsFeature = [recommendation[5] for recommendation in recommendations if ((recommendation[1] >= 1) & (recommendation[0] != "nan"))]
+    recommendations = [recommendation[2] for recommendation in recommendations if ((recommendation[1] >= 1) & (recommendation[0] != "nan"))]
     
     return top_recommendations,combined,recommendations, recommendationsIncrese, recommendationsFeature
 
