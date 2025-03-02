@@ -1,0 +1,55 @@
+.Navbar-App {
+    width: 100vw;
+    position: absolute;
+    z-index: 9999;
+    max-width: 100%;
+}
+
+/* Light mode styles */
+.navbar-light {
+    background-color: rgba(255, 255, 255, 0.9); /* Light transparent white */
+    color: black;
+    padding: 10px;
+}
+
+.navbar-light .navbar-brand,
+.navbar-light .nav-link,
+.navbar-light .dropdown-toggle {
+    color: black; /* Black text color for better contrast */
+}
+
+.navbar-light .nav-link:hover,
+.navbar-light .dropdown-toggle:hover {
+    color: #555; /* Slightly darker color on hover */
+}
+ /*Dark mode styles*/
+body.dark-mode .navbar-light {
+    background-color: rgb(12, 12, 12); /* Half transparent black */
+    color: white;
+    margin-bottom: 0;
+}
+
+body.dark-mode .navbar-light .navbar-brand,
+body.dark-mode .navbar-light .nav-link,
+body.dark-mode .navbar-light .dropdown-toggle {
+    color: white; /* White text color for better contrast */
+}
+
+body.dark-mode .navbar-light .nav-link:hover,
+body.dark-mode .navbar-light .dropdown-toggle:hover {
+    color: #ccc; /* Slightly lighter color on hover */
+}
+
+/* Additional styles for dropdown menu */
+body.dark-mode .dropdown-menu {
+    background-color: rgba(47, 45, 45, 0.78); /* Half transparent black for dropdown */
+    color: white; /* White text color */
+}
+
+body.dark-mode .dropdown-item {
+    color: white; /* White text color for dropdown items */
+}
+
+body.dark-mode .dropdown-item:hover {
+    background-color: rgba(60, 60, 60, 0.78); /* Slightly lighter background on hover */
+}

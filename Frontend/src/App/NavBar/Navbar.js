@@ -2,7 +2,7 @@ import { Navbar, Nav, Container, Dropdown, Form } from "react-bootstrap";
 import { Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import config from '../config';
-
+import './Navbar.css';
 function NavbarComponent({ exchangeRates, setExchangeRates, selectedCurrency, setSelectedCurrency,
                              exchangeRate, setExchangeRate, currencyFlags, setCurrencyFlags }) {
     const [isExpanded, setIsExpanded] = useState(false);
@@ -80,13 +80,7 @@ function NavbarComponent({ exchangeRates, setExchangeRates, selectedCurrency, se
 
     return (
         <div>
-            <Navbar bg="dark" data-bs-theme="dark" expand="lg" style={{
-                width: "100vw",
-                position: "absolute",
-                zIndex: "9999",
-                maxWidth: "100%",
-                padding: "10px",
-            }} expanded={isExpanded}>
+            <Navbar className="Navbar-App" expand="lg" expanded={isExpanded}>
                 <Container>
                     <Navbar.Brand as={Link} to="/">
                         <img src="careerboost.ico" width="32px" alt="CareerBoost" /> CareerBoost
@@ -134,7 +128,7 @@ function NavbarComponent({ exchangeRates, setExchangeRates, selectedCurrency, se
                                     <Form.Check
                                         type="switch"
                                         id="custom-switch"
-                                        label={darkMode ? "Dark Mode" : "Light Mode"}
+                                        // label={darkMode ? "Dark Mode" : "Light Mode"}
                                         checked={darkMode}
                                         onChange={toggleDarkMode}
                                     />
@@ -152,11 +146,6 @@ function NavbarComponent({ exchangeRates, setExchangeRates, selectedCurrency, se
                     </Navbar.Collapse>
                 </Container>
             </Navbar>
-            <div
-                className="bg-dark bg-opacity-50"
-                style={{ height: "80px" }}
-            >
-            </div>
         </div>
     );
 }

@@ -32,12 +32,12 @@ const Home = ({ toggleScreen, isSignedIn, toggleSignendIn }) => {
             </p>
 
             {!isSignedIn &&
-                <Row className="d-flex justify-content-center button-row"> {/* הוספת מחלקה button-row */}
-                    <Container className=" justify-content-center">
-                        <Button as={Link} to="/Createaccount" variant="primary">
+                <Row className="button-row"> {/* הוספת מחלקה button-row */}
+                    <Container className="button-container">
+                        <Button as={Link} to="/Createaccount" className="btn-all">
                             Create Account
                         </Button>
-                        <Button as={Link} to="/Signin" variant="primary">
+                        <Button as={Link} to="/Signin" className="btn-all">
                             Sign In
                         </Button>
                     </Container>
@@ -45,16 +45,16 @@ const Home = ({ toggleScreen, isSignedIn, toggleSignendIn }) => {
             }
 
             {isSignedIn &&
-                <Row className=" justify-content-center button-row"> {/* הוספת מחלקה button-row */}
-                    <p className="lead">
+                <Row className="button-row"> {/* הוספת מחלקה button-row */}
+                    <p className="hello">
                         Hello {isSignedIn.username}!
                     </p>
 
-                    <div className="d-flex justify-content-center">
-                        <Button as={Link} to="/Guide" variant="primary">
+                    <div className="button-container">
+                        <Button as={Link} to="/Guide" className="btn-all">
                             Guide
                         </Button>
-                        <Button as={Button} onClick={handleSignout} variant="primary">
+                        <Button as={Button} onClick={handleSignout} className="btn-all">
                             Sign Out
                         </Button>
                     </div>
