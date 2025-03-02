@@ -182,7 +182,7 @@ const AdvancedProfile = ({ toggleScreen, isSignedIn, toggleSignendIn }) => {
                             </Card>
                         }
                         {!isSignedIn.YearsCodePro &&
-                            <Card style={{ width: '30rem',maxWidth: '90vw',maxWidth: '90vw', margin: "10px" }}>
+                            <Card style={{ width: '30rem',maxWidth: '90vw', margin: "10px" }}>
                                 <Card.Header>Years of Professional Coding</Card.Header>
                                 <Card.Body >
                                     <Card.Text>

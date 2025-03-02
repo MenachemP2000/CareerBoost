@@ -1,0 +1,92 @@
+    /* Home.css */
+    .home-container {
+        position: relative;
+        text-align: center;
+        min-height: 100vh;
+        background-color: rgb(255, 255, 255);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+.home-title-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.home-title {
+    color: #ea4c0f;
+    font-size: 2.5rem;
+    display: flex;
+    align-items: center;
+}
+.home-title img {
+    margin-right: 10px; /* Adjust spacing between the logo and the text */
+}
+
+.home-underline {
+    background-color: lightgrey;
+    width: 300px;
+    height: 4px;
+    margin-top: 10px; /* Adjust this value to move the underline closer to the text */
+}
+    .home-lead1 {
+        color: #0d787a;
+        font-size: 1.25rem;
+        margin-bottom: 20px;
+    }
+
+.home-lead {
+    color: #050505;
+    font-size: 1.25rem;
+    margin-bottom: 20px;
+}
+
+/*dark mode*/
+body.dark-mode .home-container {
+        position: relative;
+        text-align: center;
+        min-height: 100vh;
+        background-color: rgb(12, 12, 12);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+}
+body.dark-mode .home-title {
+    color: #ffffff;
+}
+
+body.dark-mode .home-underline{
+    background-color: rgba(252, 251, 251, 0.5);
+    width: 300px;
+    height: 4px;
+    margin-top: 10px;
+
+}
+    body.dark-mode .home-lead1 {
+        color: #0d787a;
+        font-size: 1.25rem;
+        margin-bottom: 20px;
+    }
+    body.dark-mode .home-lead {
+        color: white;
+        font-size: 1.25rem;
+        margin-bottom: 20px;
+    }
+
+    /*button {*/
+    /*    padding: 12px 25px; !* Slightly larger buttons *!*/
+    /*    margin: 5px; !* Adjusted margin *!*/
+    /*    font-size: 16px;*/
+    /*    border-radius: 8px; !* More rounded corners *!*/
+    /*    background-color: #343a40; !* Dark gray background *!*/
+    /*    color: #fff; !* White text *!*/
+    /*    border: none;*/
+    /*    cursor: pointer;*/
+    /*    transition: background-color 0.3s ease, transform 0.2s ease; !* Smooth transitions *!*/
+    /*}*/
+
+    /*button:hover {*/
+    /*    background-color: #23272b; !* Slightly darker gray on hover *!*/
+    /*    transform: translateY(-2px); !* Slight lift effect on hover *!*/
+    /*}*/
