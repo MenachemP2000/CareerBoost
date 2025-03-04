@@ -18,10 +18,12 @@ import Experiment from "./Experiment/Experiment";
 import SavedRecommendations from "./SavedRecommendations/SavedRecommendations";
 import Prediction from "./Prediction/Prediction";
 import Guide from "./Guide/Guide";
+import JobSearch from "./JobSearch/JobSearch";
+import Jobs from "./Jobs/Jobs";
 
 function App() {
     const [screen, setScreen] = useState(false);
-    
+
 
     const [isSignedIn, setSignedInStatus] = useState(() => {
         const savedStatus = localStorage.getItem('isSignedIn');
@@ -253,7 +255,7 @@ function App() {
                     exchangeRates={exchangeRates}
                     selectedCurrency={selectedCurrency}
                     exchangeRate={exchangeRate}
-                    currencyFlags = {currencyFlags}
+                    currencyFlags={currencyFlags}
 
                     setSelectedCurrency={setSelectedCurrency}
                     setExchangeRates={setExchangeRates}
@@ -352,7 +354,7 @@ function App() {
                         isSignedIn={isSignedIn}
                         selectedCurrency={selectedCurrency}
                         exchangeRate={exchangeRate}
-                         />} />
+                    />} />
                     <Route path="/Experiment" element={<Experiment
                         toggleSignendIn={toggleSignendIn}
                         toggleScreen={toggleScreen}
@@ -383,6 +385,15 @@ function App() {
                         selectedCurrency={selectedCurrency}
                         exchangeRate={exchangeRate}
 
+                    />} />
+                    <Route path="/JobSearch" element={<JobSearch
+                        toggleScreen={toggleScreen}
+                        isSignedIn={isSignedIn} 
+                    />} />
+
+                    <Route path="/Jobs" element={<Jobs
+                        toggleScreen={toggleScreen}
+                        isSignedIn={isSignedIn} 
                     />} />
                 </Routes>
             </div>

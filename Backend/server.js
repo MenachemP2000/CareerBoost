@@ -43,12 +43,14 @@ const userRoutes = require('./routes/userRoutes');
 const tokenRoutes = require('./routes/tokenRoutes');
 const modelRoutes = require('./routes/modelRoutes');
 const exchangeRoutes = require('./routes/exchangeRoutes');
+const jobRoutes = require('./routes/jobRoutes');
 
 // Use routes
 app.use('/api/users', userRoutes);
 app.use('/api/tokens', tokenRoutes);
 app.use('/api/model', modelRoutes);
 app.use('/api/exchange', exchangeRoutes);
+app.use('/api/jobs', jobRoutes);
 
 
 // Serve static files from the React app
