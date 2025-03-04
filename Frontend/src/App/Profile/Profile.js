@@ -1,11 +1,12 @@
 import React from "react";
-import { Container, Row, Col, Card, Button } from 'react-bootstrap';
-import { Link } from "react-router-dom";
-import { useEffect, useState } from "react";
-import { useNavigate } from 'react-router-dom';
+import {Container, Row, Col, Card, Button} from 'react-bootstrap';
+import {Link} from "react-router-dom";
+import {useEffect, useState} from "react";
+import {useNavigate} from 'react-router-dom';
 import config from '../config';
 import "./Profile.css"
-const Profile = ({ toggleScreen, isSignedIn, toggleSignendIn }) => {
+
+const Profile = ({toggleScreen, isSignedIn, toggleSignendIn}) => {
     const navigate = useNavigate();
     const [error, setError] = useState('');
 
@@ -22,10 +23,12 @@ const Profile = ({ toggleScreen, isSignedIn, toggleSignendIn }) => {
     const handlePredict = async (e) => {
         e.preventDefault();
 
-        const payload = { _id: isSignedIn._id, username: isSignedIn.username };
+        const payload = {_id: isSignedIn._id, username: isSignedIn.username};
         try {
-            const userprofile = { Country: isSignedIn.country, WorkExp: isSignedIn.experience,
-                 EdLevel: isSignedIn.education, Age: isSignedIn.age }; //basic user profile
+            const userprofile = {
+                Country: isSignedIn.country, WorkExp: isSignedIn.experience,
+                EdLevel: isSignedIn.education, Age: isSignedIn.age
+            }; //basic user profile
             if (isSignedIn.MainBranch) {
                 userprofile.MainBranch = isSignedIn.MainBranch;
             }
@@ -56,7 +59,7 @@ const Profile = ({ toggleScreen, isSignedIn, toggleSignendIn }) => {
             if (isSignedIn.languages) {
                 for (let i = 0; i < isSignedIn.languages.length; i++) {
                     userprofile[isSignedIn.languages[i]] = 1;
-                }  
+                }
             }
             if (isSignedIn.employments) {
                 for (let i = 0; i < isSignedIn.employments.length; i++) {
@@ -110,7 +113,7 @@ const Profile = ({ toggleScreen, isSignedIn, toggleSignendIn }) => {
     }
     const handleReset = async (e) => {
         e.preventDefault();
-        const payload = { _id: isSignedIn._id, username: isSignedIn.username };
+        const payload = {_id: isSignedIn._id, username: isSignedIn.username};
         payload.prediction = 0;
         try {
             // Send the registration data to the server
@@ -137,46 +140,36 @@ const Profile = ({ toggleScreen, isSignedIn, toggleSignendIn }) => {
         }
     }
     return (
+        <div className="profile-container">
 
-        <div>
-            <div className="profile-container" >
-                <div className="profile-background">
-                    <h3 className="profile-title">Profile</h3>
-                    <div className="profile-underline"></div>
+            {/* Ensure nothing renders if user is not signed in */}
+            {isSignedIn && (
+                <Container className="profile-content">
+                    <Card className="profile-card">
+                        <Card.Body>
+                            <Row className="justify-content-center text-center">
+                                <Col md={12}>
+                                    <h2 className="profile-name">{isSignedIn?.username}</h2>
+                                    <p className="profile-description">Here's an overview of your information:</p>
+                                </Col>
+                                <Col md={12} className="profile-info">
+                                    <p><strong>Country:</strong> {isSignedIn?.country}</p>
+                                    <p><strong>Experience:</strong> {isSignedIn?.experience} years</p>
+                                    <p><strong>Education:</strong> {isSignedIn?.education}</p>
+                                    <p><strong>Age:</strong> {isSignedIn?.age}</p>
+                                </Col>
+                            </Row>
 
-                    <p className="profile-description">
-                        Here's an overview of your Information:
-                    </p>
-                    {isSignedIn &&
-                        <Row className="profile-row">
-                            
-                            <Card  className="profile-card">
-                                <Card.Header>{isSignedIn.username}</Card.Header>
-                                <Card.Body >
-                                    <Card.Text>
-                                        Country: {isSignedIn.country}
-                                    </Card.Text>
-                                    <Card.Text>
-                                        Experience:  {isSignedIn.experience}
-                                    </Card.Text>
-                                    <Card.Text>
-                                        Education: {isSignedIn.education}
-                                    </Card.Text>
-                                    <Card.Text>
-                                        Age: {isSignedIn.age}
-                                    </Card.Text>
-                                </Card.Body>
-                            </Card>
-                            <Container className="profile-buttons" >
+                            {/* Profile Buttons */}
+                            <div className="profile-buttons">
                                 <Button as={Link} to="/AdvancedProfile" className="profile-button">Advanced</Button>
                                 <Button as={Link} to="/ModifyAccount" className="profile-button">Modify</Button>
                                 <Button as={Button} onClick={handleSignout} className="profile-button">Sign Out</Button>
-                            </Container>
-                        </Row>
-                    }
-
-                </div>
-            </div>
+                            </div>
+                        </Card.Body>
+                    </Card>
+                </Container>
+            )}
         </div>
     );
 }

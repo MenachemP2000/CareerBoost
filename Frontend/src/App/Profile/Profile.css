@@ -1,27 +1,12 @@
 /* Profile.css */
 
+/* Profile Page Container */
 .profile-container {
-    position: relative;
-    text-align: center;
+    background-color: white;
     min-height: 100vh;
-    background-color: rgb(255, 255, 255);
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
-}
-
-.profile-background {
-    color: white;
-    text-align: center;
-    background-color: #343a40;
-    opacity: 0.5;
-    min-height: 100vh;
-    min-width: 100vw;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
 }
 
 .profile-title {
