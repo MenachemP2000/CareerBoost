@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Container, Row, Col, Card, Button, Form } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import config from '../config';
-
+import "./SignIn.css";
 const SignIn = ({ toggleScreen, isSignedIn, toggleSignendIn }) => {
     const [error, setError] = useState(false);
     const [formData, setFormData] = useState({
@@ -79,59 +79,59 @@ const SignIn = ({ toggleScreen, isSignedIn, toggleSignendIn }) => {
 
     return (
         <div>
-            <div className="position-relative text-white text-center">
-                <div style={{ minHeight: "100vh" }} className=" top-0 start-0 w-100 h-100 bg-dark bg-opacity-50 d-flex flex-column align-items-center justify-content-center">
-                    <h3 className="display-4 fw-bold">Sign in</h3>
-                    <div className="underline mx-auto mb-3"></div>
+            <div className="signin-container">
+                <div className="careerboost-content">
+                {/* Left Side: Logo & Tagline */}
+                <div className="careerboost-logo">
+                    <h1>careerboost</h1>
+                    <p>Connect with jobs and the world around you on careerboost.</p>
+                </div>
+                    {/* Right Side: Sign-in Form */}
+                <div className="signin-box">
+                        <Card className="signin-card">
+                            <Card.Body>
+                                <Form onSubmit={handleSubmit}>
+                                    <Form.Group controlId="formUsername" className="mb-3">
+                                        <Form.Control
+                                            type="text"
+                                            placeholder="Enter username"
+                                            name="username"
+                                            value={formData.username}
+                                            onChange={handleChange}
+                                            className="signin-input"
+                                        />
+                                    </Form.Group>
 
-                    <Container style={{ marginLeft: "0" }}>
-                        <Row>
-                            <Col md={{ span: 6, offset: 3 }}>
-                                <Card>
-                                    <Card.Body>
-                                        <Card.Title>Login Details</Card.Title>
-                                        <Form onSubmit={handleSubmit}>
+                                    <Form.Group controlId="formPassword" className="mb-3">
+                                        <Form.Control
+                                            type="password"
+                                            placeholder="Password"
+                                            name="password"
+                                            value={formData.password}
+                                            onChange={handleChange}
+                                            className="signin-input"
+                                        />
+                                    </Form.Group>
 
-                                            <Form.Group controlId="formUsername" className="mb-3">
-                                                <Form.Label>Username</Form.Label>
-                                                <Form.Control
-                                                    type="text"
-                                                    placeholder="Enter username"
-                                                    name="username"
-                                                    value={formData.username}
-                                                    onChange={handleChange}
-                                                />
-                                            </Form.Group>
+                                    <Button variant="primary" type="submit" className="signin-button">
+                                        Sign in
+                                    </Button>
 
-                                            <Form.Group controlId="formPassword" className="mb-3">
-                                                <Form.Label>Password</Form.Label>
-                                                <Form.Control
-                                                    type="password"
-                                                    placeholder="Enter password"
-                                                    name="password"
-                                                    value={formData.password}
-                                                    onChange={handleChange}
-                                                />
-                                            </Form.Group>
+                                    {error && <div className="error-message" style={{color: "red"}}>{error}</div>}
+                                    <div className="forgot-password">Forgot password?</div>
 
-                                            <Button variant="primary" type="submit" style={{ width: '10rem', margin: "10px" }}>
-                                                Sign in
-                                            </Button>
-                                            <Button variant="primary" type="button" onClick={handleCreateAccount} style={{ width: '10rem', margin: "10px" }}>
-                                                Create account
-                                            </Button>
+                                    <hr/>
 
-                                            {error && <div className="error-message" style={{ color: "red" }}>{error}</div>}
+                                    <Button variant="success" onClick={handleCreateAccount} className="create-account">
+                                        Create new account
+                                    </Button>
 
-                                        </Form>
-                                    </Card.Body>
-                                </Card>
-                            </Col>
-                        </Row>
-                    </Container>
+                                </Form>
+                            </Card.Body>
+                        </Card>
                 </div>
             </div>
-        </div>
+        </div></div>
     );
 
 };

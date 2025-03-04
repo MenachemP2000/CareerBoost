@@ -1,0 +1,122 @@
+/* Profile.css */
+
+.profile-container {
+    position: relative;
+    text-align: center;
+    min-height: 100vh;
+    background-color: rgb(255, 255, 255);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.profile-background {
+    color: white;
+    text-align: center;
+    background-color: #343a40;
+    opacity: 0.5;
+    min-height: 100vh;
+    min-width: 100vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.profile-title {
+    font-size: 2.5rem;
+    font-weight: 300;
+}
+
+.profile-underline {
+    width: 50px;
+    height: 4px;
+    background-color: #007bff;
+    margin-bottom: 1rem;
+}
+
+.profile-description {
+    font-size: 1.25rem;
+    font-weight: 300;
+}
+
+.profile-row {
+    display: flex;
+    justify-content: center;
+}
+
+.profile-card {
+    margin: 10px;
+}
+
+.profile-card .card-header {
+    background-color: #007bff;
+    color: white;
+    font-weight: bold;
+}
+
+.profile-card .card-body {
+    background-color: #f8f9fa;
+}
+
+.profile-card .card-text {
+    margin-bottom: 0.5rem;
+}
+
+.profile-buttons {
+    display: flex;
+    justify-content: center;
+}
+
+.profile-button {
+    width: 10rem;
+    margin: 10px;
+    background-color: #007bff;
+    border: none;
+    padding: 1rem 3rem;
+}
+
+.profile-button:hover {
+    background-color: #0056b3;
+}
+
+/* Dark mode */
+body.dark-mode .profile-container {
+    background-color: rgb(12, 12, 12);
+}
+
+body.dark-mode .profile-title {
+    color: #ffffff;
+}
+
+body.dark-mode .profile-underline {
+    background-color: rgba(252, 251, 251, 0.5);
+}
+
+body.dark-mode .profile-description {
+    color: white;
+}
+
+body.dark-mode .profile-card .card-header {
+    background-color: #007bff;
+    color: black;
+}
+
+body.dark-mode .profile-card .card-body {
+    background-color: #343a40;
+}
+
+body.dark-mode .profile-card .card-text {
+    color: white;
+}
+
+body.dark-mode .profile-button {
+    background: linear-gradient(45deg, #ff6b6b, #ff8e53);
+    color: black;
+}
+
+body.dark-mode .profile-button:hover {
+    background: linear-gradient(45deg, #ff8e53, #ff6b6b);
+    color: black;
+}

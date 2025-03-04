@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useNavigate } from 'react-router-dom';
 import config from '../config';
-
+import "./Profile.css"
 const Profile = ({ toggleScreen, isSignedIn, toggleSignendIn }) => {
     const navigate = useNavigate();
     const [error, setError] = useState('');
@@ -139,18 +139,18 @@ const Profile = ({ toggleScreen, isSignedIn, toggleSignendIn }) => {
     return (
 
         <div>
-            <div className="position-relative text-white text-center" >
-                <div style={{ minHeight: "100vh", minWidth: "100vw" }} className=" top-0 start-0 w-100 h-100 bg-dark bg-opacity-50 d-flex flex-column align-items-center justify-content-center">
-                    <h3 className="display-4 fw-bold">Profile</h3>
-                    <div className="underline mx-auto mb-3"></div>
+            <div className="profile-container" >
+                <div className="profile-background">
+                    <h3 className="profile-title">Profile</h3>
+                    <div className="profile-underline"></div>
 
-                    <p className="lead">
+                    <p className="profile-description">
                         Here's an overview of your Information:
                     </p>
                     {isSignedIn &&
-                        <Row className="d-flex justify-content-center">
+                        <Row className="profile-row">
                             
-                            <Card style={{ width: '18rem', margin: "10px" }}>
+                            <Card  className="profile-card">
                                 <Card.Header>{isSignedIn.username}</Card.Header>
                                 <Card.Body >
                                     <Card.Text>
@@ -167,10 +167,10 @@ const Profile = ({ toggleScreen, isSignedIn, toggleSignendIn }) => {
                                     </Card.Text>
                                 </Card.Body>
                             </Card>
-                            <Container className="justify-content-center" >
-                                <Button as={Link} to="/AdvancedProfile" style={{ width: '10rem', margin: "10px" }} variant="primary" className="px-5 py-3">Advanced</Button>
-                                <Button as={Link} to="/ModifyAccount" style={{ width: '10rem', margin: "10px" }} variant="primary" className="px-5 py-3">Modify</Button>
-                                <Button as={Button} style={{ width: '10rem', margin: "10px", whiteSpace: "nowrap" }} onClick={handleSignout} variant="primary" className="px-5 py-3">Sign Out</Button>
+                            <Container className="profile-buttons" >
+                                <Button as={Link} to="/AdvancedProfile" className="profile-button">Advanced</Button>
+                                <Button as={Link} to="/ModifyAccount" className="profile-button">Modify</Button>
+                                <Button as={Button} onClick={handleSignout} className="profile-button">Sign Out</Button>
                             </Container>
                         </Row>
                     }

@@ -4,6 +4,7 @@ import { Container, Row, Button } from 'react-bootstrap';
 import { Link } from "react-router-dom";
 import { useEffect } from "react";
 import './Home.css';
+import Slider from "./Slider";
 const Home = ({ toggleScreen, isSignedIn, toggleSignendIn }) => {
 
     useEffect(() => {
@@ -15,11 +16,18 @@ const Home = ({ toggleScreen, isSignedIn, toggleSignendIn }) => {
     }
     return (
         <div className="home-container">
+            <div className="carousel-item">
+                <img src="..." alt="..."/>
+                <div className="carousel-caption d-none d-md-block">
+                    <h5>...</h5>
+                    <p>...</p>
+                </div>
+            </div>
             <div className="home-title-container">
-            <h3 className="home-title">
-                <img src="careerboost.ico" alt="CareerBoost" style={{width: "6rem"}}/> CareerBoost
-            </h3>
-            <div className="home-underline"></div>
+                <h3 className="home-title">
+                    <img src="careerboost.ico" alt="CareerBoost" style={{width: "6rem"}}/> CareerBoost
+                </h3>
+                <div className="home-underline"></div>
             </div>
             <p className="home-lead1">
                 Plan Your Career, Improve Your Future!
@@ -61,7 +69,7 @@ const Home = ({ toggleScreen, isSignedIn, toggleSignendIn }) => {
                 </Row>
             }
         </div>
-);
+    );
 }
 
 export default Home;
