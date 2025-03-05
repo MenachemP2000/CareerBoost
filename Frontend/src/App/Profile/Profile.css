@@ -71,7 +71,10 @@
     display: flex;
     flex-direction: row; /* Stack buttons vertically */
     align-items: center;
+    justify-content: center;
     margin-top: 2px;
+    gap: 10px; /* Adds space between buttons */
+    margin-top: 10px; /* Adjust as needed */
 }
 
 /* Fix button styling to match home.css */
@@ -88,6 +91,11 @@
     transition: background 0.3s ease;
     width: 130px;
     height: 40px;
+
+}
+.profile-button:focus {
+    outline: none;
+    box-shadow: none; /* Removes any focus shadow */
 }
 
 .profile-button:hover {

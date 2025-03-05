@@ -28,10 +28,10 @@
 /*  transition: background-color 0.3s ease, transform 0.2s ease; !* Smooth transitions *!*/
 /*}*/
 
-button:hover {
-  background-color: #23272b; /* Slightly darker gray on hover */
-  transform: translateY(-2px); /* Slight lift effect on hover */
-}
+/*button:hover {*/
+/*  background-color: #23272b; !* Slightly darker gray on hover *!*/
+/*  transform: translateY(-2px); !* Slight lift effect on hover *!*/
+/*}*/
 
 input, textarea {
   width: 100%;

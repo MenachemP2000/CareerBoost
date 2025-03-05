@@ -1,14 +1,16 @@
 import React from "react";
-import {Container, Row, Col, Card, Button,Image,Form} from 'react-bootstrap';
-import {Link,useNavigate} from "react-router-dom";
+import {Container, Row, Col, Card, Button, Image, Form} from 'react-bootstrap';
+import {Link, useNavigate} from "react-router-dom";
 import {useEffect, useState} from "react";
 import config from '../config';
 import "./Profile.css"
-
+import defaultProfilePic from "../images/man-profile.svg";
 const Profile = ({toggleScreen, isSignedIn, toggleSignendIn}) => {
     const navigate = useNavigate();
     const [error, setError] = useState('');
     const [editMode, setEditMode] = useState(false);
+
+    // Form state with user data
     const [formData, setFormData] = useState({
         username: isSignedIn?.username || "",
         country: isSignedIn?.country || "",
@@ -22,8 +24,10 @@ const Profile = ({toggleScreen, isSignedIn, toggleSignendIn}) => {
         if (!isSignedIn) {
             navigate("/signin");
         }
-        }, [isSignedIn, navigate, toggleScreen]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
+    // Sign out function
     const handleSignout = () => {
         toggleSignendIn(false);
     }
@@ -31,7 +35,7 @@ const Profile = ({toggleScreen, isSignedIn, toggleSignendIn}) => {
         setEditMode(!editMode);
     };
     const handleChange = (e) => {
-        const { name, value } = e.target;
+        const {name, value} = e.target;
         setFormData({
             ...formData,
             [name]: value
@@ -39,7 +43,7 @@ const Profile = ({toggleScreen, isSignedIn, toggleSignendIn}) => {
     };
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const payload = { _id: isSignedIn._id, ...formData };
+        const payload = {_id: isSignedIn._id, ...formData};
         try {
             const response = await fetch(`${config.apiBaseUrl}/api/users/${isSignedIn._id}`, {
                 method: 'PATCH',
@@ -56,133 +60,30 @@ const Profile = ({toggleScreen, isSignedIn, toggleSignendIn}) => {
                 return;
             }
 
-            toggleSignendIn({ ...isSignedIn, ...formData });
+            toggleSignendIn({...isSignedIn, ...formData});
             setEditMode(false); // Switch back to view mode after saving
+            navigate("/Profile"); // Redirect to the profile page
         } catch (error) {
             setError('An error occurred. Please try again.');
             console.error('Error:', error);
         }
     };
-    //
-    // const handlePredict = async (e) => {
-    //     e.preventDefault();
-    //
-    //     const payload = {_id: isSignedIn._id, username: isSignedIn.username};
-    //     try {
-    //         const userprofile = {
-    //             Country: isSignedIn.country, WorkExp: isSignedIn.experience,
-    //             EdLevel: isSignedIn.education, Age: isSignedIn.age
-    //         }; //basic user profile
-    //         if (isSignedIn.MainBranch) {
-    //             userprofile.MainBranch = isSignedIn.MainBranch;
-    //         }
-    //         if (isSignedIn.RemoteWork) {
-    //             userprofile.RemoteWork = isSignedIn.RemoteWork;
-    //         }
-    //         if (isSignedIn.DevType) {
-    //             userprofile.DevType = isSignedIn.DevType;
-    //         }
-    //         if (isSignedIn.OrgSize) {
-    //             userprofile.OrgSize = isSignedIn.OrgSize;
-    //         }
-    //         if (isSignedIn.ICorPM) {
-    //             userprofile.ICorPM = isSignedIn.ICorPM;
-    //         }
-    //         if (isSignedIn.Industry) {
-    //             userprofile.Industry = isSignedIn.Industry;
-    //         }
-    //         if (isSignedIn.YearsCode) {
-    //             userprofile.YearsCode = isSignedIn.YearsCode;
-    //         }
-    //         if (isSignedIn.YearsCodePro) {
-    //             userprofile.YearsCodePro = isSignedIn.YearsCodePro;
-    //         }
-    //         if (isSignedIn.JobSat) {
-    //             userprofile.JobSat = isSignedIn.JobSat;
-    //         }
-    //         if (isSignedIn.languages) {
-    //             for (let i = 0; i < isSignedIn.languages.length; i++) {
-    //                 userprofile[isSignedIn.languages[i]] = 1;
-    //             }
-    //         }
-    //         if (isSignedIn.employments) {
-    //             for (let i = 0; i < isSignedIn.employments.length; i++) {
-    //                 userprofile[isSignedIn.employments[i]] = 1;
-    //             }
-    //         }
-    //         // Send the registration data to the server
-    //         console.log(userprofile);
-    //         const response = await fetch(`${config.apiBaseUrl}/api/model/predict`, {
-    //             method: 'POST',
-    //             headers: {
-    //                 'Content-Type': 'application/json'
-    //             },
-    //             body: JSON.stringify(userprofile)
-    //         });
-    //
-    //         const result = await response.json();
-    //         payload.prediction = Math.floor(result.prediction);
-    //
-    //         if (!response.ok) {
-    //             // If the server responds with an error, set the error message
-    //             setError(result.message);
-    //             return;
-    //         }
-    //     } catch (error) {
-    //         setError('An error occurred. Please try again.');
-    //         console.error('Error:', error);
-    //     }
-    //     try {
-    //         const response = await fetch(`${config.apiBaseUrl}/api/users/${isSignedIn._id}`, {
-    //             method: 'PATCH',
-    //             headers: {
-    //                 'Content-Type': 'application/json',
-    //                 'Authorization': `Bearer ${localStorage.getItem('token')}`
-    //             },
-    //             body: JSON.stringify(payload)
-    //         });
-    //
-    //         const result = await response.json();
-    //
-    //         if (!response.ok) {
-    //             // If the server responds with an error, set the error message
-    //             setError(result.message);
-    //             return;
-    //         }
-    //         toggleSignendIn(isSignedIn.username);
-    //     } catch (error) {
-    //         setError('An error occurred. Please try again.');
-    //         console.error('Error:', error);
-    //     }
-    // }
-    // const handleReset = async (e) => {
-    //     e.preventDefault();
-    //     const payload = {_id: isSignedIn._id, username: isSignedIn.username};
-    //     payload.prediction = 0;
-    //     try {
-    //         // Send the registration data to the server
-    //         const response = await fetch(`${config.apiBaseUrl}/api/users/${isSignedIn._id}`, {
-    //             method: 'PATCH',
-    //             headers: {
-    //                 'Content-Type': 'application/json',
-    //                 'Authorization': `Bearer ${localStorage.getItem('token')}`
-    //             },
-    //             body: JSON.stringify(payload)
-    //         });
-    //
-    //         const result = await response.json();
-    //
-    //         if (!response.ok) {
-    //             // If the server responds with an error, set the error message
-    //             setError(result.message);
-    //             return;
-    //         }
-    //         toggleSignendIn(isSignedIn.username);
-    //     } catch (error) {
-    //         setError('An error occurred. Please try again.');
-    //         console.error('Error:', error);
-    //     }
-    // }
+
+    // Cancel Editing (Resets Form)
+    const handleCancel = () => {
+        // Reset form data to the original state before editing
+        setFormData({
+            username: isSignedIn?.username || "",
+            country: isSignedIn?.country || "",
+            experience: isSignedIn?.experience || "",
+            education: isSignedIn?.education || "",
+            age: isSignedIn?.age || ""
+        });
+
+        setEditMode(false); // Return to View Mode
+    };
+
+
     return (
         <div className="profile-container">
             {/* Profile Card */}
@@ -193,10 +94,14 @@ const Profile = ({toggleScreen, isSignedIn, toggleSignendIn}) => {
                         <Card.Body className="profile-body">
                             <div className="profile-header">
                                 {/* Profile Picture */}
-                                <Image src="/path-to-profile-pic.jpg" roundedCircle className="profile-picture"/>
+                                <Image
+                                    src={formData.profilePicture || defaultProfilePic}
+                                    roundedCircle
+                                    className="profile-picture"
+                                />
                             </div>
                             <h2 className="profile-name">{formData.username}</h2>
-                            <p className="profile-description">Here's an overview of your information:</p>
+                            <p className="profile-description">Here's a short overview of your information:</p>
 
                             {/* Toggle between View & Edit Mode */}
                             {!editMode ? (
@@ -220,7 +125,7 @@ const Profile = ({toggleScreen, isSignedIn, toggleSignendIn}) => {
                                 </>
                             ) : (
                                 // Edit Mode (Form)
-                                <Form onSubmit={handleSubmit}>
+                                <Form>
                                     <Form.Group controlId="formUsername" className="profile-form">
                                         <Form.Label>Username</Form.Label>
                                         <Form.Control
@@ -273,9 +178,8 @@ const Profile = ({toggleScreen, isSignedIn, toggleSignendIn}) => {
 
                                     {/* Profile Buttons */}
                                     <div className="profile-buttons">
-                                        <Button type="submit" className="profile-button">Save Changes</Button>
-                                        <Button onClick={handleEditToggle}
-                                                className="profile-button">Cancel</Button>
+                                        <Button type="button" onClick={handleCancel} className="profile-button">Save Changes</Button>
+                                        <Button type="button" onClick={handleCancel} className="profile-button">Cancel</Button>
                                     </div>
                                 </Form>
                             )}
@@ -288,3 +192,123 @@ const Profile = ({toggleScreen, isSignedIn, toggleSignendIn}) => {
 }
 
 export default Profile;
+//
+// const handlePredict = async (e) => {
+//     e.preventDefault();
+//
+//     const payload = {_id: isSignedIn._id, username: isSignedIn.username};
+//     try {
+//         const userprofile = {
+//             Country: isSignedIn.country, WorkExp: isSignedIn.experience,
+//             EdLevel: isSignedIn.education, Age: isSignedIn.age
+//         }; //basic user profile
+//         if (isSignedIn.MainBranch) {
+//             userprofile.MainBranch = isSignedIn.MainBranch;
+//         }
+//         if (isSignedIn.RemoteWork) {
+//             userprofile.RemoteWork = isSignedIn.RemoteWork;
+//         }
+//         if (isSignedIn.DevType) {
+//             userprofile.DevType = isSignedIn.DevType;
+//         }
+//         if (isSignedIn.OrgSize) {
+//             userprofile.OrgSize = isSignedIn.OrgSize;
+//         }
+//         if (isSignedIn.ICorPM) {
+//             userprofile.ICorPM = isSignedIn.ICorPM;
+//         }
+//         if (isSignedIn.Industry) {
+//             userprofile.Industry = isSignedIn.Industry;
+//         }
+//         if (isSignedIn.YearsCode) {
+//             userprofile.YearsCode = isSignedIn.YearsCode;
+//         }
+//         if (isSignedIn.YearsCodePro) {
+//             userprofile.YearsCodePro = isSignedIn.YearsCodePro;
+//         }
+//         if (isSignedIn.JobSat) {
+//             userprofile.JobSat = isSignedIn.JobSat;
+//         }
+//         if (isSignedIn.languages) {
+//             for (let i = 0; i < isSignedIn.languages.length; i++) {
+//                 userprofile[isSignedIn.languages[i]] = 1;
+//             }
+//         }
+//         if (isSignedIn.employments) {
+//             for (let i = 0; i < isSignedIn.employments.length; i++) {
+//                 userprofile[isSignedIn.employments[i]] = 1;
+//             }
+//         }
+//         // Send the registration data to the server
+//         console.log(userprofile);
+//         const response = await fetch(`${config.apiBaseUrl}/api/model/predict`, {
+//             method: 'POST',
+//             headers: {
+//                 'Content-Type': 'application/json'
+//             },
+//             body: JSON.stringify(userprofile)
+//         });
+//
+//         const result = await response.json();
+//         payload.prediction = Math.floor(result.prediction);
+//
+//         if (!response.ok) {
+//             // If the server responds with an error, set the error message
+//             setError(result.message);
+//             return;
+//         }
+//     } catch (error) {
+//         setError('An error occurred. Please try again.');
+//         console.error('Error:', error);
+//     }
+//     try {
+//         const response = await fetch(`${config.apiBaseUrl}/api/users/${isSignedIn._id}`, {
+//             method: 'PATCH',
+//             headers: {
+//                 'Content-Type': 'application/json',
+//                 'Authorization': `Bearer ${localStorage.getItem('token')}`
+//             },
+//             body: JSON.stringify(payload)
+//         });
+//
+//         const result = await response.json();
+//
+//         if (!response.ok) {
+//             // If the server responds with an error, set the error message
+//             setError(result.message);
+//             return;
+//         }
+//         toggleSignendIn(isSignedIn.username);
+//     } catch (error) {
+//         setError('An error occurred. Please try again.');
+//         console.error('Error:', error);
+//     }
+// }
+// const handleReset = async (e) => {
+//     e.preventDefault();
+//     const payload = {_id: isSignedIn._id, username: isSignedIn.username};
+//     payload.prediction = 0;
+//     try {
+//         // Send the registration data to the server
+//         const response = await fetch(`${config.apiBaseUrl}/api/users/${isSignedIn._id}`, {
+//             method: 'PATCH',
+//             headers: {
+//                 'Content-Type': 'application/json',
+//                 'Authorization': `Bearer ${localStorage.getItem('token')}`
+//             },
+//             body: JSON.stringify(payload)
+//         });
+//
+//         const result = await response.json();
+//
+//         if (!response.ok) {
+//             // If the server responds with an error, set the error message
+//             setError(result.message);
+//             return;
+//         }
+//         toggleSignendIn(isSignedIn.username);
+//     } catch (error) {
+//         setError('An error occurred. Please try again.');
+//         console.error('Error:', error);
+//     }
+// }
