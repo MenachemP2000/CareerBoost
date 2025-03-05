@@ -1,10 +1,10 @@
 const axios = require("axios");
 
-const API_KEY = "AIzaSyA051QA0gPGJbQFPqYQY0aMH1B7cTT91JQ";
+const API_KEY = "AIzaSyCjCRAMVp1uV76obrvVTwisPTzqUfS_hPs";
 const CSE_ID = "f6a30ab52fe1f4a57";
 
 const searchJobs = async (req, res) => {
-    const { query, page } = req.query;
+    const { query, page,recency } = req.query;
 
     // Ensure the query parameter is provided
     if (!query) return res.status(400).json({ error: "Query parameter is required" });
@@ -16,7 +16,7 @@ const searchJobs = async (req, res) => {
     const startIndex = (pageNumber - 1) * 10 + 1; // Google Custom Search returns 10 results per page
 
     // Google Custom Search API URL
-    const searchUrl = `https://www.googleapis.com/customsearch/v1?q=${encodeURIComponent(query)}&key=${API_KEY}&cx=${CSE_ID}&dateRestrict=d1&start=${startIndex}`;
+    const searchUrl = `https://www.googleapis.com/customsearch/v1?q=${encodeURIComponent(query)}&key=${API_KEY}&cx=${CSE_ID}&dateRestrict=${recency}&start=${startIndex}`;
 
     try {
         const response = await axios.get(searchUrl);
@@ -34,8 +34,9 @@ const searchJobs = async (req, res) => {
             pagemap: item.pagemap
         })) || [];
 
-        for (const item in jobs) {
-            console.log("item", item.pagema);
+        console.log("Jobs:", jobs);
+        for (let i = 0; i < jobs.length; i++) {
+            console.log("Job", i, ":", jobs[i].pagemap);
         }
 
 
