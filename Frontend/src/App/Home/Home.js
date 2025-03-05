@@ -1,6 +1,6 @@
 // Home.js
 import React from "react";
-import { Container, Row, Button } from 'react-bootstrap';
+import { Container, Row, Button} from 'react-bootstrap';
 import { Link } from "react-router-dom";
 import { useEffect } from "react";
 import './Home.css';
