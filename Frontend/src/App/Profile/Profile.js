@@ -5,6 +5,7 @@ import {useEffect, useState} from "react";
 import config from '../config';
 import "./Profile.css"
 import defaultProfilePic from "../images/man-profile.svg";
+import ModifyAdvanced from "../ModifyAdvanced/ModifyAdvanced";
 const Profile = ({toggleScreen, isSignedIn, toggleSignendIn}) => {
     const navigate = useNavigate();
     const [error, setError] = useState('');
@@ -116,7 +117,7 @@ const Profile = ({toggleScreen, isSignedIn, toggleSignendIn}) => {
 
                                     {/* Profile Buttons */}
                                     <div className="profile-buttons">
-                                        <Button as={Link} to="/AdvancedProfile"
+                                        <Button as={Link} to="/ModifyAdvanced"
                                                 className="profile-button">Advanced</Button>
                                         <Button onClick={handleEditToggle} className="profile-button">Edit
                                             Profile</Button>

@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import { Container, Row, Col, Card, Button, Form } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import config from '../config';
+import "./ModifyAdvanced.css";
 
 const ModifyAdvanced = ({ toggleSignendIn, toggleScreen, isSignedIn, languages, employments, MainBranchs,
     RemoteWork, DevType, OrgSize, ICorPM, Industry, countries, educations, ages, databases, platforms,
@@ -97,6 +98,7 @@ const ModifyAdvanced = ({ toggleSignendIn, toggleScreen, isSignedIn, languages, 
         }
     };
     return (
+        <div className="advanced-container">
                     <Container className="advanced-container">
                         <Card className="advanced-card">
                                     <Card.Body>
@@ -182,7 +184,9 @@ const ModifyAdvanced = ({ toggleSignendIn, toggleScreen, isSignedIn, languages, 
                                                     onChange={handleChange}
                                                     disabled={!isEditing}
                                                 >
-                                                    <option value="">Select which of the following options best describes you today</option>
+                                                    <option value="">Select which of the following options best
+                                                        describes you today
+                                                    </option>
                                                     {MainBranchs.map((mainbranch, index) => (
                                                         <option key={index} value={mainbranch}>
                                                             {mainbranch}
@@ -200,7 +204,9 @@ const ModifyAdvanced = ({ toggleSignendIn, toggleScreen, isSignedIn, languages, 
                                                     onChange={handleChange}
                                                     disabled={!isEditing}
                                                 >
-                                                    <option value="">Select which best describes your current work situation</option>
+                                                    <option value="">Select which best describes your current work
+                                                        situation
+                                                    </option>
                                                     {RemoteWork.map((remotework, index) => (
                                                         <option key={index} value={remotework}>
                                                             {remotework}
@@ -218,7 +224,9 @@ const ModifyAdvanced = ({ toggleSignendIn, toggleScreen, isSignedIn, languages, 
                                                     onChange={handleChange}
                                                     disabled={!isEditing}
                                                 >
-                                                    <option value="">Select which of the following describes your current job</option>
+                                                    <option value="">Select which of the following describes your
+                                                        current job
+                                                    </option>
                                                     {DevType.map((devtype, index) => (
                                                         <option key={index} value={devtype}>
                                                             {devtype}
@@ -236,7 +244,9 @@ const ModifyAdvanced = ({ toggleSignendIn, toggleScreen, isSignedIn, languages, 
                                                     onChange={handleChange}
                                                     disabled={!isEditing}
                                                 >
-                                                    <option value="">Select how many people are employed in your organization</option>
+                                                    <option value="">Select how many people are employed in your
+                                                        organization
+                                                    </option>
                                                     {OrgSize.map((orgsize, index) => (
                                                         <option key={index} value={orgsize}>
                                                             {orgsize}
@@ -254,7 +264,9 @@ const ModifyAdvanced = ({ toggleSignendIn, toggleScreen, isSignedIn, languages, 
                                                     onChange={handleChange}
                                                     disabled={!isEditing}
                                                 >
-                                                    <option value="">Select if you are an individual contributor or people manager</option>
+                                                    <option value="">Select if you are an individual contributor or
+                                                        people manager
+                                                    </option>
                                                     {ICorPM.map((icorpm, index) => (
                                                         <option key={index} value={icorpm}>
                                                             {icorpm}
@@ -272,7 +284,9 @@ const ModifyAdvanced = ({ toggleSignendIn, toggleScreen, isSignedIn, languages, 
                                                     onChange={handleChange}
                                                     disabled={!isEditing}
                                                 >
-                                                    <option value="">Select what industry is the company you work for in</option>
+                                                    <option value="">Select what industry is the company you work for
+                                                        in
+                                                    </option>
                                                     {Industry.map((industry, index) => (
                                                         <option key={index} value={industry}>
                                                             {industry}
@@ -339,7 +353,6 @@ const ModifyAdvanced = ({ toggleSignendIn, toggleScreen, isSignedIn, languages, 
                                                     isDisabled={!isEditing}
                                                 />
                                             </Form.Group>
-
 
 
                                             <Form.Group controlId="formDatabases" className="mb-3">
@@ -445,30 +458,31 @@ const ModifyAdvanced = ({ toggleSignendIn, toggleScreen, isSignedIn, languages, 
 
                                                 />
                                             </Form.Group>
+                                            <div className="advanced-buttons">
+                                                {!isEditing ? (
+                                                    <Button className="advanced-button" onClick={() => setIsEditing(true)}>
+                                                        Edit Profile
+                                                    </Button>
+                                                ) : (
+                                                    <Button className="advanced-button" onClick={handleCancel}>
+                                                        Cancel
+                                                    </Button>
+                                                )}
 
-                                            {!isEditing ? (
-                                                <Button variant="primary" onClick={() => setIsEditing(true)}>
-                                                    Edit Profile
+                                                <Button className="advanced-button" type="submit">
+                                                    Save Information
                                                 </Button>
-                                            ) : (
-                                                <Button variant="secondary" onClick={handleCancel}>
-                                                    Cancel
+                                                <Button className="advanced-button" type="button" onClick={() => navigate("/Profile")}>
+                                                    Back
                                                 </Button>
-                                            )}
-
-                                            <Button variant="primary" style={{ width: '10rem', margin: "10px" }} type="submit">
-                                                Save Information
-                                            </Button>
-                                            {/*<Button variant="primary" style={{ width: '10rem', margin: "10px" }} type="button" onClick={() => navigate("/AdvancedProfile")}>*/}
-                                            {/*    Cancel*/}
-                                            {/*</Button>*/}
+                                            </div>
                                         </Form>
                                     </Card.Body>
                                 </Card>
                         {error && <div className="error-message">{error}</div>}
                     </Container>
 
-
+        </div>
     );
 }
 

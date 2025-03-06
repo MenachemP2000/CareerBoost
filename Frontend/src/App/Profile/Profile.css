@@ -66,7 +66,7 @@
     text-align: left;
     margin-top: 15px;
 }
-/* Profile Buttons (Stacked in Column) */
+/* Profile Buttons (Stacked in Row) */
 .profile-buttons {
     display: flex;
     flex-direction: row; /* Stack buttons vertically */
