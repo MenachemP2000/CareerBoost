@@ -148,6 +148,55 @@ function App() {
         "Viet Nam", "Yemen", "Zambia", "Zimbabwe"
     ];
 
+    const countryCrMap = {
+        "Afghanistan": "countryAF", "Albania": "countryAL", "Algeria": "countryDZ", "Andorra": "countryAD", 
+        "Angola": "countryAO", "Antigua and Barbuda": "countryAG", "Argentina": "countryAR", "Armenia": "countryAM", 
+        "Australia": "countryAU", "Austria": "countryAT", "Azerbaijan": "countryAZ", "Bahrain": "countryBH", 
+        "Bangladesh": "countryBD", "Barbados": "countryBB", "Belarus": "countryBY", "Belgium": "countryBE", 
+        "Benin": "countryBJ", "Bhutan": "countryBT", "Bolivia": "countryBO", "Bosnia and Herzegovina": "countryBA", 
+        "Botswana": "countryBW", "Brazil": "countryBR", "Brunei Darussalam": "countryBN", "Bulgaria": "countryBG", 
+        "Burkina Faso": "countryBF", "Burundi": "countryBI", "Cambodia": "countryKH", "Cameroon": "countryCM", 
+        "Canada": "countryCA", "Cape Verde": "countryCV", "Central African Republic": "countryCF", "Chile": "countryCL", 
+        "China": "countryCN", "Colombia": "countryCO", "Congo, Republic of the...": "countryCG", "Costa Rica": "countryCR", 
+        "Croatia": "countryHR", "Cuba": "countryCU", "Cyprus": "countryCY", "Czech Republic": "countryCZ", 
+        "Côte d'Ivoire": "countryCI", "Democratic People's Republic of Korea": "countryKP", 
+        "Democratic Republic of the Congo": "countryCD", "Denmark": "countryDK", "Dominican Republic": "countryDO", 
+        "Ecuador": "countryEC", "Egypt": "countryEG", "El Salvador": "countrySV", "Estonia": "countryEE", 
+        "Ethiopia": "countryET", "Fiji": "countryFJ", "Finland": "countryFI", "France": "countryFR", 
+        "Georgia": "countryGE", "Germany": "countryDE", "Ghana": "countryGH", "Greece": "countryGR", 
+        "Guatemala": "countryGT", "Guyana": "countryGY", "Haiti": "countryHT", "Honduras": "countryHN", 
+        "Hong Kong (S.A.R.)": "countryHK", "Hungary": "countryHU", "Iceland": "countryIS", "India": "countryIN", 
+        "Indonesia": "countryID", "Iran, Islamic Republic of...": "countryIR", "Iraq": "countryIQ", 
+        "Ireland": "countryIE", "Isle of Man": "countryIM", "Israel": "countryIL", "Italy": "countryIT", 
+        "Jamaica": "countryJM", "Japan": "countryJP", "Jordan": "countryJO", "Kazakhstan": "countryKZ", 
+        "Kenya": "countryKE", "Kosovo": "countryXK", "Kuwait": "countryKW", "Kyrgyzstan": "countryKG", 
+        "Lao People's Democratic Republic": "countryLA", "Latvia": "countryLV", "Lebanon": "countryLB", 
+        "Lesotho": "countryLS", "Libyan Arab Jamahiriya": "countryLY", "Liechtenstein": "countryLI", 
+        "Lithuania": "countryLT", "Luxembourg": "countryLU", "Madagascar": "countryMG", "Malawi": "countryMW", 
+        "Malaysia": "countryMY", "Maldives": "countryMV", "Mali": "countryML", "Malta": "countryMT", 
+        "Mauritania": "countryMR", "Mauritius": "countryMU", "Mexico": "countryMX", "Mongolia": "countryMN", 
+        "Montenegro": "countryME", "Morocco": "countryMA", "Mozambique": "countryMZ", "Myanmar": "countryMM", 
+        "Namibia": "countryNA", "Nepal": "countryNP", "Netherlands": "countryNL", "New Zealand": "countryNZ", 
+        "Nicaragua": "countryNI", "Nigeria": "countryNG", "Norway": "countryNO", "Oman": "countryOM", 
+        "Pakistan": "countryPK", "Palestine": "countryPS", "Panama": "countryPA", "Paraguay": "countryPY", 
+        "Peru": "countryPE", "Philippines": "countryPH", "Poland": "countryPL", "Portugal": "countryPT", 
+        "Qatar": "countryQA", "Republic of Korea": "countryKR", "Republic of Moldova": "countryMD", 
+        "Republic of North Macedonia": "countryMK", "Romania": "countryRO", "Russian Federation": "countryRU", 
+        "Rwanda": "countryRW", "Samoa": "countryWS", "Saudi Arabia": "countrySA", "Senegal": "countrySN", 
+        "Serbia": "countryRS", "Sierra Leone": "countrySL", "Singapore": "countrySG", "Slovakia": "countrySK", 
+        "Slovenia": "countrySI", "Somalia": "countrySO", "South Africa": "countryZA", "South Korea": "countryKR", 
+        "Spain": "countryES", "Sri Lanka": "countryLK", "Sudan": "countrySD", "Suriname": "countrySR", 
+        "Sweden": "countrySE", "Switzerland": "countryCH", "Syrian Arab Republic": "countrySY", 
+        "Taiwan": "countryTW", "Tajikistan": "countryTJ", "Thailand": "countryTH", "Togo": "countryTG", 
+        "Trinidad and Tobago": "countryTT", "Tunisia": "countryTN", "Turkey": "countryTR", "Turkmenistan": "countryTM", 
+        "Uganda": "countryUG", "Ukraine": "countryUA", "United Arab Emirates": "countryAE", 
+        "United Kingdom of Great Britain and Northern Ireland": "countryGB", "United Republic of Tanzania": "countryTZ", 
+        "United States of America": "countryUS", "Uruguay": "countryUY", "Uzbekistan": "countryUZ", 
+        "Venezuela, Bolivarian Republic of...": "countryVE", "Viet Nam": "countryVN", "Yemen": "countryYE", 
+        "Zambia": "countryZM", "Zimbabwe": "countryZW"
+    };
+    
+
     const educations = [
         "Associate degree (A.A., A.S., etc.)", "Bachelor's degree (B.A., B.S., B.Eng., etc.)",
         "Master's degree (M.A., M.S., M.Eng., MBA, etc.)", "Primary/elementary school",
@@ -388,12 +437,16 @@ function App() {
                     />} />
                     <Route path="/JobSearch" element={<JobSearch
                         toggleScreen={toggleScreen}
+                        toggleSignendIn={toggleSignendIn}
                         isSignedIn={isSignedIn} 
+                        countryCrMap={countryCrMap}
                     />} />
 
                     <Route path="/Jobs" element={<Jobs
                         toggleScreen={toggleScreen}
                         isSignedIn={isSignedIn} 
+                        toggleSignendIn={toggleSignendIn}
+                        countryCrMap= {countryCrMap}
                     />} />
                 </Routes>
             </div>

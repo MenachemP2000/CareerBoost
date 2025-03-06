@@ -102,6 +102,9 @@ const userSchema = new mongoose.Schema({
   OpSys: {
     type: Object
   },
+  savedJobs: {
+    type: Object
+  },
 
 });
 
