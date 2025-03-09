@@ -1,73 +1,73 @@
-/*h1, h2, h3, h4, h5, h6 {*/
-/*  color: #0056b3;*/
-/*  margin: 0 0 20px 0;*/
+/*!*h1, h2, h3, h4, h5, h6 {*!*/
+/*!*  color: #0056b3;*!*/
+/*!*  margin: 0 0 20px 0;*!*/
+/*!*}*!*/
+
+/*!*p {*!*/
+/*!*  margin: 0 0 20px 0;*!*/
+/*!*}*!*/
+
+/*!*a {*!*/
+/*!*  color: #040505;*!*/
+/*!*  text-decoration: none;*!*/
+/*!*}*!*/
+
+/*!*a:hover {*!*/
+/*!*  text-decoration: underline;*!*/
+/*!*}*!*/
+
+/*!*button {*!*/
+/*!*  padding: 12px 25px; !* Slightly larger buttons *!*!*/
+/*!*  margin: 5px; !* Adjusted margin *!*!*/
+/*!*  font-size: 16px;*!*/
+/*!*  border-radius: 8px; !* More rounded corners *!*!*/
+/*!*  background-color: #343a40; !* Dark gray background *!*!*/
+/*!*  color: #fff; !* White text *!*!*/
+/*!*  border: none;*!*/
+/*!*  cursor: pointer;*!*/
+/*!*  transition: background-color 0.3s ease, transform 0.2s ease; !* Smooth transitions *!*!*/
+/*!*}*!*/
+
+/*!*button:hover {*!*/
+/*!*  background-color: #23272b; !* Slightly darker gray on hover *!*!*/
+/*!*  transform: translateY(-2px); !* Slight lift effect on hover *!*!*/
+/*!*}*!*/
+
+/*!*input, textarea {*!*/
+/*!*  width: 100%;*!*/
+/*!*  padding: 10px;*!*/
+/*!*  margin: 10px 0;*!*/
+/*!*  border: 1px solid #ccc;*!*/
+/*!*  border-radius: 4px;*!*/
+/*!*}*!*/
+
+/*!*.container {*!*/
+/*!*  width: 80%;*!*/
+/*!*  margin: 0 auto;*!*/
+/*!*  padding: 20px;*!*/
+/*!*}*!*/
+
+/*.row {*/
+/*  display: flex;*/
+/*  flex-wrap: wrap;*/
+/*  margin: 0 -10px;*/
 /*}*/
 
-/*p {*/
-/*  margin: 0 0 20px 0;*/
+/*.col {*/
+/*  flex: 1;*/
+/*  padding: 10px;*/
 /*}*/
 
-/*a {*/
-/*  color: #040505;*/
-/*  text-decoration: none;*/
+/*@media (max-width: 768px) {*/
+/*  body {*/
+/*    font-size: 0.9rem;*/
+/*  }*/
+
+/*  .container {*/
+/*    width: 100%;*/
+/*    padding: 10px;*/
+/*  }*/
+/*  .row {*/
+/*    flex-direction: column;*/
+/*  }*/
 /*}*/
-
-/*a:hover {*/
-/*  text-decoration: underline;*/
-/*}*/
-
-/*button {*/
-/*  padding: 12px 25px; !* Slightly larger buttons *!*/
-/*  margin: 5px; !* Adjusted margin *!*/
-/*  font-size: 16px;*/
-/*  border-radius: 8px; !* More rounded corners *!*/
-/*  background-color: #343a40; !* Dark gray background *!*/
-/*  color: #fff; !* White text *!*/
-/*  border: none;*/
-/*  cursor: pointer;*/
-/*  transition: background-color 0.3s ease, transform 0.2s ease; !* Smooth transitions *!*/
-/*}*/
-
-/*button:hover {*/
-/*  background-color: #23272b; !* Slightly darker gray on hover *!*/
-/*  transform: translateY(-2px); !* Slight lift effect on hover *!*/
-/*}*/
-
-input, textarea {
-  width: 100%;
-  padding: 10px;
-  margin: 10px 0;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-}
-
-.container {
-  width: 80%;
-  margin: 0 auto;
-  padding: 20px;
-}
-
-.row {
-  display: flex;
-  flex-wrap: wrap;
-  margin: 0 -10px;
-}
-
-.col {
-  flex: 1;
-  padding: 10px;
-}
-
-@media (max-width: 768px) {
-  body {
-    font-size: 0.9rem;
-  }
-
-  .container {
-    width: 100%;
-    padding: 10px;
-  }
-  .row {
-    flex-direction: column;
-  }
-}
