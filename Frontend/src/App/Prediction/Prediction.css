@@ -18,6 +18,7 @@
     text-align: center;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     position: relative;
+    margin-bottom: 10px;
 }
 /* Prediction Buttons */
 .prediction-buttons {
@@ -26,7 +27,7 @@
     align-items: center;
     justify-content: center;
     gap: 10px;
-    margin-top: 10px;
+    margin-top: 20px;
 }
 .prediction-button {
     background: linear-gradient(45deg, #ff6b6b, #ff8e53);
