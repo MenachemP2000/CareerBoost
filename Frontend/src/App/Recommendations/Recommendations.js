@@ -172,8 +172,9 @@ const Recommendations = ({ toggleScreen, isSignedIn, toggleSignendIn, exchangeRa
     return (
 
             <div className="recommendations-container" >
+                <h3 className="recommendations-title">Recommendations</h3>
                 <div className="recommendations-overlay">
-                    <h3 className="recommendations-title">Recommendations</h3>
+
                     <p className="recommendations-subtitle">Here’s an overview of your top recommendations:</p>
 
                     {(!recommendations || !recommendationsIncrese) &&

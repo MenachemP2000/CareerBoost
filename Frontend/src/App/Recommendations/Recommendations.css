@@ -1,10 +1,11 @@
 .recommendations-container {
+    background-color: white;
+    min-height: 100vh;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
-    min-height: 100vh;
-    background: white;
-    padding: 20px;
+    width: 100%;
 }
 
 .recommendations-overlay {
@@ -18,10 +19,11 @@
 }
 
 .recommendations-title {
-    font-size: 28px;
+    font-size: 50px;
     font-weight: bold;
-    color: #1877f2;
-    margin-bottom: 10px;
+    color: black;
+    margin-bottom: 70px;
+    padding-top: 10px; /* Adds spacing from the top */
 }
 
 .recommendations-subtitle {
