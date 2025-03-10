@@ -89,7 +89,7 @@
     text-align: center;
     text-decoration: none;
     transition: background 0.3s ease;
-    width: 130px;
+    width: max-content;
     height: 40px;
 
 }

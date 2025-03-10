@@ -1,6 +1,6 @@
 import "./App.css";
 import Home from "./Home/Home";
-import Aboutus from "./About/About";
+import AboutUs from "./About/About";
 import Contact from "./Contacts/Contact";
 import NavbarComponent from "./NavBar/Navbar";
 import CreateAccount from './CreateAccount/CreateAccount';
@@ -18,6 +18,7 @@ import Experiment from "./Experiment/Experiment";
 import SavedRecommendations from "./SavedRecommendations/SavedRecommendations";
 import Prediction from "./Prediction/Prediction";
 import Guide from "./Guide/Guide";
+import FooterComponent from "./Footer/Footer";
 
 function App() {
     const [screen, setScreen] = useState(false);
@@ -271,8 +272,8 @@ function App() {
                         toggleScreen={toggleScreen}
                         isSignedIn={isSignedIn}
                         toggleSignendIn={toggleSignendIn} />} />
-                    <Route path="/aboutus" element={<Aboutus />} />
-                    <Route path="/contact" element={<Contact />} />
+                    <Route path="/aboutus" element={<AboutUs />} />
+                    <Route path="/contactus" element={<Contact />} />
                     <Route path="/createaccount" element={<CreateAccount
                         toggleSignendIn={toggleSignendIn}
                         toggleScreen={toggleScreen}
@@ -385,6 +386,7 @@ function App() {
 
                     />} />
                 </Routes>
+            <FooterComponent/>
             </div>
         </Router>
 
