@@ -20,6 +20,7 @@ import Prediction from "./Prediction/Prediction";
 import Guide from "./Guide/Guide";
 import JobSearch from "./JobSearch/JobSearch";
 import Jobs from "./Jobs/Jobs";
+import SavedJobs from "./SavedJobs/SavedJobs";
 
 function App() {
     const [screen, setScreen] = useState(false);
@@ -447,6 +448,12 @@ function App() {
                         isSignedIn={isSignedIn} 
                         toggleSignendIn={toggleSignendIn}
                         countryCrMap= {countryCrMap}
+                    />} />
+
+                    <Route path="/SavedJobs" element={<SavedJobs
+                        toggleScreen={toggleScreen}
+                        isSignedIn={isSignedIn} 
+                        toggleSignendIn={toggleSignendIn}
                     />} />
                 </Routes>
             </div>

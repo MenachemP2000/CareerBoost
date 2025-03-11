@@ -156,21 +156,32 @@ export default function Jobs({ toggleScreen, isSignedIn, toggleSignendIn, countr
 
             const data = await response.json();
             const dataJobs = data.jobs;
-            
+
             if (isSignedIn.country === "Israel") {
                 dataJobs.forEach(job => {
+                    job.parsedTitle = decodeHtml(job.pagemap.metatags[0]["og:title"]).replace("| LinkedIn", "").replace("LinkedIn", "");
                     job.country = "Israel";
                     job.company = decodeHtml(job.pagemap.metatags[0]["og:title"].split("גיוס עובדים")[0].trim());
                     job.job = decodeHtml(job.pagemap.metatags[0]["og:title"].split("גיוס עובדים")[1].split("|").slice(0, -1).join("|").trim());
                     job.location = decodeHtml(job.pagemap.metatags[0]["og:title"].split("גיוס עובדים")[1].split("|").slice(-1)[0].replace("LinkedIn", "").trim());
                 });
             }
-            if (isSignedIn.country === "United States of America") {
+            else if (isSignedIn.country === "United States of America") {
                 dataJobs.forEach(job => {
+                    job.parsedTitle = decodeHtml(job.pagemap.metatags[0]["og:title"]).replace("| LinkedIn", "").replace("LinkedIn", "");
                     job.country = "USA";
                     job.company = decodeHtml(job.pagemap.metatags[0]["og:title"].split("hiring")[0].trim());
                     job.job = decodeHtml(job.pagemap.metatags[0]["og:title"].split("hiring")[1].trim().split("in ")[0].trim());
                     job.location = decodeHtml(job.pagemap.metatags[0]["og:title"].split("hiring")[1].split("in ")[1].replace("| LinkedIn", "").trim());
+                });
+            }
+            else {
+                dataJobs.forEach(job => {
+                    job.parsedTitle = decodeHtml(job.pagemap.metatags[0]["og:title"]).replace("| LinkedIn", "").replace("LinkedIn", "");
+                    job.country = isSignedIn.country;
+                    job.company = "not available";
+                    job.job = "not available";
+                    job.location = "not available";
                 });
             }
 
@@ -236,27 +247,31 @@ export default function Jobs({ toggleScreen, isSignedIn, toggleSignendIn, countr
                                 <li key={index} className=" p-4" style={{ listStyleType: "none" }}>
                                     <Card>
                                         <Card.Link href={job.link} target="_blank" rel="noopener noreferrer" >
-                                            {decodeHtml(job.pagemap.metatags[0]["og:title"].replace("| LinkedIn", "")).replace("LinkedIn", "")}
+                                            {job.parsedTitle}
                                         </Card.Link>
-                                            <Card.Text>
-                                                {job.snippet.match(/\d+\s\w+\sago/).length > 0 &&
-                                                    <div> Posted: {job.snippet.match(/\d+\s\w+\sago/)}
+                                        <Card.Text>
+                                            {job.snippet.match(/\d+\s\w+\sago/).length > 0 &&
+                                                <div> Posted: {job.snippet.match(/\d+\s\w+\sago/)}
+                                                </div>
+                                            }
+                                            {(job.country === "Israel" || job.country === "USA") &&
+                                                <Col>
+                                                    <div> Company: {job.company}
                                                     </div>
-                                                }
-                                                {(job.country === "Israel"|| job.country === "USA") &&
-                                                    <Col>
-                                                        <div> Company: {job.company}
-                                                        </div>
-                                                        <div> Job: {job.job}
-                                                        </div>
-                                                        <div> Location: {job.location}
-                                                        </div>
-                                                    </Col>
-                                                }
-                                            </Card.Text>
+                                                    <div> Job: {job.job}
+                                                    </div>
+                                                    <div> Location: {job.location}
+                                                    </div>
+                                                </Col>
+                                            }
+                                        </Card.Text>
 
                                         <Container>
-                                            <Button as={Button} onClick={() => saveJob(job)} style={{ width: '10rem', margin: "10px" }} variant="secondary">Save</Button>
+                                            {isSignedIn.savedJobs && isSignedIn.savedJobs.find(savedJob => savedJob.link === job.link) ?
+                                                <Button as={Button} disabled style={{ width: '10rem', margin: "10px" }} variant="secondary">Saved</Button>
+                                                :
+                                                <Button as={Button} onClick={() => saveJob(job)} style={{ width: '10rem', margin: "10px" }} variant="secondary">Save</Button>
+                                            }
                                         </Container>
 
                                     </Card>
@@ -274,7 +289,7 @@ export default function Jobs({ toggleScreen, isSignedIn, toggleSignendIn, countr
             <Row className="d-flex justify-content-center">
                 <Container className="justify-content-center" >
                     <Button as={Link} to="/JobSearch" style={{ width: '12rem', margin: "10px" }} variant="primary" className="px-5 py-3">Search</Button>
-                    <Button as={Link} to="/SavedRecommendations" style={{ width: '12rem', margin: "10px" }} variant="primary" className="px-5 py-3">Saved</Button>
+                    <Button as={Link} to="/SavedJobs" style={{ width: '12rem', margin: "10px" }} variant="primary" className="px-5 py-3">Saved</Button>
                 </Container>
             </Row>
         </div>
