@@ -1,0 +1,140 @@
+/* Main Container */
+.saved-recommendations-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 40px;
+    font-family: 'Arial', sans-serif;
+    text-align: center;
+}
+
+/* Title & Subtitle */
+.saved-recommendations-title {
+    font-size: 32px;
+    font-weight: bold;
+    color: #2c3e50;
+    margin-bottom: 10px;
+}
+
+.saved-recommendations-subtitle {
+    font-size: 16px;
+    color: #7f8c8d;
+    margin-bottom: 30px;
+}
+
+/* Card */
+.saved-recommendations-card {
+    background: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+    max-width: 800px;
+    width: 100%;
+}
+
+/* Recommendations List */
+.recommendations-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.recommendations-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 12px 0;
+    border-bottom: 1px solid #ddd;
+    font-size: 16px;
+}
+
+.recommendations-item:last-child {
+    border-bottom: none;
+}
+
+/* Salary Increase */
+.salary-increase {
+    font-weight: bold;
+    color: #27ae60;
+}
+
+/* No Recommendations */
+.no-recommendations {
+    color: #7f8c8d;
+    font-size: 16px;
+    margin-top: 10px;
+}
+
+/* Buttons */
+.actions-container {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.action-btn {
+    padding: 12px 20px;
+    font-size: 16px;
+    border-radius: 6px;
+    font-weight: bold;
+    transition: background 0.3s ease-in-out;
+    background: linear-gradient(45deg, #2980b9, #2c3e50);
+    border: none;
+    color: white;
+    min-width: 150px;
+    margin-bottom: 20px;
+}
+
+.action-btn:hover {
+    background: linear-gradient(45deg, #1c598a, #2c3e50);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .actions-container {
+        flex-direction: column;
+        gap: 10px;
+    }
+}
+
+/* Dark Mode */
+body.dark-mode .saved-recommendations-container {
+    background: rgb(12,12,12);
+    color: #e0e0e0;
+}
+body.dark-mode .card-header{
+    color: #ffffff;
+}
+
+
+body.dark-mode .saved-recommendations-card {
+    background: #1e1e1e;
+    box-shadow: 0 4px 10px rgba(255, 255, 255, 0.1);
+}
+
+body.dark-mode .saved-recommendations-title {
+    color: #ffffff;
+}
+
+body.dark-mode .saved-recommendations-subtitle {
+    color: #ffffff;
+}
+
+body.dark-mode .recommendations-item {
+    border-bottom: 1px solid #444;
+    color: #ffffff;
+}
+
+body.dark-mode .salary-increase {
+    color: #2ecc71;
+}
+
+body.dark-mode .action-btn {
+    background: linear-gradient(45deg, #3498db, #34495e);
+}
+
+body.dark-mode .action-btn:hover {
+    background: linear-gradient(45deg, #1c598a, #2c3e50);
+}

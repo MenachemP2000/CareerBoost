@@ -201,93 +201,138 @@ const AdvancedRecommendations = ({ toggleScreen, isSignedIn, toggleSignendIn, la
     }
     return (
 
+        <div className="advanced-recommendations-container">
+            <h3 className="advanced-recommendations-title">Advanced Recommendations</h3>
+            <div className="advanced-recommendations-overlay">
 
-            <div className="advanced-recommendations-container" >
-                <div className= "advanced-recommendations-overlay">
-                    <h3 className="advanced-recommendations-title">Advanced Recommendations</h3>
-                    <p className="advanced-recommendations-subtitle">Here's your full recommendations list:</p>
+                <p className="advanced-recommendations-subtitle">Here's your full recommendations list:</p>
 
-                    {(!isSignedIn.recommendations) &&
-                        <Row className="advanced-recommendations-row">
-                            <Card className= "advanced-recommendations-card">
-                                <Card.Header>Get Recommendations</Card.Header>
-                                <Card.Body >
-                                    <Card.Text>
-                                        Click the button below to get recommendations Based on your profile
-                                    </Card.Text>
-                                    <Button onClick={handleRecommendations} variant="primary" className="advanced-recommendations-btn">Recommendations</Button>
-                                </Card.Body>
-                            </Card>
-                        </Row>
-                    }
-
-                    {(isSignedIn.recommendations) &&
+                {(!isSignedIn.recommendations) &&
+                    <Row className="advanced-recommendations-row">
                         <Card className="advanced-recommendations-card">
-                            <Card.Header>Recommendations</Card.Header>
-
-                            <DropdownButton id="filter-dropdown" title="Options" variant="primary">
-                                {[
-                                    { id: "checkbox1", state: showLanguages, setState: setShowLanguages, label: "Show Recommendations for Languages" },
-                                    { id: "checkboxDatabases", state: showDatabases, setState: setShowDatabases, label: "Show Recommendations for Databases" },
-                                    { id: "checkboxPlatforms", state: showPlatforms, setState: setShowPlatforms, label: "Show Recommendations for Platforms" },
-                                    { id: "checkboxWebframesworks", state: showWebframesworks, setState: setShowWebframesworks, label: "Show Recommendations for Web Frameworks" },
-                                    { id: "checkboxTools", state: showTools, setState: setShowTools, label: "Show Recommendations for Tools" },
-                                    { id: "checkboxOpSys", state: showOpSys, setState: setShowOpSys, label: "Show Recommendations for Operating Systems" },
-                                    { id: "checkboxEmployments", state: showEmployments, setState: setShowEmployments, label: "Show Recommendations for Employment Status" },
-                                    { id: "checkbox2", state: showPath, setState: setShowPath, label: "Show Recommendations for Career Path" },
-                                    { id: "checkbox3", state: backwardsort, setState: setBackwardsort, label: "Sort Low to High" }
-                                ].map(({ id, state, setState, label }) => (
-                                    <Dropdown.Item as="div" key={id}  className="filter-option">
-                                        <Form.Check
-                                            type="checkbox"
-                                            id={id}
-                                            checked={state}
-                                            onChange={() => setState(!state)}
-                                            label={label}
-                                        />
-                                    </Dropdown.Item>
-                                ))}
-                            </DropdownButton>
-
+                            <Card.Header>Get Recommendations</Card.Header>
                             <Card.Body>
-                                <ul className="advanced-recommendations-list">
-                                    {recommendations.map((recommendation, index) => {
-                                        return (
-                                            <li key={index} className="advanced-recommendations-item">
-                                                <span className="recommendation-text">{recommendation} </span>
-                                                <span className="salary-increase">
+                                <Card.Text>
+                                    Click the button below to get recommendations Based on your profile
+                                </Card.Text>
+                                <Button onClick={handleRecommendations} variant="primary"
+                                        className="advanced-recommendations-btn">Recommendations</Button>
+                            </Card.Body>
+                        </Card>
+                    </Row>
+                }
+
+                {(isSignedIn.recommendations) &&
+                    <Card className="advanced-recommendations-card">
+                        <Card.Header>Recommendations</Card.Header>
+
+                        <DropdownButton title="Options" variant="primary"  className="custom-dropdown">
+                            {[
+                                {
+                                    id: "checkbox1",
+                                    state: showLanguages,
+                                    setState: setShowLanguages,
+                                    label: "Show Recommendations for Languages"
+                                },
+                                {
+                                    id: "checkboxDatabases",
+                                    state: showDatabases,
+                                    setState: setShowDatabases,
+                                    label: "Show Recommendations for Databases"
+                                },
+                                {
+                                    id: "checkboxPlatforms",
+                                    state: showPlatforms,
+                                    setState: setShowPlatforms,
+                                    label: "Show Recommendations for Platforms"
+                                },
+                                {
+                                    id: "checkboxWebframesworks",
+                                    state: showWebframesworks,
+                                    setState: setShowWebframesworks,
+                                    label: "Show Recommendations for Web Frameworks"
+                                },
+                                {
+                                    id: "checkboxTools",
+                                    state: showTools,
+                                    setState: setShowTools,
+                                    label: "Show Recommendations for Tools"
+                                },
+                                {
+                                    id: "checkboxOpSys",
+                                    state: showOpSys,
+                                    setState: setShowOpSys,
+                                    label: "Show Recommendations for Operating Systems"
+                                },
+                                {
+                                    id: "checkboxEmployments",
+                                    state: showEmployments,
+                                    setState: setShowEmployments,
+                                    label: "Show Recommendations for Employment Status"
+                                },
+                                {
+                                    id: "checkbox2",
+                                    state: showPath,
+                                    setState: setShowPath,
+                                    label: "Show Recommendations for Career Path"
+                                },
+                                {
+                                    id: "checkbox3",
+                                    state: backwardsort,
+                                    setState: setBackwardsort,
+                                    label: "Sort Low to High"
+                                }
+                            ].map(({id, state, setState, label}) => (
+                                <Dropdown.Item as="div" key={id} className="filter-option">
+                                    <Form.Check
+                                        type="checkbox"
+                                        id={id}
+                                        checked={state}
+                                        onChange={() => setState(!state)}
+                                        label={label}
+                                    />
+                                </Dropdown.Item>
+                            ))}
+                        </DropdownButton>
+
+                        <Card.Body>
+                            <ul className="advanced-recommendations-list">
+                                {recommendations.map((recommendation, index) => {
+                                    return (
+                                        <li key={index} className="advanced-recommendations-item">
+                                            <span className="recommendation-text">{recommendation} </span>
+                                            <span className="salary-increase">
                                                     {new Intl.NumberFormat('en', {
                                                         style: 'currency',
                                                         currency: selectedCurrency,
                                                         maximumFractionDigits: 0
                                                     }).format(Math.floor(recommendationsIncrese[recommendation] * exchangeRate))}
                                                 </span>
-                                            </li>
-                                        );
-                                    })}
-                                </ul>
-                            </Card.Body>
-                            <Card.Body >
-                                <Card.Text>
-                                    if you change your information, you can ask to be re-recommended
-                                </Card.Text>
-                                <Button as={Button} onClick={handleRecommendations} variant="primary" className="px-5 py-3">Reccomend</Button>
-                            </Card.Body>
-                        </Card>
+                                        </li>
+                                    );
+                                })}
+                            </ul>
+                        </Card.Body>
+                        <Card.Body>
+                            <Card.Text>
+                                if you change your information, you can ask to be re-recommended
+                            </Card.Text>
+                            <Button as={Button} onClick={handleRecommendations} variant="primary"
+                                    className="re-btn">Re-Recommended</Button>
+                        </Card.Body>
+                    </Card>
 
 
+                }
 
+                <Container className="advanced-recommendations-btn">
+                    <Button as={Link} to="/Recommendations" className="action-btn">Basic</Button>
+                    <Button as={Link} to="/SavedRecommendations" className="action-btn">Saved</Button>
+                    <Button onClick={handleSignout} className="action-btn">Sign Out</Button>
+                </Container>
 
-                    }
-
-                        <Container className="advanced-recommendations-actions" >
-                            <Button as={Link} to="/Recommendations" className= "action-btn">Basic</Button>
-                            <Button as={Link} to="/SavedRecommendations" className="action-btn">Saved</Button>
-                            <Button onClick={handleSignout} className="action-btn">Sign Out</Button>
-                        </Container>
-
-                </div>
             </div>
+        </div>
     );
 }
 

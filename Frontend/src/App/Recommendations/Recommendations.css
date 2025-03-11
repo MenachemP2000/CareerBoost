@@ -52,7 +52,7 @@
     flex: 1;
     text-align: left;
     font-size: 16px;
-    color: #333;
+    /*color: #333;*/
     font-weight: 500;
 }
 
@@ -136,7 +136,7 @@ body.dark-mode .recommendations-card {
 
 /* List of recommendations */
 body.dark-mode .recommendations-list {
-    list-style: none;
+    /*list-style: none;*/
     padding: 0;
 }
 
@@ -147,9 +147,9 @@ body.dark-mode .recommendations-item {
     border-bottom: 1px solid #444;
     color: white;
 }
-body.dark-mode.recommendation-text {
-    color: white;
-}
+/*body.dark-mode.recommendation-text {*/
+/*    color: #b60f0f;*/
+/*}*/
 /* Recommendation button */
 body.dark-mode .recommendations-btn {
     background: linear-gradient(45deg, #ff4444, #ff6a00);

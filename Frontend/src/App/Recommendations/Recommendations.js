@@ -170,7 +170,6 @@ const Recommendations = ({ toggleScreen, isSignedIn, toggleSignendIn, exchangeRa
         }
     }
     return (
-
             <div className="recommendations-container" >
                 <h3 className="recommendations-title">Recommendations</h3>
                 <div className="recommendations-overlay">

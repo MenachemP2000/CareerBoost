@@ -72,7 +72,6 @@
     flex-direction: row; /* Stack buttons vertically */
     align-items: center;
     justify-content: center;
-    margin-top: 2px;
     gap: 10px; /* Adds space between buttons */
     margin-top: 10px; /* Adjust as needed */
 }
@@ -152,12 +151,12 @@ body.dark-mode .profile-info {
 
 /* Dark Mode: Profile Buttons */
 body.dark-mode .profile-button {
-    background: linear-gradient(45deg, #ff8e53, #ff6b6b);
+    /*background: linear-gradient(45deg, #ff8e53, #ff6b6b);*/
     color: black;
 }
 
 body.dark-mode .profile-button:hover {
-    background: linear-gradient(45deg, #ff6b6b, #ff8e53);
+    /*background: linear-gradient(45deg, #ff6b6b, #ff8e53);*/
     color: black;
 }
 
