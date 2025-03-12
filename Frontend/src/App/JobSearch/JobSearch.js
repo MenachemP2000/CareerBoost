@@ -14,6 +14,8 @@ export default function JobSearch({ toggleScreen, isSignedIn, toggleSignendIn, c
     const [searchQuery, setSearchQuery] = useState("");
     const [recency, setRecency] = useState("d1");
     const [filters, setFilters] = useState({
+        countryEnabled: true,
+        devTypeEnabled: true,
         keywords: "",  // New field for excluded keywords,
         includeKeywords: ""  // New field for included keywords
     });
@@ -27,11 +29,16 @@ export default function JobSearch({ toggleScreen, isSignedIn, toggleSignendIn, c
         if (!isSignedIn) {
             navigate("/");
         }
-        // Pass filters (not isSignedIn) into buildSearchQuery
         const searchQuery = buildSearchQuery(isSignedIn);
         setSearchQuery(searchQuery);
         console.log("filters", filters);
     }, [filters, isSignedIn]); // Update searchQuery whenever filters change
+
+    useEffect(() => {
+        if (!loading) {
+            searchJobs(1);
+        }
+    }, [isSignedIn.username]);
 
 
 
@@ -221,16 +228,131 @@ export default function JobSearch({ toggleScreen, isSignedIn, toggleSignendIn, c
     };
 
     const searchJobs = async (pageNumber) => {
+        let initialSearch = true;
 
-        if (pageNumber === 1) {
+        if (pageNumber === 1 || !searchQuery) {
             setJobs([]); // Clear jobs on new search
         }
         setLoading(true);
         try {
+            let url = ``;
+            if (searchQuery) {
+                initialSearch = false;
+                url = `${config.apiBaseUrl}/api/jobs/search-jobs?query=${encodeURIComponent(searchQuery)}&page=${pageNumber}&recency=${recency}`;
 
-            let url = `${config.apiBaseUrl}/api/jobs/search-jobs?query=${encodeURIComponent(searchQuery)}&page=${pageNumber}&recency=${recency}`;
+                if (includeCountry) {
+                    url += `&country=${countryCrMap[isSignedIn.country]}`;
+                }
+            }
+            else {
+                const { DevType } = isSignedIn;
+                let query = `site:linkedin.com/jobs/view `;
+                if (DevType) {
+                    if (DevType == "Developer, full-stack") {
+                        query += `AND (full-stack) `;
+                    }
+                    if (DevType == "Developer, back-end") {
+                        query += `AND (back-end) `;
+                    }
+                    if (DevType == "Developer, front-end") {
+                        query += `AND (front-end) `;
+                    }
+                    if (DevType == "Developer, desktop or enterprise applications") {
+                        query += `AND (desktop OR enterprise applications OR Desktop applications OR Enterprise) `;
+                    }
+                    if (DevType == "Developer, mobile") {
+                        query += `AND (mobile OR Mobile app) `;
+                    }
+                    if (DevType == "Developer, embedded applications or devices") {
+                        query += `AND (embedded applications OR embedded systems OR Embedded device OR Embedded) `;
+                    }
+                    if (DevType == "Data engineer") {
+                        query += `AND (Data engineer OR Data infrastructure engineer OR Data pipeline engineer) `;
+                    }
+                    if (DevType == "Engineering manager") {
+                        query += `AND (Engineering manager OR Tech lead OR Technical manager OR Engineering lead) `;
+                    }
+                    if (DevType == "DevOps specialist") {
+                        query += `AND (DevOps specialist OR DevOps engineer OR DevOps) `;
+                    }
+                    if (DevType == "Data scientist or machine learning specialist") {
+                        query += `AND (Data scientist OR Machine learning specialist OR Data scientist ML) `;
+                    }
+                    if (DevType == "Research & Development role") {
+                        query += `AND (Research & Development OR R&D role OR Research scientist) `;
+                    }
+                    if (DevType == "Academic researcher") {
+                        query += `AND Researcher `;
+                    }
+                    if (DevType == "Senior Executive (C-Suite, VP, etc.)") {
+                        query += `AND (Senior Executive OR C-Suite OR VP OR CTO OR CEO) `;
+                    }
+                    if (DevType == "Cloud infrastructure engineer") {
+                        query += `AND (Cloud infrastructure engineer OR Cloud engineer OR Cloud architect OR Cloud infrastructure) `;
+                    }
+                    if (DevType == "Developer, QA or test") {
+                        query += `AND (QA OR Quality assurance) `;
+                    }
+                    if (DevType == "Developer, game or graphics") {
+                        query += `AND (Game OR Graphics OR Games) `;
+                    }
+                    if (DevType == "Data or business analyst") {
+                        query += `AND (Data analyst OR Business analyst OR Business intelligence analyst OR BI) `;
+                    }
+                    if (DevType == "Developer, AI") {
+                        query += `AND (AI OR Artificial intelligence) `;
+                    }
+                    if (DevType == "System administrator") {
+                        query += `AND (System administrator OR Sysadmin OR System admin) `;
+                    }
+                    if (DevType == "Student") {
+                        query += `AND (Student OR Intern OR Graduate OR Recent graduate) `;
+                    }
+                    if (DevType == "Engineer, site reliability") {
+                        query += `AND (Site reliability OR SRE) `;
+                    }
+                    if (DevType == "Project manager") {
+                        query += `AND (Project manager OR Program manager) `;
+                    }
+                    if (DevType == "Scientist") {
+                        query += `AND Scientist `;
+                    }
+                    if (DevType == "Security professional") {
+                        query += `AND (Security OR Cybersecurity) `;
+                    }
+                    if (DevType == "Educator") {
+                        query += `AND (Educator OR Instructor OR Professor) `;
+                    }
+                    if (DevType == "Blockchain") {
+                        query += `AND (Blockchain OR Blockchain developer OR Blockchain engineer) `;
+                    }
+                    if (DevType == "Developer Experience") {
+                        query += `AND (Experience OR DevEx OR Advocate) `;
+                    }
+                    if (DevType == "Product manager") {
+                        query += `AND (Product manager OR Product owner OR PM) `;
+                    }
+                    if (DevType == "Hardware Engineer") {
+                        query += `AND (Hardware engineer OR Hardware developer) `;
+                    }
+                    if (DevType == "Database administrator") {
+                        query += `AND (Database administrator OR DBA OR Database engineer) `;
+                    }
+                    if (DevType == "Developer Advocate") {
+                        query += `AND (Advocate OR DevRel) `;
+                    }
+                    if (DevType == "Designer") {
+                        query += `AND Designer `;
+                    }
+                    if (DevType == "Marketing or sales professional") {
+                        query += `AND (Marketing OR Sales) `;
+                    }
 
-            if (includeCountry) {
+                }
+                const noapplications = '"No longer accepting applications"';//try to Exclude jobs that are no longer accepting applications
+                query += `AND -${noapplications} `;
+
+                url = `${config.apiBaseUrl}/api/jobs/search-jobs?query=${encodeURIComponent(query)}&page=${pageNumber}&recency=${recency}`;
                 url += `&country=${countryCrMap[isSignedIn.country]}`;
             }
 
@@ -244,34 +366,32 @@ export default function JobSearch({ toggleScreen, isSignedIn, toggleSignendIn, c
 
             const dataJobs = data.jobs;
 
-            if (includeCountry) {
-                if (isSignedIn.country === "Israel") {
-                    dataJobs.forEach(job => {
-                        job.parsedTitle = decodeHtml(job.pagemap.metatags[0]["og:title"]).replace("| LinkedIn", "").replace("LinkedIn", "");
-                        job.country = "Israel";
-                        job.company = decodeHtml(job.pagemap.metatags[0]["og:title"].split("גיוס עובדים")[0].trim());
-                        job.job = decodeHtml(job.pagemap.metatags[0]["og:title"].split("גיוס עובדים")[1].split("|").slice(0, -1).join("|").trim());
-                        job.location = decodeHtml(job.pagemap.metatags[0]["og:title"].split("גיוס עובדים")[1].split("|").slice(-1)[0].replace("LinkedIn", "").trim());
-                    });
-                }
-                else if (isSignedIn.country === "United States of America") {
-                    dataJobs.forEach(job => {
-                        job.parsedTitle = decodeHtml(job.pagemap.metatags[0]["og:title"]).replace("| LinkedIn", "").replace("LinkedIn", "");
-                        job.country = "USA";
-                        job.company = decodeHtml(job.pagemap.metatags[0]["og:title"].split("hiring")[0].trim());
-                        job.job = decodeHtml(job.pagemap.metatags[0]["og:title"].split("hiring")[1].trim().split("in ")[0].trim());
-                        job.location = decodeHtml(job.pagemap.metatags[0]["og:title"].split("hiring")[1].split("in ")[1].replace("| LinkedIn", "").trim());
-                    });
-                }
-                else {
-                    dataJobs.forEach(job => {
-                        job.parsedTitle = decodeHtml(job.pagemap.metatags[0]["og:title"]).replace("| LinkedIn", "").replace("LinkedIn", "");
-                        job.country = isSignedIn.country;
-                        job.company = "not available";
-                        job.job = "not available";
-                        job.location = "not available";
-                    });
-                }
+            if ((includeCountry || initialSearch ) && (isSignedIn.country === "Israel")) {
+                dataJobs.forEach(job => {
+                    job.parsedTitle = decodeHtml(job.pagemap.metatags[0]["og:title"]).replace("| LinkedIn", "").replace("LinkedIn", "");
+                    job.country = "Israel";
+                    job.company = decodeHtml(job.pagemap.metatags[0]["og:title"].split("גיוס עובדים")[0].trim());
+                    job.job = decodeHtml(job.pagemap.metatags[0]["og:title"].split("גיוס עובדים")[1].split("|").slice(0, -1).join("|").trim());
+                    job.location = decodeHtml(job.pagemap.metatags[0]["og:title"].split("גיוס עובדים")[1].split("|").slice(-1)[0].replace("LinkedIn", "").trim());
+                });
+            }
+            else if ((includeCountry || initialSearch ) && (isSignedIn.country === "United States of America")) {
+                dataJobs.forEach(job => {
+                    job.parsedTitle = decodeHtml(job.pagemap.metatags[0]["og:title"]).replace("| LinkedIn", "").replace("LinkedIn", "");
+                    job.country = "USA";
+                    job.company = decodeHtml(job.pagemap.metatags[0]["og:title"].split("hiring")[0].trim());
+                    job.job = decodeHtml(job.pagemap.metatags[0]["og:title"].split("hiring")[1].trim().split("in ")[0].trim());
+                    job.location = decodeHtml(job.pagemap.metatags[0]["og:title"].split("hiring")[1].split("in ")[1].replace("| LinkedIn", "").trim());
+                });
+            }
+            else {
+                dataJobs.forEach(job => {
+                    job.parsedTitle = decodeHtml(job.pagemap.metatags[0]["og:title"]).replace("| LinkedIn", "").replace("LinkedIn", "");
+                    job.country = isSignedIn.country;
+                    job.company = "not available";
+                    job.job = "not available";
+                    job.location = "not available";
+                });
             }
 
             setJobs(prevJobs => {
@@ -559,7 +679,7 @@ export default function JobSearch({ toggleScreen, isSignedIn, toggleSignendIn, c
 
                 <Card >
                     {loading && <p>Loading...</p>}
-                    {(jobs.length > 0) && (
+                    {(!loading && jobs.length > 0) && (
                         <>
                             <ul className="space-y-2 ">
                                 {jobs.map((job, index) => (
@@ -621,7 +741,7 @@ export default function JobSearch({ toggleScreen, isSignedIn, toggleSignendIn, c
 
                 <Row className="d-flex justify-content-center">
                     <Container className="justify-content-center" >
-                        <Button as={Link} to="/Jobs" style={{ width: '12rem', margin: "10px" }} variant="primary" className="px-5 py-3">Featured</Button>
+                        <Button as={Link} to="/FeaturedJobs" style={{ width: '12rem', margin: "10px" }} variant="primary" className="px-5 py-3">Featured</Button>
                         <Button as={Link} to="/SavedJobs" style={{ width: '12rem', margin: "10px" }} variant="primary" className="px-5 py-3">Saved</Button>
                     </Container>
                 </Row>

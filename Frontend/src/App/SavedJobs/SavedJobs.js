@@ -385,6 +385,10 @@ const SavedJobs = ({ toggleScreen, isSignedIn, toggleSignendIn }) => {
     });
 
     useEffect(() => {
+
+        if (!isSignedIn.savedJobs) {
+            return;
+        }
         const applied = isSignedIn.savedJobs.filter(job => job.applied);
         const appliedCount = applied.length;
         const appliedNoResponse = applied.filter(job => !job.interview && !job.rejected);
@@ -672,17 +676,7 @@ const SavedJobs = ({ toggleScreen, isSignedIn, toggleSignendIn }) => {
 
 
                         <div >
-                            {/* Button to toggle dropdown */}
-                            <button
-                                className="px-4 py-2 border rounded bg-blue-500 text-white"
-                                onClick={() => setSankeyIsOpen(!sankeyIsOpen)}
-                                disabled={!isSignedIn.savedJobs || isSignedIn.savedJobs.filter(job => job.applied).length === 0}
-                            >
-                                Diagram
-                            </button>
-
-                            {/* Floating dropdown menu */}
-                            {sankeyIsOpen && (
+                            {(isSignedIn.savedJobs && isSignedIn.savedJobs.filter(job => job.applied).length > 0 && data.nodes) && (
                                 <div className="d-flex justify-content-center">
                                     <Sankey
 
@@ -691,10 +685,10 @@ const SavedJobs = ({ toggleScreen, isSignedIn, toggleSignendIn }) => {
                                         data={data}
                                         nodePadding={30}
                                         margin={{
-                                         left: 60,
-                                          right: 60,
-                                          top: 50,
-                                          bottom: 50,
+                                            left: 60,
+                                            right: 60,
+                                            top: 50,
+                                            bottom: 50,
                                         }}
                                         node={(nodeProps) => (
                                             <Layer key={nodeProps.index}>
@@ -707,7 +701,7 @@ const SavedJobs = ({ toggleScreen, isSignedIn, toggleSignendIn }) => {
                                                 />
                                                 {/* Background rectangle */}
                                                 <rect
-                                                    x={nodeProps.x + nodeProps.width/2 -  nodeProps.payload.name.length * 4} // Adjust based on text position
+                                                    x={nodeProps.x + nodeProps.width / 2 - nodeProps.payload.name.length * 4} // Adjust based on text position
                                                     y={nodeProps.y + nodeProps.height + 5} // Adjust based on text position
                                                     width={nodeProps.payload.name.length * 8} // Adjust width based on text length
                                                     height={20} // Adjust height for background size
@@ -727,82 +721,84 @@ const SavedJobs = ({ toggleScreen, isSignedIn, toggleSignendIn }) => {
                                             </Layer>
                                         )}
                                         link={
-                                        {
-                                            stroke: "#8884d8"
-                                        }} 
+                                            {
+                                                stroke: "#8884d8"
+                                            }}
+                                        animationDuration={1000} // Duration of the animation (in ms)
+                                        animationEasing="linear"
                                     >
-                                    <Tooltip />
-                                </Sankey>
+                                        <Tooltip />
+                                    </Sankey>
                                 </div>
                             )}
+                        </div>
+
+                        <Row className="d-flex justify-content-center " >
+                            <Card.Body >
+                                {!isSignedIn.savedJobs || (isSignedIn.savedJobs && isSignedIn.savedJobs.length == 0) &&
+                                    <Card.Text >
+                                        No saved jobs yet, add some!
+                                    </Card.Text>
+                                }
+
+                                {isSignedIn.savedJobs && isSignedIn.savedJobs.length > 0 &&
+                                    <Card.Text >
+                                        <ul style={{ paddingLeft: "20px" }}>
+                                            {isSignedIn.savedJobs.map((job, index) => (
+                                                (filters.appliedEnabled || !job.applied) &&
+                                                (filters.interviewEnabled || !job.interview) &&
+                                                (filters.offerEnabled || !job.offer) &&
+                                                (filters.rejectedEnabled || !job.rejected) &&
+                                                <li key={index} className=" p-4" style={{ listStyleType: "none" }}>
+                                                    <Card>
+                                                        <Card.Link href={job.link} target="_blank" rel="noopener noreferrer" >
+                                                            {job.parsedTitle}
+                                                        </Card.Link>
+                                                        <Card.Body>
+                                                            <Col>
+                                                                <div> Company: {job.company}
+                                                                </div>
+                                                                <div> Job: {job.job}
+                                                                </div>
+                                                                <div> Location: {job.location}
+                                                                </div>
+                                                            </Col>
+                                                        </Card.Body>
+                                                        <Container>
+
+                                                            <Container className="d-flex justify-content-center">
+
+                                                                <Button as={Button} onClick={() => handleRemove(job)} style={{ width: '10rem', margin: "10px" }} variant="secondary">Remove</Button>
+                                                                <AppliedButton key={job._id} job={job} isSignedIn={isSignedIn} toggleSignendIn={toggleSignendIn} />
+                                                                <InterviewButton key={job._id} job={job} isSignedIn={isSignedIn} toggleSignendIn={toggleSignendIn} />
+                                                                <OfferButton key={job._id} job={job} isSignedIn={isSignedIn} toggleSignendIn={toggleSignendIn} />
+                                                                <AcceptedButton key={job._id} job={job} isSignedIn={isSignedIn} toggleSignendIn={toggleSignendIn} />
+                                                                <RejectedButton key={job._id} job={job} isSignedIn={isSignedIn} toggleSignendIn={toggleSignendIn} />
+
+                                                            </Container>
+                                                        </Container>
+
+                                                    </Card>
+                                                </li>
+                                            ))}
+                                        </ul>
+                                    </Card.Text>
+                                }
+                            </Card.Body>
+
+                        </Row>
+                    </Card>
+
+
+                    <Row className="d-flex justify-content-center">
+                        <Container className=" justify-content-center" >
+                            <Button as={Link} to="/FeaturedJobs" style={{ width: '10rem', margin: "10px" }} variant="primary" className="px-5 py-3">Featured</Button>
+                            <Button as={Link} to="/JobSearch" style={{ width: '10rem', margin: "10px" }} variant="primary" className="px-5 py-3">Search</Button>
+                        </Container>
+                    </Row>
+
+
                 </div>
-
-                <Row className="d-flex justify-content-center " >
-                    <Card.Body >
-                        {!isSignedIn.savedJobs || (isSignedIn.savedJobs && isSignedIn.savedJobs.length == 0) &&
-                            <Card.Text >
-                                No saved jobs yet, add some!
-                            </Card.Text>
-                        }
-
-                        {isSignedIn.savedJobs && isSignedIn.savedJobs.length > 0 &&
-                            <Card.Text >
-                                <ul style={{ paddingLeft: "20px" }}>
-                                    {isSignedIn.savedJobs.map((job, index) => (
-                                        (filters.appliedEnabled || !job.applied) &&
-                                        (filters.interviewEnabled || !job.interview) &&
-                                        (filters.offerEnabled || !job.offer) &&
-                                        (filters.rejectedEnabled || !job.rejected) &&
-                                        <li key={index} className=" p-4" style={{ listStyleType: "none" }}>
-                                            <Card>
-                                                <Card.Link href={job.link} target="_blank" rel="noopener noreferrer" >
-                                                    {job.parsedTitle}
-                                                </Card.Link>
-                                                <Card.Body>
-                                                    <Col>
-                                                        <div> Company: {job.company}
-                                                        </div>
-                                                        <div> Job: {job.job}
-                                                        </div>
-                                                        <div> Location: {job.location}
-                                                        </div>
-                                                    </Col>
-                                                </Card.Body>
-                                                <Container>
-
-                                                    <Container className="d-flex justify-content-center">
-
-                                                        <Button as={Button} onClick={() => handleRemove(job)} style={{ width: '10rem', margin: "10px" }} variant="secondary">Remove</Button>
-                                                        <AppliedButton key={job._id} job={job} isSignedIn={isSignedIn} toggleSignendIn={toggleSignendIn} />
-                                                        <InterviewButton key={job._id} job={job} isSignedIn={isSignedIn} toggleSignendIn={toggleSignendIn} />
-                                                        <OfferButton key={job._id} job={job} isSignedIn={isSignedIn} toggleSignendIn={toggleSignendIn} />
-                                                        <AcceptedButton key={job._id} job={job} isSignedIn={isSignedIn} toggleSignendIn={toggleSignendIn} />
-                                                        <RejectedButton key={job._id} job={job} isSignedIn={isSignedIn} toggleSignendIn={toggleSignendIn} />
-
-                                                    </Container>
-                                                </Container>
-
-                                            </Card>
-                                        </li>
-                                    ))}
-                                </ul>
-                            </Card.Text>
-                        }
-                    </Card.Body>
-
-                </Row>
-            </Card>
-
-
-            <Row className="d-flex justify-content-center">
-                <Container className=" justify-content-center" >
-                    <Button as={Link} to="/Jobs" style={{ width: '10rem', margin: "10px" }} variant="primary" className="px-5 py-3">Featured</Button>
-                    <Button as={Link} to="/JobSearch" style={{ width: '10rem', margin: "10px" }} variant="primary" className="px-5 py-3">Search</Button>
-                </Container>
-            </Row>
-
-
-        </div>
             </div >
         </div >
     );

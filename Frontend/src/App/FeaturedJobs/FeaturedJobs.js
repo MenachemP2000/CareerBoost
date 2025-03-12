@@ -4,7 +4,7 @@ import { useNavigate, Link } from 'react-router-dom';
 import { Container, Row, Col, Card, Button } from 'react-bootstrap';
 
 
-export default function Jobs({ toggleScreen, isSignedIn, toggleSignendIn, countryCrMap }) {
+export default function FeaturedJobs({ toggleScreen, isSignedIn, toggleSignendIn, countryCrMap }) {
     const navigate = useNavigate();
     const [jobs, setJobs] = useState([]); // Ensure this is an array
     const [loading, setLoading] = useState(false);
@@ -31,7 +31,7 @@ export default function Jobs({ toggleScreen, isSignedIn, toggleSignendIn, countr
 
 
     const buildSearchQuery = (user) => {
-        const { country, DevType } = user;
+        const {DevType } = user;
 
         let query = `site:linkedin.com/jobs/view `;
         // Include DevType if selected

@@ -3,20 +3,24 @@ import { Container, Row, Col, Card, Button } from 'react-bootstrap';
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useNavigate } from 'react-router-dom';
+import { BarChart, Bar, XAxis, YAxis, Tooltip, Legend, ResponsiveContainer } from "recharts";
 import config from '../config';
 
 const Recommendations = ({ toggleScreen, isSignedIn, toggleSignendIn, exchangeRate, selectedCurrency }) => {
     const navigate = useNavigate();
-    const [recommendations, setRecommendations] = useState(false);
-    const [recommendationsIncrese, setRecommendationsIncrese] = useState(false);
+    const [recommendations, setRecommendations] = useState([]);
+    const [recommendationsIncrese, setRecommendationsIncrese] = useState([]);
     const [error, setError] = useState('');
+    const [data, setData] = useState([]);
+    const COLORS = ["#8884d8", "#82ca9d", "#ffc658", "#ff7300", "#d0ed57", "#a4de6c"];
+
 
     useEffect(() => {
         toggleScreen("Recommendations");
         if (!isSignedIn) {
             navigate("/signin");
         }
-    });
+    }, [isSignedIn]);
 
     useEffect(() => {
         if (!isSignedIn.recommendations || !isSignedIn.recommendationsIncrese) {
@@ -43,8 +47,24 @@ const Recommendations = ({ toggleScreen, isSignedIn, toggleSignendIn, exchangeRa
         setRecommendationsIncrese(increaseDictionary);
 
         setRecommendations(filteredRecommendations);
+        if (filteredRecommendations.length === 0 || !isSignedIn.prediction || !isSignedIn.combined) {
+            setData([]);
+        }
+        const newData = [];
+        const reversedRecommendations = filteredRecommendations.slice().reverse();
+        newData.push({ name: "Base", salary: (isSignedIn.prediction * exchangeRate).toFixed(0) });
+        for (const recommendation in reversedRecommendations) {
+            let salary = (parseInt(increaseDictionary[reversedRecommendations[recommendation]], 10)
+                + parseInt(isSignedIn.prediction, 10)) * exchangeRate;
+            let name = reversedRecommendations[recommendation].replace(/(to |it would |will )?increase your salary by approximately /g, "");
+            newData.push({ name: name, salary: salary.toFixed(0) });
+        }
+        newData.push({ name: "All Combined", salary: (isSignedIn.combined * exchangeRate).toFixed(0) });
+        setData(newData);
 
-    }, [isSignedIn]);
+    }, [isSignedIn, exchangeRate]);
+
+
 
     const handleSignout = () => {
         toggleSignendIn(false);
@@ -168,6 +188,7 @@ const Recommendations = ({ toggleScreen, isSignedIn, toggleSignendIn, exchangeRa
             console.error('Error:', error);
         }
     }
+
     return (
 
         <div>
@@ -198,7 +219,7 @@ const Recommendations = ({ toggleScreen, isSignedIn, toggleSignendIn, exchangeRa
                         <Card style={{ margin: "10px" }}>
                             <Card.Header>Recommendations</Card.Header>
                             <Card.Body >
-                                <Card.Text>
+                                <Card.Body>
                                     <ul style={{ paddingLeft: "20px" }}>
                                         {recommendations.map((recommendation, index) => {
                                             return (
@@ -215,8 +236,8 @@ const Recommendations = ({ toggleScreen, isSignedIn, toggleSignendIn, exchangeRa
                                             );
                                         })}
                                     </ul>
-                                    <br/>
-                                </Card.Text>
+                                    <br />
+                                </Card.Body>
 
 
                                 <Card.Text>
@@ -228,6 +249,15 @@ const Recommendations = ({ toggleScreen, isSignedIn, toggleSignendIn, exchangeRa
                                     }).format(Math.floor(isSignedIn.combined * exchangeRate))}
                                     </span >
                                 </Card.Text>
+                                <ResponsiveContainer width="100%" height={400}>
+                                    <BarChart data={data}>
+                                        <XAxis dataKey="name" />
+                                        <YAxis />
+                                        <Tooltip />
+                                        <Legend />
+                                        <Bar dataKey="salary" fill="#8884d8" />
+                                    </BarChart>
+                                </ResponsiveContainer>
                                 <Card.Text>
                                     if you change your information, you can ask to be re-recommended
                                 </Card.Text>

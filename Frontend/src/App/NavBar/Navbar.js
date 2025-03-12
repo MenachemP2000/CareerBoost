@@ -128,7 +128,7 @@ function NavbarComponent({ exchangeRates, setExchangeRates, selectedCurrency, se
                             <Link to="/profile" className="nav-link" onClick={() => setIsExpanded(false)}>Profile</Link>
                             <Link to="/Prediction" className="nav-link" onClick={() => setIsExpanded(false)}>Prediction</Link>
                             <Link to="/Recommendations" className="nav-link" onClick={() => setIsExpanded(false)}>Recommendations</Link>
-                            <Link to="/Jobs" className="nav-link" onClick={() => setIsExpanded(false)}>Jobs</Link>
+                            <Link to="/SavedJobs" className="nav-link" onClick={() => setIsExpanded(false)}>Jobs</Link>
                             <Link to="/Guide" className="nav-link" onClick={() => setIsExpanded(false)}>Guide</Link>
                             <Link to="/contactus" className="nav-link" onClick={() => setIsExpanded(false)}>Contact Us</Link>
                             <span >Navbar end</span>

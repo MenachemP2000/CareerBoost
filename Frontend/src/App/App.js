@@ -19,7 +19,7 @@ import SavedRecommendations from "./SavedRecommendations/SavedRecommendations";
 import Prediction from "./Prediction/Prediction";
 import Guide from "./Guide/Guide";
 import JobSearch from "./JobSearch/JobSearch";
-import Jobs from "./Jobs/Jobs";
+import FeaturedJobs from "./FeaturedJobs/FeaturedJobs";
 import SavedJobs from "./SavedJobs/SavedJobs";
 
 function App() {
@@ -443,7 +443,7 @@ function App() {
                         countryCrMap={countryCrMap}
                     />} />
 
-                    <Route path="/Jobs" element={<Jobs
+                    <Route path="/FeaturedJobs" element={<FeaturedJobs
                         toggleScreen={toggleScreen}
                         isSignedIn={isSignedIn} 
                         toggleSignendIn={toggleSignendIn}

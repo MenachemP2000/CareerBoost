@@ -214,6 +214,66 @@ def recommend_skills_individual_with_best_value(user_profile,top_n=5):
     
     return top_recommendations,combined,recommendations, recommendationsIncrese, recommendationsFeature
 
+def most_impactful_skills(user_profile):
+    """
+    Detrmine the most impactful skills on the salary of an individual.
+    and their salary impact.
+    """
+    current_salary = model.predict(user_profile.reshape(1, -1))[0]
+    impacts = []
+    
+    for i, feature in enumerate(X_columns):
+        feature_value = user_profile[i]
+
+        
+        # Get all unique values for this feature from the data
+        unique_values = np.unique(X_data[feature])
+        
+        # Initialize variables to track the worst result for this feature
+        worst_value = feature_value
+        worst_salary = current_salary
+        worst_salary_decrease = 0
+        
+        # Simulate changing this feature to each possible value
+        for value in unique_values:
+            # Create a copy of the user profile to simulate the change in this feature
+            user_profile_copy = user_profile.copy()
+            
+            # Set the feature value to the candidate value
+            user_profile_copy[i] = value
+            
+            # Predict the new salary after the change
+            worsened_salary = model.predict(user_profile_copy.reshape(1, -1))[0]
+            
+            # Calculate the salary increase
+            salary_decrease = worsened_salary - current_salary
+            
+            # If this value gives a better salary, update the best value
+            if salary_decrease < worst_salary_decrease:
+                worst_value = value
+                worst_salary = worsened_salary
+                worst_salary_decrease = salary_decrease
+        
+        # If the feature is categorical and has a label encoder, decode the value back to its original label
+        if feature in label_encoder_dict:
+            encoder = label_encoder_dict[feature]
+            # Convert best_value to integer for inverse_transform
+            worst_value_int = int(worst_value)
+            worst_value_str = encoder.inverse_transform([worst_value_int])[0]
+        else:
+            worst_value_str = int(worst_value)
+            
+        
+        impacts.append({"impact": int(-worst_salary_decrease),"feature": feature})
+        
+    impacts = sorted(impacts, key=lambda x: x['impact'], reverse=True)
+    temp = impacts[0]
+    impacts[0] = impacts[1]
+    impacts[1] = temp
+    impacts = impacts[:3]
+    return impacts
+    
+
 while True:
     try:
         # Read input data
@@ -223,18 +283,13 @@ while True:
         request_type = request.get("type")  # "predict" or "recommend"
         user_profile = request.get("data")
         df = np.zeros(len(X_columns))
-        #print(df)
         for key, value in user_profile.items():
-            #print(key, value)
             index = X_columns.get_loc(key)
-            #print(index)
             if key in label_encoder_dict:
                 df[index] = label_encoder_dict[key].transform([value])[0]
             else:
                 df[index] = value
             
-        #print(df)
-        #print(X_data.iloc[0].values)
 
         # Encode categorical features if necessary
         for col in categorical_columns:
@@ -243,9 +298,11 @@ while True:
 
         if request_type == "predict":
             prediction = model.predict(df.reshape(1, -1))[0]
+            impacts = most_impactful_skills(df)
             
             # Send response
-            response = {"prediction": float(prediction)}
+            response = {"prediction": float(prediction),
+                        "impacts": impacts}
             print(json.dumps(response), flush=True)
 
         elif request_type == "recommend":

@@ -105,6 +105,9 @@ const userSchema = new mongoose.Schema({
   savedJobs: {
     type: Object
   },
+  impacts: {
+    type: Object
+  },
 
 });
 
