@@ -189,7 +189,7 @@ const Prediction = ({toggleScreen, isSignedIn, toggleSignendIn, selectedCurrency
                         <Card className="prediction-card">
                             <Card.Header>Salary Prediction</Card.Header>
                             <Card.Body>
-                                <Card.Text>
+                                <Card.Body>
                                     The model predicts your salary to be around:
                                     <br/>
                                     <br/>
@@ -201,7 +201,7 @@ const Prediction = ({toggleScreen, isSignedIn, toggleSignendIn, selectedCurrency
                                     }).format(Math.floor(isSignedIn.prediction * exchangeRate))} per year</Card.Title>
                                     <br/>
                                     If you change your information, you can repredict your salary
-                                </Card.Text>
+                                </Card.Body>
                                 <Button onClick={handlePredict} className="prediction-button">Repredict</Button>
                             </Card.Body>
                         </Card>

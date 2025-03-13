@@ -51,7 +51,7 @@ function NavbarComponent({ exchangeRates, setExchangeRates, selectedCurrency, se
         };
         fetchExchangeRates();
         fetchCurrencyFlags();
-    },);
+    },[]);
 
     useEffect(() => {
         if (exchangeRates[selectedCurrency]) {

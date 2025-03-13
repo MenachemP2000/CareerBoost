@@ -424,7 +424,7 @@ const ModifyAdvanced = ({ toggleSignendIn, toggleScreen, isSignedIn, languages, 
                                             </Form.Group>
 
                                             <Form.Group controlId="formopsys" className="mb-3">
-                                                <Form.Label>Operrating Systems</Form.Label>
+                                                <Form.Label>Operating Systems</Form.Label>
                                                 <Select
                                                     isMulti
                                                     name="tools"

@@ -138,16 +138,16 @@ const SavedRecommendations = ({ toggleScreen, isSignedIn, toggleSignendIn, excha
     };
 
     return (
-            <div className="saved-recommendations-container" >
-                <Container>
-                    <h3 className="saved-recommendations-title">Saved Recommendations</h3>
-                    <p className="saved-recommendations-subtitle">Here's your saved recommendations:</p>
+        <div className="saved-recommendations-container" >
+            <Container>
+                <h3 className="saved-recommendations-title">Saved Recommendations</h3>
+                <p className="saved-recommendations-subtitle">Here's your saved recommendations:</p>
 
-                    <Row className="d-flex justify-content-center ">
-                        <Col md={8}>
-                    {isSignedIn.recommendations &&
-                        <Card  className="saved-recommendations-card">
-                            <Card.Header>Saved Recommendations</Card.Header>
+                <Row className="d-flex justify-content-center ">
+                    <Col md={8}>
+                        {isSignedIn.recommendations &&
+                            <Card className="saved-recommendations-card">
+                                <Card.Header>Saved Recommendations</Card.Header>
 
                                 <Card.Body>
                                     {!isSignedIn.savedRecommendations || (isSignedIn.savedRecommendations && isSignedIn.savedRecommendations.length == 0) &&
@@ -157,11 +157,11 @@ const SavedRecommendations = ({ toggleScreen, isSignedIn, toggleSignendIn, excha
                                     }
 
                                     {isSignedIn.savedRecommendations && isSignedIn.savedRecommendations.length > 0 &&
-                                        <Card.Text>
-                                            <ul className="recommendations-list">
-                                                {isSignedIn.savedRecommendations.map((recommendation, index) => {
-                                                    return (
-                                                        <li key={index} className="recommendations-item">
+                                        <ul className="recommendations-list">
+                                            {isSignedIn.savedRecommendations.map((recommendation, index) => {
+                                                return (
+                                                    <li key={index} className="recommendations-item">
+
                                                             <span>{recommendation}</span>
                                                             <span className="salary-increase">
                                                                 {new Intl.NumberFormat('en', {
@@ -170,11 +170,11 @@ const SavedRecommendations = ({ toggleScreen, isSignedIn, toggleSignendIn, excha
                                                                     maximumFractionDigits: 0
                                                                 }).format(Math.floor(recommendationsIncrese[recommendation] * exchangeRate))}
                                                             </span>
-                                                        </li>
-                                                    );
-                                                })}
-                                            </ul>
-                                        </Card.Text>
+
+                                                    </li>
+                                                );
+                                            })}
+                                        </ul>
                                     }
                                     {!isSignedIn.savedRecommendations &&
                                         <Form onSubmit={handleAdd}>
@@ -197,7 +197,7 @@ const SavedRecommendations = ({ toggleScreen, isSignedIn, toggleSignendIn, excha
                                                         ))}
                                                 </Form.Control>
                                             </Form.Group>
-                                            <Button variant="primary"  className="action-btn" type="submit">Add</Button>
+                                            <Button variant="primary" className="action-btn" type="submit">Add</Button>
                                         </Form>
                                     }
                                     {isSignedIn.savedRecommendations &&
@@ -224,7 +224,7 @@ const SavedRecommendations = ({ toggleScreen, isSignedIn, toggleSignendIn, excha
                                                 </Form.Control>
                                             </Form.Group>
 
-                                            <Button variant="primary"  className="action-btn" type="submit">Add</Button>
+                                            <Button variant="primary" className="action-btn" type="submit">Add</Button>
                                         </Form>
                                     }
                                     {isSignedIn.savedRecommendations && isSignedIn.savedRecommendations.length > 0 &&
@@ -235,7 +235,6 @@ const SavedRecommendations = ({ toggleScreen, isSignedIn, toggleSignendIn, excha
                                                     name="removeRecommendation"
                                                     value={formData.removeRecommendation}
                                                     onChange={handleChange}
-                                                    menuPlacement="top"
                                                 >
                                                     <option value="">Select recommendation to remove</option>
                                                     {isSignedIn.savedRecommendations
@@ -251,34 +250,34 @@ const SavedRecommendations = ({ toggleScreen, isSignedIn, toggleSignendIn, excha
                                                 </Form.Control>
                                             </Form.Group>
 
-                                            <Button variant="primary"  className="action-btn" type="submit">Remove</Button>
+                                            <Button variant="primary" className="action-btn" type="submit">Remove</Button>
                                         </Form>
                                     }
                                 </Card.Body>
 
-                        </Card>
-                    }
-                        </Col>
-                    </Row>
-                    {!isSignedIn.recommendations &&
-                        <Card style={{margin: "10px"}}>
-                            <Card.Body>
-                                <Card.Text>
-                                    No saved recommendations yet, first get some recommendations!
-                                </Card.Text>
-                            </Card.Body>
-                        </Card>
-                    }
+                            </Card>
+                        }
+                    </Col>
+                </Row>
+                {!isSignedIn.recommendations &&
+                    <Card style={{ margin: "10px" }}>
+                        <Card.Body>
+                            <Card.Text>
+                                No saved recommendations yet, first get some recommendations!
+                            </Card.Text>
+                        </Card.Body>
+                    </Card>
+                }
 
 
-                        <Container className="actions-container">
-                            <Button as={Link} to="/Recommendations" className="action-btn">Basic</Button>
-                            <Button as={Link} to="/AdvancedRecommendations" className="action-btn">Advanced</Button>
-                            <Button as={Button} onClick={handleSignout} className="action-btn">Sign Out</Button>
-                        </Container>
-
+                <Container className="actions-container">
+                    <Button as={Link} to="/Recommendations" className="action-btn">Basic</Button>
+                    <Button as={Link} to="/AdvancedRecommendations" className="action-btn">Advanced</Button>
+                    <Button as={Button} onClick={handleSignout} className="action-btn">Sign Out</Button>
                 </Container>
-            </div>
+
+            </Container>
+        </div>
     );
 }
 

@@ -297,7 +297,10 @@ function App() {
                     <Route path="/profile" element={<Profile
                         toggleSignendIn={toggleSignendIn}
                         toggleScreen={toggleScreen}
-                        isSignedIn={isSignedIn} />} />
+                        isSignedIn={isSignedIn}
+                        countries={countries}
+                        educations={educations}
+                        ages={ages} />} />
                     <Route path="/AdvancedProfile" element={<AdvancedProfile
                         toggleSignendIn={toggleSignendIn}
                         toggleScreen={toggleScreen}

@@ -1,12 +1,11 @@
 import React from "react";
-import {Container, Row, Col, Card, Button, Image, Form} from 'react-bootstrap';
-import {Link, useNavigate} from "react-router-dom";
-import {useEffect, useState} from "react";
+import { Container, Row, Col, Card, Button, Image, Form } from 'react-bootstrap';
+import { Link, useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
 import config from '../config';
 import "./Profile.css"
 import defaultProfilePic from "../images/man-profile.svg";
-import ModifyAdvanced from "../ModifyAdvanced/ModifyAdvanced";
-const Profile = ({toggleScreen, isSignedIn, toggleSignendIn}) => {
+const Profile = ({ toggleScreen, isSignedIn, toggleSignendIn, countries, educations, ages }) => {
     const navigate = useNavigate();
     const [error, setError] = useState('');
     const [editMode, setEditMode] = useState(false);
@@ -36,7 +35,7 @@ const Profile = ({toggleScreen, isSignedIn, toggleSignendIn}) => {
         setEditMode(!editMode);
     };
     const handleChange = (e) => {
-        const {name, value} = e.target;
+        const { name, value } = e.target;
         setFormData({
             ...formData,
             [name]: value
@@ -44,7 +43,7 @@ const Profile = ({toggleScreen, isSignedIn, toggleSignendIn}) => {
     };
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const payload = {_id: isSignedIn._id, ...formData};
+        const payload = { _id: isSignedIn._id, ...formData };
         try {
             const response = await fetch(`${config.apiBaseUrl}/api/users/${isSignedIn._id}`, {
                 method: 'PATCH',
@@ -61,7 +60,7 @@ const Profile = ({toggleScreen, isSignedIn, toggleSignendIn}) => {
                 return;
             }
 
-            toggleSignendIn({...isSignedIn, ...formData});
+            toggleSignendIn(isSignedIn.username);
             setEditMode(false); // Switch back to view mode after saving
             navigate("/Profile"); // Redirect to the profile page
         } catch (error) {
@@ -118,15 +117,15 @@ const Profile = ({toggleScreen, isSignedIn, toggleSignendIn}) => {
                                     {/* Profile Buttons */}
                                     <div className="profile-buttons">
                                         <Button as={Link} to="/ModifyAdvanced"
-                                                className="profile-button">Advanced</Button>
+                                            className="profile-button">Advanced</Button>
                                         <Button onClick={handleEditToggle} className="profile-button">Edit
-                                            Profile</Button>
+                                        </Button>
                                         <Button onClick={handleSignout} className="profile-button">Sign Out</Button>
                                     </div>
                                 </>
                             ) : (
                                 // Edit Mode (Form)
-                                <Form>
+                                <Form>{/* 
                                     <Form.Group controlId="formUsername" className="profile-form">
                                         <Form.Label>Username</Form.Label>
                                         <Form.Control
@@ -135,16 +134,23 @@ const Profile = ({toggleScreen, isSignedIn, toggleSignendIn}) => {
                                             value={formData.username}
                                             onChange={handleChange}
                                         />
-                                    </Form.Group>
+                                    </Form.Group> */}
 
                                     <Form.Group controlId="formCountry" className="mb-3">
                                         <Form.Label>Country</Form.Label>
                                         <Form.Control
-                                            type="text"
+                                            as="select"
                                             name="country"
                                             value={formData.country}
                                             onChange={handleChange}
-                                        />
+                                        >
+                                            <option value="">Select your country</option>
+                                            {countries.map((country, index) => (
+                                                <option key={index} value={country}>
+                                                    {country}
+                                                </option>
+                                            ))}
+                                        </Form.Control>
                                     </Form.Group>
 
                                     <Form.Group controlId="formExperience" className="mb-3">
@@ -160,26 +166,41 @@ const Profile = ({toggleScreen, isSignedIn, toggleSignendIn}) => {
                                     <Form.Group controlId="formEducation" className="mb-3">
                                         <Form.Label>Education</Form.Label>
                                         <Form.Control
-                                            type="text"
+                                            as="select"
                                             name="education"
                                             value={formData.education}
                                             onChange={handleChange}
-                                        />
+                                        >
+                                            <option value="">Select your education</option>
+                                            {educations.map((education, index) => (
+                                                <option key={index} value={education}>
+                                                    {education}
+                                                </option>
+                                            ))}
+                                        </Form.Control>
                                     </Form.Group>
+
 
                                     <Form.Group controlId="formAge" className="mb-3">
                                         <Form.Label>Age</Form.Label>
                                         <Form.Control
-                                            type="number"
+                                            as="select"
                                             name="age"
                                             value={formData.age}
                                             onChange={handleChange}
-                                        />
+                                        >
+                                            <option value="">Select your age range</option>
+                                            {ages.map((age, index) => (
+                                                <option key={index} value={age}>
+                                                    {age}
+                                                </option>
+                                            ))}
+                                        </Form.Control>
                                     </Form.Group>
 
                                     {/* Profile Buttons */}
                                     <div className="profile-buttons">
-                                        <Button type="button" onClick={handleCancel} className="profile-button">Save Changes</Button>
+                                        <Button type="button" onClick={handleSubmit} className="profile-button">Save Changes</Button>
                                         <Button type="button" onClick={handleCancel} className="profile-button">Cancel</Button>
                                     </div>
                                 </Form>
