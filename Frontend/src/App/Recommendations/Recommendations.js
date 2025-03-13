@@ -3,21 +3,25 @@ import { Container, Row, Col, Card, Button } from 'react-bootstrap';
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useNavigate } from 'react-router-dom';
+import { BarChart, Bar, XAxis, YAxis, Tooltip, Legend, ResponsiveContainer } from "recharts";
 import config from '../config';
 import "./Recommendations.css";
 
 const Recommendations = ({ toggleScreen, isSignedIn, toggleSignendIn, exchangeRate, selectedCurrency }) => {
     const navigate = useNavigate();
-    const [recommendations, setRecommendations] = useState(false);
-    const [recommendationsIncrese, setRecommendationsIncrese] = useState(false);
+    const [recommendations, setRecommendations] = useState([]);
+    const [recommendationsIncrese, setRecommendationsIncrese] = useState([]);
     const [error, setError] = useState('');
+    const [data, setData] = useState([]);
+    const COLORS = ["#8884d8", "#82ca9d", "#ffc658", "#ff7300", "#d0ed57", "#a4de6c"];
+
 
     useEffect(() => {
         toggleScreen("Recommendations");
         if (!isSignedIn) {
             navigate("/signin");
         }
-    });
+    }, [isSignedIn]);
 
     useEffect(() => {
         if (!isSignedIn.recommendations || !isSignedIn.recommendationsIncrese) {
@@ -44,8 +48,24 @@ const Recommendations = ({ toggleScreen, isSignedIn, toggleSignendIn, exchangeRa
         setRecommendationsIncrese(increaseDictionary);
 
         setRecommendations(filteredRecommendations);
+        if (filteredRecommendations.length === 0 || !isSignedIn.prediction || !isSignedIn.combined) {
+            setData([]);
+        }
+        const newData = [];
+        const reversedRecommendations = filteredRecommendations.slice().reverse();
+        newData.push({ name: "Base", salary: (isSignedIn.prediction * exchangeRate).toFixed(0) });
+        for (const recommendation in reversedRecommendations) {
+            let salary = (parseInt(increaseDictionary[reversedRecommendations[recommendation]], 10)
+                + parseInt(isSignedIn.prediction, 10)) * exchangeRate;
+            let name = reversedRecommendations[recommendation].replace(/(to |it would |will )?increase your salary by approximately /g, "");
+            newData.push({ name: name, salary: salary.toFixed(0) });
+        }
+        newData.push({ name: "All Combined", salary: (isSignedIn.combined * exchangeRate).toFixed(0) });
+        setData(newData);
 
-    }, [isSignedIn]);
+    }, [isSignedIn, exchangeRate]);
+
+
 
     const handleSignout = () => {
         toggleSignendIn(false);
@@ -169,114 +189,132 @@ const Recommendations = ({ toggleScreen, isSignedIn, toggleSignendIn, exchangeRa
             console.error('Error:', error);
         }
     }
+
     return (
-            <div className="recommendations-container" >
-                <h3 className="recommendations-title">Recommendations</h3>
-                <div className="recommendations-overlay">
+        <div className="recommendations-container" >
+            <h3 className="recommendations-title">Recommendations</h3>
+            <div className="recommendations-overlay">
 
-                    <p className="recommendations-subtitle">Here’s an overview of your top recommendations:</p>
+                <p className="recommendations-subtitle">Here’s an overview of your top recommendations:</p>
 
-                    {(!recommendations || !recommendationsIncrese) &&
-                        <Row className="recommendations-row">
-                            <Card className="recommendations-card">
-                                <Card.Header>Get Recommendations</Card.Header>
-                                <Card.Body>
-                                        <Card.Text>Click the button below to get recommendations Based on your profile</Card.Text>
-                                    <Button onClick={handleRecommendations} variant="primary" className="recommendations-btn">
-                                        Get Recommendations</Button>
-
-                                </Card.Body>
-                            </Card>
-                        </Row>
-                    }
-
-                    {(recommendations && recommendationsIncrese) &&
+                {(!recommendations || !recommendationsIncrese) &&
+                    <Row className="recommendations-row">
                         <Card className="recommendations-card">
-                            <Card.Header>Top Recommendations</Card.Header>
+                            <Card.Header>Get Recommendations</Card.Header>
                             <Card.Body>
-                                <ul className="recommendations-list">
-                                    {recommendations.map((recommendation, index) => (
-                                        <li key={index} className="recommendations-item">
-                                            <span className="recommendation-text">{recommendation}</span>
-                                            <span className="salary-increase">
+                                <Card.Text>Click the button below to get recommendations Based on your profile</Card.Text>
+                                <Button onClick={handleRecommendations} variant="primary" className="recommendations-btn">
+                                    Get Recommendations</Button>
+
+                            </Card.Body>
+                        </Card>
+                    </Row>
+                }
+
+                {(recommendations && recommendationsIncrese) &&
+
+                    <Card className="recommendations-card">
+                        <Card.Header>Top Recommendations</Card.Header>
+                        <Card.Body>
+                            <ul className="recommendations-list">
+                                {recommendations.map((recommendation, index) => (
+                                    <li key={index} className="recommendations-item">
+                                        <span className="recommendation-text">{recommendation}</span>
+                                        <span className="salary-increase">
                                             {new Intl.NumberFormat('en', {
                                                 style: 'currency',
                                                 currency: selectedCurrency,
                                                 maximumFractionDigits: 0
                                             }).format(Math.floor(recommendationsIncrese[recommendation] * exchangeRate))}
                                         </span>
-                                        </li>
-                                    ))}
-                                </ul>
+                                    </li>
+                                ))}
+                            </ul>
+                            <br />
+                        </Card.Body>
+                        <Card.Text>
 
-                                <p>
-                                    Following these recommendations, your salary could increase to approximately
-                                    <span className="salary-estimate"> {new Intl.NumberFormat('en', {
-                                        style: 'currency',
-                                        currency: selectedCurrency,
-                                        maximumFractionDigits: 0
-                                    }).format(Math.floor(isSignedIn.combined * exchangeRate))}
-                                </span>
-                                </p>
-                                <Button onClick={handleRecommendations} variant="primary" className="recommendations-btn">
-                                    Recalculate Recommendations
-                                </Button>
+                            Following these recommendations, your salary could increase to approximately
+                            <span className="salary-estimate"> {new Intl.NumberFormat('en', {
+                                style: 'currency',
+                                currency: selectedCurrency,
+                                maximumFractionDigits: 0
+                            }).format(Math.floor(isSignedIn.combined * exchangeRate))}
+                            </span >
+                        </Card.Text>
+                        <ResponsiveContainer width="100%" height={400}>
+                            <BarChart data={data}>
+                                <XAxis dataKey="name" />
+                                <YAxis />
+                                <Tooltip />
+                                <Legend />
+                                <Bar dataKey="salary" fill="#8884d8" />
+                            </BarChart>
+                        </ResponsiveContainer>
+                        <Card.Text>
+                            if you change your information, you can ask to be re-recommended
+                        </Card.Text>
+                        <Container>
+                            <Button onClick={handleRecommendations} variant="primary" className="recommendations-btn" style={{ width: "fit-content",margin:"10px" }}>
+                                Recalculate Recommendations
+                            </Button>
 
-                            </Card.Body>
-                        </Card>
-
-                    }
-
-
-                        <Container className="recommendations-actions">
-                            <Button as={Link} to="/AdvancedRecommendations" variant="primary" className="action-btn">Advanced</Button>
-                            <Button as={Link} to="/SavedRecommendations" variant="primary" className="action-btn">Saved</Button>
-                            <Button onClick={handleSignout} variant="primary" className="action-btn">Sign Out</Button>
                         </Container>
 
+                    </Card>
 
-                </div>
+                }
+
+
+                <Container className="recommendations-actions">
+                    <Button as={Link} to="/AdvancedRecommendations" variant="primary" className="action-btn">Advanced</Button>
+                    <Button as={Link} to="/SavedRecommendations" variant="primary" className="action-btn">Saved</Button>
+                    <Button onClick={handleSignout} variant="primary" className="action-btn">Sign Out</Button>
+                </Container>
+
+
             </div>
+        </div >
     );
 }
 
 export default Recommendations;
 
-{/*<Card.Text>*/}
-{/*    <ul style={{paddingLeft: "20px"}}>*/}
-{/*        {recommendations.map((recommendation, index) => {*/}
-{/*            return (*/}
-{/*                <li key={index} style={{*/}
-{/*                    marginBottom: "10px",*/}
-{/*                    display: "flex",*/}
-{/*                    justifyContent: "space-between"*/}
-{/*                }}>*/}
-{/*                    <span>{recommendation}</span>*/}
-{/*                    <span style={{color: "green", fontWeight: "bold"}}>*/}
-{/*                        {new Intl.NumberFormat('en', {*/}
-{/*                            style: 'currency',*/}
-{/*                            currency: selectedCurrency,*/}
-{/*                            maximumFractionDigits: 0*/}
-{/*                        }).format(Math.floor(recommendationsIncrese[recommendation] * exchangeRate))}*/}
-{/*                    </span>*/}
-{/*                </li>*/}
-{/*            );*/}
-{/*        })}*/}
-{/*    </ul>*/}
-{/*    <br/>*/}
-{/*</Card.Text>*/}
+{/*<Card.Text>*/ }
+{/*    <ul style={{paddingLeft: "20px"}}>*/ }
+{/*        {recommendations.map((recommendation, index) => {*/ }
+{/*            return (*/ }
+{/*                <li key={index} style={{*/ }
+{/*                    marginBottom: "10px",*/ }
+{/*                    display: "flex",*/ }
+{/*                    justifyContent: "space-between"*/ }
+{/*                }}>*/ }
+{/*                    <span>{recommendation}</span>*/ }
+{/*                    <span style={{color: "green", fontWeight: "bold"}}>*/ }
+{/*                        {new Intl.NumberFormat('en', {*/ }
+{/*                            style: 'currency',*/ }
+{/*                            currency: selectedCurrency,*/ }
+{/*                            maximumFractionDigits: 0*/ }
+{/*                        }).format(Math.floor(recommendationsIncrese[recommendation] * exchangeRate))}*/ }
+{/*                    </span>*/ }
+{/*                </li>*/ }
+{/*            );*/ }
+{/*        })}*/ }
+{/*    </ul>*/ }
+{/*    <br/>*/ }
+{/*</Card.Text>*/ }
 
-{/*<Card.Text>*/}
-{/*    By following this top recommendations, your salary could increase to approximately*/}
-{/*    <span style={{color: "green", fontWeight: "bold"}}> {new Intl.NumberFormat('en', {*/}
-{/*        style: 'currency',*/}
-{/*        currency: selectedCurrency,*/}
-{/*        maximumFractionDigits: 0*/}
-{/*    }).format(Math.floor(isSignedIn.combined * exchangeRate))}*/}
-{/*    </span>*/}
-{/*</Card.Text>*/}
-{/*<Card.Text>*/}
-{/*    if you change your information, you can ask to be re-recommended*/}
-{/*</Card.Text>*/}
-{/*<Button as={Button} onClick={handleRecommendations} variant="primary"*/}
-{/*        className="px-5 py-3">Reccomend</Button>*/}
+{/*<Card.Text>*/ }
+{/*    By following this top recommendations, your salary could increase to approximately*/ }
+{/*    <span style={{color: "green", fontWeight: "bold"}}> {new Intl.NumberFormat('en', {*/ }
+{/*        style: 'currency',*/ }
+{/*        currency: selectedCurrency,*/ }
+{/*        maximumFractionDigits: 0*/ }
+{/*    }).format(Math.floor(isSignedIn.combined * exchangeRate))}*/ }
+{/*    </span>*/ }
+{/*</Card.Text>*/ }
+{/*<Card.Text>*/ }
+{/*    if you change your information, you can ask to be re-recommended*/ }
+{/*</Card.Text>*/ }
+{/*<Button as={Button} onClick={handleRecommendations} variant="primary"*/ }
+{/*        className="px-5 py-3">Reccomend</Button>*/ }

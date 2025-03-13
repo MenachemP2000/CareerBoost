@@ -8,6 +8,7 @@ const port = process.env.PORT || 4001;
 const mongodbUri = process.env.MONGODB_URI || "mongodb://localhost:27017/careerboost";
 require("./exchangeRates");
 require("./generateFlagsJson");
+require("./sendJobAlerts");
 
 // Middleware to increase payload size limit
 app.use(express.json({ limit: '1000mb' })); // You can adjust the limit as needed
@@ -43,12 +44,14 @@ const userRoutes = require('./routes/userRoutes');
 const tokenRoutes = require('./routes/tokenRoutes');
 const modelRoutes = require('./routes/modelRoutes');
 const exchangeRoutes = require('./routes/exchangeRoutes');
+const jobRoutes = require('./routes/jobRoutes');
 
 // Use routes
 app.use('/api/users', userRoutes);
 app.use('/api/tokens', tokenRoutes);
 app.use('/api/model', modelRoutes);
 app.use('/api/exchange', exchangeRoutes);
+app.use('/api/jobs', jobRoutes);
 
 
 // Serve static files from the React app
