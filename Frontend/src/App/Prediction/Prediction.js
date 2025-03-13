@@ -1,9 +1,10 @@
 import React from "react";
-import { Container, Row, Col, Card, Button } from 'react-bootstrap';
-import { Link } from "react-router-dom";
-import { useEffect, useState } from "react";
-import { useNavigate } from 'react-router-dom';
+import {Container, Row, Col, Card, Button} from 'react-bootstrap';
+import {Link} from "react-router-dom";
+import {useEffect, useState} from "react";
+import {useNavigate} from 'react-router-dom';
 import config from '../config';
+import "./Prediction.css"
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Cell, ResponsiveContainer,LabelList } from 'recharts';
 
 
@@ -30,7 +31,7 @@ const Prediction = ({ toggleScreen, isSignedIn, toggleSignendIn, selectedCurrenc
     const handlePredict = async (e) => {
         e.preventDefault();
 
-        const payload = { _id: isSignedIn._id, username: isSignedIn.username };
+        const payload = {_id: isSignedIn._id, username: isSignedIn.username};
         try {
             const userprofile = {
                 Country: isSignedIn.country, WorkExp: isSignedIn.experience,
@@ -145,53 +146,47 @@ const Prediction = ({ toggleScreen, isSignedIn, toggleSignendIn, selectedCurrenc
         }
     }
     return (
+        <div className="prediction-container">
+            <h3 className="display-4 fw-bold text-center">Prediction</h3>
+            <div className="underline mx-auto mb-3"></div>
 
-        <div>
-            <div className="position-relative text-white text-center" >
-                <div style={{ minHeight: "100vh" }} className=" top-0 start-0 w-100 h-100 bg-dark bg-opacity-50 d-flex flex-column align-items-center justify-content-center">
-                    <h3 className="display-4 fw-bold">Prediction</h3>
-                    <div className="underline mx-auto mb-3"></div>
+            <p className="lead text-center">Here's our model's Prediction:</p>
 
-                    <p className="lead">
-                        Here's our model's Prediction:
-                    </p>
-                    {isSignedIn &&
-                        <Row className="d-flex justify-content-center">
-                            {((!isSignedIn.prediction) || isSignedIn.prediction === 0) &&
-                                <Card style={{ width: '18rem', margin: "10px" }}>
-                                    <Card.Header>Salary Prediction</Card.Header>
-                                    <Card.Body >
-                                        <Card.Text>
-                                            We Havent Predicted your Salary Yet,
-                                            click the button below to
-                                            Let our AI predict your salary!
-                                        </Card.Text>
-                                        <Button as={Button} onClick={handlePredict} variant="primary" className="px-5 py-3">Predict</Button>
-                                    </Card.Body>
-                                </Card>
+            {isSignedIn &&
+                <Row className="d-flex justify-content-center">
+                    {((!isSignedIn.prediction) || isSignedIn.prediction === 0) &&
+                        <Card className="prediction-card">
+                            <Card.Header>Salary Prediction</Card.Header>
+                            <Card.Body>
+                                <Card.Text>
+                                    We Havent Predicted your Salary Yet.
+                                    Click the button below to Let our AI predict your salary!
+                                </Card.Text>
+                                <Button as={Button} onClick={handlePredict} className="prediction-button">Predict</Button>
+                            </Card.Body>
+                        </Card>
 
-                            }
-                            {(isSignedIn.prediction && isSignedIn.prediction !== 0) &&
-                                <Card style={{ margin: "10px", maxWidth: "80vw" }} >
-                                    <Card.Header>Salary Prediction</Card.Header>
-                                    <Card.Body >
-                                        <Card.Text >
-                                            The model predicts your salary to be around:
-                                            <br />
-                                            <br />
+                    }
+                    {(isSignedIn.prediction && isSignedIn.prediction !== 0) &&
+                        <Card className="prediction-card">
+                            <Card.Header>Salary Prediction</Card.Header>
+                            <Card.Body>
+                                <Card.Body>
+                                    The model predicts your salary to be around:
+                                    <br/>
+                                    <br/>
 
-                                            <Card.Title style={{ color: "green" }}>{new Intl.NumberFormat('en', {
-                                                style: 'currency',
-                                                currency: selectedCurrency,
-                                                maximumFractionDigits: 0
-                                            }).format(Math.floor(isSignedIn.prediction * exchangeRate))} per year</Card.Title>
-                                            <br />
-                                            if you change your information, you can repredict your salary
-                                        </Card.Text>
-                                        <Button as={Button} onClick={handlePredict} variant="primary" className="px-5 py-3">Repredict</Button>
-                                    </Card.Body>
-
-                                    <Card style={{ margin: "10px", maxWidth: "80vw" }}>
+                                    <Card.Title style={{color: "green"}}>{new Intl.NumberFormat('en', {
+                                        style: 'currency',
+                                        currency: selectedCurrency,
+                                        maximumFractionDigits: 0
+                                    }).format(Math.floor(isSignedIn.prediction * exchangeRate))} per year</Card.Title>
+                                    <br/>
+                                    If you change your information, you can repredict your salary
+                                </Card.Body>
+                                <Button onClick={handlePredict} className="prediction-button">Repredict</Button>
+                            </Card.Body>
+<Card style={{ margin: "10px", maxWidth: "80vw" }}>
                                         <Card.Header>Top Salary Impacting Features</Card.Header>
                                         <Card.Body className="d-flex flex-column align-items-center">
                                             <ResponsiveContainer height={400}>
@@ -220,18 +215,16 @@ const Prediction = ({ toggleScreen, isSignedIn, toggleSignendIn, selectedCurrenc
                                         </Card.Body>
 
                                     </Card>
-                                </Card>
+                        </Card>
 
-                            }
-                            <Container className="d-flex justify-content-center" >
-                                <Button as={Link} to="/Experiment" style={{ width: '10rem', margin: "10px" }} variant="primary" className="px-5 py-3">Experiment</Button>
-                                <Button as={Button} style={{ width: '10rem', margin: "10px", whiteSpace: "nowrap" }} onClick={handleSignout} variant="primary" className="px-5 py-3">Sign Out</Button>
-                            </Container>
-                        </Row>
                     }
+                    <Container className="prediction-buttons">
+                        <Button as={Link} to="/Experiment" className="prediction-button">Experiment</Button>
+                        <Button onClick={handleSignout} className="prediction-button">Sign Out</Button>
+                    </Container>
+                </Row>
+            }
 
-                </div>
-            </div>
         </div>
     );
 }

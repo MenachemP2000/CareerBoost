@@ -1,0 +1,35 @@
+name: Deploy to Remote Server
+
+on:
+  push:
+    branches:
+      - master  # Trigger deployment only when pushing to the main branch
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Set up SSH
+      uses: webfactory/ssh-agent@v0.5.3
+      with:
+        ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+
+    - name: Add SSH host to known hosts
+      run: echo "$SSH_KNOWN_HOSTS" >> ~/.ssh/known_hosts
+
+    - name: Deploy to server
+      run: |
+        ssh -o StrictHostKeyChecking=no ubuntu@ec2-13-60-199-107.eu-north-1.compute.amazonaws.com << 'EOF'
+          cd ~/CareerBoost  # Navigate to your repository on the server
+          git checkout -- Backend/exchange_rates.json
+          git pull origin master  # Pull the latest changes
+          sudo systemctl stop careerboost.service  # Stop the service
+          cd Frontend
+          npm install  # Ensure dependencies are up to date
+          npm run build  # Build the app
+          sudo systemctl start careerboost.service  # Restart the service
+        EOF

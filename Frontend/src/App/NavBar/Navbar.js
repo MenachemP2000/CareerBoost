@@ -1,16 +1,12 @@
-import { Navbar, Nav, Container, Dropdown } from "react-bootstrap";
+import { Navbar, Nav, Container, Dropdown, Form } from "react-bootstrap";
 import { Link } from 'react-router-dom';
-import { useState } from 'react';
-import { useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import config from '../config';
-
+import './Navbar.css';
 function NavbarComponent({ exchangeRates, setExchangeRates, selectedCurrency, setSelectedCurrency,
-    exchangeRate, setExchangeRate, currencyFlags, setCurrencyFlags }) {
+                             exchangeRate, setExchangeRate, currencyFlags, setCurrencyFlags }) {
     const [isExpanded, setIsExpanded] = useState(false);
-
-
-
-
+    const [darkMode, setDarkMode] = useState(false); // State for dark mode
 
     useEffect(() => {
         const fetchExchangeRates = async () => {
@@ -35,7 +31,7 @@ function NavbarComponent({ exchangeRates, setExchangeRates, selectedCurrency, se
                 console.error('Error fetching exchange rates:', error);
             }
         };
-        
+
         const fetchCurrencyFlags = async () => {
             try {
                 const response = await fetch(`${config.apiBaseUrl}/api/exchange/flags`, {
@@ -54,34 +50,38 @@ function NavbarComponent({ exchangeRates, setExchangeRates, selectedCurrency, se
             }
         };
         fetchExchangeRates();
-        fetchCurrencyFlags(); 
-    }, []);
-
+        fetchCurrencyFlags();
+    },[]);
 
     useEffect(() => {
         if (exchangeRates[selectedCurrency]) {
             setExchangeRate(exchangeRates[selectedCurrency]);
         }
-
     }, [exchangeRates, selectedCurrency]);
-
 
     const handleCurrencyChange = (currency) => {
         setSelectedCurrency(currency);
         setExchangeRate(exchangeRates[currency] || 1);
     };
 
+    // Toggle dark mode
+    const toggleDarkMode = () => {
+        setDarkMode(prevMode => !prevMode);
+    };
+
+    // Apply/remove dark mode class to body
+    useEffect(() => {
+        if (darkMode) {
+            document.body.classList.add('dark-mode');
+        } else {
+            document.body.classList.remove('dark-mode');
+        }
+    }, [darkMode]);
+
     return (
         <div>
-            <Navbar bg="dark" data-bs-theme="dark" expand="lg" style={{
-                width: "100vw",
-                position: "absolute",
-                zIndex: "9999",
-                maxWidth: "100%",
-                padding: "10px",
-            }} expanded={isExpanded}>
-                <Container
-                >
+            <Navbar className="Navbar-App" expand="lg" expanded={isExpanded}>
+                <Container>
                     <Navbar.Brand as={Link} to="/">
                         <img src="careerboost.ico" width="32px" alt="CareerBoost" /> CareerBoost
                     </Navbar.Brand>
@@ -93,28 +93,25 @@ function NavbarComponent({ exchangeRates, setExchangeRates, selectedCurrency, se
 
                     <Navbar.Collapse id="navbar-nav">
                         <Nav className="ms-auto d-flex align-items-center">
-
                             <Dropdown className="ms-3"
-                                style={{
-                                    display: "inline-block",
-                                    position: "relative"
-                                }}>
+                                      style={{
+                                          display: "inline-block",
+                                          position: "relative"
+                                      }}>
                                 <Dropdown.Toggle variant="success">
                                     <img src={currencyFlags[selectedCurrency]} width="30" alt={selectedCurrency} />
                                 </Dropdown.Toggle>
 
-                                {/* Mobile dropdown style */}
                                 <Dropdown.Menu
                                     style={{
                                         maxHeight: "300px",
                                         overflowY: "auto",
-                                        width: "150px", // Adjust the width for better readability
+                                        width: "150px",
                                         whiteSpace: "nowrap",
                                         position: "absolute",
-                                        top: "100%", // Makes the dropdown appear below the button
-                                        left: "0", // Align the dropdown to the left
-                                        right: "200%", // Optional: Adjust as needed for mobile view
-                                        zIndex: "9999" // Ensures it stays on top of other elements
+                                        top: "100%",
+                                        left: "0",
+                                        zIndex: "9999"
                                     }}
                                 >
                                     {Object.keys(exchangeRates).map((currency) => (
@@ -124,6 +121,20 @@ function NavbarComponent({ exchangeRates, setExchangeRates, selectedCurrency, se
                                     ))}
                                 </Dropdown.Menu>
                             </Dropdown>
+
+                            {/* Dark Mode Toggle */}
+                            <div className="ms-3">
+                                <Form>
+                                    <Form.Check
+                                        type="switch"
+                                        id="custom-switch"
+                                        // label={darkMode ? "Dark Mode" : "Light Mode"}
+                                        checked={darkMode}
+                                        onChange={toggleDarkMode}
+                                    />
+                                </Form>
+                            </div>
+
                             <Link to="/" className="nav-link" onClick={() => setIsExpanded(false)}>Home</Link>
                             <Link to="/profile" className="nav-link" onClick={() => setIsExpanded(false)}>Profile</Link>
                             <Link to="/Prediction" className="nav-link" onClick={() => setIsExpanded(false)}>Prediction</Link>
@@ -131,18 +142,10 @@ function NavbarComponent({ exchangeRates, setExchangeRates, selectedCurrency, se
                             <Link to="/SavedJobs" className="nav-link" onClick={() => setIsExpanded(false)}>Jobs</Link>
                             <Link to="/Guide" className="nav-link" onClick={() => setIsExpanded(false)}>Guide</Link>
                             <Link to="/contactus" className="nav-link" onClick={() => setIsExpanded(false)}>Contact Us</Link>
-                            <span >Navbar end</span>
                         </Nav>
                     </Navbar.Collapse>
                 </Container>
             </Navbar>
-            <div
-                className="bg-dark bg-opacity-50"
-                style={{ height: "80px" }}
-            >
-
-            </div>
-
         </div>
     );
 }

@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from 'react-router-dom';
 import config from '../config';
 import { Form } from 'react-bootstrap';
-
+import "./SavedRecommendations.css"
 
 const SavedRecommendations = ({ toggleScreen, isSignedIn, toggleSignendIn, exchangeRate, selectedCurrency }) => {
     const navigate = useNavigate();
@@ -138,46 +138,43 @@ const SavedRecommendations = ({ toggleScreen, isSignedIn, toggleSignendIn, excha
     };
 
     return (
+        <div className="saved-recommendations-container" >
+            <Container>
+                <h3 className="saved-recommendations-title">Saved Recommendations</h3>
+                <p className="saved-recommendations-subtitle">Here's your saved recommendations:</p>
 
-        <div >
-            <div className="position-relative text-white text-center" >
-                <div style={{ minHeight: "100vh" }} className=" top-0 start-0 w-100 h-100 bg-dark bg-opacity-50 d-flex flex-column align-items-center justify-content-center">
-                    <h3 className="display-4 fw-bold">Saved Recommendations</h3>
-                    <div className="underline mx-auto mb-3"></div>
+                <Row className="d-flex justify-content-center ">
+                    <Col md={8}>
+                        {isSignedIn.recommendations &&
+                            <Card className="saved-recommendations-card">
+                                <Card.Header>Saved Recommendations</Card.Header>
 
-                    <p className="lead">
-                        Here's your saved Recommendations:
-                    </p>
-                    {isSignedIn.recommendations &&
-                        <Card style={{ maxWidth: '95vw', margin: "10px", width: "fit-content" }}>
-                            <Card.Header>Saved Recommendations</Card.Header>
-                            <Row className="d-flex justify-content-center " >
-                                <Card.Body >
+                                <Card.Body>
                                     {!isSignedIn.savedRecommendations || (isSignedIn.savedRecommendations && isSignedIn.savedRecommendations.length == 0) &&
-                                        <Card.Text >
+                                        <Card.Text>
                                             No saved recommendations yet, add some!
                                         </Card.Text>
                                     }
 
                                     {isSignedIn.savedRecommendations && isSignedIn.savedRecommendations.length > 0 &&
-                                        <Card.Text >
-                                            <ul style={{ paddingLeft: "20px" }}>
-                                                {isSignedIn.savedRecommendations.map((recommendation, index) => {
-                                                    return (
-                                                        <li key={index} style={{ marginBottom: "10px", display: "flex", justifyContent: "space-between" }}>
+                                        <ul className="recommendations-list">
+                                            {isSignedIn.savedRecommendations.map((recommendation, index) => {
+                                                return (
+                                                    <li key={index} className="recommendations-item">
+
                                                             <span>{recommendation}</span>
-                                                            <span style={{ color: "green", fontWeight: "bold" }}>
+                                                            <span className="salary-increase">
                                                                 {new Intl.NumberFormat('en', {
                                                                     style: 'currency',
                                                                     currency: selectedCurrency,
                                                                     maximumFractionDigits: 0
                                                                 }).format(Math.floor(recommendationsIncrese[recommendation] * exchangeRate))}
                                                             </span>
-                                                        </li>
-                                                    );
-                                                })}
-                                            </ul>
-                                        </Card.Text>
+
+                                                    </li>
+                                                );
+                                            })}
+                                        </ul>
                                     }
                                     {!isSignedIn.savedRecommendations &&
                                         <Form onSubmit={handleAdd}>
@@ -200,9 +197,7 @@ const SavedRecommendations = ({ toggleScreen, isSignedIn, toggleSignendIn, excha
                                                         ))}
                                                 </Form.Control>
                                             </Form.Group>
-                                            <Button variant="primary" style={{ width: '10rem', margin: "10px" }} type="submit">
-                                                Add
-                                            </Button>
+                                            <Button variant="primary" className="action-btn" type="submit">Add</Button>
                                         </Form>
                                     }
                                     {isSignedIn.savedRecommendations &&
@@ -229,9 +224,7 @@ const SavedRecommendations = ({ toggleScreen, isSignedIn, toggleSignendIn, excha
                                                 </Form.Control>
                                             </Form.Group>
 
-                                            <Button variant="primary" style={{ width: '10rem', margin: "10px" }} type="submit">
-                                                Add
-                                            </Button>
+                                            <Button variant="primary" className="action-btn" type="submit">Add</Button>
                                         </Form>
                                     }
                                     {isSignedIn.savedRecommendations && isSignedIn.savedRecommendations.length > 0 &&
@@ -242,7 +235,6 @@ const SavedRecommendations = ({ toggleScreen, isSignedIn, toggleSignendIn, excha
                                                     name="removeRecommendation"
                                                     value={formData.removeRecommendation}
                                                     onChange={handleChange}
-                                                    menuPlacement="top"
                                                 >
                                                     <option value="">Select recommendation to remove</option>
                                                     {isSignedIn.savedRecommendations
@@ -258,40 +250,33 @@ const SavedRecommendations = ({ toggleScreen, isSignedIn, toggleSignendIn, excha
                                                 </Form.Control>
                                             </Form.Group>
 
-                                            <Button variant="primary" style={{ width: '10rem', margin: "10px" }} type="submit">
-                                                Remove
-                                            </Button>
+                                            <Button variant="primary" className="action-btn" type="submit">Remove</Button>
                                         </Form>
                                     }
                                 </Card.Body>
 
-                            </Row>
-                        </Card>
-                    }
-
-                    {!isSignedIn.recommendations &&
-                        <Card style={{ margin: "10px" }}>
-                            <Card.Body >
-                                <Card.Text >
-                                    No saved recommendations yet, first get some recommendations!
-                                </Card.Text>
-                            </Card.Body>
-                        </Card>
-                    }
-
-
-
-                    <Row className="d-flex justify-content-center">
-                        <Container className=" justify-content-center" >
-                            <Button as={Link} to="/Recommendations" style={{ width: '10rem', margin: "10px" }} variant="primary" className="px-5 py-3">Basic</Button>
-                            <Button as={Link} to="/AdvancedRecommendations" style={{ width: '10rem', margin: "10px" }} variant="primary" className="px-5 py-3">Advanced</Button>
-                            <Button as={Button} style={{ width: '10rem', margin: "10px", whiteSpace: "nowrap" }} onClick={handleSignout} variant="primary" className="px-5 py-3">Sign Out</Button>
-                        </Container>
-                    </Row>
+                            </Card>
+                        }
+                    </Col>
+                </Row>
+                {!isSignedIn.recommendations &&
+                    <Card style={{ margin: "10px" }}>
+                        <Card.Body>
+                            <Card.Text>
+                                No saved recommendations yet, first get some recommendations!
+                            </Card.Text>
+                        </Card.Body>
+                    </Card>
+                }
 
 
-                </div>
-            </div>
+                <Container className="actions-container">
+                    <Button as={Link} to="/Recommendations" className="action-btn">Basic</Button>
+                    <Button as={Link} to="/AdvancedRecommendations" className="action-btn">Advanced</Button>
+                    <Button as={Button} onClick={handleSignout} className="action-btn">Sign Out</Button>
+                </Container>
+
+            </Container>
         </div>
     );
 }

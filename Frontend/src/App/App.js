@@ -1,6 +1,6 @@
 import "./App.css";
 import Home from "./Home/Home";
-import Aboutus from "./About/About";
+import AboutUs from "./About/About";
 import Contact from "./Contacts/Contact";
 import NavbarComponent from "./NavBar/Navbar";
 import CreateAccount from './CreateAccount/CreateAccount';
@@ -21,6 +21,8 @@ import Guide from "./Guide/Guide";
 import JobSearch from "./JobSearch/JobSearch";
 import FeaturedJobs from "./FeaturedJobs/FeaturedJobs";
 import SavedJobs from "./SavedJobs/SavedJobs";
+import FooterComponent from "./Footer/Footer";
+
 
 function App() {
     const [screen, setScreen] = useState(false);
@@ -323,8 +325,8 @@ function App() {
                         toggleScreen={toggleScreen}
                         isSignedIn={isSignedIn}
                         toggleSignendIn={toggleSignendIn} />} />
-                    <Route path="/aboutus" element={<Aboutus />} />
-                    <Route path="/contact" element={<Contact />} />
+                    <Route path="/aboutus" element={<AboutUs />} />
+                    <Route path="/contactus" element={<Contact />} />
                     <Route path="/createaccount" element={<CreateAccount
                         toggleSignendIn={toggleSignendIn}
                         toggleScreen={toggleScreen}
@@ -348,7 +350,10 @@ function App() {
                     <Route path="/profile" element={<Profile
                         toggleSignendIn={toggleSignendIn}
                         toggleScreen={toggleScreen}
-                        isSignedIn={isSignedIn} />} />
+                        isSignedIn={isSignedIn}
+                        countries={countries}
+                        educations={educations}
+                        ages={ages} />} />
                     <Route path="/AdvancedProfile" element={<AdvancedProfile
                         toggleSignendIn={toggleSignendIn}
                         toggleScreen={toggleScreen}
@@ -456,6 +461,7 @@ function App() {
                         toggleSignendIn={toggleSignendIn}
                     />} />
                 </Routes>
+            <FooterComponent/>
             </div>
         </Router>
 

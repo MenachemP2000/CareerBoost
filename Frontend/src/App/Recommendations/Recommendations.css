@@ -1,0 +1,193 @@
+.recommendations-container {
+    background-color: white;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+.recommendations-overlay {
+    text-align: center;
+    background: white;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    max-width: 1100px;
+    width: 100%;
+}
+
+.recommendations-title {
+    font-size: 50px;
+    font-weight: bold;
+    color: black;
+    margin-bottom: 70px;
+    padding-top: 10px; /* Adds spacing from the top */
+}
+
+.recommendations-subtitle {
+    font-size: 16px;
+    color: #606770;
+    margin-bottom: 20px;
+}
+
+.recommendations-card {
+    margin-bottom: 20px;
+    border-radius: 8px;
+}
+
+.recommendations-list {
+    list-style: none;
+    padding: 0;
+}
+
+.recommendations-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+    border-bottom: 1px solid #ddd;
+}
+.recommendation-text {
+    flex: 1;
+    text-align: left;
+    font-size: 16px;
+    /*color: #333;*/
+    font-weight: 500;
+}
+
+.salary-increase {
+    color: green;
+    font-weight: bold;
+}
+
+.salary-estimate {
+    color: green;
+    font-weight: bold;
+}
+
+.recommendations-btn {
+    background: linear-gradient(45deg, #00b894, #00e676); /* Teal to Green gradient */
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    margin-top: 10px;
+    cursor: pointer;
+    font-weight: bold;
+    border-radius: 8px;
+    transition: background 0.3s ease, color 0.3s ease;
+}
+
+.recommendations-btn:hover {
+    background: linear-gradient(45deg, #00e676, #66ffa6); /* Lighter Green on hover */
+    color: black;
+}
+
+.recommendations-actions {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+.action-btn {
+    background: linear-gradient(45deg, #ff6b6b, #ff8e53);
+    border: none;
+    color: white;
+    padding: 8px 15px;
+    font-size: 1rem;
+    font-weight: bold;
+    border-radius: 6px;
+    text-align: center;
+    text-decoration: none;
+    transition: background 0.3s ease;
+    width: 130px;
+    height: 40px;
+}
+
+.action-btn:hover {
+    background: linear-gradient(45deg, #ff8e53, #ff6b6b);
+    color: white;
+}
+
+/* Dark Mode */
+body.dark-mode .recommendations-container {
+    background-color: #050505;
+}
+body.dark-mode .recommendations-overlay{
+    background: #242526;
+    color: white;
+    box-shadow: 0 4px 10px rgba(255, 255, 255, 0.1);
+}
+
+/* Ensure text is visible in dark mode */
+body.dark-mode .recommendations-container h3,
+body.dark-mode .recommendations-container p {
+    color: white; /* Ensures contrast in dark mode */
+}
+/* Dark card style */
+body.dark-mode .recommendations-card {
+    background: #242526;
+    color: white;
+    box-shadow: 0 4px 10px rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    border: 1px solid #333;
+}
+
+/* List of recommendations */
+body.dark-mode .recommendations-list {
+    /*list-style: none;*/
+    padding: 0;
+}
+
+body.dark-mode .recommendations-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+    border-bottom: 1px solid #444;
+    color: white;
+}
+/*body.dark-mode.recommendation-text {*/
+/*    color: #b60f0f;*/
+/*}*/
+/* Recommendation button */
+body.dark-mode .recommendations-btn {
+    background: linear-gradient(45deg, #ff4444, #ff6a00);
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    margin-top: 10px;
+    cursor: pointer;
+    font-weight: bold;
+    border-radius: 8px;
+    transition: background 0.3s ease, color 0.3s ease;
+}
+
+body.dark-mode .recommendations-btn:hover {
+    background: linear-gradient(45deg, #ff6b6b, #ff8e53);
+    color: black;
+}
+
+/* Navigation Buttons */
+body.dark-mode .recommendations-actions {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+body.dark-mode .action-btn {
+    width: 120px;
+    padding: 10px;
+    background: #333;
+    color: white;
+    border: 1px solid #555;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+body.dark-mode .action-btn:hover {
+    background: linear-gradient(45deg, #42a5f5, #2196f3);
+    color: black;
+}
+

@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import { Container, Row, Col, Card, Button, Form } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import config from '../config';
+import "./ModifyAdvanced.css";
 
 const ModifyAdvanced = ({ toggleSignendIn, toggleScreen, isSignedIn, languages, employments, MainBranchs,
     RemoteWork, DevType, OrgSize, ICorPM, Industry, countries, educations, ages, databases, platforms,
@@ -10,49 +11,45 @@ const ModifyAdvanced = ({ toggleSignendIn, toggleScreen, isSignedIn, languages, 
 }) => {
     const navigate = useNavigate();
     const [error, setError] = useState('');
+    const [isEditing, setIsEditing] = useState(false);
 
     useEffect(() => {
         toggleScreen("modifyAccount");
         if (!isSignedIn) {
             navigate("/");
         }
-    });
+    }, [isSignedIn, navigate, toggleScreen]);
+
 
     const [formData, setFormData] = useState({
-        languages: isSignedIn.languages ? isSignedIn.languages : [],
-        employments: isSignedIn.employments ? isSignedIn.employments : [],
-        databases: isSignedIn.databases ? isSignedIn.databases : [],
-        platforms: isSignedIn.platforms ? isSignedIn.platforms : [],
-        webframesworks: isSignedIn.webframesworks ? isSignedIn.webframesworks : [],
-        tools: isSignedIn.tools ? isSignedIn.tools : [],
-        OpSys: isSignedIn.OpSys ? isSignedIn.OpSys : [],
-        ...(isSignedIn.MainBranch && { MainBranch: isSignedIn.MainBranch }),
-        ...(isSignedIn.RemoteWork && { RemoteWork: isSignedIn.RemoteWork }),
-        ...(isSignedIn.DevType && { DevType: isSignedIn.DevType }),
-        ...(isSignedIn.OrgSize && { OrgSize: isSignedIn.OrgSize }),
-        ...(isSignedIn.ICorPM && { ICorPM: isSignedIn.ICorPM }),
-        ...(isSignedIn.Industry && { Industry: isSignedIn.Industry }),
-        ...(isSignedIn.YearsCode && { YearsCode: isSignedIn.YearsCode }),
-        ...(isSignedIn.YearsCodePro && { YearsCodePro: isSignedIn.YearsCodePro }),
-        ...(isSignedIn.JobSat && { JobSat: isSignedIn.JobSat }),
-        ...(isSignedIn.experience && { experience: isSignedIn.experience }),
-        ...(isSignedIn.country && { country: isSignedIn.country }),
-        ...(isSignedIn.education && { education: isSignedIn.education }),
-        ...(isSignedIn.age && { age: isSignedIn.age }),
+        languages: isSignedIn.languages || [],
+        employments: isSignedIn.employments || [],
+        databases: isSignedIn.databases || [],
+        platforms: isSignedIn.platforms || [],
+        webframesworks: isSignedIn.webframesworks || [],
+        tools: isSignedIn.tools || [],
+        OpSys: isSignedIn.OpSys || [],
+        country: isSignedIn.country || '',
+        education: isSignedIn.education || '',
+        experience: isSignedIn.experience || '',
+        age: isSignedIn.age || '',
+        MainBranch: isSignedIn.MainBranch || '',
+        RemoteWork: isSignedIn.RemoteWork || '',
+        DevType: isSignedIn.DevType || '',
+        OrgSize: isSignedIn.OrgSize || '',
+        ICorPM: isSignedIn.ICorPM || '',
+        Industry: isSignedIn.Industry || '',
+        YearsCode: isSignedIn.YearsCode || '',
+        YearsCodePro: isSignedIn.YearsCodePro || '',
+        JobSat: isSignedIn.JobSat || ''
     });
 
     const languageOptions = languages.map(lang => ({ value: lang, label: lang }));
-
     const employmentOptions = employments.map(employ => ({ value: employ, label: employ }));
-
     const databaseOptions = databases.map(db => ({ value: db, label: db }));
-
     const platformOptions = platforms.map(platform => ({ value: platform, label: platform }));
-
     const webframeOptions = webframesworks.map(webframe => ({ value: webframe, label: webframe }));
-
     const toolOptions = tools.map(tool => ({ value: tool, label: tool }));
-
     const OpSysOptions = OpSys.map(opsys => ({ value: opsys, label: opsys }));
 
     const handleChange = (e) => {
@@ -61,6 +58,11 @@ const ModifyAdvanced = ({ toggleSignendIn, toggleScreen, isSignedIn, languages, 
             ...formData,
             [name]: value
         });
+    };
+
+    const handleCancel = () => {
+        setFormData({ ...isSignedIn });
+        setIsEditing(false);
     };
 
     const handleSubmit = async (e) => {
@@ -78,7 +80,8 @@ const ModifyAdvanced = ({ toggleSignendIn, toggleScreen, isSignedIn, languages, 
             });
 
             const result = await response.json();
-
+            //return viewmode
+            setIsEditing(false);
             if (!response.ok) {
                 // If the server responds with an error, set the error message
                 setError(result.message);
@@ -86,31 +89,23 @@ const ModifyAdvanced = ({ toggleSignendIn, toggleScreen, isSignedIn, languages, 
             }
             else {
                 toggleSignendIn(isSignedIn.username);
-                navigate("/AdvancedProfile");
+                //stay in page
+               // navigate("/AdvancedProfile");
             }
         } catch (error) {
             setError('An error occurred. Please try again.');
             console.error('Error:', error);
         }
     };
-
     return (
-        <div>
-            <div style={{ minHeight: "100vh" }} className="position-relative text-white text-center " >
-                <div className="w-100 h-100 bg-dark bg-opacity-50 d-flex flex-column align-items-center justify-content-center">
-                    <h3 className="display-4 fw-bold">Modify Advanced</h3>
-                    <div className="underline mx-auto mb-3"></div>
-
-                    <Container className="py-6">
-                        <p className="lead">
-                            Modify to get a better prediction & recommendations:
-                        </p>
-                        <Row>
-                            <Col md={{ span: 6, offset: 3 }}>
-                                <Card>
+        <div className="advanced-container">
+                    <Container className="advanced-container">
+                        <Card className="advanced-card">
                                     <Card.Body>
-                                        <Card.Title>Basic Information</Card.Title>
-                                        <Form onSubmit={handleSubmit}>
+                                            <div className="text-center mb-4">
+                                                <h2 className="fw-bold">Profile Information</h2>
+                                            </div>
+                                        <Form onSubmit={handleSubmit} className="mt-4">
                                             <Form.Group controlId="formCountry" className="mb-3">
                                                 <Form.Label>Country</Form.Label>
                                                 <Form.Control
@@ -118,6 +113,7 @@ const ModifyAdvanced = ({ toggleSignendIn, toggleScreen, isSignedIn, languages, 
                                                     name="country"
                                                     value={formData.country}
                                                     onChange={handleChange}
+                                                    disabled={!isEditing}
                                                 >
                                                     <option value="">Select your country</option>
                                                     {countries.map((country, index) => (
@@ -136,6 +132,7 @@ const ModifyAdvanced = ({ toggleSignendIn, toggleScreen, isSignedIn, languages, 
                                                     name="education"
                                                     value={formData.education}
                                                     onChange={handleChange}
+                                                    disabled={!isEditing}
                                                 >
                                                     <option value="">Select your education</option>
                                                     {educations.map((education, index) => (
@@ -154,6 +151,7 @@ const ModifyAdvanced = ({ toggleSignendIn, toggleScreen, isSignedIn, languages, 
                                                     name="experience"
                                                     value={formData.experience}
                                                     onChange={handleChange}
+                                                    disabled={!isEditing}
                                                 />
                                             </Form.Group>
 
@@ -164,6 +162,7 @@ const ModifyAdvanced = ({ toggleSignendIn, toggleScreen, isSignedIn, languages, 
                                                     name="age"
                                                     value={formData.age}
                                                     onChange={handleChange}
+                                                    disabled={!isEditing}
                                                 >
                                                     <option value="">Select your age range</option>
                                                     {ages.map((age, index) => (
@@ -183,8 +182,11 @@ const ModifyAdvanced = ({ toggleSignendIn, toggleScreen, isSignedIn, languages, 
                                                     name="MainBranch"
                                                     value={formData.MainBranch}
                                                     onChange={handleChange}
+                                                    disabled={!isEditing}
                                                 >
-                                                    <option value="">Select which of the following options best describes you today</option>
+                                                    <option value="">Select which of the following options best
+                                                        describes you today
+                                                    </option>
                                                     {MainBranchs.map((mainbranch, index) => (
                                                         <option key={index} value={mainbranch}>
                                                             {mainbranch}
@@ -200,8 +202,11 @@ const ModifyAdvanced = ({ toggleSignendIn, toggleScreen, isSignedIn, languages, 
                                                     name="RemoteWork"
                                                     value={formData.RemoteWork}
                                                     onChange={handleChange}
+                                                    disabled={!isEditing}
                                                 >
-                                                    <option value="">Select which best describes your current work situation</option>
+                                                    <option value="">Select which best describes your current work
+                                                        situation
+                                                    </option>
                                                     {RemoteWork.map((remotework, index) => (
                                                         <option key={index} value={remotework}>
                                                             {remotework}
@@ -217,8 +222,11 @@ const ModifyAdvanced = ({ toggleSignendIn, toggleScreen, isSignedIn, languages, 
                                                     name="DevType"
                                                     value={formData.DevType}
                                                     onChange={handleChange}
+                                                    disabled={!isEditing}
                                                 >
-                                                    <option value="">Select which of the following describes your current job</option>
+                                                    <option value="">Select which of the following describes your
+                                                        current job
+                                                    </option>
                                                     {DevType.map((devtype, index) => (
                                                         <option key={index} value={devtype}>
                                                             {devtype}
@@ -234,8 +242,11 @@ const ModifyAdvanced = ({ toggleSignendIn, toggleScreen, isSignedIn, languages, 
                                                     name="OrgSize"
                                                     value={formData.OrgSize}
                                                     onChange={handleChange}
+                                                    disabled={!isEditing}
                                                 >
-                                                    <option value="">Select how many people are employed in your organization</option>
+                                                    <option value="">Select how many people are employed in your
+                                                        organization
+                                                    </option>
                                                     {OrgSize.map((orgsize, index) => (
                                                         <option key={index} value={orgsize}>
                                                             {orgsize}
@@ -251,8 +262,11 @@ const ModifyAdvanced = ({ toggleSignendIn, toggleScreen, isSignedIn, languages, 
                                                     name="ICorPM"
                                                     value={formData.ICorPM}
                                                     onChange={handleChange}
+                                                    disabled={!isEditing}
                                                 >
-                                                    <option value="">Select if you are an individual contributor or people manager</option>
+                                                    <option value="">Select if you are an individual contributor or
+                                                        people manager
+                                                    </option>
                                                     {ICorPM.map((icorpm, index) => (
                                                         <option key={index} value={icorpm}>
                                                             {icorpm}
@@ -268,8 +282,11 @@ const ModifyAdvanced = ({ toggleSignendIn, toggleScreen, isSignedIn, languages, 
                                                     name="Industry"
                                                     value={formData.Industry}
                                                     onChange={handleChange}
+                                                    disabled={!isEditing}
                                                 >
-                                                    <option value="">Select what industry is the company you work for in</option>
+                                                    <option value="">Select what industry is the company you work for
+                                                        in
+                                                    </option>
                                                     {Industry.map((industry, index) => (
                                                         <option key={index} value={industry}>
                                                             {industry}
@@ -285,6 +302,7 @@ const ModifyAdvanced = ({ toggleSignendIn, toggleScreen, isSignedIn, languages, 
                                                     name="YearsCode"
                                                     value={formData.YearsCode}
                                                     onChange={handleChange}
+                                                    disabled={!isEditing}
                                                     min="0"
                                                     max="50"
                                                     placeholder="Enter the number of years you've been coding"
@@ -298,6 +316,7 @@ const ModifyAdvanced = ({ toggleSignendIn, toggleScreen, isSignedIn, languages, 
                                                     name="YearsCodePro"
                                                     value={formData.YearsCodePro}
                                                     onChange={handleChange}
+                                                    disabled={!isEditing}
                                                     min="0"
                                                     max="50"
                                                     placeholder="Enter the number of years you've been coding professionally"
@@ -311,6 +330,7 @@ const ModifyAdvanced = ({ toggleSignendIn, toggleScreen, isSignedIn, languages, 
                                                     name="JobSat"
                                                     value={formData.JobSat}
                                                     onChange={handleChange}
+                                                    disabled={!isEditing}
                                                     min="0"
                                                     max="10"
                                                     placeholder="Enter your job satisfaction score from 0 to 10"
@@ -330,9 +350,9 @@ const ModifyAdvanced = ({ toggleSignendIn, toggleScreen, isSignedIn, languages, 
                                                     })}
                                                     menuPlacement="top"
                                                     placeholder="Select the languages you've used extensively in the past year"
+                                                    isDisabled={!isEditing}
                                                 />
                                             </Form.Group>
-
 
 
                                             <Form.Group controlId="formDatabases" className="mb-3">
@@ -348,6 +368,7 @@ const ModifyAdvanced = ({ toggleSignendIn, toggleScreen, isSignedIn, languages, 
                                                     })}
                                                     menuPlacement="top"
                                                     placeholder="Select the databases you've used extensively in the past year"
+                                                    isDisabled={!isEditing}
                                                 />
                                             </Form.Group>
 
@@ -364,6 +385,7 @@ const ModifyAdvanced = ({ toggleSignendIn, toggleScreen, isSignedIn, languages, 
                                                     })}
                                                     menuPlacement="top"
                                                     placeholder="Select the platforms you've used extensively in the past year"
+                                                    isDisabled={!isEditing}
                                                 />
                                             </Form.Group>
 
@@ -380,6 +402,7 @@ const ModifyAdvanced = ({ toggleSignendIn, toggleScreen, isSignedIn, languages, 
                                                     })}
                                                     menuPlacement="top"
                                                     placeholder="Select the web frameworks you've used extensively in the past year"
+                                                    isDisabled={!isEditing}
                                                 />
                                             </Form.Group>
 
@@ -396,11 +419,12 @@ const ModifyAdvanced = ({ toggleSignendIn, toggleScreen, isSignedIn, languages, 
                                                     })}
                                                     menuPlacement="top"
                                                     placeholder="Select the tools you've used extensively in the past year"
+                                                    isDisabled={!isEditing}
                                                 />
                                             </Form.Group>
 
                                             <Form.Group controlId="formopsys" className="mb-3">
-                                                <Form.Label>Operrating Systems</Form.Label>
+                                                <Form.Label>Operating Systems</Form.Label>
                                                 <Select
                                                     isMulti
                                                     name="tools"
@@ -412,6 +436,7 @@ const ModifyAdvanced = ({ toggleSignendIn, toggleScreen, isSignedIn, languages, 
                                                     })}
                                                     menuPlacement="top"
                                                     placeholder="Select the Operrating Systems you've used extensively in the past year"
+                                                    isDisabled={!isEditing}
                                                 />
                                             </Form.Group>
 
@@ -426,26 +451,37 @@ const ModifyAdvanced = ({ toggleSignendIn, toggleScreen, isSignedIn, languages, 
                                                         ...formData,
                                                         employments: selectedOptions.map(opt => opt.value),
                                                     })}
+                                                    disabled={!isEditing}
                                                     menuPlacement="top"
                                                     placeholder="Select all that describes your employment status"
+                                                    isDisabled={!isEditing}
+
                                                 />
                                             </Form.Group>
+                                            <div className="advanced-buttons">
+                                                {!isEditing ? (
+                                                    <Button className="advanced-button" onClick={() => setIsEditing(true)}>
+                                                        Edit Profile
+                                                    </Button>
+                                                ) : (
+                                                    <Button className="advanced-button" onClick={handleCancel}>
+                                                        Cancel
+                                                    </Button>
+                                                )}
 
-                                            <Button variant="primary" style={{ width: '10rem', margin: "10px" }} type="submit">
-                                                Save Information
-                                            </Button>
-                                            <Button variant="primary" style={{ width: '10rem', margin: "10px" }} type="button" onClick={() => navigate("/AdvancedProfile")}>
-                                                Cancel
-                                            </Button>
+                                                <Button className="advanced-button" type="submit">
+                                                    Save Information
+                                                </Button>
+                                                <Button className="advanced-button" type="button" onClick={() => navigate("/Profile")}>
+                                                    Back
+                                                </Button>
+                                            </div>
                                         </Form>
                                     </Card.Body>
                                 </Card>
-                            </Col>
-                        </Row>
                         {error && <div className="error-message">{error}</div>}
                     </Container>
-                </div>
-            </div>
+
         </div>
     );
 }
