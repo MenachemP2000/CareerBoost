@@ -1,7 +1,7 @@
 import Select from 'react-select';
 import React, { useState, useEffect } from "react";
 import { Container, Row, Col, Card, Button, Form } from 'react-bootstrap';
-
+import "./Experiment.css"
 import { useNavigate } from 'react-router-dom';
 import config from '../config';
 
@@ -196,21 +196,19 @@ const Experiment = ({ toggleSignendIn, toggleScreen, isSignedIn, languages, empl
     };
 
     return (
-        <div>
-            <div className="position-relative text-white text-center " >
-                <div style={{ minHeight: "100vh" }} className="w-100 h-100 bg-dark bg-opacity-50 d-flex flex-column align-items-center justify-content-center">
-                    <h3 className="display-4 fw-bold">Experiment</h3>
-                    <div className="underline mx-auto mb-3"></div>
+            <div className="experiment-container" >
 
-                    <Container className="py-6">
-                        <p className="lead">
-                            Here you can experiment with different possibilities and get prediction without changing your profile.
+                    <Container>
+                        <h3 className="experiment-title">Experiment</h3>
+                        <p className="experiment-subtitle">
+                            Try out different possibilities and get a salary prediction without changing your profile.
                         </p>
-                        <Row>
-                            <Col md={{ span: 6, offset: 3 }}>
-                                <Card>
+                        <Row className="justify-content-center">
+                            <Col md={8}>
+                                <Card className="experiment-card">
                                     <Card.Body>
                                         <Card.Title>Basic Information</Card.Title>
+
                                         <Form.Group controlId="formCountry" className="mb-3">
                                             <Form.Label>Country</Form.Label>
                                             <Form.Control
@@ -285,7 +283,9 @@ const Experiment = ({ toggleSignendIn, toggleScreen, isSignedIn, languages, empl
                                                     value={formData.MainBranch}
                                                     onChange={handleChange}
                                                 >
-                                                    <option value="">Select which of the following options best describes you today</option>
+                                                    <option value="">Select which of the following options best
+                                                        describes you today
+                                                    </option>
                                                     {MainBranchs.map((mainbranch, index) => (
                                                         <option key={index} value={mainbranch}>
                                                             {mainbranch}
@@ -302,7 +302,9 @@ const Experiment = ({ toggleSignendIn, toggleScreen, isSignedIn, languages, empl
                                                     value={formData.RemoteWork}
                                                     onChange={handleChange}
                                                 >
-                                                    <option value="">Select which best describes your current work situation</option>
+                                                    <option value="">Select which best describes your current work
+                                                        situation
+                                                    </option>
                                                     {RemoteWork.map((remotework, index) => (
                                                         <option key={index} value={remotework}>
                                                             {remotework}
@@ -319,7 +321,9 @@ const Experiment = ({ toggleSignendIn, toggleScreen, isSignedIn, languages, empl
                                                     value={formData.DevType}
                                                     onChange={handleChange}
                                                 >
-                                                    <option value="">Select which of the following describes your current job</option>
+                                                    <option value="">Select which of the following describes your
+                                                        current job
+                                                    </option>
                                                     {DevType.map((devtype, index) => (
                                                         <option key={index} value={devtype}>
                                                             {devtype}
@@ -336,7 +340,9 @@ const Experiment = ({ toggleSignendIn, toggleScreen, isSignedIn, languages, empl
                                                     value={formData.OrgSize}
                                                     onChange={handleChange}
                                                 >
-                                                    <option value="">Select how many people are employed in your organization</option>
+                                                    <option value="">Select how many people are employed in your
+                                                        organization
+                                                    </option>
                                                     {OrgSize.map((orgsize, index) => (
                                                         <option key={index} value={orgsize}>
                                                             {orgsize}
@@ -353,7 +359,9 @@ const Experiment = ({ toggleSignendIn, toggleScreen, isSignedIn, languages, empl
                                                     value={formData.ICorPM}
                                                     onChange={handleChange}
                                                 >
-                                                    <option value="">Select if you are an individual contributor or people manager</option>
+                                                    <option value="">Select if you are an individual contributor or
+                                                        people manager
+                                                    </option>
                                                     {ICorPM.map((icorpm, index) => (
                                                         <option key={index} value={icorpm}>
                                                             {icorpm}
@@ -370,7 +378,9 @@ const Experiment = ({ toggleSignendIn, toggleScreen, isSignedIn, languages, empl
                                                     value={formData.Industry}
                                                     onChange={handleChange}
                                                 >
-                                                    <option value="">Select what industry is the company you work for in</option>
+                                                    <option value="">Select what industry is the company you work for
+                                                        in
+                                                    </option>
                                                     {Industry.map((industry, index) => (
                                                         <option key={index} value={industry}>
                                                             {industry}
@@ -531,29 +541,32 @@ const Experiment = ({ toggleSignendIn, toggleScreen, isSignedIn, languages, empl
                                             </Form.Group>
 
                                             {(isSignedIn.experiment && isSignedIn.experiment.prediction) &&
-                                                <Card style={{ margin: "10px" }}>
+                                                <Card style={{margin: "10px"}}>
                                                     <Card.Header>Salary Prediction</Card.Header>
-                                                    <Card.Body >
-                                                        <Card.Text style={{ color: "green" }}>
+                                                    <Card.Body>
+                                                        <Card.Text style={{color: "green"}}>
 
                                                             {new Intl.NumberFormat('en', {
                                                                 style: 'currency',
                                                                 currency: selectedCurrency,
                                                                 maximumFractionDigits: 0
-                                                            }).format(Math.floor(isSignedIn.experiment.prediction * exchangeRate))} per year
-                                                            <br />
+                                                            }).format(Math.floor(isSignedIn.experiment.prediction * exchangeRate))} per
+                                                            year
+                                                            <br/>
                                                         </Card.Text>
                                                     </Card.Body>
                                                 </Card>
 
                                             }
-
-                                            <Button variant="primary" style={{ width: '10rem', margin: "10px" }} type="submit">
-                                                Experiment
-                                            </Button>
-                                            <Button variant="primary" style={{ width: '10rem', margin: "10px" }} type="button" onClick={() => navigate("/Prediction")}>
-                                                Back
-                                            </Button>
+                                            <div className="button-group">
+                                                <Button variant="primary" className="experiment-btn" type="submit">
+                                                    Experiment
+                                                </Button>
+                                                <Button variant="primary" className="experiment-btn"
+                                                        onClick={() => navigate("/Prediction")}>
+                                                    Back
+                                                </Button>
+                                            </div>
                                         </Form>
                                     </Card.Body>
                                 </Card>
@@ -561,9 +574,7 @@ const Experiment = ({ toggleSignendIn, toggleScreen, isSignedIn, languages, empl
                         </Row>
                         {error && <div className="error-message">{error}</div>}
                     </Container>
-                </div>
             </div>
-        </div>
     );
 }
 

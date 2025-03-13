@@ -1,0 +1,104 @@
+/*!* Advanced Profile Container *!*/
+/*.advanced-profile-container {*/
+/*    background-color: white;*/
+/*    min-height: 100vh;*/
+/*    display: flex;*/
+/*    flex-direction: column;*/
+/*    align-items: center;*/
+/*    justify-content: center;*/
+/*    width: 100%;*/
+/*}*/
+
+/*!* Advanced Profile Card *!*/
+/*.advanced-profile-card {*/
+/*    width: 100%;*/
+/*    max-width: 900px;*/
+/*    background: white;*/
+/*    padding: 20px;*/
+/*    border-radius: 10px;*/
+/*    text-align: center;*/
+/*    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);*/
+/*    position: relative;*/
+/*    min-height: 160px; !* Adjust this to ensure uniform height *!*/
+/*    display: flex;*/
+/*    flex-direction: column;*/
+/*    justify-content: center;*/
+/*}*/
+/*!* Make the header consistent in size *!*/
+/*.advanced-profile-card .card-header {*/
+/*    font-weight: bold;*/
+/*    font-size: 18px;*/
+/*    background: #f8f9fa;*/
+/*    padding: 10px;*/
+/*    border-bottom: 1px solid #ddd;*/
+/*    min-height: 50px; !*  Ensures all headers have equal height *!*/
+/*    display: flex;*/
+/*    align-items: center;*/
+/*    justify-content: center;*/
+/*}*/
+
+/*!* Advanced Profile Title *!*/
+/*.advanced-profile-title {*/
+/*    font-size: 24px;*/
+/*    font-weight: bold;*/
+/*    margin-bottom: 15px;*/
+/*}*/
+
+/*!* Advanced Profile Description *!*/
+/*.advanced-profile-description {*/
+/*    font-size: 1rem;*/
+/*    color: #65676b;*/
+/*    margin-bottom: 20px;*/
+/*}*/
+
+/*!* Advanced Profile Buttons *!*/
+/*.advanced-profile-buttons {*/
+/*    display: flex;*/
+/*    justify-content: center;*/
+/*    gap: 15px;*/
+/*    margin-top: 20px;*/
+/*}*/
+
+/*!* Button Styling *!*/
+/*.advanced-profile-button {*/
+/*    background: linear-gradient(45deg, #ff6b6b, #ff8e53);*/
+/*    border: none;*/
+/*    color: white;*/
+/*    padding: 10px 20px;*/
+/*    border-radius: 6px;*/
+/*    text-align: center;*/
+/*    transition: background 0.3s ease;*/
+/*}*/
+
+/*.advanced-profile-button:hover {*/
+/*    background: linear-gradient(45deg, #ff8e53, #ff6b6b);*/
+/*}*/
+
+/*!* Dark Mode *!*/
+/*body.dark-mode .advanced-profile-container {*/
+/*    background-color: rgb(12,12,12);*/
+/*}*/
+
+/*body.dark-mode .advanced-profile-card {*/
+/*    background: #242526;*/
+/*    color: white;*/
+/*    box-shadow: 0 4px 10px rgba(255, 255, 255, 0.1);*/
+/*}*/
+
+/*body.dark-mode .advanced-profile-title {*/
+/*    color: #e4e6eb;*/
+/*}*/
+
+/*body.dark-mode .advanced-profile-description {*/
+/*    color: #b0b3b8;*/
+/*}*/
+
+/*body.dark-mode .advanced-profile-button {*/
+/*    background: linear-gradient(45deg, #ff8e53, #ff6b6b);*/
+/*    color: black;*/
+/*}*/
+
+/*body.dark-mode .advanced-profile-button:hover {*/
+/*    background: linear-gradient(45deg, #ff6b6b, #ff8e53);*/
+/*    color: black;*/
+/*}*/

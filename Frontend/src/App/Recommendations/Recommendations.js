@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useNavigate } from 'react-router-dom';
 import config from '../config';
+import "./Recommendations.css";
 
 const Recommendations = ({ toggleScreen, isSignedIn, toggleSignendIn, exchangeRate, selectedCurrency }) => {
     const navigate = useNavigate();
@@ -169,25 +170,20 @@ const Recommendations = ({ toggleScreen, isSignedIn, toggleSignendIn, exchangeRa
         }
     }
     return (
+            <div className="recommendations-container" >
+                <h3 className="recommendations-title">Recommendations</h3>
+                <div className="recommendations-overlay">
 
-        <div>
-            <div className="position-relative text-white text-center" >
-                <div style={{ minHeight: "100vh" }} className=" top-0 start-0 w-100 h-100 bg-dark bg-opacity-50 d-flex flex-column align-items-center justify-content-center">
-                    <h3 className="display-4 fw-bold">Recommendations</h3>
-                    <div className="underline mx-auto mb-3"></div>
+                    <p className="recommendations-subtitle">Here’s an overview of your top recommendations:</p>
 
-                    <p className="lead">
-                        Here's an overview of your top Recommendations:
-                    </p>
                     {(!recommendations || !recommendationsIncrese) &&
-                        <Row className="d-flex justify-content-center">
-                            <Card style={{ width: '18rem', margin: "10px" }}>
+                        <Row className="recommendations-row">
+                            <Card className="recommendations-card">
                                 <Card.Header>Get Recommendations</Card.Header>
-                                <Card.Body >
-                                    <Card.Text>
-                                        Click the button below to get recommendations Based on your profile
-                                    </Card.Text>
-                                    <Button as={Button} onClick={handleRecommendations} variant="primary" className="px-5 py-3">Recommendations</Button>
+                                <Card.Body>
+                                        <Card.Text>Click the button below to get recommendations Based on your profile</Card.Text>
+                                    <Button onClick={handleRecommendations} variant="primary" className="recommendations-btn">
+                                        Get Recommendations</Button>
 
                                 </Card.Body>
                             </Card>
@@ -195,63 +191,92 @@ const Recommendations = ({ toggleScreen, isSignedIn, toggleSignendIn, exchangeRa
                     }
 
                     {(recommendations && recommendationsIncrese) &&
-                        <Card style={{ margin: "10px" }}>
-                            <Card.Header>Recommendations</Card.Header>
-                            <Card.Body >
-                                <Card.Text>
-                                    <ul style={{ paddingLeft: "20px" }}>
-                                        {recommendations.map((recommendation, index) => {
-                                            return (
-                                                <li key={index} style={{ marginBottom: "10px", display: "flex", justifyContent: "space-between" }}>
-                                                    <span>{recommendation}</span>
-                                                    <span style={{ color: "green", fontWeight: "bold" }}>
-                                                        {new Intl.NumberFormat('en', {
-                                                            style: 'currency',
-                                                            currency: selectedCurrency,
-                                                            maximumFractionDigits: 0
-                                                        }).format(Math.floor(recommendationsIncrese[recommendation] * exchangeRate))}
-                                                    </span>
-                                                </li>
-                                            );
-                                        })}
-                                    </ul>
-                                    <br/>
-                                </Card.Text>
+                        <Card className="recommendations-card">
+                            <Card.Header>Top Recommendations</Card.Header>
+                            <Card.Body>
+                                <ul className="recommendations-list">
+                                    {recommendations.map((recommendation, index) => (
+                                        <li key={index} className="recommendations-item">
+                                            <span className="recommendation-text">{recommendation}</span>
+                                            <span className="salary-increase">
+                                            {new Intl.NumberFormat('en', {
+                                                style: 'currency',
+                                                currency: selectedCurrency,
+                                                maximumFractionDigits: 0
+                                            }).format(Math.floor(recommendationsIncrese[recommendation] * exchangeRate))}
+                                        </span>
+                                        </li>
+                                    ))}
+                                </ul>
 
-
-                                <Card.Text>
-                                    By following this top recommendations, your salary could increase to approximately
-                                    <span style={{ color: "green", fontWeight: "bold" }} > {new Intl.NumberFormat('en', {
+                                <p>
+                                    Following these recommendations, your salary could increase to approximately
+                                    <span className="salary-estimate"> {new Intl.NumberFormat('en', {
                                         style: 'currency',
                                         currency: selectedCurrency,
                                         maximumFractionDigits: 0
                                     }).format(Math.floor(isSignedIn.combined * exchangeRate))}
-                                    </span >
-                                </Card.Text>
-                                <Card.Text>
-                                    if you change your information, you can ask to be re-recommended
-                                </Card.Text>
-                                <Button as={Button} onClick={handleRecommendations} variant="primary" className="px-5 py-3">Reccomend</Button>
+                                </span>
+                                </p>
+                                <Button onClick={handleRecommendations} variant="primary" className="recommendations-btn">
+                                    Recalculate Recommendations
+                                </Button>
+
                             </Card.Body>
                         </Card>
 
                     }
 
-                    <Row className="d-flex justify-content-center">
 
-                        <Container className=" justify-content-center" >
-                            <Button as={Link} to="/AdvancedRecommendations" style={{ width: '10rem', margin: "10px" }} variant="primary" className="px-5 py-3">Advanced</Button>
-                            <Button as={Link} to="/SavedRecommendations" style={{ width: '10rem', margin: "10px" }} variant="primary" className="px-5 py-3">Saved</Button>
-                            <Button as={Button} style={{ width: '10rem', margin: "10px", whiteSpace: "nowrap" }} onClick={handleSignout} variant="primary" className="px-5 py-3">Sign Out</Button>
+                        <Container className="recommendations-actions">
+                            <Button as={Link} to="/AdvancedRecommendations" variant="primary" className="action-btn">Advanced</Button>
+                            <Button as={Link} to="/SavedRecommendations" variant="primary" className="action-btn">Saved</Button>
+                            <Button onClick={handleSignout} variant="primary" className="action-btn">Sign Out</Button>
                         </Container>
-                    </Row>
-
 
 
                 </div>
             </div>
-        </div>
     );
 }
 
 export default Recommendations;
+
+{/*<Card.Text>*/}
+{/*    <ul style={{paddingLeft: "20px"}}>*/}
+{/*        {recommendations.map((recommendation, index) => {*/}
+{/*            return (*/}
+{/*                <li key={index} style={{*/}
+{/*                    marginBottom: "10px",*/}
+{/*                    display: "flex",*/}
+{/*                    justifyContent: "space-between"*/}
+{/*                }}>*/}
+{/*                    <span>{recommendation}</span>*/}
+{/*                    <span style={{color: "green", fontWeight: "bold"}}>*/}
+{/*                        {new Intl.NumberFormat('en', {*/}
+{/*                            style: 'currency',*/}
+{/*                            currency: selectedCurrency,*/}
+{/*                            maximumFractionDigits: 0*/}
+{/*                        }).format(Math.floor(recommendationsIncrese[recommendation] * exchangeRate))}*/}
+{/*                    </span>*/}
+{/*                </li>*/}
+{/*            );*/}
+{/*        })}*/}
+{/*    </ul>*/}
+{/*    <br/>*/}
+{/*</Card.Text>*/}
+
+{/*<Card.Text>*/}
+{/*    By following this top recommendations, your salary could increase to approximately*/}
+{/*    <span style={{color: "green", fontWeight: "bold"}}> {new Intl.NumberFormat('en', {*/}
+{/*        style: 'currency',*/}
+{/*        currency: selectedCurrency,*/}
+{/*        maximumFractionDigits: 0*/}
+{/*    }).format(Math.floor(isSignedIn.combined * exchangeRate))}*/}
+{/*    </span>*/}
+{/*</Card.Text>*/}
+{/*<Card.Text>*/}
+{/*    if you change your information, you can ask to be re-recommended*/}
+{/*</Card.Text>*/}
+{/*<Button as={Button} onClick={handleRecommendations} variant="primary"*/}
+{/*        className="px-5 py-3">Reccomend</Button>*/}

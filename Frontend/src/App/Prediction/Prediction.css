@@ -1,0 +1,83 @@
+/* Prediction Page Container */
+.prediction-container {
+    background-color: white;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+/* Prediction Card */
+.prediction-card {
+    width: 100%;
+    max-width: 600px;
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    position: relative;
+    margin-bottom: 10px;
+}
+/* Prediction Buttons */
+.prediction-buttons {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 20px;
+}
+.prediction-button {
+    background: linear-gradient(45deg, #ff6b6b, #ff8e53);
+    border: none;
+    color: white;
+    padding: 8px 15px;
+    font-size: 1rem;
+    font-weight: bold;
+    border-radius: 6px;
+    text-align: center;
+    text-decoration: none;
+    transition: background 0.3s ease;
+    width: max-content;
+    min-width: 130px;
+    height: 40px;
+    cursor: pointer;
+}
+
+.prediction-button:hover {
+    background: linear-gradient(45deg, #ff8e53, #ff6b6b);
+    color: white;
+}
+/* Dark Mode */
+body.dark-mode .prediction-container {
+    background-color: #050505;
+}
+/* Make sure text is visible in dark mode */
+body.dark-mode .prediction-container h3,
+body.dark-mode .prediction-container p {
+    color: white; /* Ensures contrast in dark mode */
+}
+
+/* Ensure underline is visible */
+body.dark-mode .underline {
+    background-color: white; /* Adjust to ensure visibility */
+}
+
+
+body.dark-mode .prediction-card {
+    background: #242526;
+    color: white;
+    box-shadow: 0 4px 10px rgba(255, 255, 255, 0.1);
+}
+
+body.dark-mode .prediction-button {
+    background: linear-gradient(45deg, #ff4444, #ff6a00);
+    color: #fff;
+}
+
+body.dark-mode .prediction-button:hover {
+    background: linear-gradient(45deg, #ff6b6b, #ff8e53);
+    color: black;
+}

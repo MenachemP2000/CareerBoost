@@ -1,0 +1,166 @@
+/* Profile.css */
+
+/* Profile Page Container */
+.profile-container {
+    background-color: white;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+/* Profile Card */
+.profile-card {
+    width: 100%;
+    max-width: 400px; /* Make it narrower */
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    position: relative;
+}
+
+/* Profile Header (for Picture) */
+.profile-header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: -10px;
+}
+/* Profile Picture */
+.profile-picture {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid white;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+/* Profile Name */
+.profile-name {
+    font-size: 22px;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+/* Profile Description */
+.profile-description {
+    color: #65676b;
+    font-size: 1rem;
+    margin-bottom: 15px;
+}
+/* Profile Information */
+.profile-info {
+    font-size: 1rem;
+    color: #333;
+    text-align: left;
+    padding: 0 10px;
+    margin-top: 15px;
+}
+/* Profile Info */
+.profile-info {
+    font-size: 1rem;
+    color: #333;
+    text-align: left;
+    margin-top: 15px;
+}
+/* Profile Buttons (Stacked in Row) */
+.profile-buttons {
+    display: flex;
+    flex-direction: row; /* Stack buttons vertically */
+    align-items: center;
+    justify-content: center;
+    gap: 10px; /* Adds space between buttons */
+    margin-top: 10px; /* Adjust as needed */
+}
+
+/* Fix button styling to match home.css */
+.profile-button {
+    background: linear-gradient(45deg, #ff6b6b, #ff8e53);
+    border: none;
+    color: white;
+    padding: 8px 15px;
+    font-size: 1rem;
+    font-weight: bold;
+    border-radius: 6px;
+    text-align: center;
+    text-decoration: none;
+    transition: background 0.3s ease;
+    width: max-content;
+    height: 40px;
+
+}
+.profile-button:focus {
+    outline: none;
+    box-shadow: none; /* Removes any focus shadow */
+}
+
+.profile-button:hover {
+    background: linear-gradient(45deg, #ff8e53, #ff6b6b);
+    color: white;
+}
+
+
+
+/* Dark Mode */
+body.dark-mode .profile-container {
+    background-color: #18191a;
+}
+
+body.dark-mode .profile-info {
+    color: white;
+}
+
+.profile-card .card-text {
+    margin-bottom: 0.5rem;
+}
+
+
+.profile-button:hover {
+    background-color: #0056b3;
+}
+
+/* Dark mode */
+body.dark-mode .profile-container {
+    background-color: rgb(12, 12, 12);
+}
+
+/* Dark Mode: Profile Card */
+body.dark-mode .profile-card {
+    background: #242526;
+    color: white;
+    box-shadow: 0 4px 10px rgba(255, 255, 255, 0.1);
+}
+
+/* Dark Mode: Profile Name */
+body.dark-mode .profile-name {
+    color: #e4e6eb;
+}
+
+/* Dark Mode: Profile Description */
+body.dark-mode .profile-description {
+    color: #b0b3b8;
+}
+
+/* Dark Mode: Profile Info */
+body.dark-mode .profile-info {
+    color: #e4e6eb;
+}
+
+/* Dark Mode: Profile Buttons */
+body.dark-mode .profile-button {
+    /*background: linear-gradient(45deg, #ff8e53, #ff6b6b);*/
+    color: black;
+}
+
+body.dark-mode .profile-button:hover {
+    /*background: linear-gradient(45deg, #ff6b6b, #ff8e53);*/
+    color: black;
+}
+
+/* Dark Mode: Profile Picture Border */
+body.dark-mode .profile-picture {
+    border: 3px solid #3a3b3c;
+}
