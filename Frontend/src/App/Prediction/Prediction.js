@@ -4,12 +4,16 @@ import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useNavigate } from 'react-router-dom';
 import config from '../config';
-import "./Prediction.css"
-const Prediction = ({toggleScreen, isSignedIn, toggleSignendIn, selectedCurrency, exchangeRate}) => {
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Cell, ResponsiveContainer, LabelList } from 'recharts';
+import './Prediction.css';
+
+
+const Prediction = ({ toggleScreen, isSignedIn, toggleSignendIn, selectedCurrency, exchangeRate }) => {
     const navigate = useNavigate();
     const [error, setError] = useState('');
     const [top3Data, setTop3Data] = useState(isSignedIn.impacts ? isSignedIn.impacts.slice(0, 3) : []); //top 3 impacting features
 
+    const COLORS = ['#BFC1C2', '#F1C232', '#B08D57'];
     useEffect(() => {
         toggleScreen("Prediction");
         if (!isSignedIn) {
@@ -142,143 +146,91 @@ const Prediction = ({toggleScreen, isSignedIn, toggleSignendIn, selectedCurrency
         }
     }
     return (
-        <div className="prediction-container">
-            <h3 className="display-4 fw-bold text-center">Prediction</h3>
-            <div className="underline mx-auto mb-3"></div>
 
-            <p className="lead text-center">Here's our model's Prediction:</p>
+        <div className="position-relative text-white text-center" >
+            <div className="prediction-container">
+                <h3 className="display-4 fw-bold">Prediction</h3>
+                <div className="underline mx-auto mb-3"></div>
 
-            {isSignedIn &&
-                <Row className="d-flex justify-content-center">
-                    {((!isSignedIn.prediction) || isSignedIn.prediction === 0) &&
-                        <Card className="prediction-card">
-                            <Card.Header>Salary Prediction</Card.Header>
-                            <Card.Body>
-                                <Card.Text>
-                                    We Havent Predicted your Salary Yet.
-                                    Click the button below to Let our AI predict your salary!
-                                </Card.Text>
-                                <Button as={Button} onClick={handlePredict} className="prediction-button">Predict</Button>
-                            </Card.Body>
-                        </Card>
-
-                    }
-                    {(isSignedIn.prediction && isSignedIn.prediction !== 0) &&
-                        <Card className="prediction-card">
-                            <Card.Header>Salary Prediction</Card.Header>
-                            <Card.Body>
-                                <Card.Body>
-                                    The model predicts your salary to be around:
-                                    <br />
-                                    <br />
-
-                                    <Card.Title style={{ color: "green" }}>{new Intl.NumberFormat('en', {
-                                        style: 'currency',
-                                        currency: selectedCurrency,
-                                        maximumFractionDigits: 0
-                                    }).format(Math.floor(isSignedIn.prediction * exchangeRate))} per year</Card.Title>
-                                    <br />
-                                    If you change your information, you can repredict your salary
+                <p className="lead text-center">
+                    Here's our model's Prediction:
+                </p>
+                {isSignedIn &&
+                    <Row className="d-flex justify-content-center">
+                        {((!isSignedIn.prediction) || isSignedIn.prediction === 0) &&
+                            <Card className="prediction-card">
+                                <Card.Header>Salary Prediction</Card.Header>
+                                <Card.Body >
+                                    <Card.Text>
+                                        We Havent Predicted your Salary Yet,
+                                        click the button below to
+                                        Let our AI predict your salary!
+                                    </Card.Text>
+                                    <Button onClick={handlePredict} className="prediction-button">Predict</Button>
                                 </Card.Body>
-                                <Button onClick={handlePredict} className="prediction-button">Repredict</Button>
-                            </Card.Body>
-                            <Card.Body style={{ margin: "10px", width: "70%", margin: "auto" }}>
-                                <Card.Header>Top Salary Impacting Features</Card.Header>
-                                <Card.Body className="d-flex flex-column align-items-center">
-                                    <ResponsiveContainer height={400}>
-                                        <BarChart data={top3Data}>
-                                            <XAxis axisLine={false} dataKey="feature" tick={false} />
-                                            <YAxis axisLine={false} tick={false} />
-                                            <Tooltip />
-                                            <Bar dataKey="impact" label>
-                                                {top3Data.map((entry, index) => (
-                                                    <Cell key={`cell-${index}`} fill={COLORS[index]} />
-                                                ))}
-                                                <LabelList
-                                                    dataKey="feature"
-                                                    fontSize={12}
-                                                    fill="#000"
-                                                />
-                                                <LabelList
-                                                    dataKey="impact"
-                                                    position="top"
-                                                    fontSize={12}
-                                                    fill="#000"
-                                                />
-                                            </Bar>
-                                        </BarChart>
-                                    </ResponsiveContainer>
+                            </Card>
+
+                        }
+                        {(isSignedIn.prediction && isSignedIn.prediction !== 0) &&
+                            <Card className="prediction-card" >
+                                <Card.Header>Salary Prediction</Card.Header>
+                                <Card.Body >
+                                    <Card.Text >
+                                        The model predicts your salary to be around:
+                                        <br />
+                                        <br />
+
+                                        <Card.Title style={{ color: "green" }}>{new Intl.NumberFormat('en', {
+                                            style: 'currency',
+                                            currency: selectedCurrency,
+                                            maximumFractionDigits: 0
+                                        }).format(Math.floor(isSignedIn.prediction * exchangeRate))} per year</Card.Title>
+                                        <br />
+                                        if you change your information, you can repredict your salary
+                                    </Card.Text>
+                                    <Button onClick={handlePredict} className="prediction-button">Repredict</Button>
                                 </Card.Body>
 
-                            </Card.Body>
-                            <Card.Body style={{ margin: "10px", width: "70%", margin: "auto" }}>
-                                <Card.Header>Top Salary Impacting Features</Card.Header>
-                                <Card.Body className="d-flex flex-column align-items-center">
-                                    <ResponsiveContainer height={400}>
-                                        <BarChart data={top3Data}>
-                                            <XAxis axisLine={false} dataKey="feature" tick={false} />
-                                            <YAxis axisLine={false} tick={false} />
-                                            <Tooltip />
-                                            <Bar dataKey="impact" label>
-                                                {top3Data.map((entry, index) => (
-                                                    <Cell key={`cell-${index}`} fill={COLORS[index]} />
-                                                ))}
-                                                <LabelList
-                                                    dataKey="feature"
-                                                    fontSize={12}
-                                                    fill="#000"
-                                                />
-                                                <LabelList
-                                                    dataKey="impact"
-                                                    position="top"
-                                                    fontSize={12}
-                                                    fill="#000"
-                                                />
-                                            </Bar>
-                                        </BarChart>
-                                    </ResponsiveContainer>
-                                </Card.Body>
+                                <Card style={{ margin: "10px", maxWidth: "80vw" }}>
+                                    <Card.Header>Top Salary Impacting Features</Card.Header>
+                                    <Card.Body className="d-flex flex-column align-items-center">
+                                        <ResponsiveContainer height={400}>
+                                            <BarChart data={top3Data}>
+                                                <XAxis axisLine={false} dataKey="feature" tick={false} />
+                                                <YAxis axisLine={false} tick={false} />
+                                                <Tooltip />
+                                                <Bar dataKey="impact" label>
+                                                    {top3Data.map((entry, index) => (
+                                                        <Cell key={`cell-${index}`} fill={COLORS[index]} />
+                                                    ))}
+                                                    <LabelList
+                                                        dataKey="feature"
+                                                        fontSize={12}
+                                                        fill="#000"
+                                                    />
+                                                    <LabelList
+                                                        dataKey="impact"
+                                                        position="top"
+                                                        fontSize={12}
+                                                        fill="#000"
+                                                    />
+                                                </Bar>
+                                            </BarChart>
+                                        </ResponsiveContainer>
+                                    </Card.Body>
 
-                            </Card.Body>
-<Card style={{ margin: "10px", maxWidth: "80vw" }}>
-                                        <Card.Header>Top Salary Impacting Features</Card.Header>
-                                        <Card.Body className="d-flex flex-column align-items-center">
-                                            <ResponsiveContainer height={400}>
-                                                <BarChart data={top3Data}>
-                                                    <XAxis axisLine={false} dataKey="feature" tick={false} />
-                                                    <YAxis axisLine={false} tick={false} />
-                                                    <Tooltip />
-                                                    <Bar dataKey="impact" label>
-                                                        {top3Data.map((entry, index) => (
-                                                            <Cell key={`cell-${index}`} fill={COLORS[index]} />
-                                                        ))}
-                                                        <LabelList
-                                                            dataKey="feature"
-                                                            fontSize={12}
-                                                            fill="#000"
-                                                        />
-                                                        <LabelList
-                                                            dataKey="impact"
-                                                            position="top"
-                                                            fontSize={12}
-                                                            fill="#000"
-                                                        />
-                                                    </Bar>
-                                                </BarChart>
-                                            </ResponsiveContainer>
-                                        </Card.Body>
+                                </Card>
+                            </Card>
 
-                                    </Card>
-                        </Card>
+                        }
+                        <Container className="prediction-buttons">
+                            <Button as={Link} to="/Experiment" style={{ width: '10rem', margin: "10px" }} className="prediction-button">Experiment</Button>
+                            <Button onClick={handleSignout} className="prediction-button">Sign Out</Button>
+                        </Container>
+                    </Row>
+                }
 
-                    }
-                    <Container className="prediction-buttons">
-                        <Button as={Link} to="/Experiment" className="prediction-button">Experiment</Button>
-                        <Button onClick={handleSignout} className="prediction-button">Sign Out</Button>
-                    </Container>
-                </Row>
-            }
-
+            </div>
         </div>
     );
 }
