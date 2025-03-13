@@ -211,6 +211,35 @@ const Prediction = ({toggleScreen, isSignedIn, toggleSignendIn, selectedCurrency
                                 </Card.Body>
 
                             </Card.Body>
+                            <Card.Body style={{ margin: "10px", width: "70%", margin: "auto" }}>
+                                <Card.Header>Top Salary Impacting Features</Card.Header>
+                                <Card.Body className="d-flex flex-column align-items-center">
+                                    <ResponsiveContainer height={400}>
+                                        <BarChart data={top3Data}>
+                                            <XAxis axisLine={false} dataKey="feature" tick={false} />
+                                            <YAxis axisLine={false} tick={false} />
+                                            <Tooltip />
+                                            <Bar dataKey="impact" label>
+                                                {top3Data.map((entry, index) => (
+                                                    <Cell key={`cell-${index}`} fill={COLORS[index]} />
+                                                ))}
+                                                <LabelList
+                                                    dataKey="feature"
+                                                    fontSize={12}
+                                                    fill="#000"
+                                                />
+                                                <LabelList
+                                                    dataKey="impact"
+                                                    position="top"
+                                                    fontSize={12}
+                                                    fill="#000"
+                                                />
+                                            </Bar>
+                                        </BarChart>
+                                    </ResponsiveContainer>
+                                </Card.Body>
+
+                            </Card.Body>
 <Card style={{ margin: "10px", maxWidth: "80vw" }}>
                                         <Card.Header>Top Salary Impacting Features</Card.Header>
                                         <Card.Body className="d-flex flex-column align-items-center">
