@@ -48,13 +48,11 @@ const searchJobs = async (req, res) => {
                 htmlFormattedUrl: item.htmlFormattedUrl,
                 pagemap: item.pagemap
             })) || [];
-            console.log(response.data.queries.nextPage);
 
 
             // Add pagination info (totalResults and current page)
             const totalResults = response.data.searchInformation?.totalResults || 0;
             const totalPages = Math.min(Math.ceil(totalResults / 10), 10); // Since max results = 100, max pages = 10
-            console.log("totalPages: ", totalPages);
             res.json({
                 jobs,
                 page: pageNumber,
@@ -73,4 +71,5 @@ const searchJobs = async (req, res) => {
         }
     }
 };
+
 module.exports = { searchJobs };

@@ -26,7 +26,7 @@ async function fetchExchangeRates() {
         // Save to JSON file
         fs.writeFileSync("exchange_rates.json", JSON.stringify(rates, null, 2));
 
-        console.log("Exchange rates updated:", rates);
+        //console.log("Exchange rates updated:", rates);
     } catch (error) {
         console.error("Error fetching exchange rates:", error);
     }

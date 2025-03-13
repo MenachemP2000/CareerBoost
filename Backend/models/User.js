@@ -108,6 +108,9 @@ const userSchema = new mongoose.Schema({
   impacts: {
     type: Object
   },
+  alerts:{
+    
+  }
 
 });
 

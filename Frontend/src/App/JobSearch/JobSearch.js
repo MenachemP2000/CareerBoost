@@ -22,6 +22,9 @@ export default function JobSearch({ toggleScreen, isSignedIn, toggleSignendIn, c
     const [isOpen, setIsOpen] = useState(false);
     const [includeCountry, setIncludeCountry] = useState(false);
     const [error, setError] = useState('');
+    const [email, setEmail] = useState("");
+    const [frequency, setFrequency] = useState("daily");
+    const [alertsIsOpen, setAlertIsOpen] = useState(false);
 
 
     useEffect(() => {
@@ -366,7 +369,7 @@ export default function JobSearch({ toggleScreen, isSignedIn, toggleSignendIn, c
 
             const dataJobs = data.jobs;
 
-            if ((includeCountry || initialSearch ) && (isSignedIn.country === "Israel")) {
+            if ((includeCountry || initialSearch) && (isSignedIn.country === "Israel")) {
                 dataJobs.forEach(job => {
                     job.parsedTitle = decodeHtml(job.pagemap.metatags[0]["og:title"]).replace("| LinkedIn", "").replace("LinkedIn", "");
                     job.country = "Israel";
@@ -375,7 +378,7 @@ export default function JobSearch({ toggleScreen, isSignedIn, toggleSignendIn, c
                     job.location = decodeHtml(job.pagemap.metatags[0]["og:title"].split("גיוס עובדים")[1].split("|").slice(-1)[0].replace("LinkedIn", "").trim());
                 });
             }
-            else if ((includeCountry || initialSearch ) && (isSignedIn.country === "United States of America")) {
+            else if ((includeCountry || initialSearch) && (isSignedIn.country === "United States of America")) {
                 dataJobs.forEach(job => {
                     job.parsedTitle = decodeHtml(job.pagemap.metatags[0]["og:title"]).replace("| LinkedIn", "").replace("LinkedIn", "");
                     job.country = "USA";
@@ -411,17 +414,6 @@ export default function JobSearch({ toggleScreen, isSignedIn, toggleSignendIn, c
 
 
     const saveJob = async (job) => {
-        console.log(job);
-
-        const jsonString = JSON.stringify(job);
-
-        // Measure the byte length of the JSON string
-        const byteLength = new TextEncoder().encode(jsonString).length;
-
-        // Convert bytes to kilobytes (1 KB = 1024 bytes)
-        const sizeInKB = byteLength / 1024;
-
-        console.log(`Size of JSON object: ${sizeInKB.toFixed(2)} KB`);
 
         const payload = { _id: isSignedIn._id, username: isSignedIn.username };
         const savedJobs = isSignedIn.savedJobs || [];
@@ -489,11 +481,218 @@ export default function JobSearch({ toggleScreen, isSignedIn, toggleSignendIn, c
         setRecency(e.target.value);
     };
 
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        let initialSearch = true;
+        let url = ``;
+        let query = '';
+
+        if (searchQuery) {
+            query = searchQuery;
+            initialSearch = false;
+            url = `${config.apiBaseUrl}/api/jobs/search-jobs?query=${encodeURIComponent(searchQuery)}&page=1&recency=${recency}`;
+
+            if (includeCountry) {
+                url += `&country=${countryCrMap[isSignedIn.country]}`;
+            }
+        }
+        else {
+            const { DevType } = isSignedIn;
+            query = `site:linkedin.com/jobs/view `;
+            if (DevType) {
+                if (DevType == "Developer, full-stack") {
+                    query += `AND (full-stack) `;
+                }
+                if (DevType == "Developer, back-end") {
+                    query += `AND (back-end) `;
+                }
+                if (DevType == "Developer, front-end") {
+                    query += `AND (front-end) `;
+                }
+                if (DevType == "Developer, desktop or enterprise applications") {
+                    query += `AND (desktop OR enterprise applications OR Desktop applications OR Enterprise) `;
+                }
+                if (DevType == "Developer, mobile") {
+                    query += `AND (mobile OR Mobile app) `;
+                }
+                if (DevType == "Developer, embedded applications or devices") {
+                    query += `AND (embedded applications OR embedded systems OR Embedded device OR Embedded) `;
+                }
+                if (DevType == "Data engineer") {
+                    query += `AND (Data engineer OR Data infrastructure engineer OR Data pipeline engineer) `;
+                }
+                if (DevType == "Engineering manager") {
+                    query += `AND (Engineering manager OR Tech lead OR Technical manager OR Engineering lead) `;
+                }
+                if (DevType == "DevOps specialist") {
+                    query += `AND (DevOps specialist OR DevOps engineer OR DevOps) `;
+                }
+                if (DevType == "Data scientist or machine learning specialist") {
+                    query += `AND (Data scientist OR Machine learning specialist OR Data scientist ML) `;
+                }
+                if (DevType == "Research & Development role") {
+                    query += `AND (Research & Development OR R&D role OR Research scientist) `;
+                }
+                if (DevType == "Academic researcher") {
+                    query += `AND Researcher `;
+                }
+                if (DevType == "Senior Executive (C-Suite, VP, etc.)") {
+                    query += `AND (Senior Executive OR C-Suite OR VP OR CTO OR CEO) `;
+                }
+                if (DevType == "Cloud infrastructure engineer") {
+                    query += `AND (Cloud infrastructure engineer OR Cloud engineer OR Cloud architect OR Cloud infrastructure) `;
+                }
+                if (DevType == "Developer, QA or test") {
+                    query += `AND (QA OR Quality assurance) `;
+                }
+                if (DevType == "Developer, game or graphics") {
+                    query += `AND (Game OR Graphics OR Games) `;
+                }
+                if (DevType == "Data or business analyst") {
+                    query += `AND (Data analyst OR Business analyst OR Business intelligence analyst OR BI) `;
+                }
+                if (DevType == "Developer, AI") {
+                    query += `AND (AI OR Artificial intelligence) `;
+                }
+                if (DevType == "System administrator") {
+                    query += `AND (System administrator OR Sysadmin OR System admin) `;
+                }
+                if (DevType == "Student") {
+                    query += `AND (Student OR Intern OR Graduate OR Recent graduate) `;
+                }
+                if (DevType == "Engineer, site reliability") {
+                    query += `AND (Site reliability OR SRE) `;
+                }
+                if (DevType == "Project manager") {
+                    query += `AND (Project manager OR Program manager) `;
+                }
+                if (DevType == "Scientist") {
+                    query += `AND Scientist `;
+                }
+                if (DevType == "Security professional") {
+                    query += `AND (Security OR Cybersecurity) `;
+                }
+                if (DevType == "Educator") {
+                    query += `AND (Educator OR Instructor OR Professor) `;
+                }
+                if (DevType == "Blockchain") {
+                    query += `AND (Blockchain OR Blockchain developer OR Blockchain engineer) `;
+                }
+                if (DevType == "Developer Experience") {
+                    query += `AND (Experience OR DevEx OR Advocate) `;
+                }
+                if (DevType == "Product manager") {
+                    query += `AND (Product manager OR Product owner OR PM) `;
+                }
+                if (DevType == "Hardware Engineer") {
+                    query += `AND (Hardware engineer OR Hardware developer) `;
+                }
+                if (DevType == "Database administrator") {
+                    query += `AND (Database administrator OR DBA OR Database engineer) `;
+                }
+                if (DevType == "Developer Advocate") {
+                    query += `AND (Advocate OR DevRel) `;
+                }
+                if (DevType == "Designer") {
+                    query += `AND Designer `;
+                }
+                if (DevType == "Marketing or sales professional") {
+                    query += `AND (Marketing OR Sales) `;
+                }
+
+            }
+            const noapplications = '"No longer accepting applications"';
+            query += `AND -${noapplications} `;
+
+            url = `${config.apiBaseUrl}/api/jobs/search-jobs?query=${encodeURIComponent(query)}&page=1&recency=${recency}`;
+            url += `&country=${countryCrMap[isSignedIn.country]}`;
+        }
+
+        const payload = { _id: isSignedIn._id, username: isSignedIn.username };
+        const newAlerts = isSignedIn.alerts || [];
+        let country = isSignedIn.country;
+        if (!includeCountry && !initialSearch) {
+            country = "All";
+        }
+
+        const newAlert = { query: query, recency: recency, email: email, frequency: frequency, country: country, url: url, user: isSignedIn.username };
+
+        const isDuplicate = newAlerts.some(alert =>
+            alert.query === query &&
+            alert.recency === recency &&
+            alert.email === email &&
+            alert.frequency === frequency &&
+            alert.country === country &&
+            alert.url === url &&
+            alert.user === isSignedIn.username
+        );
+
+        if (!isDuplicate) {
+            newAlerts.push(newAlert);
+        }
+
+        payload.alerts = newAlerts;
+
+        try {
+            // Send the registration data to the server
+            const response = await fetch(`${config.apiBaseUrl}/api/users/${isSignedIn._id}`, {
+                method: 'PATCH',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`
+                },
+                body: JSON.stringify(payload)
+            });
+
+            const result = await response.json();
+
+            if (!response.ok) {
+                // If the server responds with an error, set the error message
+                setError(result.message);
+                return;
+            }
+            toggleSignendIn(isSignedIn.username);
+        } catch (error) {
+            setError('An error occurred. Please try again.');
+            console.error('Error:', error);
+        }
+    };
+
+    const deleteAlert = async (alert) => {
+        const payload = { _id: isSignedIn._id, username: isSignedIn.username };
+        const newAlerts = isSignedIn.alerts.filter(a => a !== alert);
+        payload.alerts = newAlerts;
+
+        try {
+            // Send the registration data to the server
+            const response = await fetch(`${config.apiBaseUrl}/api/users/${isSignedIn._id}`, {
+                method: 'PATCH',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`
+                },
+                body: JSON.stringify(payload)
+            });
+
+            const result = await response.json();
+
+            if (!response.ok) {
+                // If the server responds with an error, set the error message
+                setError(result.message);
+                return;
+            }
+            toggleSignendIn(isSignedIn.username);
+        } catch (error) {
+            setError('An error occurred. Please try again.');
+            console.error('Error:', error);
+        }
+    }
+
     return (
         <div className="container mx-auto p-4">
-            <h1 className="text-2xl font-bold mb-4">Jobs</h1>
+            <h1 className="text-2xl font-bold mb-4">Search jobs</h1>
             <Card>
-                <div className="flex gap-2 mb-4">
+                <div style={{ display: "flex", gap: "10px", justifyContent: "center" }}>
                     <button
                         onClick={() => searchJobs(1)} // Reset to page 1 on search
                         className="bg-blue-500 text-white px-4 py-2 rounded"
@@ -503,137 +702,126 @@ export default function JobSearch({ toggleScreen, isSignedIn, toggleSignendIn, c
                     </button>
                 </div>
 
-                <div className="relative">
+                <div >
                     {/* Button to toggle dropdown */}
-                    <button
-                        className="px-4 py-2 border rounded bg-blue-500 text-white"
-                        onClick={() => setIsOpen(!isOpen)}
-                    >
-                        Filters
-                    </button>
+                    <div style={{ display: "flex", gap: "10px", justifyContent: "center" }}>
+                        <button
+                            className="px-4 py-2 border rounded bg-blue-500 text-white"
+                            onClick={() => setIsOpen(!isOpen)}
+                        >
+                            Filters
+                        </button>
+                    </div>
 
                     {/* Floating dropdown menu */}
                     {isOpen && (
-                        <div className="absolute z-10 mt-2 w-80 bg-white shadow-lg rounded border p-4">
+                        <Card style={{ display: "flex", gap: "10px", justifyContent: "center" }}>
                             {/* Filter Toggles */}
-                            <h3 className="text-lg font-bold mb-4">Filters</h3>
-                            <div className="space-y-4">
-                                <div>
-                                    <label>
-                                        <input
-                                            type="checkbox"
-                                            name="countryEnabled"
-                                            checked={filters.countryEnabled}
-                                            onChange={handleToggleChange}
-                                        />
-                                        Include Country
-                                    </label>
-                                </div>
-                                <div>
-                                    <label>
-                                        <input
-                                            type="checkbox"
-                                            name="languagesEnabled"
-                                            checked={filters.languagesEnabled}
-                                            onChange={handleToggleChange}
-                                        />
-                                        Include Languages
-                                    </label>
-                                </div>
-                                <div>
-                                    <label>
-                                        <input
-                                            type="checkbox"
-                                            name="databasesEnabled"
-                                            checked={filters.databasesEnabled}
-                                            onChange={handleToggleChange}
-                                        />
-                                        Include Databases
-                                    </label>
-                                </div>
-                                <div>
-                                    <label>
-                                        <input
-                                            type="checkbox"
-                                            name="platformsEnabled"
-                                            checked={filters.platformsEnabled}
-                                            onChange={handleToggleChange}
-                                        />
-                                        Include Platforms
-                                    </label>
-                                </div>
-                                <div>
-                                    <label>
-                                        <input
-                                            type="checkbox"
-                                            name="webFrameworksEnabled"
-                                            checked={filters.webFrameworksEnabled}
-                                            onChange={handleToggleChange}
-                                        />
-                                        Include Web Frameworks
-                                    </label>
-                                </div>
-                                <div>
-                                    <label>
-                                        <input
-                                            type="checkbox"
-                                            name="toolsEnabled"
-                                            checked={filters.toolsEnabled}
-                                            onChange={handleToggleChange}
-                                        />
-                                        Include Tools
-                                    </label>
-                                </div>
-                                <div>
-                                    <label>
-                                        <input
-                                            type="checkbox"
-                                            name="educationEnabled"
-                                            checked={filters.educationEnabled}
-                                            onChange={handleToggleChange}
-                                        />
-                                        Include Education
-                                    </label>
-                                </div>
-                                <div>
-                                    <label>
-                                        <input
-                                            type="checkbox"
-                                            name="devTypeEnabled"
-                                            checked={filters.devTypeEnabled}
-                                            onChange={handleToggleChange}
-                                        />
-                                        Include Dev Type
-                                    </label>
-                                </div>
-                                <div>
-                                    <label>
-                                        <input
-                                            type="checkbox"
-                                            name="industryEnabled"
-                                            checked={filters.industryEnabled}
-                                            onChange={handleToggleChange}
-                                        />
-                                        Include Industry
-                                    </label>
-                                </div>
-                                <div>
-                                    <label>
-                                        <input
-                                            type="checkbox"
-                                            name="remoteWorkEnabled"
-                                            checked={filters.remoteWorkEnabled}
-                                            onChange={handleToggleChange}
-                                        />
-                                        Include Remote Work Preference
-                                    </label>
-                                </div>
+                            <Card.Header >Filters</Card.Header>
+                            <div className="space-y-4" style={{ padding: "10px", justifyContent: "center", margin: "10px" }}>
+
+                                <label style={{ display: "flex", gap: "10px", border: "1px solid", padding: "5px", margin: "10px", borderRadius: "10px", width: "18rem", backgroundColor: "lightblue", justifyContent: "space-between" }}>
+                                    Include Country
+                                    <input
+                                        type="checkbox"
+                                        name="countryEnabled"
+                                        checked={filters.countryEnabled}
+                                        onChange={handleToggleChange}
+                                    />
+                                </label>
+                                <label style={{ display: "flex", gap: "10px", border: "1px solid", padding: "5px", margin: "10px", borderRadius: "10px", width: "18rem", backgroundColor: "lightblue", justifyContent: "space-between" }}>
+                                    Include Languages
+                                    <input
+                                        type="checkbox"
+                                        name="languagesEnabled"
+                                        checked={filters.languagesEnabled}
+                                        onChange={handleToggleChange}
+                                    />
+                                </label>
+                                <label style={{ display: "flex", gap: "10px", border: "1px solid", padding: "5px", margin: "10px", borderRadius: "10px", width: "18rem", backgroundColor: "lightblue", justifyContent: "space-between" }}>
+                                    Include Databases
+                                    <input
+                                        type="checkbox"
+                                        name="databasesEnabled"
+                                        checked={filters.databasesEnabled}
+                                        onChange={handleToggleChange}
+                                    />
+                                </label>
+                                <label style={{ display: "flex", gap: "10px", border: "1px solid", padding: "5px", margin: "10px", borderRadius: "10px", width: "18rem", backgroundColor: "lightblue", justifyContent: "space-between" }}>
+                                    Include Platforms
+                                    <input
+                                        type="checkbox"
+                                        name="platformsEnabled"
+                                        checked={filters.platformsEnabled}
+                                        onChange={handleToggleChange}
+                                    />
+                                </label>
+                                <label style={{ display: "flex", gap: "10px", border: "1px solid", padding: "5px", margin: "10px", borderRadius: "10px", width: "18rem", backgroundColor: "lightblue", justifyContent: "space-between" }}>
+                                    Include Web Frameworks
+
+                                    <input
+                                        type="checkbox"
+                                        name="webFrameworksEnabled"
+                                        checked={filters.webFrameworksEnabled}
+                                        onChange={handleToggleChange}
+                                    />
+                                </label>
+                                <label style={{ display: "flex", gap: "10px", border: "1px solid", padding: "5px", margin: "10px", borderRadius: "10px", width: "18rem", backgroundColor: "lightblue", justifyContent: "space-between" }}>
+                                    Include Tools
+
+                                    <input
+                                        type="checkbox"
+                                        name="toolsEnabled"
+                                        checked={filters.toolsEnabled}
+                                        onChange={handleToggleChange}
+                                    />
+                                </label>
+                                <label style={{ display: "flex", gap: "10px", border: "1px solid", padding: "5px", margin: "10px", borderRadius: "10px", width: "18rem", backgroundColor: "lightblue", justifyContent: "space-between" }}>
+                                    Include Education
+
+                                    <input
+                                        type="checkbox"
+                                        name="educationEnabled"
+                                        checked={filters.educationEnabled}
+                                        onChange={handleToggleChange}
+                                    />
+                                </label>
+                                <label style={{ display: "flex", gap: "10px", border: "1px solid", padding: "5px", margin: "10px", borderRadius: "10px", width: "18rem", backgroundColor: "lightblue", justifyContent: "space-between" }}>
+
+                                    Include Dev Type
+                                    <input
+                                        type="checkbox"
+                                        name="devTypeEnabled"
+                                        checked={filters.devTypeEnabled}
+                                        onChange={handleToggleChange}
+                                    />
+                                </label>
+                                <label style={{ display: "flex", gap: "10px", border: "1px solid", padding: "5px", margin: "10px", borderRadius: "10px", width: "18rem", backgroundColor: "lightblue", justifyContent: "space-between" }}>
+
+                                    Include Industry
+                                    <input
+                                        type="checkbox"
+                                        name="industryEnabled"
+                                        checked={filters.industryEnabled}
+                                        onChange={handleToggleChange}
+                                    />
+                                </label>
+                                <label style={{ display: "flex", gap: "10px", border: "1px solid", padding: "5px", margin: "10px", borderRadius: "10px", width: "18rem", backgroundColor: "lightblue", justifyContent: "space-between" }}>
+
+                                    Include Remote Work Preference
+                                    <input
+                                        type="checkbox"
+                                        name="remoteWorkEnabled"
+                                        checked={filters.remoteWorkEnabled}
+                                        onChange={handleToggleChange}
+                                    />
+                                </label>
                             </div>
 
                             {/* Keyword Exclusion Filter Input */}
-                            <div className="mb-4">
+                            <div className="space-y-4" style={{ padding: "10px", justifyContent: "center", margin: "10px" }}>
                                 <label>
-                                    Exclude Keywords (e.g., Senior):
+                                    <span>Exclude Keywords (e.g., Senior): </span>
                                     <input
                                         type="text"
                                         value={filters.keywords}
@@ -645,9 +833,9 @@ export default function JobSearch({ toggleScreen, isSignedIn, toggleSignendIn, c
                             </div>
 
                             {/* Keyword Inclusion Filter Input */}
-                            <div className="mb-4">
+                            <div className="space-y-4" style={{ padding: "10px", justifyContent: "center", margin: "10px" }}>
                                 <label>
-                                    Include Keywords (e.g., Junior):
+                                    <span> Include Keywords (e.g., Junior): </span>
                                     <input
                                         type="text"
                                         value={filters.includeKeywords}
@@ -659,9 +847,9 @@ export default function JobSearch({ toggleScreen, isSignedIn, toggleSignendIn, c
                             </div>
 
                             {/* Recency Selection */}
-                            <div className="mb-4">
+                            <div className="space-y-4" style={{ padding: "10px", justifyContent: "center", margin: "10px" }}>
                                 <label>
-                                    Recency:
+                                    <span>Recency: </span>
                                     <select
                                         value={recency}
                                         onChange={handleRecencyChange}
@@ -673,9 +861,70 @@ export default function JobSearch({ toggleScreen, isSignedIn, toggleSignendIn, c
                                     </select>
                                 </label>
                             </div>
-                        </div>
+                        </Card>
                     )}
                 </div>
+
+                <div >
+                    {/* Button to toggle dropdown */}
+                    <div style={{ display: "flex", gap: "10px", justifyContent: "center" }}>
+                        <button
+                            className="px-4 py-2 border rounded bg-blue-500 text-white"
+                            onClick={() => setAlertIsOpen(!alertsIsOpen)}
+                        >
+                            Alerts
+                        </button>
+                    </div>
+
+                    {/* Floating dropdown menu */}
+                    {alertsIsOpen && (
+                        <Card>
+                            <Card.Header className="text-lg font-bold mb-4">Alerts</Card.Header>
+
+
+                            <form onSubmit={handleSubmit} className="p-" style={{ display: "flex", gap: "10px", justifyContent: "center" }}>
+                                <input
+                                    type="email"
+                                    placeholder="Enter your email"
+                                    value={email}
+                                    onChange={(e) => setEmail(e.target.value)}
+                                    required
+                                    className="border p-2 rounded"
+                                />
+                                <select value={frequency} onChange={(e) => setFrequency(e.target.value)} className="ml-2 border p-2 rounded">
+                                    <option value="daily">Daily</option>
+                                    <option value="weekly">Weekly</option>
+                                </select>
+                                <button type="submit" className="ml-2 bg-blue-500 text-white p-2 rounded">
+                                    Add alert
+                                </button>
+                            </form>
+                            {(isSignedIn.alerts && isSignedIn.alerts.length > 0) && (
+
+                                <ul>
+                                    {isSignedIn.alerts.map((alert, index) => (
+                                        <li key={index} className=" p-4" style={{ listStyleType: "none" }}>
+                                            <Card>
+                                                <Card.Body>
+                                                    <p>query: {alert.query}</p>
+                                                    <p>recency: {alert.recency}</p>
+                                                    <p>email: {alert.email}</p>
+                                                    <p>frequency: {alert.frequency}</p>
+                                                    <p>country: {alert.country}</p>
+                                                </Card.Body>
+                                                <Button onClick={() => deleteAlert(alert)} variant="danger" style={{ width: '10rem', margin: "10px" }}>Delete</Button>
+                                            </Card>
+
+                                        </li>
+                                    ))}
+                                </ul>
+                            )}
+
+                        </Card>
+
+                    )}
+                </div>
+
 
                 <Card >
                     {loading && <p>Loading...</p>}
