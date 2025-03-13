@@ -156,7 +156,8 @@ const Prediction = ({ toggleScreen, isSignedIn, toggleSignendIn, selectedCurrenc
                     Here's our model's Prediction:
                 </p>
                 {isSignedIn &&
-                    <Row className="d-flex justify-content-center">
+
+                     <Row className="d-flex justify-content-center">
                         {((!isSignedIn.prediction) || isSignedIn.prediction === 0) &&
                             <Card className="prediction-card">
                                 <Card.Header>Salary Prediction</Card.Header>
@@ -172,25 +173,25 @@ const Prediction = ({ toggleScreen, isSignedIn, toggleSignendIn, selectedCurrenc
 
                         }
                         {(isSignedIn.prediction && isSignedIn.prediction !== 0) &&
-                            <Card className="prediction-card "  >
+                            <Card className="prediction-card " style={{ margin: "10px", maxWidth: "80vw" }} >
                                 <Card.Header>Salary Prediction</Card.Header>
                                 <Card.Body >
-                                        The model predicts your salary to be around:
-                                        <br />
-                                        <br />
+                                    The model predicts your salary to be around:
+                                    <br />
+                                    <br />
 
-                                        <Card.Title style={{ color: "green" }}>{new Intl.NumberFormat('en', {
-                                            style: 'currency',
-                                            currency: selectedCurrency,
-                                            maximumFractionDigits: 0
-                                        }).format(Math.floor(isSignedIn.prediction * exchangeRate))} per year</Card.Title>
-                                        <br />
+                                    <Card.Title style={{ color: "green" }}>{new Intl.NumberFormat('en', {
+                                        style: 'currency',
+                                        currency: selectedCurrency,
+                                        maximumFractionDigits: 0
+                                    }).format(Math.floor(isSignedIn.prediction * exchangeRate))} per year</Card.Title>
+                                    <br />
                                     <Button onClick={handlePredict} className="prediction-button">Repredict</Button>
                                 </Card.Body>
 
-                                <Container style={{minWidth: "50vw"}}>
+                                <Card style={{ margin: "10px", maxWidth: "80vw" }}>
                                     <Card.Header>Top Salary Impacting Features</Card.Header>
-                                    <Card.Body >
+                                    <Card.Body className="d-flex flex-column align-items-center">
                                         <ResponsiveContainer height={400}>
                                             <BarChart data={top3Data}>
                                                 <XAxis axisLine={false} dataKey="feature" tick={false} />
@@ -216,7 +217,7 @@ const Prediction = ({ toggleScreen, isSignedIn, toggleSignendIn, selectedCurrenc
                                         </ResponsiveContainer>
                                     </Card.Body>
 
-                                </Container>
+                                </Card>
                             </Card>
 
                         }
@@ -226,6 +227,7 @@ const Prediction = ({ toggleScreen, isSignedIn, toggleSignendIn, selectedCurrenc
                         </Container>
                     </Row>
                 }
+
 
             </div>
         </div>
