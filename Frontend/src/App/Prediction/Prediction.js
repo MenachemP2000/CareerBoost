@@ -5,15 +5,11 @@ import { useEffect, useState } from "react";
 import { useNavigate } from 'react-router-dom';
 import config from '../config';
 import "./Prediction.css"
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Cell, ResponsiveContainer, LabelList } from 'recharts';
-
-
-const Prediction = ({ toggleScreen, isSignedIn, toggleSignendIn, selectedCurrency, exchangeRate }) => {
+const Prediction = ({toggleScreen, isSignedIn, toggleSignendIn, selectedCurrency, exchangeRate}) => {
     const navigate = useNavigate();
     const [error, setError] = useState('');
     const [top3Data, setTop3Data] = useState(isSignedIn.impacts ? isSignedIn.impacts.slice(0, 3) : []); //top 3 impacting features
 
-    const COLORS = ['#BFC1C2', '#F1C232', '#B08D57'];
     useEffect(() => {
         toggleScreen("Prediction");
         if (!isSignedIn) {
@@ -215,6 +211,35 @@ const Prediction = ({ toggleScreen, isSignedIn, toggleSignendIn, selectedCurrenc
                                 </Card.Body>
 
                             </Card.Body>
+<Card style={{ margin: "10px", maxWidth: "80vw" }}>
+                                        <Card.Header>Top Salary Impacting Features</Card.Header>
+                                        <Card.Body className="d-flex flex-column align-items-center">
+                                            <ResponsiveContainer height={400}>
+                                                <BarChart data={top3Data}>
+                                                    <XAxis axisLine={false} dataKey="feature" tick={false} />
+                                                    <YAxis axisLine={false} tick={false} />
+                                                    <Tooltip />
+                                                    <Bar dataKey="impact" label>
+                                                        {top3Data.map((entry, index) => (
+                                                            <Cell key={`cell-${index}`} fill={COLORS[index]} />
+                                                        ))}
+                                                        <LabelList
+                                                            dataKey="feature"
+                                                            fontSize={12}
+                                                            fill="#000"
+                                                        />
+                                                        <LabelList
+                                                            dataKey="impact"
+                                                            position="top"
+                                                            fontSize={12}
+                                                            fill="#000"
+                                                        />
+                                                    </Bar>
+                                                </BarChart>
+                                            </ResponsiveContainer>
+                                        </Card.Body>
+
+                                    </Card>
                         </Card>
 
                     }
