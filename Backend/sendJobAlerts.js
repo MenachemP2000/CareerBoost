@@ -49,7 +49,14 @@ async function sendDailyJobAlerts() {
 
                 const jobs = data.jobs;
 
-                const jobList = jobs.map((job) => `<li>${decodeHtml(job.pagemap.metatags[0]["og:title"]).replace("| LinkedIn", "").replace("LinkedIn", "")}</li>`).join("");
+                const jobList = jobs.map((job) =>
+                    `<li>
+                        <a href="${job.link}" target="_blank">
+                            ${decodeHtml(job.pagemap.metatags[0]["og:title"])
+                        .replace("| LinkedIn", "")
+                        .replace("LinkedIn", "")}
+                        </a>
+                    </li>`).join("");
                 const mailOptions = {
                     from: "CareerBoost <boostcareer446@gmail.com>",
                     to: alert.email,
@@ -118,11 +125,18 @@ async function sendWeeklyJobAlerts() {
 
                 const jobs = data.jobs;
 
-                const jobList = jobs.map((job) => `<li>${decodeHtml(job.pagemap.metatags[0]["og:title"]).replace("| LinkedIn", "").replace("LinkedIn", "")}</li>`).join("");
+                const jobList = jobs.map((job) =>
+                    `<li>
+                        <a href="${job.link}" target="_blank">
+                            ${decodeHtml(job.pagemap.metatags[0]["og:title"])
+                        .replace("| LinkedIn", "")
+                        .replace("LinkedIn", "")}
+                        </a>
+                    </li>`).join("");
                 const mailOptions = {
                     from: "CareerBoost <boostcareer446@gmail.com>",
                     to: alert.email,
-                    subject: "Your CareerBoost Job Matches for Today! 🚀",
+                    subject: "Your CareerBoost Job Matches for The Week! 🚀",
                     text: `Hi ${alert.email.split('@')[0]},\nHere are your latest job matches:\n\n${jobList}`,
                     html: `
                         <html>
