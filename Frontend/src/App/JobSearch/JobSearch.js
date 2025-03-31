@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import config from '../config';
 import { useNavigate, Link } from 'react-router-dom';
 import { Container, Row, Col, Card, Button } from 'react-bootstrap';
-
+import "./JobSearch.css";
 
 export default function JobSearch({ toggleScreen, isSignedIn, toggleSignendIn, countryCrMap }) {
     const navigate = useNavigate();
@@ -689,171 +689,102 @@ export default function JobSearch({ toggleScreen, isSignedIn, toggleSignendIn, c
     }
 
     return (
-        <div className="container mx-auto p-4">
-            <h1 className="text-2xl font-bold mb-4">Search jobs</h1>
+        <div className="job-search-container">
+            <h1 className="job-search-header">Search jobs</h1>
+
             <Card>
-                <div style={{ display: "flex", gap: "10px", justifyContent: "center" }}>
+                <div className="job-search-controls">
                     <button
                         onClick={() => searchJobs(1)} // Reset to page 1 on search
-                        className="bg-blue-500 text-white px-4 py-2 rounded"
+                        className="job-search-button"
                         disabled={loading}
                     >
                         {loading ? "Searching..." : "Search"}
                     </button>
-                </div>
 
-                <div >
                     {/* Button to toggle dropdown */}
-                    <div style={{ display: "flex", gap: "10px", justifyContent: "center" }}>
+
                         <button
-                            className="px-4 py-2 border rounded bg-blue-500 text-white"
+                            className="job-search-button"
                             onClick={() => setIsOpen(!isOpen)}
                         >
                             Filters
                         </button>
-                    </div>
+                    <button
+                        className="job-search-button"
+                        onClick={() => setAlertIsOpen(!alertsIsOpen)}
+                    >
+                        Alerts
+                    </button>
+                </div>
 
                     {/* Floating dropdown menu */}
                     {isOpen && (
-                        <Card style={{ display: "flex", gap: "10px", justifyContent: "center" }}>
+                        <Card className="filter-dropdown-card">
                             {/* Filter Toggles */}
-                            <Card.Header >Filters</Card.Header>
-                            <div className="space-y-4" style={{ padding: "10px", justifyContent: "center", margin: "10px" }}>
+                            <Card.Header className="filter-dropdown-header">Filters</Card.Header>
+                            <div className="filter-dropdown-body">
+                                {[
+                                    { name: 'countryEnabled', label: 'Include Country' },
+                                    { name: 'languagesEnabled', label: 'Include Languages' },
+                                    { name: 'databasesEnabled', label: 'Include Databases' },
+                                    { name: 'platformsEnabled', label: 'Include Platforms' },
+                                    { name: 'webFrameworksEnabled', label: 'Include Web Frameworks' },
+                                    { name: 'toolsEnabled', label: 'Include Tools' },
+                                    { name: 'educationEnabled', label: 'Include Education' },
+                                    { name: 'devTypeEnabled', label: 'Include Dev Type' },
+                                    { name: 'industryEnabled', label: 'Include Industry' },
+                                    { name: 'remoteWorkEnabled', label: 'Include Remote Work Preference' },
+                                ].map(({ name, label }) => (
+                                    <label key={name} className="filter-toggle">
+                                        {label}
+                                        <input
+                                            type="checkbox"
+                                            name={name}
+                                            checked={filters[name]}
+                                            onChange={handleToggleChange}
+                                        />
+                                    </label>
+                                ))}
 
-                                <label style={{ display: "flex", gap: "10px", border: "1px solid", padding: "5px", margin: "10px", borderRadius: "10px", width: "18rem", backgroundColor: "lightblue", justifyContent: "space-between" }}>
-                                    Include Country
-                                    <input
-                                        type="checkbox"
-                                        name="countryEnabled"
-                                        checked={filters.countryEnabled}
-                                        onChange={handleToggleChange}
-                                    />
-                                </label>
-                                <label style={{ display: "flex", gap: "10px", border: "1px solid", padding: "5px", margin: "10px", borderRadius: "10px", width: "18rem", backgroundColor: "lightblue", justifyContent: "space-between" }}>
-                                    Include Languages
-                                    <input
-                                        type="checkbox"
-                                        name="languagesEnabled"
-                                        checked={filters.languagesEnabled}
-                                        onChange={handleToggleChange}
-                                    />
-                                </label>
-                                <label style={{ display: "flex", gap: "10px", border: "1px solid", padding: "5px", margin: "10px", borderRadius: "10px", width: "18rem", backgroundColor: "lightblue", justifyContent: "space-between" }}>
-                                    Include Databases
-                                    <input
-                                        type="checkbox"
-                                        name="databasesEnabled"
-                                        checked={filters.databasesEnabled}
-                                        onChange={handleToggleChange}
-                                    />
-                                </label>
-                                <label style={{ display: "flex", gap: "10px", border: "1px solid", padding: "5px", margin: "10px", borderRadius: "10px", width: "18rem", backgroundColor: "lightblue", justifyContent: "space-between" }}>
-                                    Include Platforms
-                                    <input
-                                        type="checkbox"
-                                        name="platformsEnabled"
-                                        checked={filters.platformsEnabled}
-                                        onChange={handleToggleChange}
-                                    />
-                                </label>
-                                <label style={{ display: "flex", gap: "10px", border: "1px solid", padding: "5px", margin: "10px", borderRadius: "10px", width: "18rem", backgroundColor: "lightblue", justifyContent: "space-between" }}>
-                                    Include Web Frameworks
-
-                                    <input
-                                        type="checkbox"
-                                        name="webFrameworksEnabled"
-                                        checked={filters.webFrameworksEnabled}
-                                        onChange={handleToggleChange}
-                                    />
-                                </label>
-                                <label style={{ display: "flex", gap: "10px", border: "1px solid", padding: "5px", margin: "10px", borderRadius: "10px", width: "18rem", backgroundColor: "lightblue", justifyContent: "space-between" }}>
-                                    Include Tools
-
-                                    <input
-                                        type="checkbox"
-                                        name="toolsEnabled"
-                                        checked={filters.toolsEnabled}
-                                        onChange={handleToggleChange}
-                                    />
-                                </label>
-                                <label style={{ display: "flex", gap: "10px", border: "1px solid", padding: "5px", margin: "10px", borderRadius: "10px", width: "18rem", backgroundColor: "lightblue", justifyContent: "space-between" }}>
-                                    Include Education
-
-                                    <input
-                                        type="checkbox"
-                                        name="educationEnabled"
-                                        checked={filters.educationEnabled}
-                                        onChange={handleToggleChange}
-                                    />
-                                </label>
-                                <label style={{ display: "flex", gap: "10px", border: "1px solid", padding: "5px", margin: "10px", borderRadius: "10px", width: "18rem", backgroundColor: "lightblue", justifyContent: "space-between" }}>
-
-                                    Include Dev Type
-                                    <input
-                                        type="checkbox"
-                                        name="devTypeEnabled"
-                                        checked={filters.devTypeEnabled}
-                                        onChange={handleToggleChange}
-                                    />
-                                </label>
-                                <label style={{ display: "flex", gap: "10px", border: "1px solid", padding: "5px", margin: "10px", borderRadius: "10px", width: "18rem", backgroundColor: "lightblue", justifyContent: "space-between" }}>
-
-                                    Include Industry
-                                    <input
-                                        type="checkbox"
-                                        name="industryEnabled"
-                                        checked={filters.industryEnabled}
-                                        onChange={handleToggleChange}
-                                    />
-                                </label>
-                                <label style={{ display: "flex", gap: "10px", border: "1px solid", padding: "5px", margin: "10px", borderRadius: "10px", width: "18rem", backgroundColor: "lightblue", justifyContent: "space-between" }}>
-
-                                    Include Remote Work Preference
-                                    <input
-                                        type="checkbox"
-                                        name="remoteWorkEnabled"
-                                        checked={filters.remoteWorkEnabled}
-                                        onChange={handleToggleChange}
-                                    />
-                                </label>
                             </div>
 
                             {/* Keyword Exclusion Filter Input */}
-                            <div className="space-y-4" style={{ padding: "10px", justifyContent: "center", margin: "10px" }}>
+                            <div className="keyword-section">
                                 <label>
                                     <span>Exclude Keywords (e.g., Senior): </span>
                                     <input
                                         type="text"
                                         value={filters.keywords}
                                         onChange={handleKeywordsChange}
-                                        className="ml-2 px-4 py-2 border rounded"
+                                        className="keyword-input"
                                         placeholder="Enter keywords to exclude, comma-separated"
                                     />
                                 </label>
                             </div>
 
                             {/* Keyword Inclusion Filter Input */}
-                            <div className="space-y-4" style={{ padding: "10px", justifyContent: "center", margin: "10px" }}>
+                            <div className="keyword-section">
                                 <label>
                                     <span> Include Keywords (e.g., Junior): </span>
                                     <input
                                         type="text"
                                         value={filters.includeKeywords}
                                         onChange={handleIncludeKeywordsChange}
-                                        className="ml-2 px-4 py-2 border rounded"
+                                        className="keyword-input"
                                         placeholder="Enter keywords to include, comma-separated"
                                     />
                                 </label>
                             </div>
 
                             {/* Recency Selection */}
-                            <div className="space-y-4" style={{ padding: "10px", justifyContent: "center", margin: "10px" }}>
+                            <div className="recency-section">
                                 <label>
                                     <span>Recency: </span>
                                     <select
                                         value={recency}
                                         onChange={handleRecencyChange}
-                                        className="ml-2 px-4 py-2 border rounded"
+                                        className="recency-select"
                                     >
                                         <option value="d1">Past 24 Hours</option>
                                         <option value="d7">Past 7 Days</option>
@@ -863,23 +794,14 @@ export default function JobSearch({ toggleScreen, isSignedIn, toggleSignendIn, c
                             </div>
                         </Card>
                     )}
-                </div>
 
-                <div >
-                    {/* Button to toggle dropdown */}
-                    <div style={{ display: "flex", gap: "10px", justifyContent: "center" }}>
-                        <button
-                            className="px-4 py-2 border rounded bg-blue-500 text-white"
-                            onClick={() => setAlertIsOpen(!alertsIsOpen)}
-                        >
-                            Alerts
-                        </button>
-                    </div>
-
+                <div>
                     {/* Floating dropdown menu */}
                     {alertsIsOpen && (
-                        <Card>
-                            <Card.Header className="text-lg font-bold mb-4">Alerts</Card.Header>
+                        <div className="alert-dropdown-wrapper">
+                            <h2 className="alert-dropdown-header">Alerts</h2>
+                            <Card className="alert-dropdown-card">
+                            {/*<Card.Header className="text-lg font-bold mb-4">Alerts</Card.Header>*/}
 
 
                             <form onSubmit={handleSubmit} className="p-" style={{ display: "flex", gap: "10px", justifyContent: "center" }}>
@@ -899,104 +821,212 @@ export default function JobSearch({ toggleScreen, isSignedIn, toggleSignendIn, c
                                     Add alert
                                 </button>
                             </form>
-                            {(isSignedIn.alerts && isSignedIn.alerts.length > 0) && (
 
+                            {(isSignedIn.alerts && isSignedIn.alerts.length > 0) && (
                                 <ul>
                                     {isSignedIn.alerts.map((alert, index) => (
-                                        <li key={index} className=" p-4" style={{ listStyleType: "none" }}>
-                                            <Card>
+                                        <li key={index} className="alert-item">
+                                            <Card className="alert-card">
                                                 <Card.Body>
-                                                    <p>query: {alert.query}</p>
-                                                    <p>recency: {alert.recency}</p>
-                                                    <p>email: {alert.email}</p>
-                                                    <p>frequency: {alert.frequency}</p>
-                                                    <p>country: {alert.country}</p>
+                                                    <p><strong>Query:</strong> {alert.query}</p>
+                                                    <p><strong>Recency:</strong> {alert.recency}</p>
+                                                    <p><strong>Email:</strong> {alert.email}</p>
+                                                    <p><strong>Frequency:</strong> {alert.frequency}</p>
+                                                    <p><strong>Country:</strong> {alert.country}</p>
                                                 </Card.Body>
-                                                <Button onClick={() => deleteAlert(alert)} variant="danger" style={{ width: '10rem', margin: "10px" }}>Delete</Button>
+                                                <Button onClick={() => deleteAlert(alert)}
+                                                        variant="danger"
+                                                        className="alert-delete-btn">
+                                                    Delete
+                                                </Button>
                                             </Card>
-
                                         </li>
                                     ))}
                                 </ul>
-                            )}
-
-                        </Card>
-
+                             )}
+                            </Card>
+                        </div>
                     )}
                 </div>
 
 
-                <Card >
-                    {loading && <p>Loading...</p>}
+                <Card className="job-list-card">
+                    {loading && <p className="job-list-loading">Loading...</p>}
                     {(!loading && jobs.length > 0) && (
-                        <>
-                            <ul className="space-y-2 ">
+                            <ul className="job-list">
                                 {jobs.map((job, index) => (
-                                    <li key={index} className=" p-4" style={{ listStyleType: "none" }}>
-                                        <Card>
-                                            <Card.Link href={job.link} target="_blank" rel="noopener noreferrer" >
+                                    <li key={index} className="job-list-item">
+                                        <Card className="job-card">
+                                            <Card.Link
+                                                href={job.link}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                className="job-title-link"
+                                            >
                                                 {job.parsedTitle}
                                             </Card.Link>
-                                            <Card.Body>
+
+                                            <Card.Body className="job-card-body">
                                                 {job.snippet.match(/\d+\s\w+\sago/).length > 0 &&
-                                                    <div> Posted: {job.snippet.match(/\d+\s\w+\sago/)}
+                                                    <div className="job-posted-date">
+                                                        Posted: {job.snippet.match(/\d+\s\w+\sago/)}
                                                     </div>
                                                 }
-                                                {(job.country === "Israel" || job.country === "USA") &&
-                                                    <Col>
-                                                        <div> Company: {job.company}
+                                                {(job.country === "Israel" || job.country === "USA") && (
+                                                        <div className="job-meta">
+                                                            <div><strong>Company:</strong> {job.company}</div>
+                                                            <div><strong>Job:</strong> {job.job}</div>
+                                                            <div><strong>Location:</strong> {job.location}</div>
                                                         </div>
-                                                        <div> Job: {job.job}
-                                                        </div>
-                                                        <div> Location: {job.location}
-                                                        </div>
-                                                    </Col>
-                                                }
+                                                        )}
                                             </Card.Body>
-                                            <Container>
-                                                {isSignedIn.savedJobs && isSignedIn.savedJobs.find(savedJob => savedJob.link === job.link) ?
-                                                    <Button as={Button} disabled style={{ width: '10rem', margin: "10px" }} variant="secondary">Saved</Button>
-                                                    :
-                                                    <Button as={Button} onClick={() => saveJob(job)} style={{ width: '10rem', margin: "10px" }} variant="secondary">Save</Button>
-                                                }
-                                            </Container>
 
+                                            <Container className="job-save-button-container">
+                                                {isSignedIn.savedJobs && isSignedIn.savedJobs.find(savedJob => savedJob.link === job.link) ? (
+                                                    <button disabled sclassName="job-save-button saved">
+                                                        Saved
+                                                    </button>
+                                                    ):(
+                                                    <button
+                                                        onClick={() => saveJob(job)}
+                                                        className="job-save-button">
+                                                        Save
+                                                    </button>
+                                                )}
+                                            </Container>
                                         </Card>
                                     </li>
                                 ))}
                             </ul>
-                        </>
                     )}
                     {(!loading && jobs.length === 0) && (
-                        <p>No jobs found</p>
+                        <p className="job-list-empty">No jobs found</p>
                     )}
                 </Card>
 
-
-                <div className="flex justify-center gap-4 mt-4 items-center">
+                {/* Pagination */}
+                <div className="pagination-controls">
 
                     {/* Next Page Button */}
                     <button
                         onClick={() => handlePageChange(page + 1)}
                         disabled={page >= totalPages}
-                        className="px-4 py-2 bg-gray-500 text-white rounded"
+                        className="load-more-button"
                     >
                         More
                     </button>
                 </div>
-
-
-
-
-                <Row className="d-flex justify-content-center">
-                    <Container className="justify-content-center" >
-                        <Button as={Link} to="/FeaturedJobs" style={{ width: '12rem', margin: "10px" }} variant="primary" className="px-5 py-3">Featured</Button>
-                        <Button as={Link} to="/SavedJobs" style={{ width: '12rem', margin: "10px" }} variant="primary" className="px-5 py-3">Saved</Button>
-                    </Container>
-                </Row>
-
             </Card>
+
+                {/* Navigation */}
+                <div className="job-navigation-buttons">
+                    <Link to={"/FeaturedJobs"}>
+                        <button className="nav-link-button">Featured</button>
+                          </Link>
+                    <Link to={"/SavedJobs"}>
+                        <button className="nav-link-button">Saved</button>
+                          </Link>
+                </div>
 
         </div>
     );
 }
+
+
+
+{/*<label style={{ display: "flex", gap: "10px", border: "1px solid", padding: "5px", margin: "10px", borderRadius: "10px", width: "18rem", backgroundColor: "lightblue", justifyContent: "space-between" }}>*/}
+{/*    Include Country*/}
+{/*    <input*/}
+{/*        type="checkbox"*/}
+{/*        name="countryEnabled"*/}
+{/*        checked={filters.countryEnabled}*/}
+{/*        onChange={handleToggleChange}*/}
+{/*    />*/}
+{/*</label>*/}
+{/*<label style={{ display: "flex", gap: "10px", border: "1px solid", padding: "5px", margin: "10px", borderRadius: "10px", width: "18rem", backgroundColor: "lightblue", justifyContent: "space-between" }}>*/}
+{/*    Include Languages*/}
+{/*    <input*/}
+{/*        type="checkbox"*/}
+{/*        name="languagesEnabled"*/}
+{/*        checked={filters.languagesEnabled}*/}
+{/*        onChange={handleToggleChange}*/}
+{/*    />*/}
+{/*</label>*/}
+{/*<label style={{ display: "flex", gap: "10px", border: "1px solid", padding: "5px", margin: "10px", borderRadius: "10px", width: "18rem", backgroundColor: "lightblue", justifyContent: "space-between" }}>*/}
+{/*    Include Databases*/}
+{/*    <input*/}
+{/*        type="checkbox"*/}
+{/*        name="databasesEnabled"*/}
+{/*        checked={filters.databasesEnabled}*/}
+{/*        onChange={handleToggleChange}*/}
+{/*    />*/}
+{/*</label>*/}
+{/*<label style={{ display: "flex", gap: "10px", border: "1px solid", padding: "5px", margin: "10px", borderRadius: "10px", width: "18rem", backgroundColor: "lightblue", justifyContent: "space-between" }}>*/}
+{/*    Include Platforms*/}
+{/*    <input*/}
+{/*        type="checkbox"*/}
+{/*        name="platformsEnabled"*/}
+{/*        checked={filters.platformsEnabled}*/}
+{/*        onChange={handleToggleChange}*/}
+{/*    />*/}
+{/*</label>*/}
+{/*<label style={{ display: "flex", gap: "10px", border: "1px solid", padding: "5px", margin: "10px", borderRadius: "10px", width: "18rem", backgroundColor: "lightblue", justifyContent: "space-between" }}>*/}
+{/*    Include Web Frameworks*/}
+
+{/*    <input*/}
+{/*        type="checkbox"*/}
+{/*        name="webFrameworksEnabled"*/}
+{/*        checked={filters.webFrameworksEnabled}*/}
+{/*        onChange={handleToggleChange}*/}
+{/*    />*/}
+{/*</label>*/}
+{/*<label style={{ display: "flex", gap: "10px", border: "1px solid", padding: "5px", margin: "10px", borderRadius: "10px", width: "18rem", backgroundColor: "lightblue", justifyContent: "space-between" }}>*/}
+{/*    Include Tools*/}
+
+{/*    <input*/}
+{/*        type="checkbox"*/}
+{/*        name="toolsEnabled"*/}
+{/*        checked={filters.toolsEnabled}*/}
+{/*        onChange={handleToggleChange}*/}
+{/*    />*/}
+{/*</label>*/}
+{/*<label style={{ display: "flex", gap: "10px", border: "1px solid", padding: "5px", margin: "10px", borderRadius: "10px", width: "18rem", backgroundColor: "lightblue", justifyContent: "space-between" }}>*/}
+{/*    Include Education*/}
+
+{/*    <input*/}
+{/*        type="checkbox"*/}
+{/*        name="educationEnabled"*/}
+{/*        checked={filters.educationEnabled}*/}
+{/*        onChange={handleToggleChange}*/}
+{/*    />*/}
+{/*</label>*/}
+{/*<label style={{ display: "flex", gap: "10px", border: "1px solid", padding: "5px", margin: "10px", borderRadius: "10px", width: "18rem", backgroundColor: "lightblue", justifyContent: "space-between" }}>*/}
+
+{/*    Include Dev Type*/}
+{/*    <input*/}
+{/*        type="checkbox"*/}
+{/*        name="devTypeEnabled"*/}
+{/*        checked={filters.devTypeEnabled}*/}
+{/*        onChange={handleToggleChange}*/}
+{/*    />*/}
+{/*</label>*/}
+{/*<label style={{ display: "flex", gap: "10px", border: "1px solid", padding: "5px", margin: "10px", borderRadius: "10px", width: "18rem", backgroundColor: "lightblue", justifyContent: "space-between" }}>*/}
+
+{/*    Include Industry*/}
+{/*    <input*/}
+{/*        type="checkbox"*/}
+{/*        name="industryEnabled"*/}
+{/*        checked={filters.industryEnabled}*/}
+{/*        onChange={handleToggleChange}*/}
+{/*    />*/}
+{/*</label>*/}
+{/*<label style={{ display: "flex", gap: "10px", border: "1px solid", padding: "5px", margin: "10px", borderRadius: "10px", width: "18rem", backgroundColor: "lightblue", justifyContent: "space-between" }}>*/}
+
+{/*    Include Remote Work Preference*/}
+{/*    <input*/}
+{/*        type="checkbox"*/}
+{/*        name="remoteWorkEnabled"*/}
+{/*        checked={filters.remoteWorkEnabled}*/}
+{/*        onChange={handleToggleChange}*/}
+{/*    />*/}
+{/*</label>*/}

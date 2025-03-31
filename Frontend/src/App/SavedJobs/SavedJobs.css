@@ -147,7 +147,7 @@ body.dark-mode form label {
 }
 
 body.dark-mode .saved-jobs-container {
-    background-color: #121212;
+    background-color: rgb(12,12,12);
     color: #e4e6eb;
 }
 
