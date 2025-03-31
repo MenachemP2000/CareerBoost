@@ -604,15 +604,19 @@ const SavedJobs = ({ toggleScreen, isSignedIn, toggleSignendIn }) => {
                                 <Form.Control type="text" placeholder="Enter location"
                                               onChange={(e) => setNewJob({...newJob, location: e.target.value})}/>
                             </Form.Group>
-                            <Button className="btn-modern" type="submit">
-                                Add
-                            </Button>
+                            <div className="form-button-wrapper">
+                                <button className="btn-modern" type="submit">
+                                    Add
+                                </button>
+                            </div>
+
                         </Form>
                     )}
 
 
                     {/* Floating dropdown menu */}
                     {isOpen && (
+                        <div className="filter-wrapper">
                         <div className="filter-container">
                             {/* Filter Toggles */}
                             <h3>Filters</h3>
@@ -652,6 +656,7 @@ const SavedJobs = ({ toggleScreen, isSignedIn, toggleSignendIn }) => {
                                         />
                                         Show Rejected
                                     </label>
+                        </div>
                         </div>
                     )}
 

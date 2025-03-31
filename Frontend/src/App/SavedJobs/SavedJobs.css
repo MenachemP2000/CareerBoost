@@ -30,12 +30,16 @@
     background-color: #fff;
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
 }
-.job-action-buttons {
+.job-action-buttons{
     display: flex;
+    flex-direction: row;
     flex-wrap: wrap;
     justify-content: center;
     gap: 1rem;
     margin-bottom: 2rem;
+}
+.job-action-buttons .btn-modern{
+    background-color: #919090;
 }
 .btn-modern {
     background-color: #4f46e5;
@@ -51,6 +55,13 @@
 .btn-modern:hover {
     background-color: #3730a3;
 }
+.filter-wrapper {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    min-width: 300px;
+}
+
 .filter-container {
     background: white;
     padding: 1rem 1.5rem;
@@ -84,12 +95,40 @@
 
 .job-buttons {
     display: flex;
+    flex-direction: row;
     flex-wrap: wrap;
     justify-content: center;
     gap: 0.75rem;
     margin-top: 1rem;
     margin-bottom: 2rem;
 }
+.job-buttons .btn-modern {
+    background-color: #d53737;
+}
+.job-buttons .btn-modern:hover {
+    background-color: darkred;
+}
+form label,
+.form-label {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #919090;
+    margin-bottom: 0.5rem;
+    display: inline-block;
+    transition: color 0.3s ease;
+}
+
+body.dark-mode form label {
+    color: #cfd3dc;
+}
+
+.form-button-wrapper {
+    display: flex;
+    justify-content: center;
+    margin-top: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
 
 .empty-message {
     text-align: center;
@@ -107,3 +146,69 @@
     flex-wrap: wrap;
 }
 
+body.dark-mode .saved-jobs-container {
+    background-color: #121212;
+    color: #e4e6eb;
+}
+
+body.dark-mode .saved-jobs-title {
+    color: #ffffff;
+}
+
+body.dark-mode .saved-jobs-subtitle {
+    color: #b0b3b8;
+}
+
+body.dark-mode .card-custom {
+    background-color: #1e1f21;
+    color: #babbbf;
+    box-shadow: 0 8px 24px rgba(255, 255, 255, 0.05);
+}
+
+body.dark-mode .job-entry {
+    background-color: #242526;
+    color: #e4e6eb;
+    box-shadow: 0 4px 12px rgba(255, 255, 255, 0.05);
+}
+
+body.dark-mode .card-body div {
+    color: #090909;
+}
+
+/*body.dark-mode .job-buttons button,*/
+/*body.dark-mode .btn-modern {*/
+/*    background-color: #4f46e5;*/
+/*    color: white;*/
+/*}*/
+
+/*body.dark-mode .job-buttons button:hover,*/
+/*body.dark-mode .btn-modern:hover {*/
+/*    background-color: #3730a3;*/
+/*}*/
+
+body.dark-mode .filter-container {
+    background-color: #1e1f21;
+    color: #e4e6eb;
+    box-shadow: 0 4px 12px rgba(255, 255, 255, 0.05);
+}
+
+body.dark-mode .filter-container h3 {
+    color: #ffffff;
+}
+
+body.dark-mode .filter-container label {
+    color: #cccccc;
+}
+
+body.dark-mode .empty-message {
+    color: #b0b3b8;
+}
+
+/*body.dark-mode .nav-buttons button {*/
+/*    background-color: #4f46e5;*/
+/*    color: white;*/
+/*}*/
+
+/*body.dark-mode .nav-buttons button:hover {*/
+/*    background-color: #3730a3;*/
+/*}*/
