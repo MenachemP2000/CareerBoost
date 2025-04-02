@@ -692,7 +692,7 @@ export default function JobSearch({ toggleScreen, isSignedIn, toggleSignendIn, c
         <div className="job-search-container">
             <h1 className="job-search-header">Search jobs</h1>
 
-            <Card>
+            <Card className="job-search-card">
                 <div className="job-search-controls">
                     <button
                         onClick={() => searchJobs(1)} // Reset to page 1 on search
@@ -850,7 +850,7 @@ export default function JobSearch({ toggleScreen, isSignedIn, toggleSignendIn, c
                 </div>
 
 
-                <Card className="job-list-card">
+                <div className="job-list-card">
                     {loading && <p className="job-list-loading">Loading...</p>}
                     {(!loading && jobs.length > 0) && (
                             <ul className="job-list">
@@ -902,7 +902,7 @@ export default function JobSearch({ toggleScreen, isSignedIn, toggleSignendIn, c
                     {(!loading && jobs.length === 0) && (
                         <p className="job-list-empty">No jobs found</p>
                     )}
-                </Card>
+                </div>
 
                 {/* Pagination */}
                 <div className="pagination-controls">
