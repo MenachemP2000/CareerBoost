@@ -12,7 +12,7 @@
 /* Guide Card */
 .guide-card {
     width: 100%;
-    max-width: 600px; /* Slightly wider than profile card */
+    max-width: 900px; /* Slightly wider than profile card */
     background: white;
     padding: 20px;
     border-radius: 10px;
@@ -71,3 +71,4 @@ body.dark-mode .guide-step {
 body.dark-mode .guide-section p {
     color: #e4e6eb;
 }
+

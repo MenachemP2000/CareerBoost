@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import config from '../config';
 import { useNavigate, Link } from 'react-router-dom';
 import { Container, Row, Col, Card, Button } from 'react-bootstrap';
+import "./FeaturedJobs.css";
 
 
 export default function FeaturedJobs({ toggleScreen, isSignedIn, toggleSignendIn, countryCrMap }) {
@@ -236,62 +237,68 @@ export default function FeaturedJobs({ toggleScreen, isSignedIn, toggleSignendIn
 
 
     return (
-        <div className="container mx-auto p-4">
-            <h1 className="text-2xl font-bold mb-4">Featured Jobs </h1>
-            <Card >
-                {loading && <p>Loading...</p>}
+        <div className="featured-jobs-container">
+            <h1 className="featured-jobs-header">Featured Jobs</h1>
+            <Card className="featured-jobs-card">
+                {loading && <p className="featured-jobs-loading">Loading...</p>}
+
                 {(!loading && jobs.length > 0) && (
-                    <>
-                        <ul className="space-y-2 ">
+                        <ul className="featured-jobs-list">
                             {jobs.map((job, index) => (
-                                <li key={index} className=" p-4" style={{ listStyleType: "none" }}>
-                                    <Card>
-                                        <Card.Link href={job.link} target="_blank" rel="noopener noreferrer" >
+                                <li key={index} className="featured-job-item">
+                                    <Card className="featured-job-card">
+                                        <Card.Link href={job.link}
+                                                   target="_blank"
+                                                   rel="noopener noreferrer"
+                                                   className="featured-job-link"
+                                        >
                                             {job.parsedTitle}
                                         </Card.Link>
-                                        <Card.Text>
-                                            {job.snippet.match(/\d+\s\w+\sago/).length > 0 &&
-                                                <div> Posted: {job.snippet.match(/\d+\s\w+\sago/)}
+
+                                        <Card.Text className="featured-job-details">
+                                            {job.snippet.match(/\d+\s\w+\sago/).length > 0 && (
+                                                <div className="featured-posted-date">
+                                                    Posted: {job.snippet.match(/\d+\s\w+\sago/)}
                                                 </div>
-                                            }
-                                            {(job.country === "Israel" || job.country === "USA") &&
-                                                <Col>
-                                                    <div> Company: {job.company}
+                                            )}
+                                            {(job.country === "Israel" || job.country === "USA") && (
+                                                <div className="featured-job-info">
+                                                    <div  className="featured-company"> Company: {job.company}
                                                     </div>
-                                                    <div> Job: {job.job}
+                                                    <div className="featured-position"> Job: {job.job}
                                                     </div>
-                                                    <div> Location: {job.location}
+                                                    <div className="featured-location"> Location: {job.location}
                                                     </div>
-                                                </Col>
-                                            }
+                                                </div>
+                                            )}
                                         </Card.Text>
 
-                                        <Container>
-                                            {isSignedIn.savedJobs && isSignedIn.savedJobs.find(savedJob => savedJob.link === job.link) ?
-                                                <Button as={Button} disabled style={{ width: '10rem', margin: "10px" }} variant="secondary">Saved</Button>
-                                                :
-                                                <Button as={Button} onClick={() => saveJob(job)} style={{ width: '10rem', margin: "10px" }} variant="secondary">Save</Button>
-                                            }
-                                        </Container>
-
+                                        <div className="featured-job-actions">
+                                            {isSignedIn.savedJobs && isSignedIn.savedJobs.find(savedJob => savedJob.link === job.link) ? (
+                                                <button className="featured-save-button saved" disabled>Saved</button>
+                                                ) : (
+                                                <button className="featured-save-button" onClick={() => saveJob(job)}>Save</button>
+                                            )}
+                                        </div>
                                     </Card>
                                 </li>
                             ))}
                         </ul>
-                    </>
                 )}
                 {(!loading && jobs.length === 0) && (
-                    <p>No jobs found</p>
+                    <p className="featured-jobs-empty">No jobs found</p>
                 )}
             </Card>
 
 
-            <Row className="d-flex justify-content-center">
-                <Container className="justify-content-center" >
-                    <Button as={Link} to="/JobSearch" style={{ width: '12rem', margin: "10px" }} variant="primary" className="px-5 py-3">Search</Button>
-                    <Button as={Link} to="/SavedJobs" style={{ width: '12rem', margin: "10px" }} variant="primary" className="px-5 py-3">Saved</Button>
-                </Container>
-            </Row>
+            <div className="featured-jobs-navigation">
+                <Link to="/JobSearch">
+                    <button className="featured-nav-button">Search</button>
+                </Link>
+                <Link to="/SavedJobs">
+                    <button className="featured-nav-button">Saved</button>
+                </Link>
+            </div>
         </div>
     );
 }
