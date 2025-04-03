@@ -4,6 +4,9 @@ import { Container, Row, Button} from 'react-bootstrap';
 import { Link } from "react-router-dom";
 import { useEffect } from "react";
 import './Home.css';
+import homeBg from '../images/home-pic-light.png';
+
+
 import Slider from "./Slider";
 const Home = ({ toggleScreen, isSignedIn, toggleSignendIn }) => {
 
@@ -15,14 +18,19 @@ const Home = ({ toggleScreen, isSignedIn, toggleSignendIn }) => {
         toggleSignendIn(false);
     }
     return (
+
+        <section className="picture-container">
         <div className="home-container">
-            <div className="carousel-item">
-                <img src="..." alt="..."/>
-                <div className="carousel-caption d-none d-md-block">
-                    <h5>...</h5>
-                    <p>...</p>
-                </div>
-            </div>
+            {/*<img src={homeBg} alt="test bg" style={{ width: '200px' }} />*/}
+
+            {/*<div className="carousel-item">*/}
+            {/*    <img src="..." alt="..."/>*/}
+            {/*    <div className="carousel-caption d-none d-md-block">*/}
+            {/*        <h5>...</h5>*/}
+            {/*        <p>...</p>*/}
+            {/*    </div>*/}
+            {/*</div>*/}
+            <card className="home-card">
             <div className="home-title-container">
                 <h3 className="home-title">
                     <img src="careerboost.ico" alt="CareerBoost" style={{width: "6rem"}}/> CareerBoost
@@ -68,7 +76,9 @@ const Home = ({ toggleScreen, isSignedIn, toggleSignendIn }) => {
                     </div>
                 </Row>
             }
+            </card>
         </div>
+            </section>
     );
 }
 
