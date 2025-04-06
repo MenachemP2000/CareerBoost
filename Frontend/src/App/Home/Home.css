@@ -109,7 +109,7 @@
 
 /* Button styles */
 .button-container .btn-all {
-    background: linear-gradient(45deg, #ff6b6b, #ff8e53); /* Gradient background */
+    background: linear-gradient(45deg, #32a0e4, #c8c9ca); /* Gradient background */
     border: none; /* Remove border */
     color: white; /* Text color */
     padding: 10px 20px; /* Padding for buttons */
@@ -121,11 +121,11 @@
     transition: background 0.3s ease; /* Smooth transition for hover effect */
     width: 150px; /* Set specific width */
     min-width: fit-content;
-    height: 50px; /* Set specific height */
+    height: fit-content; /* Set specific height */
 }
 
 .btn-all:hover {
-    background: linear-gradient(45deg, #ff8e53, #ff6b6b); /* Reverse gradient on hover */
+    background: linear-gradient(45deg, #c8c9ca, #32a0e4); /* Reverse gradient on hover */
     color: white; /* Ensure text color remains white on hover */
 }
 
@@ -142,7 +142,7 @@
 
 /* Home.css */
 body.dark-mode .picture-container{
-    background-image: url('../images/home-pic-dark.png');
+    background-image: url('../images/img_1.png');
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
@@ -185,7 +185,7 @@ body.dark-mode .home-lead {
 }
 
 body.dark-mode .button-container .btn-all {
-    background: linear-gradient(45deg, #ff6b6b, #ff8e53); /* Gradient background */
+    background: linear-gradient(45deg, #0d787a, #c8c9ca); /* Gradient background */
     border: none; /* Remove border */
     color: black; /* Text color */
     padding: 10px 20px; /* Padding for buttons */
@@ -195,10 +195,11 @@ body.dark-mode .button-container .btn-all {
     text-align: center; /* Center align text */
     text-decoration: none; /* Remove underline from links */
     transition: background 0.3s ease; /* Smooth transition for hover effect */
+    height: fit-content;
 }
 
 body.dark-mode .btn-all:hover {
-    background: linear-gradient(45deg, #ff8e53, #ff6b6b); /* Reverse gradient on hover */
+    background: linear-gradient(45deg, #c8c9ca, #0d787a); /* Reverse gradient on hover */
     color: black; /* Ensure text color remains white on hover */
 }
 
