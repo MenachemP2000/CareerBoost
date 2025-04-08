@@ -799,8 +799,8 @@ export default function JobSearch({ toggleScreen, isSignedIn, toggleSignendIn, c
                     {/* Floating dropdown menu */}
                     {alertsIsOpen && (
                         <div className="alert-dropdown-wrapper">
-                            <h2 className="alert-dropdown-header">Alerts</h2>
                             <Card className="alert-dropdown-card">
+                                <h2 className="alert-dropdown-header">Alerts</h2>
                             {/*<Card.Header className="text-lg font-bold mb-4">Alerts</Card.Header>*/}
 
 
@@ -817,7 +817,7 @@ export default function JobSearch({ toggleScreen, isSignedIn, toggleSignendIn, c
                                     <option value="daily">Daily</option>
                                     <option value="weekly">Weekly</option>
                                 </select>
-                                <button type="submit" className="ml-2 bg-blue-500 text-white p-2 rounded">
+                                <button type="submit" className="alert-submit-btn">
                                     Add alert
                                 </button>
                             </form>
@@ -874,16 +874,15 @@ export default function JobSearch({ toggleScreen, isSignedIn, toggleSignendIn, c
                                                 }
                                                 {(job.country === "Israel" || job.country === "USA") && (
                                                         <div className="job-meta">
-                                                            <div><strong>Company:</strong> {job.company}</div>
-                                                            <div><strong>Job:</strong> {job.job}</div>
-                                                            <div><strong>Location:</strong> {job.location}</div>
-                                                        </div>
+                                                            <div>Company: {job.company}</div>
+                                                            <div>Job: {job.job}</div>
+                                                            <div>Location: {job.location}</div></div>
                                                         )}
                                             </Card.Body>
 
                                             <Container className="job-save-button-container">
                                                 {isSignedIn.savedJobs && isSignedIn.savedJobs.find(savedJob => savedJob.link === job.link) ? (
-                                                    <button disabled sclassName="job-save-button saved">
+                                                    <button disabled>
                                                         Saved
                                                     </button>
                                                     ):(

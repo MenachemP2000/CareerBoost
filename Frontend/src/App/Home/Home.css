@@ -87,6 +87,11 @@
     margin-bottom: 20px; /* Add some space below the greeting */
 }
 
+.button-row .hello{
+    padding-left: 50px;
+    padding-right: 50px;
+    max-width: fit-content;
+}
 .hello {
     font-size: 1.5rem; /* Increase font size */
     font-weight: bold; /* Make the text bold */
@@ -97,8 +102,9 @@
     padding: 10px; /* Add some padding */
     border-radius: 8px; /* Rounded corners */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
-    /*max-width: 100px;*/
+    max-width: 100px;
 }
+
 
 /*!* Container styles *!*/
 /*.button-container {*/

@@ -17,8 +17,7 @@
 }
 
 .featured-jobs-card {
-    width: 50%;
-   max-width: 1000px;;
+    width: 70%;
     background-color: #ffffff;
     border-radius: 1rem;
     padding: 2rem;
@@ -80,7 +79,6 @@
     color: black;
     margin-bottom: 1rem;
 }
-
 
 
 .featured-job-info > div {
@@ -166,7 +164,7 @@ body.dark-mode .featured-jobs-empty {
 }
 
 body.dark-mode .featured-job-card {
-    background-color: #1e1e1e;
+    background-color: #6e6c6c;
     border-color: #2c2c2c;
 }
 

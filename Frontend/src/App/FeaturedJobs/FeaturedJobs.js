@@ -275,7 +275,7 @@ export default function FeaturedJobs({ toggleScreen, isSignedIn, toggleSignendIn
 
                                         <div className="featured-job-actions">
                                             {isSignedIn.savedJobs && isSignedIn.savedJobs.find(savedJob => savedJob.link === job.link) ? (
-                                                <button className="featured-save-button saved" disabled>Saved</button>
+                                                <button disabled>Saved</button>
                                                 ) : (
                                                 <button className="featured-save-button" onClick={() => saveJob(job)}>Save</button>
                                             )}

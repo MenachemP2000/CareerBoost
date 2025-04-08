@@ -4,9 +4,12 @@
     min-height: 100vh;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
+    /*align-items: center;*/
+    /*padding: 2rem 1rem;*/
+    /*justify-content: center;*/
     width: 100%;
+    margin-bottom: 10%;
+    margin-top: 5%;
 }
 
 /* Guide Card */
@@ -16,7 +19,7 @@
     background: white;
     padding: 20px;
     border-radius: 10px;
-    text-align: center;
+    text-align: left;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     position: relative;
 }
@@ -37,7 +40,7 @@
 
 /* Guide Section */
 .guide-section {
-    text-align: left;
+    /*text-align: left;*/
     margin-bottom: 20px;
 }
 
@@ -47,6 +50,19 @@
     font-weight: bold;
     color: #333;
 }
+/* Alternate alignment */
+.guide-row {
+    display: flex;
+        justify-content: center;
+        margin-bottom: 2rem;
+}
+/*.guide-row.left .guide-card {*/
+/*    margin-right: 1%    ;*/
+/*}*/
+
+/*.guide-row.right .guide-card {*/
+/*    margin-left: 1%;*/
+/*}*/
 
 /* Dark Mode Styles */
 body.dark-mode .guide-container {
