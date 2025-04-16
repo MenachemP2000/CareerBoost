@@ -207,7 +207,7 @@ const Experiment = ({ toggleSignendIn, toggleScreen, isSignedIn, languages, empl
                             <Col md={8}>
                                 <Card className="experiment-card">
                                     <Card.Body>
-                                        <Card.Title>Basic Information</Card.Title>
+                                        <Card.Title className="basic-information">Basic Information</Card.Title>
 
                                         <Form.Group controlId="formCountry" className="mb-3">
                                             <Form.Label>Country</Form.Label>

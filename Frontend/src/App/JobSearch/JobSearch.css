@@ -367,23 +367,22 @@ body.dark-mode .job-search-header {
     color: #D1D5DB;
 }
 
-body.dark-mode .job-search-button,
-body.dark-mode .nav-link-button,
-body.dark-mode .alert-submit-btn,
-body.dark-mode .job-save-button {
-    background-color: #c6c5c5;
-}
+/*body.dark-mode .job-search-button,*/
+/*body.dark-mode .nav-link-button,*/
+/*body.dark-mode .alert-submit-btn,*/
+/*body.dark-mode .job-save-button {*/
+/*    background-color: #c6c5c5;*/
+/*}*/
 
-body.dark-mode .job-search-button:hover,
-body.dark-mode .nav-link-button:hover,
-body.dark-mode .alert-submit-btn:hover,
-body.dark-mode .job-save-button:hover {
-    background-color: #3730a3;
-}
+/*body.dark-mode .job-search-button:hover,*/
+/*body.dark-mode .nav-link-button:hover,*/
+/*body.dark-mode .alert-submit-btn:hover,*/
+/*body.dark-mode .job-save-button:hover {*/
+/*    background-color: #242526;*/
+/*}*/
 
 body.dark-mode .filter-dropdown-card,
 body.dark-mode .alert-dropdown-card,
-body.dark-mode .job-list-card,
 body.dark-mode .job-list-loading {
     background-color: #242526;
     color: #E4E6EB;

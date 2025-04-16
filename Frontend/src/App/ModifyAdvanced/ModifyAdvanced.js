@@ -99,11 +99,11 @@ const ModifyAdvanced = ({ toggleSignendIn, toggleScreen, isSignedIn, languages, 
     };
     return (
         <div className="advanced-container">
-                    <Container className="advanced-container">
+
                         <Card className="advanced-card">
                                     <Card.Body>
                                             <div className="text-center mb-4">
-                                                <h2 className="fw-bold">Profile Information</h2>
+                                                <h2 className="title">Profile Information</h2>
                                             </div>
                                         <Form onSubmit={handleSubmit} className="mt-4">
                                             <Form.Group controlId="formCountry" className="mb-3">
@@ -173,7 +173,7 @@ const ModifyAdvanced = ({ toggleSignendIn, toggleScreen, isSignedIn, languages, 
                                                 </Form.Control>
                                             </Form.Group>
 
-                                            <Card.Title>Advanced Information</Card.Title>
+                                            <Card.Title className="advanced-information">Advanced Information</Card.Title>
 
                                             <Form.Group controlId="formMainBranch" className="mb-3">
                                                 <Form.Label>Devloper by profession</Form.Label>
@@ -458,6 +458,7 @@ const ModifyAdvanced = ({ toggleSignendIn, toggleScreen, isSignedIn, languages, 
 
                                                 />
                                             </Form.Group>
+
                                             <div className="advanced-buttons">
                                                 {!isEditing ? (
                                                     <Button className="advanced-button" onClick={() => setIsEditing(true)}>
@@ -469,10 +470,10 @@ const ModifyAdvanced = ({ toggleSignendIn, toggleScreen, isSignedIn, languages, 
                                                     </Button>
                                                 )}
 
-                                                <Button className="advanced-button" type="submit">
+                                                <Button className="advanced-button" onClick={handleSubmit}>
                                                     Save Information
                                                 </Button>
-                                                <Button className="advanced-button" type="button" onClick={() => navigate("/Profile")}>
+                                                <Button className="advanced-button" onClick={() => navigate("/Profile")}>
                                                     Back
                                                 </Button>
                                             </div>
@@ -480,7 +481,7 @@ const ModifyAdvanced = ({ toggleSignendIn, toggleScreen, isSignedIn, languages, 
                                     </Card.Body>
                                 </Card>
                         {error && <div className="error-message">{error}</div>}
-                    </Container>
+
 
         </div>
     );

@@ -37,6 +37,7 @@
     width: 100%;
 }
 
+
 /* Form Elements */
 .experiment-card .form-label {
     font-weight: bold;
@@ -54,41 +55,49 @@
 /* Buttons */
 .button-group {
     display: flex;
-    flex-direction: row; /* Stack buttons vertically */
-    align-items: center;
+    gap: 2rem;
     justify-content: center;
-    gap: 10px; /* Adds space between buttons */
-    margin-top: 10px; /* Adjust as needed */
+    flex-wrap: wrap;
+    margin-bottom: 1rem;
+    margin-top: 2rem;
 }
 
 .experiment-btn {
-    padding: 12px 20px;
+    /*padding: 12px 20px;*/
     font-size: 16px;
     border-radius: 6px;
-    font-weight: bold;
+    /*font-weight: bold;*/
     transition: background 0.3s ease-in-out;
-    min-width: 80px;
+    /*min-width: 80px;*/
 }
 
-.experiment-btn:first-child {
-    background: linear-gradient(45deg, #2980b9, #2c3e50);
-    border: none;
+.experiment-btn:first-child,
+.experiment-btn:last-child {
+    width: clamp(3rem, 10rem, 8rem);
+    padding: clamp(0.3rem, 1.5vw, 0.3rem) clamp(0.3rem, 1vw, 0.3rem);
+    font-size: clamp(0.3rem, 2vw, 1.3rem);
+    background: linear-gradient(45deg, #32a0e4, #c8c9ca); /* Gradient background */
     color: white;
+    border: none;
+    border-radius: 0.75rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-weight: bold;
 }
 
 .experiment-btn:first-child:hover {
-    background: linear-gradient(45deg, #1c598a, #2c3e50);
+    background: linear-gradient(45deg, #c8c9ca, #32a0e4); /* Reverse gradient on hover */
 }
 
-.experiment-btn:last-child {
-    background: #7f8c8d;
-    border: none;
-    color: white;
-}
+/*.experiment-btn:last-child {*/
+/*    background: #7f8c8d;*/
+/*    border: none;*/
+/*    color: white;*/
+/*}*/
 
-.experiment-btn:last-child:hover {
-    background: #636e72;
-}
+/*.experiment-btn:last-child:hover {*/
+/*    background: #636e72;*/
+/*}*/
 
 /* Error Message */
 .error-message {
