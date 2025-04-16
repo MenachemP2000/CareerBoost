@@ -6,6 +6,7 @@
     background-position: center;
     min-height: 100vh;
 }
+
 .home-container {
     padding-top: 5vh; /* Adjust this as needed */
     display: flex;
@@ -22,16 +23,24 @@
     align-items: center;
 }
 
+.home-title {
+    color: #ea4c0f;
+    font-size: clamp(1.5rem, 2.5rem, 2.8rem);
+    display: flex;
+    align-items: center;
+}
+
 .home-card {
-    max-width: 65%;
+    max-width: 55%;
+    min-width: 25rem;
     position: relative;      /* Required for z-index to work */
-    z-index: 10;             /* Puts it above the background image */
+    /*z-index: 10;             !* Puts it above the background image *!*/
     border: 2px solid #30467e; /* blue border */
     border-radius: 16px;
     padding: 2rem;
     background-color: white;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    margin-top: 5%;
+    /*margin-top: 1rem;*/
     margin-left: 5%;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
@@ -41,12 +50,7 @@
     box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
 }
 
-.home-title {
-    color: #ea4c0f;
-    font-size: 2.5rem;
-    display: flex;
-    align-items: center;
-}
+
 
 .home-title img {
     margin-right: 10px; /* Adjust spacing between the logo and the text */
@@ -61,13 +65,13 @@
 
 .home-lead1 {
     color: #0d787a;
-    font-size: 1.25rem;
+    font-size: clamp(0.3rem, 2vw, 1.3rem);
     margin-bottom: 20px;
 }
 
 .home-lead {
     color: #050505;
-    font-size: 1.25rem;
+    font-size: clamp(0.3rem, 2vw, 1.3rem);
     margin-bottom: 20px;
 }
 
@@ -93,7 +97,7 @@
     max-width: fit-content;
 }
 .hello {
-    font-size: 1.5rem; /* Increase font size */
+    font-size: clamp(0.5rem, 1.5rem, 2.5rem); /* Increase font size */
     font-weight: bold; /* Make the text bold */
     color: #ea4c0f; /* Green color */
     text-align: center; /* Center align the text */
@@ -115,17 +119,20 @@
 
 /* Button styles */
 .button-container .btn-all {
+    width: clamp(3rem, 10rem, 8rem);
+    padding: clamp(0.3rem, 1.5vw, 0.3rem) clamp(0.3rem, 1vw, 0.3rem);
+    font-size: clamp(0.3rem, 2vw, 1.3rem);
     background: linear-gradient(45deg, #32a0e4, #c8c9ca); /* Gradient background */
     border: none; /* Remove border */
     color: white; /* Text color */
-    padding: 10px 20px; /* Padding for buttons */
-    font-size: 1.2rem; /* Font size */
+    /*padding: 10px 20px; !* Padding for buttons *!*/
+    /*font-size: 1.2rem; !* Font size *!*/
     font-weight: bold;
     border-radius: 8px; /* Rounded corners */
     text-align: center; /* Center align text */
     text-decoration: none; /* Remove underline from links */
     transition: background 0.3s ease; /* Smooth transition for hover effect */
-    width: 150px; /* Set specific width */
+    /*width: 150px; !* Set specific width *!*/
     min-width: fit-content;
     height: fit-content; /* Set specific height */
 }

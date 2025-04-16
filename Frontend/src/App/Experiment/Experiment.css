@@ -12,12 +12,12 @@
 
 /* Title & Subtitle */
 .experiment-title {
-    font-size: 32px;
-    font-weight: bold;
-    color: #2c3e50;
+    margin-top: 3rem;
+    font-size: clamp(1.5rem, 2.5rem, 2.8rem);
+    font-weight: 600;
+    margin-bottom: 1rem;
     text-align: center;
-    margin-bottom: 20px;
-    margin-top: 20px;
+    color: #1f2937;
 }
 
 .experiment-subtitle {
@@ -33,12 +33,21 @@
     border-radius: 10px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     padding: 30px;
-    max-width: 800px;
-    width: 100%;
+    /*max-width: 50rem;*/
+    /*width: 100%;*/
 }
+
+.experiment-card .basic-information,
+.card .card-body .advanced-information {
+    font-size: clamp(1rem, 2vw, 1.3rem);
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
 
 /* Form Elements */
 .experiment-card .form-label {
+    font-size: clamp(0.7rem, 1.2vw, 1rem);
     font-weight: bold;
     color: #2c3e50;
 }
@@ -51,44 +60,92 @@
     font-size: 16px;
 }
 
+
 /* Buttons */
 .button-group {
     display: flex;
-    flex-direction: row; /* Stack buttons vertically */
-    align-items: center;
+    gap: 2rem;
     justify-content: center;
-    gap: 10px; /* Adds space between buttons */
-    margin-top: 10px; /* Adjust as needed */
+    align-items: center;
+    flex-wrap: wrap;
+    margin-bottom: 1rem;
+    margin-top: 2rem;
 }
+
+.center-salary-card{
+    display: flex;
+    justify-content: center;
+    margin-bottom: 5rem;
+    margin-top: 5rem;
+    min-width: 8rem;
+}
+
+.salary-prediction-card {
+    width: 25rem;
+    /*margin: 10px;*/
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 128, 0, 0.2);
+    background-color: #f8fff8;
+    border: 1px solid #d4f1d4;
+
+}
+
+.salary-prediction-card .card-header {
+    font-weight: bold;
+    font-size: clamp(0.5rem, 1.5rem, 2.5rem);
+    background-color: #e0ffe0;
+    color: #2e7d32;
+    border-bottom: 1px solid #c5e1a5;
+}
+
+.salary-prediction-card .card-body {
+    /*padding: 1rem;*/
+}
+
+.salary-prediction-card .card-text {
+    color: green;
+    font-size: clamp(0.3rem, 1.2rem, 1.5rem);
+    /*font-weight: 500;*/
+}
+
 
 .experiment-btn {
-    padding: 12px 20px;
+    /*padding: 12px 20px;*/
     font-size: 16px;
     border-radius: 6px;
-    font-weight: bold;
+    /*font-weight: bold;*/
     transition: background 0.3s ease-in-out;
-    min-width: 80px;
+    /*min-width: 80px;*/
 }
 
-.experiment-btn:first-child {
-    background: linear-gradient(45deg, #2980b9, #2c3e50);
-    border: none;
+
+.experiment-btn:first-child,
+.experiment-btn:last-child {
+    width: clamp(3rem, 10rem, 8rem);
+    padding: clamp(0.3rem, 1.5vw, 0.3rem) clamp(0.3rem, 1vw, 0.3rem);
+    font-size: clamp(0.3rem, 2vw, 1.3rem);
+    background: linear-gradient(45deg, #32a0e4, #c8c9ca); /* Gradient background */
     color: white;
+    border: none;
+    border-radius: 0.75rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-weight: bold;
 }
 
 .experiment-btn:first-child:hover {
-    background: linear-gradient(45deg, #1c598a, #2c3e50);
+    background: linear-gradient(45deg, #c8c9ca, #32a0e4); /* Reverse gradient on hover */
 }
 
-.experiment-btn:last-child {
-    background: #7f8c8d;
-    border: none;
-    color: white;
-}
+/*.experiment-btn:last-child {*/
+/*    background: #7f8c8d;*/
+/*    border: none;*/
+/*    color: white;*/
+/*}*/
 
-.experiment-btn:last-child:hover {
-    background: #636e72;
-}
+/*.experiment-btn:last-child:hover {*/
+/*    background: #636e72;*/
+/*}*/
 
 /* Error Message */
 .error-message {
@@ -110,6 +167,10 @@
 body.dark-mode .experiment-container {
     background: rgb(12,12,12);
     color: #e0e0e0;
+}
+body.dark-mode .experiment-card .basic-information,
+body.dark-mode .card .card-body .advanced-information {
+    color: white;
 }
 
 body.dark-mode .experiment-title {
@@ -137,3 +198,26 @@ body.dark-mode .experiment-card select {
     border: 1px solid #444;
 }
 
+
+/* Dark Mode Styles */
+body.dark-mode .salary-prediction-card {
+    background-color: #333;  /* Dark background */
+    border: 1px solid #555; /* Darker border */
+    box-shadow: 0 4px 12px rgba(0, 128, 0, 0.2); /* You can change this to a darker shadow */
+}
+
+body.dark-mode .salary-prediction-card .card-header {
+    background-color: #444; /* Dark header background */
+    color: white; /* Lighter text color for contrast */
+    border-bottom: 1px solid #666; /* Darker border */
+}
+
+body.dark-mode .salary-prediction-card .card-body {
+    /* Adjust padding or background if needed */
+    background-color: #444;  /* Darker card body background */
+}
+
+body.dark-mode .salary-prediction-card .card-text {
+    color: #76ff03; /* Lighter green for text */
+    font-size: clamp(0.3rem, 1.2rem, 1.5rem);
+}

@@ -37,13 +37,13 @@
 
 .contact-section h2 {
     font-weight: bold;
-    font-size: 24px;
+    font-size: clamp(0.5rem, 1.5rem, 2.5rem);
     color: #222;
     margin-bottom: 15px;
 }
 
 .contact-section p, .contact-section ul {
-    font-size: 20px;
+    font-size: clamp(0.3rem, 2vw, 1.3rem);
     color: #555;
     line-height: 1.6;
 }

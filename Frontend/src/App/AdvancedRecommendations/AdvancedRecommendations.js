@@ -314,11 +314,10 @@ const AdvancedRecommendations = ({ toggleScreen, isSignedIn, toggleSignendIn, la
                             </ul>
                         </Card.Body>
                         <Card.Body>
-                            <Card.Text>
-                                if you change your information, you can ask to be re-recommended
+                            <Card.Text className="re-recommended-text">
+                                If you change your information, you can ask to be re-recommended:
                             </Card.Text>
-                            <Button as={Button} onClick={handleRecommendations} variant="primary"
-                                    className="re-btn">Re-Recommended</Button>
+                            <button onClick={handleRecommendations} className="re-btn">Re-Recommended</button>
                         </Card.Body>
                     </Card>
 

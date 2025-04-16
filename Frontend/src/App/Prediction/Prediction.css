@@ -8,6 +8,14 @@
     justify-content: center;
     width: 100%;
 }
+.prediction-header{
+    margin-top: 5rem;
+    font-size: 2rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    text-align: center;
+    color: #1f2937;
+}
 /* Prediction Card */
 .prediction-card {
     width: 100%;
@@ -20,6 +28,22 @@
     position: relative;
     margin-bottom: 10px;
 }
+
+.repredict-button{
+    width: clamp(3rem, 10rem, 8rem);
+    padding: clamp(0.3rem, 1.5vw, 0.3rem) clamp(0.3rem, 1vw, 0.3rem);
+    font-size: clamp(0.3rem, 2vw, 1.3rem);
+    background: linear-gradient(45deg, #32a0e4, #c8c9ca); /* Gradient background */
+    color: white;
+    border: none;
+    border-radius: 0.75rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-weight: bold;
+}
+.repredict-button:hover{
+    background: linear-gradient(45deg, #c8c9ca, #32a0e4); /* Reverse gradient on hover */
+}
 /* Prediction Buttons */
 .prediction-buttons {
     display: flex;
@@ -30,25 +54,20 @@
     margin-top: 20px;
 }
 .prediction-button {
-    background: linear-gradient(45deg, #ff6b6b, #ff8e53);
-    border: none;
+    width: clamp(3rem, 10rem, 12rem);
+    padding: clamp(0.5rem, 1.5vw, 0.75rem) clamp(0.5rem, 2vw, 1rem);
+    font-size: clamp(0.3rem, 2vw, 1.3rem);
+    background: linear-gradient(45deg, #32a0e4, #c8c9ca); /* Gradient background */
     color: white;
-    padding: 8px 15px;
-    font-size: 1rem;
-    font-weight: bold;
-    border-radius: 6px;
-    text-align: center;
-    text-decoration: none;
-    transition: background 0.3s ease;
-    width: max-content;
-    min-width: 130px;
-    height: 40px;
+    border: none;
+    border-radius: 0.75rem;
     cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-weight: bold;
 }
 
 .prediction-button:hover {
-    background: linear-gradient(45deg, #ff8e53, #ff6b6b);
-    color: white;
+    background: linear-gradient(45deg, #c8c9ca, #32a0e4);
 }
 /* Dark Mode */
 body.dark-mode .prediction-container {
@@ -71,13 +90,11 @@ body.dark-mode .prediction-card {
     color: white;
     box-shadow: 0 4px 10px rgba(255, 255, 255, 0.1);
 }
-
-body.dark-mode .prediction-button {
-    background: linear-gradient(45deg, #ff4444, #ff6a00);
-    color: #fff;
+.repredict-button:hover{
+    background: linear-gradient(45deg, #c8c9ca, #32a0e4); /* Reverse gradient on hover */
 }
 
-body.dark-mode .prediction-button:hover {
-    background: linear-gradient(45deg, #ff6b6b, #ff8e53);
+body.dark-mode .prediction-button:hover,
+body.dark-mode .repredict-button:hover{
     color: black;
 }

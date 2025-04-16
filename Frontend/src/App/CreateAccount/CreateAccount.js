@@ -115,29 +115,7 @@ const CreateAccount = ({toggleSignendIn, toggleScreen, isSignedIn, countries, ed
                     <input type="password" name="password" placeholder="New password" value={formData.password}
                            onChange={handleChange} required/>
 
-                    {/*<label>Birthday</label>*/}
-                    {/*<div className="input-group">*/}
-                    {/*    <select name="birthMonth" value={formData.birthMonth} onChange={handleChange} required>*/}
-                    {/*        <option value="">Month</option>*/}
-                    {/*        {["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"].map((month, index) => (*/}
-                    {/*            <option key={index} value={month}>{month}</option>*/}
-                    {/*        ))}*/}
-                    {/*    </select>*/}
-                    {/*        <select name="birthYear" value={formData.birthYear} onChange={handleChange} required>*/}
-                    {/*            <option value="">Year</option>*/}
-                    {/*            {[...Array(100).keys()].map((i) => {*/}
-                    {/*                const year = new Date().getFullYear() - i;*/}
-                    {/*                return <option key={year} value={year}>{year}</option>;*/}
-                    {/*            })}*/}
-                    {/*        </select>*/}
-                    {/*</div>*/}
 
-                    {/*<label>Gender</label>*/}
-                    {/*<div className="input-group">*/}
-                    {/*    <label><input type="radio" name="gender" value="Female" onChange={handleChange}/> Female</label>*/}
-                    {/*    <label><input type="radio" name="gender" value="Male" onChange={handleChange}/> Male</label>*/}
-                    {/*    <label><input type="radio" name="gender" value="Custom" onChange={handleChange}/> Custom</label>*/}
-                    {/*</div>*/}
                     <label>Basic Information</label>
 
                     <select name="country" value={formData.country} onChange={handleChange} required>
@@ -378,3 +356,26 @@ export default CreateAccount;
 }
 {/*</Col>*/
 }
+{/*<label>Birthday</label>*/}
+{/*<div className="input-group">*/}
+{/*    <select name="birthMonth" value={formData.birthMonth} onChange={handleChange} required>*/}
+{/*        <option value="">Month</option>*/}
+{/*        {["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"].map((month, index) => (*/}
+{/*            <option key={index} value={month}>{month}</option>*/}
+{/*        ))}*/}
+{/*    </select>*/}
+{/*        <select name="birthYear" value={formData.birthYear} onChange={handleChange} required>*/}
+{/*            <option value="">Year</option>*/}
+{/*            {[...Array(100).keys()].map((i) => {*/}
+{/*                const year = new Date().getFullYear() - i;*/}
+{/*                return <option key={year} value={year}>{year}</option>;*/}
+{/*            })}*/}
+{/*        </select>*/}
+{/*</div>*/}
+
+{/*<label>Gender</label>*/}
+{/*<div className="input-group">*/}
+{/*    <label><input type="radio" name="gender" value="Female" onChange={handleChange}/> Female</label>*/}
+{/*    <label><input type="radio" name="gender" value="Male" onChange={handleChange}/> Male</label>*/}
+{/*    <label><input type="radio" name="gender" value="Custom" onChange={handleChange}/> Custom</label>*/}
+{/*</div>*/}
