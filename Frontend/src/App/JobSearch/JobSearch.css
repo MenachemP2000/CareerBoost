@@ -26,23 +26,24 @@
     margin-top: 1rem;
 }
 
-.job-search-button {
-    width: clamp(3rem, 10rem, 8rem);
-    padding: clamp(0.3rem, 1.5vw, 0.3rem) clamp(0.3rem, 1vw, 0.3rem);
-    font-size: clamp(0.3rem, 2vw, 1.3rem);
-    background: linear-gradient(45deg, #32a0e4, #c8c9ca); /* Gradient background */
-    color: white;
-    border: none;
-    border-radius: 0.75rem;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    font-weight: bold;
-}
+/*.job-search-button {*/
+/*    width: clamp(3rem, 10rem, 8rem);*/
+/*    padding: clamp(0.3rem, 1.5vw, 0.3rem) clamp(0.3rem, 1vw, 0.3rem);*/
+/*    font-size: clamp(0.3rem, 2vw, 1.3rem);*/
+/*    background: linear-gradient(45deg, #32a0e4, #c8c9ca); !* Gradient background *!*/
+/*    color: white;*/
+/*    border: none;*/
+/*    border-radius: 0.75rem;*/
+/*    cursor: pointer;*/
+/*    transition: background-color 0.3s ease;*/
+/*    font-weight: bold;*/
 
-.job-search-button:hover {
-    background: linear-gradient(45deg, #c8c9ca, #32a0e4); /* Reverse gradient on hover */
-    color: black;
-}
+/*}*/
+
+/*.job-search-button:hover {*/
+/*    background: linear-gradient(45deg, #c8c9ca, #32a0e4); !* Reverse gradient on hover *!*/
+/*    color: black;*/
+/*}*/
 
 
 /* Filter Dropdown */
@@ -248,7 +249,7 @@ body.dark-mode .alert-dropdown-header{
     text-decoration: none;
     font-weight: bold;
     margin-bottom: 0.5rem;
-    font-size: 1.2em;
+    font-size: clamp(1rem, 2vw, 1.3rem);
 }
 
 .job-title-link:hover {
@@ -258,9 +259,10 @@ body.dark-mode .alert-dropdown-header{
 .job-card-body {
     margin-top: 0.75rem;
 }
-
-.job-meta .job-posted-date {
-    font-size: 0.75em;
+ .job-posted-date,
+ .job-meta{
+     color: #050505;
+     font-size: clamp(0.3rem, 2vw, 1.3rem);
 }
 
 
@@ -271,28 +273,32 @@ body.dark-mode .alert-dropdown-header{
 }
 
 .job-save-button {
-    width: fit-content;
-    min-width: 5rem;
-    padding: 1px;
+    width: clamp(0.5rem, 5rem, 7rem);
+    font-size: clamp(0.3rem, 2vw, 1.3rem);
     background-color: #c8c9ca;
     color: white;
     border: none;
-    border-radius: 0.5rem;
     cursor: pointer;
     transition: background-color 0.3s ease;
     margin-right: -1rem;
     height: fit-content;
-    font-size: 1.25rem;
+    min-width: fit-content;
+    font-weight: bold;
+    border-radius: 8px; /* Rounded corners */
+    text-align: center; /* Center align text */
+    text-decoration: none; /* Remove underline from links */
 }
 
 .job-save-button:hover {
     background-color: #acacac;
 }
 
-/*.job-save-button.saved {*/
-/*    background-color: #9ca3af;*/
-/*    cursor: not-allowed;*/
-/*}*/
+.saved-button {
+    width: clamp(0.5rem, 5rem, 7rem);
+    font-size: clamp(0.3rem, 2vw, 1.3rem);
+    color: #050505;
+    border-color: black;
+}
 
 .job-list-empty {
     text-align: center;
@@ -308,23 +314,23 @@ body.dark-mode .alert-dropdown-header{
     justify-content: center;
 }
 
-.load-more-button {
-    width: clamp(3rem, 10rem, 8rem);
-    padding: clamp(0.3rem, 1.5vw, 0.3rem) clamp(0.3rem, 1vw, 0.3rem);
-    font-size: clamp(0.3rem, 2vw, 1.3rem);
-    background: linear-gradient(45deg, #32a0e4, #c8c9ca); /* Gradient background */
-    color: white;
-    border: none;
-    border-radius: 0.75rem;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    font-weight: bold;
-}
+/*.load-more-button {*/
+/*    width: clamp(3rem, 10rem, 8rem);*/
+/*    padding: clamp(0.3rem, 1.5vw, 0.3rem) clamp(0.3rem, 1vw, 0.3rem);*/
+/*    font-size: clamp(0.3rem, 2vw, 1.3rem);*/
+/*    background: linear-gradient(45deg, #32a0e4, #c8c9ca); !* Gradient background *!*/
+/*    color: white;*/
+/*    border: none;*/
+/*    border-radius: 0.75rem;*/
+/*    cursor: pointer;*/
+/*    transition: background-color 0.3s ease;*/
+/*    font-weight: bold;*/
+/*}*/
 
-.load-more-button:hover {
-    background: linear-gradient(45deg, #c8c9ca, #32a0e4); /* Reverse gradient on hover */
-    color: black;
-}
+/*.load-more-button:hover {*/
+/*    background: linear-gradient(45deg, #c8c9ca, #32a0e4); !* Reverse gradient on hover *!*/
+/*    color: black;*/
+/*}*/
 
 /* Navigation Buttons */
 .job-navigation-buttons {
@@ -335,19 +341,29 @@ body.dark-mode .alert-dropdown-header{
     flex-wrap: wrap;
 }
 
+.job-search-button,
+.load-more-button,
 .nav-link-button {
-    width: clamp(3rem, 10rem, 12rem);
-    padding: clamp(0.5rem, 1.5vw, 0.75rem) clamp(0.5rem, 2vw, 1rem);
+    width: clamp(3rem, 10rem, 8rem);
+    padding: clamp(0.3rem, 1.5vw, 0.3rem) clamp(0.3rem, 1vw, 0.3rem);
     font-size: clamp(0.3rem, 2vw, 1.3rem);
     background: linear-gradient(45deg, #32a0e4, #c8c9ca); /* Gradient background */
-    color: white;
-    border: none;
-    border-radius: 0.75rem;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
+    border: none; /* Remove border */
+    color: white; /* Text color */
+    /*padding: 10px 20px; !* Padding for buttons *!*/
+    /*font-size: 1.2rem; !* Font size *!*/
     font-weight: bold;
+    border-radius: 8px; /* Rounded corners */
+    text-align: center; /* Center align text */
+    text-decoration: none; /* Remove underline from links */
+    transition: background 0.3s ease; /* Smooth transition for hover effect */
+    /*width: 150px; !* Set specific width *!*/
+    min-width: fit-content;
+    height: fit-content; /* Set specific height */
 }
 
+.job-search-button:hover,
+.load-more-button:hover,
 .nav-link-button:hover {
     background: linear-gradient(45deg, #c8c9ca, #32a0e4);
 }
@@ -441,11 +457,11 @@ body.dark-mode .job-meta {
     color: white;
 }
 
-body.dark-mode .job-save-button.saved {
-    background-color: #6b7280;
-    color: white;
-    cursor: not-allowed;
-}
+/*body.dark-mode .job-save-button.saved {*/
+/*    background-color: #6b7280;*/
+/*    color: white;*/
+/*    cursor: not-allowed;*/
+/*}*/
 
 body.dark-mode .job-list-empty {
     color: #B0B3B8;

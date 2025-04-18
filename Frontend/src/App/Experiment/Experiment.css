@@ -125,15 +125,22 @@
     padding: clamp(0.3rem, 1.5vw, 0.3rem) clamp(0.3rem, 1vw, 0.3rem);
     font-size: clamp(0.3rem, 2vw, 1.3rem);
     background: linear-gradient(45deg, #32a0e4, #c8c9ca); /* Gradient background */
-    color: white;
-    border: none;
-    border-radius: 0.75rem;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
+    border: none; /* Remove border */
+    color: white; /* Text color */
+    /*padding: 10px 20px; !* Padding for buttons *!*/
+    /*font-size: 1.2rem; !* Font size *!*/
     font-weight: bold;
+    border-radius: 8px; /* Rounded corners */
+    text-align: center; /* Center align text */
+    text-decoration: none; /* Remove underline from links */
+    transition: background 0.3s ease; /* Smooth transition for hover effect */
+    /*width: 150px; !* Set specific width *!*/
+    min-width: fit-content;
+    height: fit-content; /* Set specific height */
 }
 
-.experiment-btn:first-child:hover {
+.experiment-btn:first-child:hover,
+.experiment-btn:last-child:hover {
     background: linear-gradient(45deg, #c8c9ca, #32a0e4); /* Reverse gradient on hover */
 }
 

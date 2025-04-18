@@ -12,19 +12,41 @@
 }
 /* Profile Card */
 .advanced-card {
-    margin-top: 10%;
-    width: 100%;
-    max-width: 600px; /* Adjusted width for better responsiveness */
     text-align: center;
     position: relative;
-
-    background-color: #ffffff;
-    border-radius: 1rem;
-    padding: 2rem;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-    margin-bottom: 10%;
+    background-color: #fff;
+    /*margin-bottom: 10%;*/
+    padding: 20px;
+    max-width: 500px;
+    border-radius: 8px;
+    width: 30%;
+    min-width: 20rem;
+    box-shadow: 1px 4px 10px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s, box-shadow 0.3s, color 0.3s;
 }
 
+.advanced-title {
+    margin-top: 3rem;
+    font-size: clamp(1.5rem, 2.5rem, 2.8rem);
+    font-weight: 600;
+    margin-bottom: 1rem;
+    text-align: center;
+    color: #1f2937;
+}
+
+body.dark-mode .advanced-title {
+    color: #ffffff;
+}
+
+.advanced-subtitle {
+    font-size: 16px;
+    color: #7f8c8d;
+    text-align: center;
+    margin-bottom: 40px;
+}
+body.dark-mode .advanced-subtitle {
+    color: #b0b0b0;
+}
 .advanced-card .title {
     font-size: 2rem;
     font-weight: 600;
@@ -77,27 +99,31 @@
     gap: 1rem;
     justify-content: center;
     flex-wrap: wrap;
-    margin-bottom: 1rem;
+    margin-bottom: 10%;
     margin-top: 2rem;
 }
 
 .advanced-button {
-    width: max-content;
-    /*width: clamp(3rem, 10rem, 8rem);*/
-    padding: clamp(0.3rem, 1.5vw, 0.3rem) clamp(0.5rem, 1vw, 1.5rem);
+    width: clamp(3rem, 10rem, 8rem);
+    padding: clamp(0.3rem, 1.5vw, 0.3rem) clamp(0.3rem, 1vw, 0.3rem);
     font-size: clamp(0.3rem, 2vw, 1.3rem);
     background: linear-gradient(45deg, #32a0e4, #c8c9ca); /* Gradient background */
-    color: white;
-    border: none;
-    border-radius: 0.75rem;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
+    border: none; /* Remove border */
+    color: white; /* Text color */
+    /*padding: 10px 20px; !* Padding for buttons *!*/
+    /*font-size: 1.2rem; !* Font size *!*/
     font-weight: bold;
+    border-radius: 8px; /* Rounded corners */
+    text-align: center; /* Center align text */
+    text-decoration: none; /* Remove underline from links */
+    transition: background 0.3s ease; /* Smooth transition for hover effect */
+    /*width: 150px; !* Set specific width *!*/
+    min-width: fit-content;
+    height: fit-content; /* Set specific height */
 }
 
 .advanced-button:hover {
     background: linear-gradient(45deg, #c8c9ca, #32a0e4); /* Reverse gradient on hover */
-    color: black;;
 }
 
 /* Dark Mode */
@@ -106,7 +132,7 @@ body.dark-mode .advanced-container {
 }
 body.dark-mode .advanced-card .title,
 body.dark-mode .advanced-card .advanced-information {
-    color: #D1D5DB;
+    color: #e4e6eb;
 }
 body.dark-mode .advanced-card {
     background: #242526;

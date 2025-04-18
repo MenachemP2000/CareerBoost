@@ -882,7 +882,7 @@ export default function JobSearch({ toggleScreen, isSignedIn, toggleSignendIn, c
 
                                             <Container className="job-save-button-container">
                                                 {isSignedIn.savedJobs && isSignedIn.savedJobs.find(savedJob => savedJob.link === job.link) ? (
-                                                    <button disabled>
+                                                    <button className="saved-button" disabled>
                                                         Saved
                                                     </button>
                                                     ):(

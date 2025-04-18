@@ -11,11 +11,14 @@
     color: black;
     padding: 10px;
 }
-
+.logo-link {
+    color: black;
+}
 .navbar-light .navbar-brand,
 .navbar-light .nav-link,
 .navbar-light .dropdown-toggle {
     color: black; /* Black text color for better contrast */
+    font-size: clamp(0.3rem, 1rem, 1.3rem);
 }
 
 .navbar-light .nav-link:hover,
