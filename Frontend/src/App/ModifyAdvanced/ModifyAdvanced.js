@@ -117,7 +117,7 @@ const ModifyAdvanced = ({
         <div className="advanced-container">
             <h3 className="advanced-title">Advanced Profile</h3>
             <p className="advanced-subtitle">
-                Explore more profile details here. Hit Edit to make changes, and don’t forget to Save when you're
+                Explore more profile details here. Hit "Edit" to make changes, and don’t forget to Save when you're
                 finished!
             </p>
             <Card className="advanced-card">

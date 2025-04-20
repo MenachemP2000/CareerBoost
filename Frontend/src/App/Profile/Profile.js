@@ -1,11 +1,12 @@
 import React from "react";
-import { Container, Row, Col, Card, Button, Image, Form } from 'react-bootstrap';
-import { Link, useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
+import {Container, Row, Col, Card, Button, Image, Form} from 'react-bootstrap';
+import {Link, useNavigate} from "react-router-dom";
+import {useEffect, useState} from "react";
 import config from '../config';
 import "./Profile.css"
 import defaultProfilePic from "../images/man-profile.svg";
-const Profile = ({ toggleScreen, isSignedIn, toggleSignendIn, countries, educations, ages }) => {
+
+const Profile = ({toggleScreen, isSignedIn, toggleSignendIn, countries, educations, ages}) => {
     const navigate = useNavigate();
     const [error, setError] = useState('');
     const [editMode, setEditMode] = useState(false);
@@ -35,7 +36,7 @@ const Profile = ({ toggleScreen, isSignedIn, toggleSignendIn, countries, educati
         setEditMode(!editMode);
     };
     const handleChange = (e) => {
-        const { name, value } = e.target;
+        const {name, value} = e.target;
         setFormData({
             ...formData,
             [name]: value
@@ -43,7 +44,7 @@ const Profile = ({ toggleScreen, isSignedIn, toggleSignendIn, countries, educati
     };
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const payload = { _id: isSignedIn._id, ...formData };
+        const payload = {_id: isSignedIn._id, ...formData};
         try {
             const response = await fetch(`${config.apiBaseUrl}/api/users/${isSignedIn._id}`, {
                 method: 'PATCH',
@@ -86,14 +87,22 @@ const Profile = ({ toggleScreen, isSignedIn, toggleSignendIn, countries, educati
 
     return (
         <div className="profile-container">
+            <h3 className="profile-title">Basic Profile</h3>
+            <p className="profile-subtitle">
+                Your public profile card with your country, experience, education and age.
+            </p>
             {/* Profile Card */}
             {isSignedIn && (
                 <Container className="profile-content d-flex justify-content-center">
                     <Card className="profile-card">
-
                         <Card.Body className="profile-body">
+
+                            <div className="text-center mb-4">
+                                <h2 className="title">Basic Information</h2>
+                            </div>
+                            <br></br>
+                            {/* Profile PiScture */}
                             <div className="profile-header">
-                                {/* Profile Picture */}
                                 <Image
                                     src={formData.profilePicture || defaultProfilePic}
                                     roundedCircle
@@ -101,31 +110,36 @@ const Profile = ({ toggleScreen, isSignedIn, toggleSignendIn, countries, educati
                                 />
                             </div>
                             <h2 className="profile-name">{formData.username}</h2>
-                            <p className="profile-description">Here's a short overview of your information:</p>
+                            <br></br>
 
-                            {/* Toggle between View & Edit Mode */}
-                            {!editMode ? (
-                                // View Mode
-                                <>
-                                    <Col md={12} className="profile-info">
-                                        <p><strong>Country:</strong> {formData.country}</p>
-                                        <p><strong>Experience:</strong> {formData.experience} years</p>
-                                        <p><strong>Education:</strong> {formData.education}</p>
-                                        <p><strong>Age:</strong> {formData.age}</p>
-                                    </Col>
+                            {/*/!* Toggle between View & Edit Mode *!/*/}
+                            {/*{!editMode ? (*/}
+                            {/*        // View Mode*/}
+                            {/*        <>*/}
+                            {/*            <Col md={12} className="profile-info">*/}
+                            {/*                <p><strong>Country:</strong> {formData.country}</p>*/}
+                            {/*                <p><strong>Experience:</strong> {formData.experience} years</p>*/}
+                            {/*                <p><strong>Education:</strong> {formData.education}</p>*/}
+                            {/*                <p><strong>Age:</strong> {formData.age}</p>*/}
+                            {/*            </Col>*/}
+                            {/*            <br></br>*/}
+                            {/*            /!* Profile Buttons *!/*/}
+                            {/*            <div className="profile-buttons">*/}
+                            {/*                <>*/}
+                            {/*                    <button onClick={() =>navigate("/ModifyAdvanced")} className="profile-button">Advanced*/}
+                            {/*                    </button>*/}
+                            {/*                    <button onClick={handleEditToggle} className="profile-button">Edit*/}
+                            {/*                    </button>*/}
+                            {/*                    <button onClick={handleSignout} className="profile-button">Sign Out</button>*/}
+                            {/*                </>*/}
+                            {/*            </div>*/}
+                            {/*        </>*/}
+                            {/*    // <button as={Button} className="advanced-button" onClick={() => navigate("/Profile")}>*/}
+                            {/*    // Back*/}
+                            {/*    // </button>*/}
+                            {/*) : (*/}
 
-                                    {/* Profile Buttons */}
-                                    <div className="profile-buttons">
-                                        <Button as={Link} to="/ModifyAdvanced"
-                                            className="profile-button">Advanced</Button>
-                                        <Button onClick={handleEditToggle} className="profile-button">Edit
-                                        </Button>
-                                        <Button onClick={handleSignout} className="profile-button">Sign Out</Button>
-                                    </div>
-                                </>
-                            ) : (
-                                // Edit Mode (Form)
-                                <Form>{/* 
+                            <Form>{/*
                                     <Form.Group controlId="formUsername" className="profile-form">
                                         <Form.Label>Username</Form.Label>
                                         <Form.Control
@@ -136,79 +150,102 @@ const Profile = ({ toggleScreen, isSignedIn, toggleSignendIn, countries, educati
                                         />
                                     </Form.Group> */}
 
-                                    <Form.Group controlId="formCountry" className="mb-3">
-                                        <Form.Label>Country</Form.Label>
-                                        <Form.Control
-                                            as="select"
-                                            name="country"
-                                            value={formData.country}
-                                            onChange={handleChange}
-                                        >
-                                            <option value="">Select your country</option>
-                                            {countries.map((country, index) => (
-                                                <option key={index} value={country}>
-                                                    {country}
-                                                </option>
-                                            ))}
-                                        </Form.Control>
-                                    </Form.Group>
+                                <Form.Group controlId="formCountry" className="mb-3">
+                                    <Form.Label>Country</Form.Label>
+                                    <Form.Control
+                                        as="select"
+                                        name="country"
+                                        value={formData.country}
+                                        onChange={handleChange}
+                                        disabled={!editMode}
+                                    >
+                                        <option value="">Select your country</option>
+                                        {countries.map((country, index) => (
+                                            <option key={index} value={country}>
+                                                {country}
+                                            </option>
+                                        ))}
+                                    </Form.Control>
+                                </Form.Group>
 
-                                    <Form.Group controlId="formExperience" className="mb-3">
-                                        <Form.Label>Years of Experience</Form.Label>
-                                        <Form.Control
-                                            type="number"
-                                            name="experience"
-                                            value={formData.experience}
-                                            onChange={handleChange}
-                                        />
-                                    </Form.Group>
+                                <Form.Group controlId="formExperience" className="mb-3">
+                                    <Form.Label>Years of Experience</Form.Label>
+                                    <Form.Control
+                                        type="number"
+                                        name="experience"
+                                        value={formData.experience}
+                                        onChange={handleChange}
+                                        disabled={!editMode}
+                                    />
+                                </Form.Group>
 
-                                    <Form.Group controlId="formEducation" className="mb-3">
-                                        <Form.Label>Education</Form.Label>
-                                        <Form.Control
-                                            as="select"
-                                            name="education"
-                                            value={formData.education}
-                                            onChange={handleChange}
-                                        >
-                                            <option value="">Select your education</option>
-                                            {educations.map((education, index) => (
-                                                <option key={index} value={education}>
-                                                    {education}
-                                                </option>
-                                            ))}
-                                        </Form.Control>
-                                    </Form.Group>
+                                <Form.Group controlId="formEducation" className="mb-3">
+                                    <Form.Label>Education</Form.Label>
+                                    <Form.Control
+                                        as="select"
+                                        name="education"
+                                        value={formData.education}
+                                        onChange={handleChange}
+                                        disabled={!editMode}
+                                    >
+                                        <option value="">Select your education</option>
+                                        {educations.map((education, index) => (
+                                            <option key={index} value={education}>
+                                                {education}
+                                            </option>
+                                        ))}
+                                    </Form.Control>
+                                </Form.Group>
 
 
-                                    <Form.Group controlId="formAge" className="mb-3">
-                                        <Form.Label>Age</Form.Label>
-                                        <Form.Control
-                                            as="select"
-                                            name="age"
-                                            value={formData.age}
-                                            onChange={handleChange}
-                                        >
-                                            <option value="">Select your age range</option>
-                                            {ages.map((age, index) => (
-                                                <option key={index} value={age}>
-                                                    {age}
-                                                </option>
-                                            ))}
-                                        </Form.Control>
-                                    </Form.Group>
-
-                                    {/* Profile Buttons */}
-                                    <div className="profile-buttons">
-                                        <Button type="button" onClick={handleSubmit} className="profile-button">Save Changes</Button>
-                                        <Button type="button" onClick={handleCancel} className="profile-button">Cancel</Button>
-                                    </div>
-                                </Form>
-                            )}
+                                <Form.Group controlId="formAge" className="mb-3">
+                                    <Form.Label>Age</Form.Label>
+                                    <Form.Control
+                                        as="select"
+                                        name="age"
+                                        value={formData.age}
+                                        onChange={handleChange}
+                                        disabled={!editMode}
+                                    >
+                                        <option value="">Select your age range</option>
+                                        {ages.map((age, index) => (
+                                            <option key={index} value={age}>
+                                                {age}
+                                            </option>
+                                        ))}
+                                    </Form.Control>
+                                </Form.Group>
+                                {/* Profile Buttons */}
+                            </Form>
                         </Card.Body>
                     </Card>
                 </Container>
             )}
+            <div className="profile-buttons">
+                {!editMode ? (
+                    <>
+                        <button onClick={() => navigate("/ModifyAdvanced")}
+                                className="profile-button">Advanced
+                        </button>
+                        <>
+                            <button as={Button} className="profile-button" onClick={handleEditToggle}>Edit
+                            </button>
+                        </>
+                        <button onClick={handleSignout} className="profile-button">Sign Out</button>
+                    </>
+
+                ) : (
+                    <>
+                        <button onClick={handleSubmit} className="profile-button">Save
+                            Changes
+                        </button>
+                        <button onClick={handleCancel}
+                                className="profile-button">Cancel
+                        </button>
+                    </>
+
+                )}
+            </div>
         </div>
     );
 }
