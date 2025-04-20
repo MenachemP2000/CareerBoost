@@ -1,12 +1,13 @@
 import React from "react";
-import { Container, Row, Col, Card, Button, Form } from 'react-bootstrap';
-import { Link } from "react-router-dom";
-import { useEffect, useState } from "react";
-import { useNavigate } from 'react-router-dom';
-import { Sankey, Tooltip, Layer, Text } from "recharts";
+import {Container, Row, Col, Card, Button, Form} from 'react-bootstrap';
+import {Link} from "react-router-dom";
+import {useEffect, useState} from "react";
+import {useNavigate} from 'react-router-dom';
+import {Sankey, Tooltip, Layer, Text} from "recharts";
 import config from '../config';
 import "./SavedJobs.css";
-const AppliedButton = ({ job, isSignedIn, toggleSignendIn }) => {
+
+const AppliedButton = ({job, isSignedIn, toggleSignendIn}) => {
     const [checked, setChecked] = useState(false);
     const [error, setError] = useState('');
 
@@ -19,13 +20,12 @@ const AppliedButton = ({ job, isSignedIn, toggleSignendIn }) => {
     }, [isSignedIn, job.link]);
 
 
-
     const handleApplied = async () => {
         setChecked(!checked);
         const savedJobs = isSignedIn.savedJobs.map((savedJob) =>
-            savedJob.link === job.link ? { ...savedJob, applied: !checked } : savedJob
+            savedJob.link === job.link ? {...savedJob, applied: !checked} : savedJob
         );
-        const payload = { _id: isSignedIn._id, savedJobs: savedJobs };
+        const payload = {_id: isSignedIn._id, savedJobs: savedJobs};
 
         try {
             // Send the registration data to the server
@@ -44,8 +44,7 @@ const AppliedButton = ({ job, isSignedIn, toggleSignendIn }) => {
                 // If the server responds with an error, set the error message
                 setError(result.message);
                 return;
-            }
-            else {
+            } else {
                 toggleSignendIn(isSignedIn.username);
             }
         } catch (error) {
@@ -58,7 +57,7 @@ const AppliedButton = ({ job, isSignedIn, toggleSignendIn }) => {
     return (
         <Button
             onClick={handleApplied}
-            style={{ width: "10rem", margin: "10px", display: "flex", justifyContent: "center" }}
+            style={{width: "10rem", margin: "10px", display: "flex", justifyContent: "center"}}
             variant="secondary"
             disabled={job.interview || job.offer || job.rejected}
         >
@@ -73,7 +72,7 @@ const AppliedButton = ({ job, isSignedIn, toggleSignendIn }) => {
     );
 };
 
-const InterviewButton = ({ job, isSignedIn, toggleSignendIn }) => {
+const InterviewButton = ({job, isSignedIn, toggleSignendIn}) => {
     const [checked, setChecked] = useState(false);
     const [error, setError] = useState('');
 
@@ -86,13 +85,12 @@ const InterviewButton = ({ job, isSignedIn, toggleSignendIn }) => {
     }, [isSignedIn, job.link]);
 
 
-
     const handleInterview = async () => {
         setChecked(!checked);
         const savedJobs = isSignedIn.savedJobs.map((savedJob) =>
-            savedJob.link === job.link ? { ...savedJob, interview: !checked } : savedJob
+            savedJob.link === job.link ? {...savedJob, interview: !checked} : savedJob
         );
-        const payload = { _id: isSignedIn._id, savedJobs: savedJobs };
+        const payload = {_id: isSignedIn._id, savedJobs: savedJobs};
 
         try {
             // Send the registration data to the server
@@ -111,8 +109,7 @@ const InterviewButton = ({ job, isSignedIn, toggleSignendIn }) => {
                 // If the server responds with an error, set the error message
                 setError(result.message);
                 return;
-            }
-            else {
+            } else {
                 toggleSignendIn(isSignedIn.username);
             }
         } catch (error) {
@@ -145,7 +142,7 @@ const InterviewButton = ({ job, isSignedIn, toggleSignendIn }) => {
 
     );
 };
-const OfferButton = ({ job, isSignedIn, toggleSignendIn }) => {
+const OfferButton = ({job, isSignedIn, toggleSignendIn}) => {
     const [checked, setChecked] = useState(false);
     const [error, setError] = useState('');
 
@@ -158,13 +155,12 @@ const OfferButton = ({ job, isSignedIn, toggleSignendIn }) => {
     }, [isSignedIn, job.link]);
 
 
-
     const handleOffer = async () => {
         setChecked(!checked);
         const savedJobs = isSignedIn.savedJobs.map((savedJob) =>
-            savedJob.link === job.link ? { ...savedJob, offer: !checked } : savedJob
+            savedJob.link === job.link ? {...savedJob, offer: !checked} : savedJob
         );
-        const payload = { _id: isSignedIn._id, savedJobs: savedJobs };
+        const payload = {_id: isSignedIn._id, savedJobs: savedJobs};
 
         try {
             // Send the registration data to the server
@@ -183,8 +179,7 @@ const OfferButton = ({ job, isSignedIn, toggleSignendIn }) => {
                 // If the server responds with an error, set the error message
                 setError(result.message);
                 return;
-            }
-            else {
+            } else {
                 toggleSignendIn(isSignedIn.username);
             }
         } catch (error) {
@@ -197,7 +192,7 @@ const OfferButton = ({ job, isSignedIn, toggleSignendIn }) => {
     return (
         <Button
             onClick={handleOffer}
-            style={{ width: "10rem", margin: "10px", display: "flex", justifyContent: "center" }}
+            style={{width: "10rem", margin: "10px", display: "flex", justifyContent: "center"}}
             variant="secondary"
             disabled={!job.interview || !job.applied || job.accepted || job.rejected}
         >
@@ -212,7 +207,7 @@ const OfferButton = ({ job, isSignedIn, toggleSignendIn }) => {
     );
 };
 
-const RejectedButton = ({ job, isSignedIn, toggleSignendIn }) => {
+const RejectedButton = ({job, isSignedIn, toggleSignendIn}) => {
     const [checked, setChecked] = useState(false);
     const [error, setError] = useState('');
 
@@ -225,13 +220,12 @@ const RejectedButton = ({ job, isSignedIn, toggleSignendIn }) => {
     }, [isSignedIn, job.link]);
 
 
-
     const handleRejected = async () => {
         setChecked(!checked);
         const savedJobs = isSignedIn.savedJobs.map((savedJob) =>
-            savedJob.link === job.link ? { ...savedJob, rejected: !checked } : savedJob
+            savedJob.link === job.link ? {...savedJob, rejected: !checked} : savedJob
         );
-        const payload = { _id: isSignedIn._id, savedJobs: savedJobs };
+        const payload = {_id: isSignedIn._id, savedJobs: savedJobs};
 
         try {
             // Send the registration data to the server
@@ -250,8 +244,7 @@ const RejectedButton = ({ job, isSignedIn, toggleSignendIn }) => {
                 // If the server responds with an error, set the error message
                 setError(result.message);
                 return;
-            }
-            else {
+            } else {
                 toggleSignendIn(isSignedIn.username);
             }
         } catch (error) {
@@ -264,7 +257,7 @@ const RejectedButton = ({ job, isSignedIn, toggleSignendIn }) => {
     return (
         <Button
             onClick={handleRejected}
-            style={{ width: "10rem", margin: "10px", display: "flex", justifyContent: "center" }}
+            style={{width: "10rem", margin: "10px", display: "flex", justifyContent: "center"}}
             variant="secondary"
             disabled={(!job.applied && !job.interview && !job.offer) || job.accepted}
         >
@@ -279,7 +272,7 @@ const RejectedButton = ({ job, isSignedIn, toggleSignendIn }) => {
     );
 };
 
-const AcceptedButton = ({ job, isSignedIn, toggleSignendIn }) => {
+const AcceptedButton = ({job, isSignedIn, toggleSignendIn}) => {
     const [checked, setChecked] = useState(false);
     const [error, setError] = useState('');
 
@@ -292,13 +285,12 @@ const AcceptedButton = ({ job, isSignedIn, toggleSignendIn }) => {
     }, [isSignedIn, job.link]);
 
 
-
     const handleAccepted = async () => {
         setChecked(!checked);
         const savedJobs = isSignedIn.savedJobs.map((savedJob) =>
-            savedJob.link === job.link ? { ...savedJob, accepted: !checked } : savedJob
+            savedJob.link === job.link ? {...savedJob, accepted: !checked} : savedJob
         );
-        const payload = { _id: isSignedIn._id, savedJobs: savedJobs };
+        const payload = {_id: isSignedIn._id, savedJobs: savedJobs};
 
         try {
             // Send the registration data to the server
@@ -317,8 +309,7 @@ const AcceptedButton = ({ job, isSignedIn, toggleSignendIn }) => {
                 // If the server responds with an error, set the error message
                 setError(result.message);
                 return;
-            }
-            else {
+            } else {
                 toggleSignendIn(isSignedIn.username);
             }
         } catch (error) {
@@ -331,7 +322,7 @@ const AcceptedButton = ({ job, isSignedIn, toggleSignendIn }) => {
     return (
         <Button
             onClick={handleAccepted}
-            style={{ width: "10rem", margin: "10px", display: "flex", justifyContent: "center" }}
+            style={{width: "10rem", margin: "10px", display: "flex", justifyContent: "center"}}
             variant="secondary"
             disabled={!job.offer || job.rejected}
         >
@@ -346,7 +337,7 @@ const AcceptedButton = ({ job, isSignedIn, toggleSignendIn }) => {
     );
 };
 
-const SavedJobs = ({ toggleScreen, isSignedIn, toggleSignendIn }) => {
+const SavedJobs = ({toggleScreen, isSignedIn, toggleSignendIn}) => {
     const navigate = useNavigate();
     const [error, setError] = useState('');
     const [isOpen, setIsOpen] = useState(false);
@@ -365,7 +356,7 @@ const SavedJobs = ({ toggleScreen, isSignedIn, toggleSignendIn }) => {
     const getColor = (index) => colors[index % colors.length];
 
     const handleToggleChange = (e) => {
-        const { name, checked } = e.target;
+        const {name, checked} = e.target;
         setFilters((prevFilters) => ({
             ...prevFilters,
             [name]: checked
@@ -410,19 +401,19 @@ const SavedJobs = ({ toggleScreen, isSignedIn, toggleSignendIn }) => {
         const acceptedCount = accepted.length;
 
         let filteredLinks = [
-            { source: 0, target: 1, value: appliedNoResponseCount },
-            { source: 0, target: 2, value: appliedRejectedCount },
-            { source: 0, target: 3, value: appliedInterviewCount },
-            { source: 1, target: 4, value: appliedNoResponseCount },
-            { source: 2, target: 5, value: appliedRejectedCount },
-            { source: 3, target: 4, value: interviewNoResponseCount },
-            { source: 3, target: 5, value: interviewRejectedCount },
-            { source: 3, target: 6, value: offerCount },
-            { source: 4, target: 7, value: interviewNoResponseCount + appliedNoResponseCount },
-            { source: 5, target: 8, value: interviewRejectedCount + appliedRejectedCount },
-            { source: 6, target: 7, value: offerNoResponseCount },
-            { source: 6, target: 8, value: offerRejectedCount },
-            { source: 6, target: 9, value: acceptedCount },
+            {source: 0, target: 1, value: appliedNoResponseCount},
+            {source: 0, target: 2, value: appliedRejectedCount},
+            {source: 0, target: 3, value: appliedInterviewCount},
+            {source: 1, target: 4, value: appliedNoResponseCount},
+            {source: 2, target: 5, value: appliedRejectedCount},
+            {source: 3, target: 4, value: interviewNoResponseCount},
+            {source: 3, target: 5, value: interviewRejectedCount},
+            {source: 3, target: 6, value: offerCount},
+            {source: 4, target: 7, value: interviewNoResponseCount + appliedNoResponseCount},
+            {source: 5, target: 8, value: interviewRejectedCount + appliedRejectedCount},
+            {source: 6, target: 7, value: offerNoResponseCount},
+            {source: 6, target: 8, value: offerRejectedCount},
+            {source: 6, target: 9, value: acceptedCount},
         ].filter(link => link.value > 0);
 
 
@@ -438,16 +429,16 @@ const SavedJobs = ({ toggleScreen, isSignedIn, toggleSignendIn }) => {
         let newIndex = 0;
 
         const filteredNodes = [
-            { name: `Applied: ${appliedCount} ` },
-            { name: `No Response: ${appliedNoResponseCount} ` },
-            { name: `Rejected: ${appliedRejectedCount} ` },
-            { name: `Interview: ${appliedInterviewCount} ` },
-            { name: `No Response: ${interviewNoResponseCount + appliedNoResponseCount} ` },
-            { name: `Rejected: ${interviewRejectedCount + appliedRejectedCount} ` },
-            { name: `Offer: ${offerCount} ` },
-            { name: `No Response: ${interviewNoResponseCount + appliedNoResponseCount + offerNoResponseCount} ` },
-            { name: `Rejected: ${interviewRejectedCount + appliedRejectedCount + offerRejectedCount} ` },
-            { name: `Accepted: ${acceptedCount} ` },
+            {name: `Applied: ${appliedCount} `},
+            {name: `No Response: ${appliedNoResponseCount} `},
+            {name: `Rejected: ${appliedRejectedCount} `},
+            {name: `Interview: ${appliedInterviewCount} `},
+            {name: `No Response: ${interviewNoResponseCount + appliedNoResponseCount} `},
+            {name: `Rejected: ${interviewRejectedCount + appliedRejectedCount} `},
+            {name: `Offer: ${offerCount} `},
+            {name: `No Response: ${interviewNoResponseCount + appliedNoResponseCount + offerNoResponseCount} `},
+            {name: `Rejected: ${interviewRejectedCount + appliedRejectedCount + offerRejectedCount} `},
+            {name: `Accepted: ${acceptedCount} `},
         ]
             .map((node, index) => {
                 if (usedNodeIndices.has(index)) {
@@ -477,7 +468,7 @@ const SavedJobs = ({ toggleScreen, isSignedIn, toggleSignendIn }) => {
 
     const handleRemove = async (job) => {
         const newSavedJobs = isSignedIn.savedJobs.filter((savedJob) => savedJob.link !== job.link);
-        const payload = { _id: isSignedIn._id, savedJobs: newSavedJobs };
+        const payload = {_id: isSignedIn._id, savedJobs: newSavedJobs};
 
         try {
             // Send the registration data to the server
@@ -496,8 +487,7 @@ const SavedJobs = ({ toggleScreen, isSignedIn, toggleSignendIn }) => {
                 // If the server responds with an error, set the error message
                 setError(result.message);
                 return;
-            }
-            else {
+            } else {
                 toggleSignendIn(isSignedIn.username);
             }
         } catch (error) {
@@ -519,7 +509,7 @@ const SavedJobs = ({ toggleScreen, isSignedIn, toggleSignendIn }) => {
             newJob.job = "not available";
         }
         const newSavedJobs = [...isSignedIn.savedJobs, newJob];
-        const payload = { _id: isSignedIn._id, savedJobs: newSavedJobs };
+        const payload = {_id: isSignedIn._id, savedJobs: newSavedJobs};
 
         try {
             // Send the registration data to the server
@@ -538,8 +528,7 @@ const SavedJobs = ({ toggleScreen, isSignedIn, toggleSignendIn }) => {
                 // If the server responds with an error, set the error message
                 setError(result.message);
                 return;
-            }
-            else {
+            } else {
                 setNewJob({});
                 setAddIsOpen(false);
                 toggleSignendIn(isSignedIn.username);
@@ -551,243 +540,245 @@ const SavedJobs = ({ toggleScreen, isSignedIn, toggleSignendIn }) => {
     }
 
 
-
     return (
         <div className="saved-jobs-container">
-                <div className="saved-jobs-header">
-                    <h3 className="saved-jobs-title">Saved Jobs</h3>
-                    <p className="saved-jobs-subtitle">Here's your saved Jobs:</p>
-                </div>
+            <div className="saved-jobs-header">
+                <h3 className="saved-jobs-title">Saved Jobs</h3>
+                <p className="saved-jobs-subtitle">Here's your saved Jobs.</p>
+            </div>
 
-            <Card className="card-custom">
-                {/*<Card.Header>Saved Jobs</Card.Header>*/}
+            <Card className="saved-jobs-card">
 
-                <div className="job-action-buttons">
-                    <button className="btn-modern" onClick={() => setAddIsOpen(!addIsOpen)}>
+
+                {/* Sankey Chart */}
+                {(isSignedIn.savedJobs &&
+                    isSignedIn.savedJobs.filter(job => job.applied).length > 0 &&
+                    data?.nodes?.length && data?.links?.length) && (
+                    <div className="d-flex justify-content-center">
+                        <Sankey
+                            width={800}
+                            height={400}
+                            data={data}
+                            nodePadding={30}
+                            margin={{
+                                left: 60,
+                                right: 60,
+                                top: 50,
+                                bottom: 50,
+                            }}
+                            node={(nodeProps) => (
+                                <Layer key={nodeProps.index}>
+                                    <rect
+                                        x={nodeProps.x}
+                                        y={nodeProps.y}
+                                        width={nodeProps.width}
+                                        height={nodeProps.height}
+                                        fill="#8884d8"
+                                    />
+                                    {/* Background rectangle */}
+                                    <rect
+                                        x={nodeProps.x + nodeProps.width / 2 - nodeProps.payload.name.length * 4} // Adjust based on text position
+                                        y={nodeProps.y + nodeProps.height + 5} // Adjust based on text position
+                                        width={nodeProps.payload.name.length * 8} // Adjust width based on text length
+                                        height={20} // Adjust height for background size
+                                        fill="aqua" // Background color
+                                        rx={5} // Optional: round the corners
+                                    />
+                                    <Text
+                                        x={nodeProps.x} // Move text to the right for the first node
+                                        y={nodeProps.y + nodeProps.height + 20} // Center the label vertically
+                                        textAnchor="middle" // Align text to the center
+                                        fontSize={14}
+                                        fill="blue"
+                                        dx={5}
+                                    >
+                                        {nodeProps.payload.name}
+                                    </Text>
+                                </Layer>
+                            )}
+                            link={{stroke: "#8884d8"}}
+                            animationDuration={1000} // Duration of the animation (in ms)
+                            animationEasing="linear"
+                        >
+                            <Tooltip/>
+                        </Sankey>
+                    </div>
+                )}
+
+
+                {/* Top Buttons */}
+                <div className="top-btns">
+                    <button className="top-btn" onClick={() => setAddIsOpen(!addIsOpen)}>
                         Add a Job
                     </button>
-                    <button className="btn-modern" onClick={() => setIsOpen(!isOpen)}>
+                    <button className="top-btn" onClick={() => setIsOpen(!isOpen)}>
                         Filters
                     </button>
                 </div>
 
-                    {/* Floating dropdown menu */}
-                    {addIsOpen && (
-                        <Form onSubmit={(e) => {
-                            e.preventDefault();
-                            handleAdd(newJob);
-                        }}>
-                            <Form.Group className="mb-3" controlId="formBasicEmail">
-                                <Form.Label>Job Title</Form.Label>
-                                <Form.Control type="text" placeholder="Enter job title"
-                                              onChange={(e) => setNewJob({...newJob, parsedTitle: e.target.value})}
-                                              required/>
-                            </Form.Group>
-                            <Form.Group className="mb-3" controlId="formBasicEmail">
-                                <Form.Label>Link</Form.Label>
-                                <Form.Control type="url" placeholder="Enter Link"
-                                              onChange={(e) => setNewJob({...newJob, link: e.target.value})}
-                                              required/>
-                            </Form.Group>
-                            <Form.Group className="mb-3" controlId="formBasicEmail">
-                                <Form.Label>Company</Form.Label>
-                                <Form.Control type="text" placeholder="Enter company"
-                                              onChange={(e) => setNewJob({...newJob, company: e.target.value})}/>
-                            </Form.Group>
-                            <Form.Group className="mb-3" controlId="formBasicEmail">
-                                <Form.Label>Job</Form.Label>
-                                <Form.Control type="text" placeholder="Enter job"
-                                              onChange={(e) => setNewJob({...newJob, job: e.target.value})}/>
-                            </Form.Group>
-                            <Form.Group className="mb-3" controlId="formBasicEmail">
-                                <Form.Label>Location</Form.Label>
-                                <Form.Control type="text" placeholder="Enter location"
-                                              onChange={(e) => setNewJob({...newJob, location: e.target.value})}/>
-                            </Form.Group>
-                            <div className="form-button-wrapper">
-                                <button className="btn-modern" type="submit">
-                                    Add
-                                </button>
-                            </div>
 
-                        </Form>
-                    )}
+                {/* Add Job Form with floating dropdown menu */}
+                {addIsOpen && (
+                    <Form className="add-job-form"
+                          onSubmit={(e) => {
+                              e.preventDefault();
+                              handleAdd(newJob);
+                          }}>
+                        <Form.Group className="form-group" controlId="formBasicEmail">
+                            <Form.Label>Job Title</Form.Label>
+                            <Form.Control
+                                type="text"
+                                placeholder="Enter job title"
+                                onChange={(e) => setNewJob({...newJob, parsedTitle: e.target.value})}
+                                required/>
+                        </Form.Group>
+                        <Form.Group className="form-group" controlId="formBasicEmail">
+                            <Form.Label>Link</Form.Label>
+                            <Form.Control
+                                type="url" placeholder="Enter Link"
+                                onChange={(e) => setNewJob({...newJob, link: e.target.value})}
+                                required/>
+                        </Form.Group>
+                        <Form.Group className="form-group" controlId="formBasicEmail">
+                            <Form.Label>Company</Form.Label>
+                            <Form.Control
+                                type="text"
+                                placeholder="Enter company"
+                                onChange={(e) => setNewJob({...newJob, company: e.target.value})}/>
+                        </Form.Group>
+                        <Form.Group className="form-group" controlId="formBasicEmail">
+                            <Form.Label>Job</Form.Label>
+                            <Form.Control
+                                type="text"
+                                placeholder="Enter job"
+                                onChange={(e) => setNewJob({...newJob, job: e.target.value})}/>
+                        </Form.Group>
+                        <Form.Group className="form-group" controlId="formBasicEmail">
+                            <Form.Label>Location</Form.Label>
+                            <Form.Control
+                                type="text"
+                                placeholder="Enter location"
+                                onChange={(e) => setNewJob({...newJob, location: e.target.value})}/>
+                        </Form.Group>
+
+                        <div className="form-button-wrapper">
+                            <button className="top-btn" type="submit">
+                                Add
+                            </button>
+                        </div>
+
+                    </Form>
+                )}
 
 
-                    {/* Floating dropdown menu */}
-                    {isOpen && (
-                        <div className="filter-wrapper">
+                {/* Filters Panel with floating dropdown menu */}
+                {isOpen && (
+                    <div className="filter-panel">
                         <div className="filter-container">
                             {/* Filter Toggles */}
-                            <h3>Filters</h3>
-                                    <label>
-                                        <input
-                                            type="checkbox"
-                                            name="appliedEnabled"
-                                            checked={filters.appliedEnabled}
-                                            onChange={handleToggleChange}
-                                        />
-                                        Show Applied
-                                    </label>
-                                    <label>
-                                        <input
-                                            type="checkbox"
-                                            name="interviewEnabled"
-                                            checked={filters.interviewEnabled}
-                                            onChange={handleToggleChange}
-                                        />
-                                        Show Interview
-                                    </label>
-                                    <label>
-                                        <input
-                                            type="checkbox"
-                                            name="offerEnabled"
-                                            checked={filters.offerEnabled}
-                                            onChange={handleToggleChange}
-                                        />
-                                        Show Offer
-                                    </label>
-                                    <label>
-                                        <input
-                                            type="checkbox"
-                                            name="rejectedEnabled"
-                                            checked={filters.rejectedEnabled}
-                                            onChange={handleToggleChange}
-                                        />
-                                        Show Rejected
-                                    </label>
+                        {/*<h3 className="filters-title">Filters</h3>*/}
+                        <label>
+                        <input
+                                    type="checkbox"
+                                    name="appliedEnabled"
+                                    checked={filters.appliedEnabled}
+                                    onChange={handleToggleChange}
+                                />
+                                Show Applied
+                            </label>
+                            <label>
+                                <input
+                                    type="checkbox"
+                                    name="interviewEnabled"
+                                    checked={filters.interviewEnabled}
+                                    onChange={handleToggleChange}
+                                />
+                                Show Interview
+                            </label>
+                            <label>
+                                <input
+                                    type="checkbox"
+                                    name="offerEnabled"
+                                    checked={filters.offerEnabled}
+                                    onChange={handleToggleChange}
+                                />
+                                Show Offer
+                            </label>
+                            <label>
+                                <input
+                                    type="checkbox"
+                                    name="rejectedEnabled"
+                                    checked={filters.rejectedEnabled}
+                                    onChange={handleToggleChange}
+                                />
+                                Show Rejected
+                            </label>
                         </div>
-                        </div>
-                    )}
+                    </div>
+                )}
 
-
-                    {(isSignedIn.savedJobs &&
-                      isSignedIn.savedJobs.filter(job => job.applied).length > 0 &&
-                        data?.nodes?.length && data?.links?.length) && (
-                        <div className="d-flex justify-content-center">
-                            <Sankey
-                                width={800}
-                                height={400}
-                                data={data}
-                                nodePadding={30}
-                                margin={{
-                                    left: 60,
-                                    right: 60,
-                                    top: 50,
-                                    bottom: 50,
-                                }}
-                                node={(nodeProps) => (
-                                    <Layer key={nodeProps.index}>
-                                        <rect
-                                            x={nodeProps.x}
-                                            y={nodeProps.y}
-                                            width={nodeProps.width}
-                                            height={nodeProps.height}
-                                            fill="#8884d8"
-                                        />
-                                        {/* Background rectangle */}
-                                        <rect
-                                            x={nodeProps.x + nodeProps.width / 2 - nodeProps.payload.name.length * 4} // Adjust based on text position
-                                            y={nodeProps.y + nodeProps.height + 5} // Adjust based on text position
-                                            width={nodeProps.payload.name.length * 8} // Adjust width based on text length
-                                            height={20} // Adjust height for background size
-                                            fill="aqua" // Background color
-                                            rx={5} // Optional: round the corners
-                                        />
-                                        <Text
-                                            x={nodeProps.x} // Move text to the right for the first node
-                                            y={nodeProps.y + nodeProps.height + 20} // Center the label vertically
-                                            textAnchor="middle" // Align text to the center
-                                            fontSize={14}
-                                            fill="blue"
-                                            dx={5}
-                                        >
-                                            {nodeProps.payload.name}
-                                        </Text>
-                                    </Layer>
-                                )}
-                                link={{stroke: "#8884d8"}}
-                                animationDuration={1000} // Duration of the animation (in ms)
-                                animationEasing="linear"
-                            >
-                                <Tooltip/>
-                            </Sankey>
-                        </div>
-                    )}
-
-                <Row className="d-flex justify-content-center ">
+                {/* Job List */}
+                <Row className="job-list-row">
                     <Card.Body>
-                        {!isSignedIn.savedJobs || (isSignedIn.savedJobs && isSignedIn.savedJobs.length == 0) &&
-                            <Card.Text className="empty-message">
-                                No saved jobs yet, add some!
-                            </Card.Text>
-                        }
-
-                        {isSignedIn.savedJobs && isSignedIn.savedJobs.length > 0 &&
+                        {!isSignedIn.savedJobs || (isSignedIn.savedJobs && isSignedIn.savedJobs.length === 0) ?(
+                                <Card.Text className="empty-message">No saved jobs yet, add some!</Card.Text>
+                            ) : (
                             <Card.Text>
-                                <ul style={{paddingLeft: "20px"}}>
+                                <ul className="saved-jobs-list">
                                     {isSignedIn.savedJobs.map((job, index) => (
                                         (filters.appliedEnabled || !job.applied) &&
                                         (filters.interviewEnabled || !job.interview) &&
                                         (filters.offerEnabled || !job.offer) &&
                                         (filters.rejectedEnabled || !job.rejected) &&
-                                        <li key={index} className="job-entry" style={{listStyleType: "none"}}>
-                                            <Card>
+                                        <li key={index} className="job-entry">
+                                            <Card className="job-card">
                                                 <Card.Link href={job.link} target="_blank" rel="noopener noreferrer">
                                                     {job.parsedTitle}
                                                 </Card.Link>
-                                                <Card.Body>
-                                                    <Col>
-                                                        <div>Company: {job.company}</div>
-                                                        <div>Job: {job.job}</div>
-                                                        <div>Location: {job.location}</div>
-                                                    </Col>
+                                                <Card.Body className="job-card-body">
+                                                    <div className="job-meta">
+                                                        <strong>Company:</strong> {job.company}</div>
+                                                    <div className="job-meta"><strong>Job:</strong> {job.job}
+                                                    </div>
+                                                    <div className="job-meta">
+                                                        <strong>Location:</strong> {job.location}</div>
                                                 </Card.Body>
-                                                <Container className="job-buttons">
 
-                                                        <button className="btn-modern" onClick={() => handleRemove(job)}>
-                                                            Remove
-                                                        </button>
-                                                        <AppliedButton key={job._id} job={job}
-                                                                       isSignedIn={isSignedIn}
-                                                                       toggleSignendIn={toggleSignendIn}/>
-                                                        <InterviewButton key={job._id} job={job}
-                                                                         isSignedIn={isSignedIn}
-                                                                         toggleSignendIn={toggleSignendIn}/>
-                                                        <OfferButton key={job._id} job={job} isSignedIn={isSignedIn}
-                                                                     toggleSignendIn={toggleSignendIn}/>
-                                                        <AcceptedButton key={job._id} job={job}
-                                                                        isSignedIn={isSignedIn}
-                                                                        toggleSignendIn={toggleSignendIn}/>
-                                                        <RejectedButton key={job._id} job={job}
-                                                                        isSignedIn={isSignedIn}
-                                                                        toggleSignendIn={toggleSignendIn}/>
+                                                <Container className="job-card-buttons">
 
+                                                    <button className="remove-button" onClick={() => handleRemove(job)}>
+                                                        Remove
+                                                    </button>
+                                                    <AppliedButton key={job._id} job={job} isSignedIn={isSignedIn} toggleSignendIn={toggleSignendIn}/>
+                                                    <InterviewButton key={job._id} job={job} isSignedIn={isSignedIn} toggleSignendIn={toggleSignendIn}/>
+                                                    <OfferButton key={job._id} job={job} isSignedIn={isSignedIn} toggleSignendIn={toggleSignendIn}/>
+                                                    <AcceptedButton key={job._id} job={job} isSignedIn={isSignedIn} toggleSignendIn={toggleSignendIn}/>
+                                                    <RejectedButton key={job._id} job={job} isSignedIn={isSignedIn} toggleSignendIn={toggleSignendIn}/>
                                                 </Container>
                                             </Card>
                                         </li>
                                     ))}
                                 </ul>
                             </Card.Text>
-                        }
+                        )}
                     </Card.Body>
 
                 </Row>
             </Card>
 
-
-            <div className="nav-buttons">
+            {/* Navigation Buttons */}
+            <div className="navigation-buttons">
                 <Link to="/FeaturedJobs">
-                    <button className="btn-modern">Featured</button>
+                    <button className="nav-button">Featured</button>
                 </Link>
                 <Link to="/JobSearch">
-                    <button className="btn-modern">Search</button>
+                    <button className="nav-button">Search</button>
                 </Link>
             </div>
 
 
         </div>
-);
+    );
 }
 
 export default SavedJobs;

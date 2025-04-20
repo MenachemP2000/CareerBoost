@@ -869,14 +869,15 @@ export default function JobSearch({ toggleScreen, isSignedIn, toggleSignendIn, c
                                             <Card.Body className="job-card-body">
                                                 {job.snippet.match(/\d+\s\w+\sago/).length > 0 &&
                                                     <div className="job-posted-date">
-                                                        Posted: {job.snippet.match(/\d+\s\w+\sago/)}
+                                                        <strong> Posted:</strong> {job.snippet.match(/\d+\s\w+\sago/)}
                                                     </div>
                                                 }
                                                 {(job.country === "Israel" || job.country === "USA") && (
                                                         <div className="job-meta">
-                                                            <div>Company: {job.company}</div>
-                                                            <div>Job: {job.job}</div>
-                                                            <div>Location: {job.location}</div></div>
+                                                            <div><strong>Company:</strong> {job.company}</div>
+                                                            <div><strong>Job:</strong> {job.job}</div>
+                                                            <div><strong>Location:</strong> {job.location}</div>
+                                                        </div>
                                                         )}
                                             </Card.Body>
 
