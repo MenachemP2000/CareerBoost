@@ -746,14 +746,24 @@ const SavedJobs = ({toggleScreen, isSignedIn, toggleSignendIn}) => {
 
                                                 <Container className="job-card-buttons">
 
+                                                    <AppliedButton className="job-button" key={job._id} job={job}
+                                                                   isSignedIn={isSignedIn}
+                                                                   toggleSignendIn={toggleSignendIn}/>
+                                                    <InterviewButton className="job-button" key={job._id} job={job}
+                                                                     isSignedIn={isSignedIn}
+                                                                     toggleSignendIn={toggleSignendIn}/>
+                                                    <OfferButton className="job-button" key={job._id} job={job}
+                                                                 isSignedIn={isSignedIn}
+                                                                 toggleSignendIn={toggleSignendIn}/>
+                                                    <AcceptedButton className="job-button" key={job._id} job={job}
+                                                                    isSignedIn={isSignedIn}
+                                                                    toggleSignendIn={toggleSignendIn}/>
+                                                    <RejectedButton className="job-button" key={job._id} job={job}
+                                                                    isSignedIn={isSignedIn}
+                                                                    toggleSignendIn={toggleSignendIn}/>
                                                     <button className="remove-button" onClick={() => handleRemove(job)}>
                                                         Remove
                                                     </button>
-                                                    <AppliedButton key={job._id} job={job} isSignedIn={isSignedIn} toggleSignendIn={toggleSignendIn}/>
-                                                    <InterviewButton key={job._id} job={job} isSignedIn={isSignedIn} toggleSignendIn={toggleSignendIn}/>
-                                                    <OfferButton key={job._id} job={job} isSignedIn={isSignedIn} toggleSignendIn={toggleSignendIn}/>
-                                                    <AcceptedButton key={job._id} job={job} isSignedIn={isSignedIn} toggleSignendIn={toggleSignendIn}/>
-                                                    <RejectedButton key={job._id} job={job} isSignedIn={isSignedIn} toggleSignendIn={toggleSignendIn}/>
                                                 </Container>
                                             </Card>
                                         </li>

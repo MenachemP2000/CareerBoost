@@ -221,10 +221,17 @@ const Prediction = ({ toggleScreen, isSignedIn, toggleSignendIn, selectedCurrenc
                             </Card>
 
                         }
-                        <Container className="prediction-buttons">
-                            <Button as={Link} to="/Experiment" style={{ width: '10rem', margin: "10px" }} className="prediction-button">Experiment</Button>
-                            <Button onClick={handleSignout} className="prediction-button">Sign Out</Button>
-                        </Container>
+                        <div className="prediction-buttons">
+                            <>
+                                <Link to="/Experiment">
+                                    <button className="prediction-button">Experiment</button>
+                                </Link>
+                            {/*<button onClick={navigate=>("/Experiment")} className="prediction-button">Experiment</button>*/}
+                                </>
+                            <>
+                            <button onClick={handleSignout} className="prediction-button">Sign Out</button>
+                            </>
+                        </div>
                     </Row>
                 }
 

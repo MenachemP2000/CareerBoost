@@ -226,7 +226,7 @@ const AdvancedRecommendations = ({ toggleScreen, isSignedIn, toggleSignendIn, la
                     <Card className="advanced-recommendations-card">
                         <Card.Header>Recommendations</Card.Header>
 
-                        <DropdownButton title="Options" variant="primary"  className="custom-dropdown">
+                        <DropdownButton title="Options" variant="primary" className="custom-dropdown">
                             {[
                                 {
                                     id: "checkbox1",
@@ -323,11 +323,11 @@ const AdvancedRecommendations = ({ toggleScreen, isSignedIn, toggleSignendIn, la
 
 
                 }
-
+                {/*<button className="action-btn" onClick={() => navigate("/Recommendations")}>Basic</button>*/}
                 <Container className="advanced-recommendations-btn">
-                    <Button as={Link} to="/Recommendations" className="action-btn">Basic</Button>
-                    <Button as={Link} to="/SavedRecommendations" className="action-btn">Saved</Button>
-                    <Button onClick={handleSignout} className="action-btn">Sign Out</Button>
+                    <button onClick={() => navigate("/Recommendations")} className="action-btn">Basic</button>
+                    <button onClick={() => navigate("/SavedRecommendations")} className="action-btn">Saved</button>
+                    <button onClick={handleSignout} className="action-btn">Sign Out</button>
                 </Container>
 
             </div>

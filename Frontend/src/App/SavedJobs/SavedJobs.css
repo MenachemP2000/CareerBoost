@@ -35,12 +35,19 @@ body.dark-mode .saved-jobs-subtitle {
     margin: 0;
 }
 .saved-jobs-card{
-    width: 70%;
-    background-color: #ffffff;
-    border-radius: 1rem;
-    padding: 2rem;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-    margin-bottom: 5%;
+    /*width: 70%;*/
+    /*background-color: #ffffff;*/
+    /*border-radius: 1rem;*/
+    /*padding: 2rem;*/
+    /*box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);*/
+    /*margin-bottom: 5%;*/
+
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        margin-top: 1rem;
+        justify-content: flex-start;
+
 }
 
 
@@ -231,35 +238,47 @@ form label,
     flex-direction: row;
     gap:  clamp(0.3rem, 1.5vw, 0.3rem);
     width: clamp(3rem, 10rem, 8rem);
-}
 
+    /*!*display: flex;*!*/
+    /*flex-wrap: wrap;*/
+    /*align-items: center; !* ensures vertical centering *!*/
+    /*gap: 0.5rem;*/
+    /*!*margin-top: 1rem;*!*/
+}
 .remove-button {
-    background-color: #ef4444;
-    color: white;
-    /*padding: 0.5rem 1rem;*/
-    /*border-radius: 0.5rem;*/
-    border: none;
-    font-weight: bold;
-    cursor: pointer;
-    /*transition: background-color 0.3s ease;*/
-
-    width: clamp(3rem, 10rem, 8rem);
-    padding: clamp(0.3rem, 1.5vw, 0.3rem) clamp(0.3rem, 1vw, 0.3rem);
-    font-size: clamp(0.3rem, 2vw, 1.3rem);
-    /*background: linear-gradient(45deg, #32a0e4, #c8c9ca); !* Gradient background *!*/
-    /*border: none; !* Remove border *!*/
-    /*color: white; !* Text color *!*/
-    /*padding: 10px 20px; !* Padding for buttons *!*/
-    /*font-size: 1.2rem; !* Font size *!*/
-    /*font-weight: bold;*/
-    border-radius: 8px; /* Rounded corners */
-    text-align: center; /* Center align text */
-    text-decoration: none; /* Remove underline from links */
-    transition: background 0.3s ease; /* Smooth transition for hover effect */
-    /*width: 150px; !* Set specific width *!*/
-    min-width: fit-content;
-    height: fit-content; /* Set specific height */
+    background-color: #ef4444; /* red */
+    height: fit-content;
+    margin-top: 1rem;
+    margin-left: 1rem;
 }
+
+/*.remove-button {*/
+/*    background-color: #ef4444;*/
+/*    color: white;*/
+/*    !*padding: 0.5rem 1rem;*!*/
+/*    !*border-radius: 0.5rem;*!*/
+/*    border: none;*/
+/*    font-weight: bold;*/
+/*    cursor: pointer;*/
+/*    !*transition: background-color 0.3s ease;*!*/
+
+/*    width: clamp(3rem, 10rem, 8rem);*/
+/*    padding: clamp(0.3rem, 1.5vw, 0.3rem) clamp(0.3rem, 1vw, 0.3rem);*/
+/*    font-size: clamp(0.3rem, 2vw, 1.3rem);*/
+/*    !*background: linear-gradient(45deg, #32a0e4, #c8c9ca); !* Gradient background *!*!*/
+/*    !*border: none; !* Remove border *!*!*/
+/*    !*color: white; !* Text color *!*!*/
+/*    !*padding: 10px 20px; !* Padding for buttons *!*!*/
+/*    !*font-size: 1.2rem; !* Font size *!*!*/
+/*    !*font-weight: bold;*!*/
+/*    border-radius: 8px; !* Rounded corners *!*/
+/*    text-align: center; !* Center align text *!*/
+/*    text-decoration: none; !* Remove underline from links *!*/
+/*    transition: background 0.3s ease; !* Smooth transition for hover effect *!*/
+/*    !*width: 150px; !* Set specific width *!*!*/
+/*    min-width: fit-content;*/
+/*    !*height: fit-content; !* Set specific height *!*!*/
+/*}*/
 
 .remove-button:hover {
     background-color: #dc2626;
