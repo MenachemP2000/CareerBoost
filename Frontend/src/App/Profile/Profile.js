@@ -26,7 +26,7 @@ const Profile = ({toggleScreen, isSignedIn, toggleSignendIn, countries, educatio
             navigate("/signin");
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+    }, [isSignedIn]);
 
     // Sign out function
     const handleSignout = () => {

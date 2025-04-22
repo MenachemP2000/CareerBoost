@@ -300,9 +300,10 @@ const AdvancedRecommendations = ({ toggleScreen, isSignedIn, toggleSignendIn, la
                                 {recommendations.map((recommendation, index) => {
                                     return (
                                         <li key={index} className="advanced-recommendations-item">
-                                            <span className="recommendation-text">{recommendation} </span>
+                                            <span className="recommendation-text">{recommendation.replace(/(to |it would |will )?increase your salary by approximately /g, "")} </span>
                                             <span className="salary-increase">
-                                                    {new Intl.NumberFormat('en', {
+                                                    
+                                                    + {new Intl.NumberFormat('en', {
                                                         style: 'currency',
                                                         currency: selectedCurrency,
                                                         maximumFractionDigits: 0

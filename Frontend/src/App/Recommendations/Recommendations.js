@@ -227,9 +227,9 @@ const Recommendations = ({toggleScreen, isSignedIn, toggleSignendIn, exchangeRat
                             <ul className="recommendations-list">
                                 {recommendations.map((recommendation, index) => (
                                     <li key={index} className="recommendations-item">
-                                        <span className="recommendation-text">{recommendation}</span>
+                                        <span className="recommendation-text">{recommendation.replace(/(to |it would |will )?increase your salary by approximately /g, "")}</span>
                                         <span className="salary-increase">
-                                            {new Intl.NumberFormat('en', {
+                                        + {new Intl.NumberFormat('en', {
                                                 style: 'currency',
                                                 currency: selectedCurrency,
                                                 maximumFractionDigits: 0
