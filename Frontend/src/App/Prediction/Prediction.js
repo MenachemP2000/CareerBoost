@@ -220,6 +220,7 @@ const Prediction = ({ toggleScreen, isSignedIn, toggleSignendIn, selectedCurrenc
                                 </Card>
                             </Card>
 
+
                         }
                         <div className="prediction-buttons">
                             <>
