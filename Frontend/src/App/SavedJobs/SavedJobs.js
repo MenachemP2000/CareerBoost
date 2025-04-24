@@ -718,7 +718,7 @@ const SavedJobs = ({toggleScreen, isSignedIn, toggleSignendIn}) => {
                 )}
 
                 {/* Job List */}
-                <Row className="job-list-row">
+                <div className="job-list">
                     <Card.Body>
                         {!isSignedIn.savedJobs || (isSignedIn.savedJobs && isSignedIn.savedJobs.length === 0) ?(
                                 <Card.Text className="empty-message">No saved jobs yet, add some!</Card.Text>
@@ -773,7 +773,7 @@ const SavedJobs = ({toggleScreen, isSignedIn, toggleSignendIn}) => {
                         )}
                     </Card.Body>
 
-                </Row>
+                </div>
             </Card>
 
             {/* Navigation Buttons */}

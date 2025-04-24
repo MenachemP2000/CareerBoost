@@ -193,7 +193,7 @@ form label,
     transition: color 0.3s ease;
 }
 
-.job-list-row {
+.job-list {
     width: 100%;
     display: flex;
     justify-content: center;
@@ -338,7 +338,18 @@ body.dark-mode form label {
     background: linear-gradient(45deg, #c8c9ca, #32a0e4);
 }
 
+.navigation-buttons{
+    display: flex;
+    flex-direction: row; /* Stack buttons vertically */
+    align-items: center;
+    justify-content: center;
 
+    gap: 1rem;
+    /*justify-content: center;*/
+    flex-wrap: wrap;
+    margin-bottom: 10%;
+    margin-top: 3rem;
+}
 
 
 
