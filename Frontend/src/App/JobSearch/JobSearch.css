@@ -200,6 +200,7 @@ body.dark-mode .alert-dropdown-header{
     padding: 2rem;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
     margin-bottom: 5%;
+
 }
 
  /*Job List*/
@@ -207,6 +208,7 @@ body.dark-mode .alert-dropdown-header{
     list-style: none;
     padding: 0;
     margin: 0;
+
 }
 
 .job-list-loading {
@@ -224,6 +226,9 @@ body.dark-mode .alert-dropdown-header{
 .job-list {
     list-style: none;
     padding: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 .job-list-item {

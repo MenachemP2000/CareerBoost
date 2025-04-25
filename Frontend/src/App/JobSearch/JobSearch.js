@@ -912,6 +912,7 @@ export default function JobSearch({ toggleScreen, isSignedIn, toggleSignendIn, c
                         onClick={() => handlePageChange(page + 1)}
                         disabled={page >= totalPages}
                         className="load-more-button"
+                        title="Load more content"
                     >
                         More
                     </button>

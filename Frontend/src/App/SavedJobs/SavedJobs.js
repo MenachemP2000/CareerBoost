@@ -732,7 +732,7 @@ const SavedJobs = ({toggleScreen, isSignedIn, toggleSignendIn}) => {
                                         (filters.rejectedEnabled || !job.rejected) &&
                                         <li key={index} className="job-entry">
                                             <Card className="job-card">
-                                                <Card.Link href={job.link} target="_blank" rel="noopener noreferrer">
+                                                <Card.Link className="saved-jobs-link" href={job.link} target="_blank" rel="noopener noreferrer">
                                                     {job.parsedTitle}
                                                 </Card.Link>
                                                 <Card.Body className="job-card-body">

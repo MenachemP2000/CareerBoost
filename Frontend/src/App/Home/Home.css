@@ -103,7 +103,7 @@
     text-align: center; /* Center align the text */
     margin-bottom: 20px; /* Add some space below the paragraph */
     background-color: #f0f0f0; /* Light grey background */
-    padding: 10px; /* Add some padding */
+    padding: clamp(0.3rem, 1.5vw, 0.3rem) clamp(0.3rem, 1vw, 0.3rem);; /* Add some padding */
     border-radius: 8px; /* Rounded corners */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
     max-width: 100px;
@@ -179,36 +179,36 @@ body.dark-mode .home-title {
 
 body.dark-mode .home-underline {
     background-color: rgba(252, 251, 251, 0.5);
-    width: 300px;
-    height: 4px;
-    margin-top: 10px;
+    /*width: 300px;*/
+    /*height: 4px;*/
+    /*margin-top: 10px;*/
 
 }
 
 body.dark-mode .home-lead1 {
     color: #0d787a;
-    font-size: 1.25rem;
-    margin-bottom: 20px;
+    /*font-size: 1.25rem;*/
+    /*margin-bottom: 20px;*/
 }
 
 body.dark-mode .home-lead {
     color: white;
-    font-size: 1.25rem;
-    margin-bottom: 20px;
+    /*font-size: 1.25rem;*/
+    /*margin-bottom: 20px;*/
 }
 
 body.dark-mode .button-container .btn-all {
     background: linear-gradient(45deg, #0d787a, #c8c9ca); /* Gradient background */
-    border: none; /* Remove border */
-    color: white; /* Text color */
-    padding: 10px 20px; /* Padding for buttons */
-    font-size: 1.2rem; /* Font size */
-    font-weight: bold;
-    border-radius: 8px; /* Rounded corners */
-    text-align: center; /* Center align text */
-    text-decoration: none; /* Remove underline from links */
-    transition: background 0.3s ease; /* Smooth transition for hover effect */
-    height: fit-content;
+    /*border: none; !* Remove border *!*/
+    /*color: white; !* Text color *!*/
+    /*padding: 10px 20px; !* Padding for buttons *!*/
+    /*font-size: 1.2rem; !* Font size *!*/
+    /*font-weight: bold;*/
+    /*border-radius: 8px; !* Rounded corners *!*/
+    /*text-align: center; !* Center align text *!*/
+    /*text-decoration: none; !* Remove underline from links *!*/
+    /*transition: background 0.3s ease; !* Smooth transition for hover effect *!*/
+    /*height: fit-content;*/
 }
 
 body.dark-mode .btn-all:hover {
