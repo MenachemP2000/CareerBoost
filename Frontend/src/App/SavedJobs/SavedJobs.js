@@ -609,7 +609,7 @@ const SavedJobs = ({toggleScreen, isSignedIn, toggleSignendIn}) => {
                 {/* Top Buttons */}
                 <div className="top-btns">
                     <button className="top-btn" onClick={() => setAddIsOpen(!addIsOpen)}>
-                        Add a Job
+                        Add Job
                     </button>
                     <button className="top-btn" onClick={() => setIsOpen(!isOpen)}>
                         Filters
@@ -744,27 +744,27 @@ const SavedJobs = ({toggleScreen, isSignedIn, toggleSignendIn}) => {
                                                         <strong>Location:</strong> {job.location}</div>
                                                 </Card.Body>
 
-                                                <Container className="job-card-buttons">
+                                                <div className="saved-jobs-card-buttons">
 
-                                                    <AppliedButton className="job-button" key={job._id} job={job}
+                                                    <AppliedButton className="saved-jobs-card-button" key={job._id} job={job}
                                                                    isSignedIn={isSignedIn}
                                                                    toggleSignendIn={toggleSignendIn}/>
-                                                    <InterviewButton className="job-button" key={job._id} job={job}
+                                                    <InterviewButton className="saved-jobs-card-button" key={job._id} job={job}
                                                                      isSignedIn={isSignedIn}
                                                                      toggleSignendIn={toggleSignendIn}/>
-                                                    <OfferButton className="job-button" key={job._id} job={job}
+                                                    <OfferButton className="saved-jobs-card-button" key={job._id} job={job}
                                                                  isSignedIn={isSignedIn}
                                                                  toggleSignendIn={toggleSignendIn}/>
-                                                    <AcceptedButton className="job-button" key={job._id} job={job}
+                                                    <AcceptedButton className="saved-jobs-card-button" key={job._id} job={job}
                                                                     isSignedIn={isSignedIn}
                                                                     toggleSignendIn={toggleSignendIn}/>
-                                                    <RejectedButton className="job-button" key={job._id} job={job}
+                                                    <RejectedButton className="saved-jobs-card-button" key={job._id} job={job}
                                                                     isSignedIn={isSignedIn}
                                                                     toggleSignendIn={toggleSignendIn}/>
                                                     <button className="remove-button" onClick={() => handleRemove(job)}>
                                                         Remove
                                                     </button>
-                                                </Container>
+                                                </div>
                                             </Card>
                                         </li>
                                     ))}

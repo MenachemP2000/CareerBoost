@@ -316,12 +316,35 @@ body.dark-mode form label {
     font-size: 1.1rem;
     margin-top: 1rem;
 }
+.saved-jobs-card-buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-top: 2rem;
+    flex-wrap: wrap;
+}
 
+/*.job-card .saved-jobs-card-button {*/
+/*    width: 10rem;*/
+/*    !*padding: clamp(0.3rem, 1.5vw, 0.3rem) clamp(0.3rem, 1vw, 0.3rem);*!*/
+/*    font-size: clamp(0.3rem, 2vw, 1.3rem);*/
+/*    background-color: #9d3b3b;*/
+/*    color: #ad0202;*/
+/*    border: none;*/
+/*    cursor: pointer;*/
+/*    transition: background 0.3s, transform 0.2s;*/
+/*    border-radius: 12px;*/
+/*    font-weight: 600;*/
+/*    text-align: center;*/
+/*    min-width: 90px;*/
+/*    box-shadow: 0 2px 5px rgba(0,0,0,0.1);*/
+/*}*/
 .top-btns,
 .nav-buttons {
     display: flex;
-    justify-content: center;
-    gap: 1.5rem;
+    /*justify-content: center;*/
+    gap: 0.5rem;
     margin-top: 2rem;
     flex-wrap: wrap;
 }
@@ -408,16 +431,6 @@ body.dark-mode .card-body div {
     color: #090909;
 }
 
-/*body.dark-mode .job-buttons button,*/
-/*body.dark-mode .btn-modern {*/
-/*    background-color: #4f46e5;*/
-/*    color: white;*/
-/*}*/
-
-/*body.dark-mode .job-buttons button:hover,*/
-/*body.dark-mode .btn-modern:hover {*/
-/*    background-color: #3730a3;*/
-/*}*/
 
 body.dark-mode .filter-container {
     background-color: #1e1f21;
