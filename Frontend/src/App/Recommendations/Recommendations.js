@@ -257,7 +257,7 @@ const Recommendations = ({toggleScreen, isSignedIn, toggleSignendIn, exchangeRat
                         <ResponsiveContainer width="100%" height={400}>
                             <BarChart data={data}>
                                 <XAxis tick={false} dataKey="name"/>
-                                <YAxis domain={['dataMin', 'auto']}/>
+                                <YAxis />
                                 <Tooltip  labelStyle={{ color: "black" }}
                                 />
                                 <Bar dataKey="salary" fill="#2563eb"/>

@@ -143,6 +143,7 @@ const currencyFlags = {
     "WST": "https://flagcdn.com/w40/ws.png",
     "XAF": "https://flagcdn.com/w40/cf.png",
     "XCD": "https://flagcdn.com/w40/vc.png",
+    "XCG": "https://flagcdn.com/w40/cw.png",
     "XOF": "https://flagcdn.com/w40/sn.png",
     "XPF": "https://flagcdn.com/w40/pf.png",
     "YER": "https://flagcdn.com/w40/ye.png",
