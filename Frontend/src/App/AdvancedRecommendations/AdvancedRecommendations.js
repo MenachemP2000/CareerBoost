@@ -226,7 +226,7 @@ const AdvancedRecommendations = ({ toggleScreen, isSignedIn, toggleSignendIn, la
                     <Card className="advanced-recommendations-card">
                         <Card.Header>Recommendations</Card.Header>
 
-                        <DropdownButton title="Options" variant="primary"  className="custom-dropdown">
+                        <DropdownButton title="Options" variant="primary" className="custom-dropdown">
                             {[
                                 {
                                     id: "checkbox1",
@@ -300,9 +300,10 @@ const AdvancedRecommendations = ({ toggleScreen, isSignedIn, toggleSignendIn, la
                                 {recommendations.map((recommendation, index) => {
                                     return (
                                         <li key={index} className="advanced-recommendations-item">
-                                            <span className="recommendation-text">{recommendation} </span>
+                                            <span className="recommendation-text">{recommendation.replace(/(to |it would |will )?increase your salary by approximately /g, "")} </span>
                                             <span className="salary-increase">
-                                                    {new Intl.NumberFormat('en', {
+                                                    
+                                                    + {new Intl.NumberFormat('en', {
                                                         style: 'currency',
                                                         currency: selectedCurrency,
                                                         maximumFractionDigits: 0
@@ -314,21 +315,20 @@ const AdvancedRecommendations = ({ toggleScreen, isSignedIn, toggleSignendIn, la
                             </ul>
                         </Card.Body>
                         <Card.Body>
-                            <Card.Text>
-                                if you change your information, you can ask to be re-recommended
+                            <Card.Text className="re-recommended-text">
+                                If you change your information, you can ask to be re-recommended:
                             </Card.Text>
-                            <Button as={Button} onClick={handleRecommendations} variant="primary"
-                                    className="re-btn">Re-Recommended</Button>
+                            <button onClick={handleRecommendations} className="re-btn">Re-Recommended</button>
                         </Card.Body>
                     </Card>
 
 
                 }
-
+                {/*<button className="action-btn" onClick={() => navigate("/Recommendations")}>Basic</button>*/}
                 <Container className="advanced-recommendations-btn">
-                    <Button as={Link} to="/Recommendations" className="action-btn">Basic</Button>
-                    <Button as={Link} to="/SavedRecommendations" className="action-btn">Saved</Button>
-                    <Button onClick={handleSignout} className="action-btn">Sign Out</Button>
+                    <button onClick={() => navigate("/Recommendations")} className="action-btn">Basic</button>
+                    <button onClick={() => navigate("/SavedRecommendations")} className="action-btn">Saved</button>
+                    <button onClick={handleSignout} className="action-btn">Sign Out</button>
                 </Container>
 
             </div>

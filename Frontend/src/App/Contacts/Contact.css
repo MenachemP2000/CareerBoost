@@ -15,11 +15,16 @@
     justify-content: center;
     text-align: center;
     color: white;
-    font-size: 2.5rem;
+    /*font-size: 25vh; !* 8% of viewport height *!*/
     font-weight: bold;
-    margin-bottom: 80px;
+    margin-bottom: 130px;
+    padding-top: 6rem;
 }
 
+.contact-header h1 {
+    color: black;
+    font-weight: bold;
+}
 /* Section Styling */
 .contact-section {
     max-width: 800px;
@@ -31,19 +36,20 @@
 }
 
 .contact-section h2 {
-    font-size: 24px;
+    font-weight: bold;
+    font-size: clamp(0.5rem, 1.5rem, 2.5rem);
     color: #222;
     margin-bottom: 15px;
 }
 
 .contact-section p, .contact-section ul {
-    font-size: 16px;
+    font-size: clamp(0.3rem, 2vw, 1.3rem);
     color: #555;
     line-height: 1.6;
 }
 
 .contact-section a {
-    color: #ff4500;
+    color: #0c989a;
     text-decoration: none;
     font-weight: bold;
 }
@@ -63,6 +69,7 @@
 }
 
 .contact-form h2 {
+    font-weight: bold;
     font-size: 24px;
     color: #222;
     margin-bottom: 20px;
@@ -96,7 +103,7 @@
 }
 
 .contact-form button {
-    background: #ff4500;
+    background: #919090;
     color: white;
     padding: 12px;
     font-size: 16px;
@@ -107,16 +114,17 @@
 }
 
 .contact-form button:hover {
-    background: #e63e00;
+    background: #c8c9ca;
 }
 /* Dark Mode */
 body.dark-mode .contact-container {
-    background-color: black;
+    background-color: rgb(12,12,12);
     color: #e4e6eb;
 }
 
 body.dark-mode .contact-header {
     /*background: url('/path-to-your-dark-header-image.jpg') no-repeat center center/cover;*/
+    color: white;
 }
 
 body.dark-mode .contact-section {
@@ -135,7 +143,7 @@ body.dark-mode .contact-section ul {
 }
 
 body.dark-mode .contact-section a {
-    color: #ff8e53;
+    color: #0c989a;
 }
 
 body.dark-mode .contact-form {
@@ -161,12 +169,12 @@ body.dark-mode .contact-form textarea {
 }
 
 body.dark-mode .contact-form button {
-    background: #ff8e53;
+    background: #0d787a;
     color: black;
 }
 
 body.dark-mode .contact-form button:hover {
-    background: #ff6b6b;
+    background: #c8c9ca;
 }
 /* Responsive Design */
 @media (max-width: 768px) {

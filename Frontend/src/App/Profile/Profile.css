@@ -1,25 +1,53 @@
 /* Profile.css */
-
 /* Profile Page Container */
 .profile-container {
     background-color: white;
-    min-height: 100vh;
+    /*min-height: 100vh;*/
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    width: 100%;
 }
+
+.profile-title {
+    margin-top: 3rem;
+    font-size: clamp(1.5rem, 2.5rem, 2.8rem);
+    font-weight: 600;
+    margin-bottom: 1rem;
+    text-align: center;
+    color: #1f2937;
+}
+
+.profile-subtitle {
+    font-size: 16px;
+    color: #7f8c8d;
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+
 /* Profile Card */
 .profile-card {
-    width: 100%;
-    max-width: 400px; /* Make it narrower */
-    background: white;
+    /*width: 100%;*/
+    /*max-width: 400px; !* Make it narrower *!*/
+    /*background: white;*/
     padding: 20px;
-    border-radius: 10px;
+    /*border-radius: 10px;*/
     text-align: center;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    /*box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);*/
     position: relative;
+    /*width: 30%;*/
+    margin-top: 3%;
+    /*margin-bottom: 10%;*/
+    background-color: #fff;
+    /*padding: 20px;*/
+    max-width: 500px;
+    border-radius: 8px;
+
+    min-width: 20rem;
+    box-shadow: 1px 4px 10px rgba(0, 0, 0, 0.1);
+    /*text-align: center;*/
+    transition: background-color 0.3s, box-shadow 0.3s, color 0.3s;
 }
 
 /* Profile Header (for Picture) */
@@ -27,8 +55,21 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: -10px;
+    /*margin-top: -10px;*/
 }
+
+label {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    text-align: center;
+    color: #1f2937;
+}
+body.dark-mode label {
+    color: #e4e6eb;
+}
+
+
 /* Profile Picture */
 .profile-picture {
     width: 120px;
@@ -38,11 +79,18 @@
     border: 3px solid white;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
+
 /* Profile Name */
 .profile-name {
-    font-size: 22px;
-    font-weight: bold;
+    /*font-size: 22px;*/
+    /*font-weight: bold;*/
     margin-top: 10px;
+
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    text-align: center;
+    /*color: #1f2937;*/
 }
 
 /* Profile Description */
@@ -51,55 +99,63 @@
     font-size: 1rem;
     margin-bottom: 15px;
 }
+
 /* Profile Information */
 .profile-info {
-    font-size: 1rem;
-    color: #333;
+    /*font-size: 1rem;*/
+    /*color: #333;*/
     text-align: left;
     padding: 0 10px;
     margin-top: 15px;
+    color: #050505;
+    font-size: clamp(0.3rem, 2vw, 1.3rem);
 }
-/* Profile Info */
-.profile-info {
-    font-size: 1rem;
-    color: #333;
-    text-align: left;
-    margin-top: 15px;
-}
+
+/*!* Profile Info *!*/
+/*.profile-info {*/
+/*    font-size: 1rem;*/
+/*    color: #333;*/
+/*    text-align: left;*/
+/*    margin-top: 15px;*/
+/*}*/
+
 /* Profile Buttons (Stacked in Row) */
 .profile-buttons {
     display: flex;
     flex-direction: row; /* Stack buttons vertically */
     align-items: center;
     justify-content: center;
-    gap: 10px; /* Adds space between buttons */
-    margin-top: 10px; /* Adjust as needed */
+
+    gap: 1rem;
+    /*justify-content: center;*/
+    flex-wrap: wrap;
+    margin-bottom: 10%;
+    margin-top: 2rem;
 }
 
 /* Fix button styling to match home.css */
 .profile-button {
-    background: linear-gradient(45deg, #ff6b6b, #ff8e53);
-    border: none;
-    color: white;
-    padding: 8px 15px;
-    font-size: 1rem;
+    width: clamp(3rem, 10rem, 8rem);
+    padding: clamp(0.3rem, 1.5vw, 0.3rem) clamp(0.3rem, 1vw, 0.3rem);
+    font-size: clamp(0.3rem, 2vw, 1.3rem);
+    background: linear-gradient(45deg, #32a0e4, #c8c9ca); /* Gradient background */
+    border: none; /* Remove border */
+    color: white; /* Text color */
+    /*padding: 10px 20px; !* Padding for buttons *!*/
+    /*font-size: 1.2rem; !* Font size *!*/
     font-weight: bold;
-    border-radius: 6px;
-    text-align: center;
-    text-decoration: none;
-    transition: background 0.3s ease;
-    width: max-content;
-    height: 40px;
+    border-radius: 8px; /* Rounded corners */
+    text-align: center; /* Center align text */
+    text-decoration: none; /* Remove underline from links */
+    transition: background 0.3s ease; /* Smooth transition for hover effect */
+    /*width: 150px; !* Set specific width *!*/
+    min-width: fit-content;
+    height: fit-content; /* Set specific height */
 
-}
-.profile-button:focus {
-    outline: none;
-    box-shadow: none; /* Removes any focus shadow */
 }
 
 .profile-button:hover {
-    background: linear-gradient(45deg, #ff8e53, #ff6b6b);
-    color: white;
+    background: linear-gradient(45deg, #c8c9ca, #32a0e4); /* Reverse gradient on hover */
 }
 
 
@@ -108,7 +164,15 @@
 body.dark-mode .profile-container {
     background-color: #18191a;
 }
-
+body.dark-mode .profile-title{
+    color: #e4e6eb;
+}
+body.dark-mode .title {
+    color: #b0b0b0;
+}
+body.dark-mode .profile-subtitle {
+    color: #ffffff;
+}
 body.dark-mode .profile-info {
     color: white;
 }
@@ -139,28 +203,28 @@ body.dark-mode .profile-name {
     color: #e4e6eb;
 }
 
-/* Dark Mode: Profile Description */
-body.dark-mode .profile-description {
-    color: #b0b3b8;
-}
+/*!* Dark Mode: Profile Description *!*/
+/*body.dark-mode .profile-description {*/
+/*    color: #b0b3b8;*/
+/*}*/
 
 /* Dark Mode: Profile Info */
 body.dark-mode .profile-info {
     color: #e4e6eb;
 }
 
-/* Dark Mode: Profile Buttons */
-body.dark-mode .profile-button {
-    /*background: linear-gradient(45deg, #ff8e53, #ff6b6b);*/
-    color: black;
-}
+/*!* Dark Mode: Profile Buttons *!*/
+/*body.dark-mode .profile-button {*/
+/*    !*background: linear-gradient(45deg, #ff8e53, #ff6b6b);*!*/
+/*    color: black;*/
+/*}*/
 
-body.dark-mode .profile-button:hover {
-    /*background: linear-gradient(45deg, #ff6b6b, #ff8e53);*/
-    color: black;
-}
+/*body.dark-mode .profile-button:hover {*/
+/*    !*background: linear-gradient(45deg, #ff6b6b, #ff8e53);*!*/
+/*    color: black;*/
+/*}*/
 
 /* Dark Mode: Profile Picture Border */
 body.dark-mode .profile-picture {
-    border: 3px solid #3a3b3c;
+    border: 3px solid rgba(250, 247, 247, 0.5);
 }

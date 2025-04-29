@@ -149,7 +149,7 @@ const Prediction = ({ toggleScreen, isSignedIn, toggleSignendIn, selectedCurrenc
 
         <div className="position-relative text-white text-center" >
             <div className="prediction-container">
-                <h3 className="display-4 fw-bold">Prediction</h3>
+                <h1 className="prediction-header">Prediction</h1>
                 <div className="underline mx-auto mb-3"></div>
 
                 <p className="lead text-center">
@@ -186,7 +186,7 @@ const Prediction = ({ toggleScreen, isSignedIn, toggleSignendIn, selectedCurrenc
                                         maximumFractionDigits: 0
                                     }).format(Math.floor(isSignedIn.prediction * exchangeRate))} per year</Card.Title>
                                     <br />
-                                    <Button onClick={handlePredict} className="prediction-button">Repredict</Button>
+                                    <button onClick={handlePredict} className="repredict-button">Re-predict</button>
                                 </Card.Body>
 
                                 <Card style={{ margin: "10px", maxWidth: "80vw" }}>
@@ -220,11 +220,19 @@ const Prediction = ({ toggleScreen, isSignedIn, toggleSignendIn, selectedCurrenc
                                 </Card>
                             </Card>
 
+
                         }
-                        <Container className="prediction-buttons">
-                            <Button as={Link} to="/Experiment" style={{ width: '10rem', margin: "10px" }} className="prediction-button">Experiment</Button>
-                            <Button onClick={handleSignout} className="prediction-button">Sign Out</Button>
-                        </Container>
+                        <div className="prediction-buttons">
+                            <>
+                                <Link to="/Experiment">
+                                    <button className="prediction-button">Experiment</button>
+                                </Link>
+                            {/*<button onClick={navigate=>("/Experiment")} className="prediction-button">Experiment</button>*/}
+                                </>
+                            <>
+                            <button onClick={handleSignout} className="prediction-button">Sign Out</button>
+                            </>
+                        </div>
                     </Row>
                 }
 

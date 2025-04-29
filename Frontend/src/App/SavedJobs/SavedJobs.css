@@ -1,0 +1,460 @@
+.saved-jobs-container {
+    min-height: 100vh;
+    background:white;
+    padding: 4rem 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.saved-jobs-title {
+    margin-top: 3rem;
+    font-size: clamp(1.5rem, 2.5rem, 2.8rem);
+    font-weight: 600;
+    margin-bottom: 1rem;
+    text-align: center;
+    color: #1f2937;
+}
+body.dark-mode .saved-jobs-title {
+    color: #ffffff;
+}
+
+.saved-jobs-subtitle {
+    font-size: 16px;
+    color: #7f8c8d;
+    text-align: center;
+    margin-bottom: 40px;
+}
+body.dark-mode .saved-jobs-subtitle {
+    color: #b0b0b0;
+}
+
+.saved-jobs-list{
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+.saved-jobs-card{
+    /*width: 70%;*/
+    /*background-color: #ffffff;*/
+    /*border-radius: 1rem;*/
+    /*padding: 2rem;*/
+    /*box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);*/
+    /*margin-bottom: 5%;*/
+
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        margin-top: 1rem;
+        justify-content: flex-start;
+       /*box-shadow: 1px 4px 12px rgba(255, 255, 255, 0.05);*/
+
+}
+
+
+.job-entry .job-card .saved-job-title-link {
+    color: #2563eb;
+    text-decoration: none;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+    font-size: clamp(1rem, 5vw, 1.5rem);
+    /*display: inline-block;*/
+}
+
+.job-card .saved-job-title-link:hover {
+    text-decoration: underline;
+}
+.saved-job-card-body{
+    color: #050505;
+    font-size: clamp(0.3rem, 2vw, 1.3rem);
+}
+
+
+.top-btns{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+.top-btn {
+    width: clamp(3rem, 10rem, 8rem);
+    padding: clamp(0.3rem, 1.5vw, 0.3rem) clamp(0.3rem, 1vw, 0.3rem);
+    font-size: clamp(0.3rem, 2vw, 1.3rem);
+    background: linear-gradient(45deg, #32a0e4, #c8c9ca); /* Gradient background */
+    border: none; /* Remove border */
+    color: white; /* Text color */
+    /*padding: 10px 20px; !* Padding for buttons *!*/
+    /*font-size: 1.2rem; !* Font size *!*/
+    font-weight: bold;
+    border-radius: 8px; /* Rounded corners */
+    text-align: center; /* Center align text */
+    text-decoration: none; /* Remove underline from links */
+    transition: background 0.3s ease; /* Smooth transition for hover effect */
+    /*width: 150px; !* Set specific width *!*/
+    min-width: fit-content;
+    height: fit-content; /* Set specific height */
+}
+.top-btn:hover {
+    background: linear-gradient(45deg, #c8c9ca, #32a0e4);
+}
+
+.add-job-form {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-left: 25%;
+    gap: 1.5rem;
+    padding: 1.5rem;
+    background-color:  #f9f9f9;
+    border-radius: 1rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    transition: background-color 0.3s ease;
+}
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.form-group label {
+    font-weight: 600;
+    color: #333;
+}
+
+.form-group input {
+    padding: 0.75rem 1rem;
+    border-radius: 0.5rem;
+    border: 1px solid #ccc;
+    font-size: 1rem;
+    transition: border 0.2s ease;
+}
+
+.form-group input:focus {
+    border-color: #5b7cfa;
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(91, 124, 250, 0.2);
+}
+.filters-panel {
+    display: flex;
+    background-color: #ffffff; /* fallback if you're not using CSS vars */
+    padding: 1.5rem;
+    border-radius: 1rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    text-align: center;
+    transition: background-color 0.3s ease;
+}
+.filter-container {
+    /*width: fit-content;*/
+    text-align: center;
+    background-color: #f9f9f9;
+    padding: 1.5rem;
+    border-radius: 1rem;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.06);
+    margin-top: 1.5rem;
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+
+    gap: 1rem;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    font-weight: bold; /* Make the text bold */
+    margin-bottom: 20px; /* Add some space below the paragraph */
+
+}
+
+/*.filters-title {*/
+/*    display:flex;*/
+/*    justify-content: center;*/
+/*    font-size: clamp(1rem, 2vw, 1.3rem);*/
+/*    font-weight: bold;*/
+/*    color: #333;*/
+/*    margin-bottom: 0.5rem;*/
+/*}*/
+.filter-option {
+    display: flex;
+    flex-direction: row;
+    gap: 0.5rem;
+}
+.filter-container label{
+    color: #050505;
+    font-size: clamp(0.3rem, 2vw, 1.3rem);
+}
+
+
+form label,
+.form-label {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #919090;
+    margin-bottom: 0.5rem;
+    display: inline-block;
+    transition: color 0.3s ease;
+}
+
+.job-list {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding: 2rem 0;
+}
+
+
+.saved-jobs-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    /*width: 70%;*/
+}
+
+.job-entry {
+    margin-bottom: 2rem;
+}
+.job-card {
+    background-color: #ffffff;
+    border-radius: 1rem;
+    padding: 2rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    border: 1px solid #e5e7eb;
+}
+.saved-jobs-link{
+    color: #2563eb;
+    text-decoration: none;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+    font-size: clamp(1rem, 2vw, 1.3rem);
+}
+.saved-jobs-link:hover {
+    text-decoration: underline;
+}
+
+.job-card-body {
+    font-size: 1rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.job-meta {
+    font-size: clamp(0.3rem, 2vw, 1.3rem);
+    color: #4b5563;
+    margin-top: 0.5rem;
+}
+
+.job-card-buttons {
+    margin-top: 1rem;
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    gap:  clamp(0.3rem, 1.5vw, 0.3rem);
+    width: clamp(3rem, 10rem, 8rem);
+
+    /*!*display: flex;*!*/
+    /*flex-wrap: wrap;*/
+    /*align-items: center; !* ensures vertical centering *!*/
+    /*gap: 0.5rem;*/
+    /*!*margin-top: 1rem;*!*/
+}
+.remove-button {
+    background-color: #ef4444; /* red */
+    height: fit-content;
+    margin-top: 1rem;
+    margin-left: 1rem;
+}
+
+/*.remove-button {*/
+/*    background-color: #ef4444;*/
+/*    color: white;*/
+/*    !*padding: 0.5rem 1rem;*!*/
+/*    !*border-radius: 0.5rem;*!*/
+/*    border: none;*/
+/*    font-weight: bold;*/
+/*    cursor: pointer;*/
+/*    !*transition: background-color 0.3s ease;*!*/
+
+/*    width: clamp(3rem, 10rem, 8rem);*/
+/*    padding: clamp(0.3rem, 1.5vw, 0.3rem) clamp(0.3rem, 1vw, 0.3rem);*/
+/*    font-size: clamp(0.3rem, 2vw, 1.3rem);*/
+/*    !*background: linear-gradient(45deg, #32a0e4, #c8c9ca); !* Gradient background *!*!*/
+/*    !*border: none; !* Remove border *!*!*/
+/*    !*color: white; !* Text color *!*!*/
+/*    !*padding: 10px 20px; !* Padding for buttons *!*!*/
+/*    !*font-size: 1.2rem; !* Font size *!*!*/
+/*    !*font-weight: bold;*!*/
+/*    border-radius: 8px; !* Rounded corners *!*/
+/*    text-align: center; !* Center align text *!*/
+/*    text-decoration: none; !* Remove underline from links *!*/
+/*    transition: background 0.3s ease; !* Smooth transition for hover effect *!*/
+/*    !*width: 150px; !* Set specific width *!*!*/
+/*    min-width: fit-content;*/
+/*    !*height: fit-content; !* Set specific height *!*!*/
+/*}*/
+
+.remove-button:hover {
+    background-color: #dc2626;
+}
+
+
+body.dark-mode form label {
+    color: #cfd3dc;
+}
+
+.form-button-wrapper {
+    display: flex;
+    justify-content: center;
+    margin-top: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+/*.saved-job-buttons{*/
+
+/*}*/
+
+.empty-message {
+    text-align: center;
+    color: #6c757d;
+    font-size: 1.1rem;
+    margin-top: 1rem;
+}
+.saved-jobs-card-buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-top: 2rem;
+    flex-wrap: wrap;
+}
+
+/*.job-card .saved-jobs-card-button {*/
+/*    width: 10rem;*/
+/*    !*padding: clamp(0.3rem, 1.5vw, 0.3rem) clamp(0.3rem, 1vw, 0.3rem);*!*/
+/*    font-size: clamp(0.3rem, 2vw, 1.3rem);*/
+/*    background-color: #9d3b3b;*/
+/*    color: #ad0202;*/
+/*    border: none;*/
+/*    cursor: pointer;*/
+/*    transition: background 0.3s, transform 0.2s;*/
+/*    border-radius: 12px;*/
+/*    font-weight: 600;*/
+/*    text-align: center;*/
+/*    min-width: 90px;*/
+/*    box-shadow: 0 2px 5px rgba(0,0,0,0.1);*/
+/*}*/
+.top-btns,
+.nav-buttons {
+    display: flex;
+    /*justify-content: center;*/
+    gap: 0.5rem;
+    margin-top: 2rem;
+    flex-wrap: wrap;
+}
+
+.top-btn,.nav-button{
+    width: clamp(3rem, 10rem, 8rem);
+    padding: clamp(0.3rem, 1.5vw, 0.3rem) clamp(0.3rem, 1vw, 0.3rem);
+    font-size: clamp(0.3rem, 2vw, 1.3rem);
+    background: linear-gradient(45deg, #32a0e4, #c8c9ca); /* Gradient background */
+    border: none; /* Remove border */
+    color: white; /* Text color */
+    /*padding: 10px 20px; !* Padding for buttons *!*/
+    /*font-size: 1.2rem; !* Font size *!*/
+    font-weight: bold;
+    border-radius: 8px; /* Rounded corners */
+    text-align: center; /* Center align text */
+    text-decoration: none; /* Remove underline from links */
+    transition: background 0.3s ease; /* Smooth transition for hover effect */
+    /*width: 150px; !* Set specific width *!*/
+    min-width: fit-content;
+    height: fit-content; /* Set specific height */
+}
+.top-btn:hover,
+.nav-button:hover {
+    background: linear-gradient(45deg, #c8c9ca, #32a0e4);
+}
+
+.navigation-buttons{
+    display: flex;
+    flex-direction: row; /* Stack buttons vertically */
+    align-items: center;
+    justify-content: center;
+
+    gap: 1rem;
+    /*justify-content: center;*/
+    flex-wrap: wrap;
+    margin-bottom: 10%;
+    margin-top: 3rem;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+body.dark-mode .saved-jobs-container {
+    background-color: rgb(12,12,12);
+    color: #e4e6eb;
+}
+
+body.dark-mode .saved-jobs-title {
+    color: #ffffff;
+}
+
+body.dark-mode .saved-jobs-subtitle {
+    color: #b0b3b8;
+}
+
+body.dark-mode .saved-jobs-card {
+    background-color: #1e1f21;
+    color: #babbbf;
+    box-shadow: 0 8px 24px rgba(255, 255, 255, 0.05);
+}
+
+/*body.dark-mode .job-entry {*/
+/*    background-color: #242526;*/
+/*    color: #e4e6eb;*/
+/*    box-shadow: 0 4px 12px rgba(255, 255, 255, 0.05);*/
+/*}*/
+
+body.dark-mode .card-body div {
+    color: #090909;
+}
+
+
+body.dark-mode .filter-container {
+    background-color: #1e1f21;
+    color: #e4e6eb;
+    box-shadow: 0 4px 12px rgba(255, 255, 255, 0.05);
+}
+
+body.dark-mode .filter-container h3 {
+    color: #ffffff;
+}
+
+body.dark-mode .filter-container label {
+    color: #cccccc;
+}
+
+body.dark-mode .empty-message {
+    color: #b0b3b8;
+}
+
+/*body.dark-mode .nav-buttons button {*/
+/*    background-color: #4f46e5;*/
+/*    color: white;*/
+/*}*/
+
+/*body.dark-mode .nav-buttons button:hover {*/
+/*    background-color: #3730a3;*/
+/*}*/

@@ -101,42 +101,70 @@
     font-weight: bold;
     color: #27ae60;
 }
+
 .advanced-recommendations-item:last-child {
     border-bottom: none;
 }
+
 .recommendation-text {
     font-weight: 500;
     color: #34495e;
 }
-.re-btn{
-    background: linear-gradient(45deg, #ff6b6b, #ff8e53);
-    border: none;
-    color: white;
-    padding: 10px;
+
+.re-recommended-text{
     font-weight: bold;
-    border-radius: 6px;
-    width: max-content;
-    min-width: 80px;
-    gap: 10px;
+    color: #34495e;
 }
 
+.action-btn, .re-btn{
+    width: clamp(3rem, 10rem, 8rem);
+    padding: clamp(0.3rem, 1.5vw, 0.3rem) clamp(0.3rem, 1vw, 0.3rem);
+    font-size: clamp(0.3rem, 2vw, 1.3rem);
+    background: linear-gradient(45deg, #32a0e4, #c8c9ca); /* Gradient background */
+    border: none; /* Remove border */
+    color: white; /* Text color */
+    /*padding: 10px 20px; !* Padding for buttons *!*/
+    /*font-size: 1.2rem; !* Font size *!*/
+    font-weight: bold;
+    border-radius: 8px; /* Rounded corners */
+    text-align: center; /* Center align text */
+    text-decoration: none; /* Remove underline from links */
+    transition: background 0.3s ease; /* Smooth transition for hover effect */
+    /*width: 150px; !* Set specific width *!*/
+    min-width: fit-content;
+    height: fit-content; /* Set specific height */
+}
+
+.action-btn:hover,
+.re-btn:hover {
+    background: linear-gradient(45deg, #c8c9ca, #32a0e4); /* Reverse gradient on hover */
+    color: white; /* Ensure text color remains white on hover */
+}
 
 .advanced-recommendations-btn {
     display: flex;
     justify-content: center;
     gap: 15px; /* Adjust the space between buttons */
 }
-.action-btn {
-    background: linear-gradient(45deg, #ff6b6b, #ff8e53);
-    border: none;
-    color: white;
-    padding: 10px;
-    font-weight: bold;
-    border-radius: 6px;
-    width: max-content;
-    min-width: 80px;
-    gap: 10px;
-}
+
+/*.action-btn {*/
+/*    width: clamp(3rem, 10rem, 8rem);*/
+/*    padding: clamp(0.3rem, 1.5vw, 0.3rem) clamp(0.3rem, 1vw, 0.3rem);*/
+/*    font-size: clamp(0.3rem, 2vw, 1.3rem);*/
+/*    background: linear-gradient(45deg, #32a0e4, #c8c9ca); !* Gradient background *!*/
+/*    border: none; !* Remove border *!*/
+/*    color: white; !* Text color *!*/
+/*    !*padding: 10px 20px; !* Padding for buttons *!*!*/
+/*    !*font-size: 1.2rem; !* Font size *!*!*/
+/*    font-weight: bold;*/
+/*    border-radius: 8px; !* Rounded corners *!*/
+/*    text-align: center; !* Center align text *!*/
+/*    text-decoration: none; !* Remove underline from links *!*/
+/*    transition: background 0.3s ease; !* Smooth transition for hover effect *!*/
+/*    !*width: 150px; !* Set specific width *!*!*/
+/*    min-width: fit-content;*/
+/*    height: fit-content; !* Set specific height *!*/
+/*}*/
 
 
 /* Dark Mode */

@@ -1,25 +1,57 @@
-    /* Home.css */
-    .home-container {
-        position: relative;
-        text-align: center;
-        min-height: 100vh;
-        background-color: rgb(255, 255, 255);
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-    }
+/* Home.css */
+.picture-container {
+    background-image: url('../images/home-pic-light.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    min-height: 100vh;
+}
+
+.home-container {
+    padding-top: 5vh; /* Adjust this as needed */
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    justify-content: flex-start; /* Important: push card to top */
+    min-height: 100vh;
+    background-color: transparent;
+}
+
 .home-title-container {
     display: flex;
     flex-direction: column;
     align-items: center;
 }
+
 .home-title {
     color: #ea4c0f;
-    font-size: 2.5rem;
+    font-size: clamp(1.5rem, 2.5rem, 2.8rem);
     display: flex;
     align-items: center;
 }
+
+.home-card {
+    max-width: 55%;
+    min-width: 25rem;
+    position: relative;      /* Required for z-index to work */
+    /*z-index: 10;             !* Puts it above the background image *!*/
+    border: 2px solid #30467e; /* blue border */
+    border-radius: 16px;
+    padding: 2rem;
+    background-color: white;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    /*margin-top: 1rem;*/
+    margin-left: 5%;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.home-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+}
+
+
+
 .home-title img {
     margin-right: 10px; /* Adjust spacing between the logo and the text */
 }
@@ -30,135 +62,173 @@
     height: 4px;
     margin-top: 10px; /* Adjust this value to move the underline closer to the text */
 }
-    .home-lead1 {
-        color: #0d787a;
-        font-size: 1.25rem;
-        margin-bottom: 20px;
-    }
 
-.home-lead {
-    color: #050505;
-    font-size: 1.25rem;
+.home-lead1 {
+    color: #0d787a;
+    font-size: clamp(0.3rem, 2vw, 1.3rem);
     margin-bottom: 20px;
 }
 
-    .button-row {
-        display: flex;
-        justify-content: center;
-    }
-
-    .button-container {
-        display: flex;
-        justify-content: center;
-        gap: 10px; /* Add some space between buttons */
-    }
-
-    .lead {
-        text-align: center;
-        margin-bottom: 20px; /* Add some space below the greeting */
-    }
-    .hello {
-        font-size: 1.5rem; /* Increase font size */
-        font-weight: bold; /* Make the text bold */
-        color: #ea4c0f; /* Green color */
-        text-align: center; /* Center align the text */
-        margin-bottom: 20px; /* Add some space below the paragraph */
-        background-color: #f0f0f0; /* Light grey background */
-        padding: 10px; /* Add some padding */
-        border-radius: 8px; /* Rounded corners */
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
-    }
-    /*!* Container styles *!*/
-    /*.button-container {*/
-    /*    display: flex;*/
-    /*    justify-content: center;*/
-    /*    gap: 10px; !* Add some space between buttons *!*/
-    /*}*/
-
-    /* Button styles */
-    .button-container .btn-all {
-        background: linear-gradient(45deg, #ff6b6b, #ff8e53); /* Gradient background */
-        border: none; /* Remove border */
-        color: white; /* Text color */
-        padding: 10px 20px; /* Padding for buttons */
-        font-size: 1.2rem; /* Font size */
-        font-weight: bold;
-        border-radius: 8px; /* Rounded corners */
-        text-align: center; /* Center align text */
-        text-decoration: none; /* Remove underline from links */
-        transition: background 0.3s ease; /* Smooth transition for hover effect */
-        width: 200px; /* Set specific width */
-        height: 50px; /* Set specific height */
-    }
-
-    .btn-all:hover {
-        background: linear-gradient(45deg, #ff8e53, #ff6b6b); /* Reverse gradient on hover */
-        color: white; /* Ensure text color remains white on hover */
-    }
-
-/*dark mode*/
-body.dark-mode .home-container {
-        position: relative;
-        text-align: center;
-        min-height: 100vh;
-        background-color: rgb(12, 12, 12);
-        display: flex;
-        flex-direction: column;
-        align-items: center;
+.home-lead {
+    color: #050505;
+    font-size: clamp(0.3rem, 2vw, 1.3rem);
+    margin-bottom: 20px;
 }
+
+.button-row {
+    display: flex;
+    justify-content: center;
+}
+
+.button-container {
+    display: flex;
+    justify-content: center;
+    gap: 10px; /* Add some space between buttons */
+}
+
+.lead {
+    text-align: center;
+    margin-bottom: 20px; /* Add some space below the greeting */
+}
+
+.button-row .hello{
+    padding-left: 50px;
+    padding-right: 50px;
+    max-width: fit-content;
+}
+.hello {
+    font-size: clamp(0.5rem, 1.5rem, 2.5rem); /* Increase font size */
+    font-weight: bold; /* Make the text bold */
+    color: #ea4c0f; /* Green color */
+    text-align: center; /* Center align the text */
+    margin-bottom: 20px; /* Add some space below the paragraph */
+    background-color: #f0f0f0; /* Light grey background */
+    padding: clamp(0.3rem, 1.5vw, 0.3rem) clamp(0.3rem, 1vw, 0.3rem);; /* Add some padding */
+    border-radius: 8px; /* Rounded corners */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    max-width: 100px;
+}
+
+
+/*!* Container styles *!*/
+/*.button-container {*/
+/*    display: flex;*/
+/*    justify-content: center;*/
+/*    gap: 10px; !* Add some space between buttons *!*/
+/*}*/
+
+/* Button styles */
+.button-container .btn-all {
+    width: clamp(3rem, 10rem, 8rem);
+    padding: clamp(0.3rem, 1.5vw, 0.3rem) clamp(0.3rem, 1vw, 0.3rem);
+    font-size: clamp(0.3rem, 2vw, 1.3rem);
+    background: linear-gradient(45deg, #32a0e4, #c8c9ca); /* Gradient background */
+    border: none; /* Remove border */
+    color: white; /* Text color */
+    /*padding: 10px 20px; !* Padding for buttons *!*/
+    /*font-size: 1.2rem; !* Font size *!*/
+    font-weight: bold;
+    border-radius: 8px; /* Rounded corners */
+    text-align: center; /* Center align text */
+    text-decoration: none; /* Remove underline from links */
+    transition: background 0.3s ease; /* Smooth transition for hover effect */
+    /*width: 150px; !* Set specific width *!*/
+    min-width: fit-content;
+    height: fit-content; /* Set specific height */
+}
+
+.btn-all:hover {
+    background: linear-gradient(45deg, #c8c9ca, #32a0e4); /* Reverse gradient on hover */
+    color: white; /* Ensure text color remains white on hover */
+}
+
+/*!*dark mode*!*/
+/*body.dark-mode .home-container {*/
+/*    position: relative;*/
+/*    text-align: center;*/
+/*    min-height: 100vh;*/
+/*    background-color: rgb(12, 12, 12);*/
+/*    display: flex;*/
+/*    flex-direction: column;*/
+/*    align-items: center;*/
+/*}*/
+
+/* Home.css */
+body.dark-mode .picture-container{
+    background-image: url('../images/img_1.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    min-height: 100vh;
+}
+body.dark-mode .home-card {
+    border: 2px solid #919090;
+    background-color: #1e1e1e;
+    color: #e0e0e0;
+    box-shadow: 0 4px 12px rgba(255, 255, 255, 0.05);
+}
+
+body.dark-mode .home-card:hover {
+    box-shadow: 0 6px 20px rgba(255, 255, 255, 0.1);
+}
+
 body.dark-mode .home-title {
     color: #ffffff;
 }
 
-body.dark-mode .home-underline{
+
+body.dark-mode .home-underline {
     background-color: rgba(252, 251, 251, 0.5);
-    width: 300px;
-    height: 4px;
-    margin-top: 10px;
+    /*width: 300px;*/
+    /*height: 4px;*/
+    /*margin-top: 10px;*/
 
 }
-    body.dark-mode .home-lead1 {
-        color: #0d787a;
-        font-size: 1.25rem;
-        margin-bottom: 20px;
-    }
-    body.dark-mode .home-lead {
-        color: white;
-        font-size: 1.25rem;
-        margin-bottom: 20px;
-    }
 
-    body.dark-mode .button-container .btn-all {
-        background: linear-gradient(45deg, #ff6b6b, #ff8e53); /* Gradient background */
-        border: none; /* Remove border */
-        color: black; /* Text color */
-        padding: 10px 20px; /* Padding for buttons */
-        font-size: 1.2rem; /* Font size */
-        font-weight: bold;
-        border-radius: 8px; /* Rounded corners */
-        text-align: center; /* Center align text */
-        text-decoration: none; /* Remove underline from links */
-        transition: background 0.3s ease; /* Smooth transition for hover effect */
-        width: 200px; /* Set specific width */
-        height: 50px; /* Set specific height */
-    }
-    body.dark-mode .btn-all:hover {
-        background: linear-gradient(45deg, #ff8e53, #ff6b6b); /* Reverse gradient on hover */
-        color: black; /* Ensure text color remains white on hover */
-    }
-    /*button {*/
-    /*    padding: 12px 25px; !* Slightly larger buttons *!*/
-    /*    margin: 5px; !* Adjusted margin *!*/
-    /*    font-size: 16px;*/
-    /*    border-radius: 8px; !* More rounded corners *!*/
-    /*    background-color: #343a40; !* Dark gray background *!*/
-    /*    color: #fff; !* White text *!*/
-    /*    border: none;*/
-    /*    cursor: pointer;*/
-    /*    transition: background-color 0.3s ease, transform 0.2s ease; !* Smooth transitions *!*/
-    /*}*/
+body.dark-mode .home-lead1 {
+    color: #0d787a;
+    /*font-size: 1.25rem;*/
+    /*margin-bottom: 20px;*/
+}
 
-    /*button:hover {*/
-    /*    background-color: #23272b; !* Slightly darker gray on hover *!*/
-    /*    transform: translateY(-2px); !* Slight lift effect on hover *!*/
-    /*}*/
+body.dark-mode .home-lead {
+    color: white;
+    /*font-size: 1.25rem;*/
+    /*margin-bottom: 20px;*/
+}
+
+body.dark-mode .button-container .btn-all {
+    background: linear-gradient(45deg, #0d787a, #c8c9ca); /* Gradient background */
+    /*border: none; !* Remove border *!*/
+    /*color: white; !* Text color *!*/
+    /*padding: 10px 20px; !* Padding for buttons *!*/
+    /*font-size: 1.2rem; !* Font size *!*/
+    /*font-weight: bold;*/
+    /*border-radius: 8px; !* Rounded corners *!*/
+    /*text-align: center; !* Center align text *!*/
+    /*text-decoration: none; !* Remove underline from links *!*/
+    /*transition: background 0.3s ease; !* Smooth transition for hover effect *!*/
+    /*height: fit-content;*/
+}
+
+body.dark-mode .btn-all:hover {
+    background: linear-gradient(45deg, #c8c9ca, #0d787a); /* Reverse gradient on hover */
+    color: black; /* Ensure text color remains white on hover */
+}
+
+/*button {*/
+/*    padding: 12px 25px; !* Slightly larger buttons *!*/
+/*    margin: 5px; !* Adjusted margin *!*/
+/*    font-size: 16px;*/
+/*    border-radius: 8px; !* More rounded corners *!*/
+/*    background-color: #343a40; !* Dark gray background *!*/
+/*    color: #fff; !* White text *!*/
+/*    border: none;*/
+/*    cursor: pointer;*/
+/*    transition: background-color 0.3s ease, transform 0.2s ease; !* Smooth transitions *!*/
+/*}*/
+
+/*button:hover {*/
+/*    background-color: #23272b; !* Slightly darker gray on hover *!*/
+/*    transform: translateY(-2px); !* Slight lift effect on hover *!*/
+/*}*/

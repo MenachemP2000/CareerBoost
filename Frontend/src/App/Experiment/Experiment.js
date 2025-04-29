@@ -207,7 +207,7 @@ const Experiment = ({ toggleSignendIn, toggleScreen, isSignedIn, languages, empl
                             <Col md={8}>
                                 <Card className="experiment-card">
                                     <Card.Body>
-                                        <Card.Title>Basic Information</Card.Title>
+                                        <Card.Title className="basic-information">Basic Information</Card.Title>
 
                                         <Form.Group controlId="formCountry" className="mb-3">
                                             <Form.Label>Country</Form.Label>
@@ -272,7 +272,9 @@ const Experiment = ({ toggleSignendIn, toggleScreen, isSignedIn, languages, empl
                                             </Form.Control>
                                         </Form.Group>
 
-                                        <Card.Title>Advanced Information</Card.Title>
+                                        <br></br>
+
+                                        <Card.Title className="advanced-information">Advanced Information</Card.Title>
                                         <Form onSubmit={handleSubmit}>
 
                                             <Form.Group controlId="formMainBranch" className="mb-3">
@@ -540,9 +542,13 @@ const Experiment = ({ toggleSignendIn, toggleScreen, isSignedIn, languages, empl
                                                 />
                                             </Form.Group>
 
+                                            <br></br>
+                                            <br></br>
+
                                             {(isSignedIn.experiment && isSignedIn.experiment.prediction) &&
-                                                <Card style={{margin: "10px"}}>
-                                                    <Card.Header>Salary Prediction</Card.Header>
+                                                <div className="center-salary-card">
+                                                <Card className="salary-prediction-card">
+                                                <Card.Header>Salary Prediction</Card.Header>
                                                     <Card.Body>
                                                         <Card.Text style={{color: "green"}}>
 
@@ -556,6 +562,7 @@ const Experiment = ({ toggleSignendIn, toggleScreen, isSignedIn, languages, empl
                                                         </Card.Text>
                                                     </Card.Body>
                                                 </Card>
+                                                </div>
 
                                             }
                                             <div className="button-group">
