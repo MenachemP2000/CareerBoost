@@ -195,7 +195,7 @@ const Prediction = ({ toggleScreen, isSignedIn, toggleSignendIn, selectedCurrenc
                                             <BarChart data={top3Data}>
                                                 <XAxis axisLine={false} dataKey="feature" tick={false} />
                                                 <YAxis axisLine={false} tick={false} />
-                                                <Tooltip />
+                                                <Tooltip  labelStyle={{ color: "black" }}/>
                                                 <Bar dataKey="impact" label>
                                                     {top3Data.map((entry, index) => (
                                                         <Cell key={`cell-${index}`} fill={COLORS[index]} />
