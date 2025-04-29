@@ -100,6 +100,13 @@ body.dark-mode .prediction-card {
     color: white;
     box-shadow: 0 4px 10px rgba(255, 255, 255, 0.1);
 }
+
+body.dark-mode .prediction-chart {
+    background: #242526;
+    color: white;
+    box-shadow: 0 4px 10px rgba(255, 255, 255, 0.1);
+}
+
 .repredict-button:hover{
     background: linear-gradient(45deg, #c8c9ca, #32a0e4); /* Reverse gradient on hover */
 }

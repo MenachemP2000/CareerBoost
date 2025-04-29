@@ -189,10 +189,9 @@ const Prediction = ({ toggleScreen, isSignedIn, toggleSignendIn, selectedCurrenc
                                     <button onClick={handlePredict} className="repredict-button">Re-predict</button>
                                 </Card.Body>
 
-                                <Card style={{ margin: "10px", maxWidth: "80vw" }}>
+                                <Card className="prediction-card " style={{ margin: "10px", maxWidth: "80vw" }}>
                                     <Card.Header>Top Salary Impacting Features</Card.Header>
-                                    <Card.Body className="d-flex flex-column align-items-center">
-                                        <ResponsiveContainer height={400}>
+                                        <ResponsiveContainer  height={400}  className="prediction-chart ">
                                             <BarChart data={top3Data}>
                                                 <XAxis axisLine={false} dataKey="feature" tick={false} />
                                                 <YAxis axisLine={false} tick={false} />
@@ -203,19 +202,18 @@ const Prediction = ({ toggleScreen, isSignedIn, toggleSignendIn, selectedCurrenc
                                                     ))}
                                                     <LabelList
                                                         dataKey="feature"
-                                                        fontSize={12}
-                                                        fill="#000"
+                                                        fontSize={15}
+                                                        fill= "#fff"
                                                     />
                                                     <LabelList
                                                         dataKey="impact"
                                                         position="top"
-                                                        fontSize={12}
-                                                        fill="#000"
+                                                        fontSize={15}
+                                                        fill="#aaa"
                                                     />
                                                 </Bar>
                                             </BarChart>
                                         </ResponsiveContainer>
-                                    </Card.Body>
 
                                 </Card>
                             </Card>

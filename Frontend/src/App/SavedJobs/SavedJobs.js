@@ -761,9 +761,9 @@ const SavedJobs = ({toggleScreen, isSignedIn, toggleSignendIn}) => {
                                                     <RejectedButton className="saved-jobs-card-button" key={job._id} job={job}
                                                                     isSignedIn={isSignedIn}
                                                                     toggleSignendIn={toggleSignendIn}/>
-                                                    <button className="remove-button" onClick={() => handleRemove(job)}>
+                                                    <Button  variant="danger" style={{width: "10rem", margin: "10px", display: "flex", justifyContent: "center"}} onClick={() => handleRemove(job)}>
                                                         Remove
-                                                    </button>
+                                                    </Button>
                                                 </div>
                                             </Card>
                                         </li>

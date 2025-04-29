@@ -251,18 +251,18 @@ const Recommendations = ({toggleScreen, isSignedIn, toggleSignendIn, exchangeRat
                         </Card.Text>
                         <br></br>
                         <br></br>
+                        <Card.Text className="increase-approximate">
+                            Hover over the bars to see the salary estimates for each recommendation.
+                        </Card.Text>
                         <ResponsiveContainer width="100%" height={400}>
                             <BarChart data={data}>
-                                <XAxis dataKey="name"/>
-                                <YAxis/>
-                                <Tooltip/>
-                                <Legend/>
+                                <XAxis tick={false} dataKey="name"/>
+                                <YAxis domain={['dataMin', 'auto']}/>
+                                <Tooltip  labelStyle={{ color: "black" }}
+                                />
                                 <Bar dataKey="salary" fill="#2563eb"/>
                             </BarChart>
                         </ResponsiveContainer>
-                        {/*<Card.Text>*/}
-                        {/*    If you change your information, you can ask to be re-recommended*/}
-                        {/*</Card.Text>*/}
                         <br></br>
                         <div className="recalc-btn">
                             <button onClick={handleRecommendations} className="recommendations-btn">
@@ -279,10 +279,6 @@ const Recommendations = ({toggleScreen, isSignedIn, toggleSignendIn, exchangeRat
             </div>
             <br></br>
             <div className="recommendations-actions">
-                {/*<button onClick={() => navigate("/ModifyAdvanced")}*/}
-                {/*        className="profile-button">Advanced*/}
-                {/*</button>*/}
-
                 <>
                     <button onClick={()=>navigate("/AdvancedRecommendations")}
                             className="action-btn">Advanced
@@ -296,79 +292,3 @@ const Recommendations = ({toggleScreen, isSignedIn, toggleSignendIn, exchangeRat
 }
 
 export default Recommendations;
-
-{/*<Card.Text>*/
-}
-{/*    <ul style={{paddingLeft: "20px"}}>*/
-}
-{/*        {recommendations.map((recommendation, index) => {*/
-}
-{/*            return (*/
-}
-{/*                <li key={index} style={{*/
-}
-{/*                    marginBottom: "10px",*/
-}
-{/*                    display: "flex",*/
-}
-{/*                    justifyContent: "space-between"*/
-}
-{/*                }}>*/
-}
-{/*                    <span>{recommendation}</span>*/
-}
-{/*                    <span style={{color: "green", fontWeight: "bold"}}>*/
-}
-{/*                        {new Intl.NumberFormat('en', {*/
-}
-{/*                            style: 'currency',*/
-}
-{/*                            currency: selectedCurrency,*/
-}
-{/*                            maximumFractionDigits: 0*/
-}
-{/*                        }).format(Math.floor(recommendationsIncrese[recommendation] * exchangeRate))}*/
-}
-{/*                    </span>*/
-}
-{/*                </li>*/
-}
-{/*            );*/
-}
-{/*        })}*/
-}
-{/*    </ul>*/
-}
-{/*    <br/>*/
-}
-{/*</Card.Text>*/
-}
-
-{/*<Card.Text>*/
-}
-{/*    By following this top recommendations, your salary could increase to approximately*/
-}
-{/*    <span style={{color: "green", fontWeight: "bold"}}> {new Intl.NumberFormat('en', {*/
-}
-{/*        style: 'currency',*/
-}
-{/*        currency: selectedCurrency,*/
-}
-{/*        maximumFractionDigits: 0*/
-}
-{/*    }).format(Math.floor(isSignedIn.combined * exchangeRate))}*/
-}
-{/*    </span>*/
-}
-{/*</Card.Text>*/
-}
-{/*<Card.Text>*/
-}
-{/*    if you change your information, you can ask to be re-recommended*/
-}
-{/*</Card.Text>*/
-}
-{/*<Button as={Button} onClick={handleRecommendations} variant="primary"*/
-}
-{/*        className="px-5 py-3">Reccomend</Button>*/
-}
