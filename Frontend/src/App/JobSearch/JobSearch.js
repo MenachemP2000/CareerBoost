@@ -703,7 +703,6 @@ export default function JobSearch({ toggleScreen, isSignedIn, toggleSignendIn, c
                     </button>
 
                     {/* Button to toggle dropdown */}
-
                         <button
                             className="job-search-button"
                             onClick={() => setIsOpen(!isOpen)}
@@ -933,101 +932,3 @@ export default function JobSearch({ toggleScreen, isSignedIn, toggleSignendIn, c
     );
 }
 
-
-
-{/*<label style={{ display: "flex", gap: "10px", border: "1px solid", padding: "5px", margin: "10px", borderRadius: "10px", width: "18rem", backgroundColor: "lightblue", justifyContent: "space-between" }}>*/}
-{/*    Include Country*/}
-{/*    <input*/}
-{/*        type="checkbox"*/}
-{/*        name="countryEnabled"*/}
-{/*        checked={filters.countryEnabled}*/}
-{/*        onChange={handleToggleChange}*/}
-{/*    />*/}
-{/*</label>*/}
-{/*<label style={{ display: "flex", gap: "10px", border: "1px solid", padding: "5px", margin: "10px", borderRadius: "10px", width: "18rem", backgroundColor: "lightblue", justifyContent: "space-between" }}>*/}
-{/*    Include Languages*/}
-{/*    <input*/}
-{/*        type="checkbox"*/}
-{/*        name="languagesEnabled"*/}
-{/*        checked={filters.languagesEnabled}*/}
-{/*        onChange={handleToggleChange}*/}
-{/*    />*/}
-{/*</label>*/}
-{/*<label style={{ display: "flex", gap: "10px", border: "1px solid", padding: "5px", margin: "10px", borderRadius: "10px", width: "18rem", backgroundColor: "lightblue", justifyContent: "space-between" }}>*/}
-{/*    Include Databases*/}
-{/*    <input*/}
-{/*        type="checkbox"*/}
-{/*        name="databasesEnabled"*/}
-{/*        checked={filters.databasesEnabled}*/}
-{/*        onChange={handleToggleChange}*/}
-{/*    />*/}
-{/*</label>*/}
-{/*<label style={{ display: "flex", gap: "10px", border: "1px solid", padding: "5px", margin: "10px", borderRadius: "10px", width: "18rem", backgroundColor: "lightblue", justifyContent: "space-between" }}>*/}
-{/*    Include Platforms*/}
-{/*    <input*/}
-{/*        type="checkbox"*/}
-{/*        name="platformsEnabled"*/}
-{/*        checked={filters.platformsEnabled}*/}
-{/*        onChange={handleToggleChange}*/}
-{/*    />*/}
-{/*</label>*/}
-{/*<label style={{ display: "flex", gap: "10px", border: "1px solid", padding: "5px", margin: "10px", borderRadius: "10px", width: "18rem", backgroundColor: "lightblue", justifyContent: "space-between" }}>*/}
-{/*    Include Web Frameworks*/}
-
-{/*    <input*/}
-{/*        type="checkbox"*/}
-{/*        name="webFrameworksEnabled"*/}
-{/*        checked={filters.webFrameworksEnabled}*/}
-{/*        onChange={handleToggleChange}*/}
-{/*    />*/}
-{/*</label>*/}
-{/*<label style={{ display: "flex", gap: "10px", border: "1px solid", padding: "5px", margin: "10px", borderRadius: "10px", width: "18rem", backgroundColor: "lightblue", justifyContent: "space-between" }}>*/}
-{/*    Include Tools*/}
-
-{/*    <input*/}
-{/*        type="checkbox"*/}
-{/*        name="toolsEnabled"*/}
-{/*        checked={filters.toolsEnabled}*/}
-{/*        onChange={handleToggleChange}*/}
-{/*    />*/}
-{/*</label>*/}
-{/*<label style={{ display: "flex", gap: "10px", border: "1px solid", padding: "5px", margin: "10px", borderRadius: "10px", width: "18rem", backgroundColor: "lightblue", justifyContent: "space-between" }}>*/}
-{/*    Include Education*/}
-
-{/*    <input*/}
-{/*        type="checkbox"*/}
-{/*        name="educationEnabled"*/}
-{/*        checked={filters.educationEnabled}*/}
-{/*        onChange={handleToggleChange}*/}
-{/*    />*/}
-{/*</label>*/}
-{/*<label style={{ display: "flex", gap: "10px", border: "1px solid", padding: "5px", margin: "10px", borderRadius: "10px", width: "18rem", backgroundColor: "lightblue", justifyContent: "space-between" }}>*/}
-
-{/*    Include Dev Type*/}
-{/*    <input*/}
-{/*        type="checkbox"*/}
-{/*        name="devTypeEnabled"*/}
-{/*        checked={filters.devTypeEnabled}*/}
-{/*        onChange={handleToggleChange}*/}
-{/*    />*/}
-{/*</label>*/}
-{/*<label style={{ display: "flex", gap: "10px", border: "1px solid", padding: "5px", margin: "10px", borderRadius: "10px", width: "18rem", backgroundColor: "lightblue", justifyContent: "space-between" }}>*/}
-
-{/*    Include Industry*/}
-{/*    <input*/}
-{/*        type="checkbox"*/}
-{/*        name="industryEnabled"*/}
-{/*        checked={filters.industryEnabled}*/}
-{/*        onChange={handleToggleChange}*/}
-{/*    />*/}
-{/*</label>*/}
-{/*<label style={{ display: "flex", gap: "10px", border: "1px solid", padding: "5px", margin: "10px", borderRadius: "10px", width: "18rem", backgroundColor: "lightblue", justifyContent: "space-between" }}>*/}
-
-{/*    Include Remote Work Preference*/}
-{/*    <input*/}
-{/*        type="checkbox"*/}
-{/*        name="remoteWorkEnabled"*/}
-{/*        checked={filters.remoteWorkEnabled}*/}
-{/*        onChange={handleToggleChange}*/}
-{/*    />*/}
-{/*</label>*/}

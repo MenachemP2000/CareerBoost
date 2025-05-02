@@ -62,10 +62,11 @@
     background-color: #1877f2;
     color: white;
     font-size: 18px;
-    padding: 12px;
+    padding: clamp(0.3rem, 1.5vw, 0.3rem) clamp(0.3rem, 1vw, 0.3rem);
     border: none;
     border-radius: 6px;
     margin-top: 10px;
+    height: fit-content; /* Set specific height */
 }
 
 .signin-button:hover {

@@ -1,5 +1,5 @@
 import React from "react";
-import { Container, Row, Col, Card, Button } from 'react-bootstrap';
+import { Row, Card, Button } from 'react-bootstrap';
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useNavigate } from 'react-router-dom';
@@ -225,7 +225,6 @@ const Prediction = ({ toggleScreen, isSignedIn, toggleSignendIn, selectedCurrenc
                                 <Link to="/Experiment">
                                     <button className="prediction-button">Experiment</button>
                                 </Link>
-                            {/*<button onClick={navigate=>("/Experiment")} className="prediction-button">Experiment</button>*/}
                                 </>
                             <>
                             <button onClick={handleSignout} className="prediction-button">Sign Out</button>

@@ -113,9 +113,9 @@ const SignIn = ({ toggleScreen, isSignedIn, toggleSignendIn }) => {
                                         />
                                     </Form.Group>
 
-                                    <Button variant="primary" type="submit" className="signin-button">
+                                    <button type="submit" className="signin-button">
                                         Sign in
-                                    </Button>
+                                    </button>
 
                                     {error && <div className="error-message" style={{color: "red"}}>{error}</div>}
                                     <div className="forgot-password">Forgot password?</div>

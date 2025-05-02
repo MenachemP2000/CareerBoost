@@ -55,12 +55,6 @@ body.dark-mode .saved-recommendations-subtitle{
     color: #1f2937;
 }
 
-/* Card */
-/*.saved-recommendations-card {*/
-/*    margin-bottom: 20px;*/
-/*    border-radius: 8px;*/
-/*}*/
-
 /* Recommendations List */
 .recommendations-list {
     list-style: none;
@@ -78,11 +72,8 @@ body.dark-mode .recommendations-list{
 .recommendations-item {
     flex: 1;
     text-align: left;
-    /*font-size: 16px;*/
-    /*color: #333;*/
     font-weight: 500;
     color: #050505;
-    /*font-size: clamp(0.3rem, 2vw, 1.3rem);*/
 }
 
 .recommendations-item:last-child {
@@ -121,28 +112,16 @@ body.dark-mode .recommendations-list{
 
 .card-btn,
 .action-btn {
-    /*background: linear-gradient(45deg, #ff6b6b, #ff8e53);*/
     border: none;
     color: white;
-    /*padding: 8px 15px;*/
-    /*font-size: 1rem;*/
     font-weight: bold;
-    /*border-radius: 6px;*/
     text-align: center;
     text-decoration: none;
     transition: background 0.3s ease;
-    /*width: 130px;*/
-    /*height: 40px;*/
-
     width: clamp(3rem, 10rem, 8rem);
     padding: clamp(0.3rem, 1.5vw, 0.3rem) clamp(0.3rem, 1vw, 0.3rem);
     font-size: clamp(0.3rem, 2vw, 1.3rem);
     background: linear-gradient(45deg, #32a0e4, #c8c9ca); /* Gradient background */
-    /*border: none; !* Remove border *!*/
-    /*color: white; !* Text color *!*/
-    /*padding: 10px 20px; !* Padding for buttons *!*/
-    /*font-size: 1.2rem; !* Font size *!*/
-    /*font-weight: bold;*/
     border-radius: 8px; /* Rounded corners */
     min-width: fit-content;
     height: fit-content; /* Set specific height */
