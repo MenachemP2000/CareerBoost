@@ -724,25 +724,25 @@ export default function JobSearch({ toggleScreen, isSignedIn, toggleSignendIn, c
                             <Card.Header className="filter-dropdown-header">Filters</Card.Header>
                             <div className="filter-dropdown-body">
                                 {[
-                                    { name: 'countryEnabled', label: 'Include Country' },
-                                    { name: 'languagesEnabled', label: 'Include Languages' },
-                                    { name: 'databasesEnabled', label: 'Include Databases' },
-                                    { name: 'platformsEnabled', label: 'Include Platforms' },
-                                    { name: 'webFrameworksEnabled', label: 'Include Web Frameworks' },
-                                    { name: 'toolsEnabled', label: 'Include Tools' },
-                                    { name: 'educationEnabled', label: 'Include Education' },
-                                    { name: 'devTypeEnabled', label: 'Include Dev Type' },
-                                    { name: 'industryEnabled', label: 'Include Industry' },
-                                    { name: 'remoteWorkEnabled', label: 'Include Remote Work Preference' },
+                                    { name: 'countryEnabled', label: ' Country' },
+                                    { name: 'languagesEnabled', label: ' Languages' },
+                                    { name: 'databasesEnabled', label: ' Databases' },
+                                    { name: 'platformsEnabled', label: ' Platforms' },
+                                    { name: 'webFrameworksEnabled', label: ' Frameworks' },
+                                    { name: 'toolsEnabled', label: ' Tools' },
+                                    { name: 'educationEnabled', label: ' Education' },
+                                    { name: 'devTypeEnabled', label: ' DevType' },
+                                    { name: 'industryEnabled', label: ' Industry' },
+                                    { name: 'remoteWorkEnabled', label: ' Remote' },
                                 ].map(({ name, label }) => (
                                     <label key={name} className="filter-toggle">
-                                        {label}
                                         <input
                                             type="checkbox"
                                             name={name}
                                             checked={filters[name]}
                                             onChange={handleToggleChange}
                                         />
+                                         <span>{label}</span>
                                     </label>
                                 ))}
 
@@ -817,12 +817,15 @@ export default function JobSearch({ toggleScreen, isSignedIn, toggleSignendIn, c
                                     <option value="weekly">Weekly</option>
                                 </select>
                                 <button type="submit" className="alert-submit-btn">
-                                    Add alert
+                                    Alert
                                 </button>
                             </form>
 
+                            
+                            <br />
+
                             {(isSignedIn.alerts && isSignedIn.alerts.length > 0) && (
-                                <ul>
+                                <ul className="alert-list">
                                     {isSignedIn.alerts.map((alert, index) => (
                                         <li key={index} className="alert-item">
                                             <Card className="alert-card">
@@ -882,15 +885,15 @@ export default function JobSearch({ toggleScreen, isSignedIn, toggleSignendIn, c
 
                                             <Container className="job-save-button-container">
                                                 {isSignedIn.savedJobs && isSignedIn.savedJobs.find(savedJob => savedJob.link === job.link) ? (
-                                                    <button className="saved-button" disabled>
+                                                    <Button  className="saved-button" disabled>
                                                         Saved
-                                                    </button>
+                                                    </Button>
                                                     ):(
-                                                    <button
+                                                    <Button
                                                         onClick={() => saveJob(job)}
                                                         className="job-save-button">
                                                         Save
-                                                    </button>
+                                                    </Button>
                                                 )}
                                             </Container>
                                         </Card>
