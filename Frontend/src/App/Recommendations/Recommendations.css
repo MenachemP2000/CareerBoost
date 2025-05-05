@@ -71,12 +71,6 @@ body.dark-mode .recommendations-title {
     font-size: clamp(0.3rem, 2vw, 1.3rem);
 }
 
-/*.salary-increase {*/
-/*    color: green;*/
-/*    font-weight: bold;*/
-/*    font-size: clamp(0.3rem, 2vw, 1.3rem);*/
-/*}*/
-
 .increase-approximate{
     text-decoration: none;
     font-weight: bold;
@@ -85,7 +79,6 @@ body.dark-mode .recommendations-title {
 }
 .salary-estimate {
     color: #00e676;
-    /*text-decoration: none;*/
     font-weight: bold;
     margin-bottom: 0.5rem;
     font-size: clamp(1rem, 2vw, 1.3rem);
@@ -122,28 +115,16 @@ body.dark-mode .recommendations-title {
 }
 
 .recommendations-actions .action-btn {
-    /*background: linear-gradient(45deg, #ff6b6b, #ff8e53);*/
     border: none;
     color: white;
-    /*padding: 8px 15px;*/
-    /*font-size: 1rem;*/
     font-weight: bold;
-    /*border-radius: 6px;*/
     text-align: center;
     text-decoration: none;
     transition: background 0.3s ease;
-    /*width: 130px;*/
-    /*height: 40px;*/
-
     width: clamp(3rem, 10rem, 8rem);
     padding: clamp(0.3rem, 1.5vw, 0.3rem) clamp(0.3rem, 1vw, 0.3rem);
     font-size: clamp(0.3rem, 2vw, 1.3rem);
     background: linear-gradient(45deg, #32a0e4, #c8c9ca); /* Gradient background */
-    /*border: none; !* Remove border *!*/
-    /*color: white; !* Text color *!*/
-    /*padding: 10px 20px; !* Padding for buttons *!*/
-    /*font-size: 1.2rem; !* Font size *!*/
-    /*font-weight: bold;*/
     border-radius: 8px; /* Rounded corners */
     min-width: fit-content;
     height: fit-content; /* Set specific height */
@@ -184,22 +165,4 @@ body.dark-mode .recommendations-actions .action-btn {
 body.dark-mode .recommendations-actions .action-btn:hover {
     background: linear-gradient(45deg, #c8c9ca, #32a0e4);
 }
-/*!* List of recommendations *!*/
-/*body.dark-mode .recommendations-list {*/
-/*    !*list-style: none;*!*/
-/*    padding: 0;*/
-/*}*/
-
-/*body.dark-mode .recommendations-item {*/
-/*    display: flex;*/
-/*    justify-content: space-between;*/
-/*    padding: 10px 0;*/
-/*    border-bottom: 1px solid #444;*/
-/*    color: white;*/
-/*}*/
-/*body.dark-mode.recommendation-text {*/
-/*    color: #b60f0f;*/
-/*}*/
-
-
 

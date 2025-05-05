@@ -11,7 +11,6 @@ import SignIn from "./SignIn/SignIn";
 import Profile from "./Profile/Profile";
 import ModifyAccount from "./ModifyAccount/ModifyAccount";
 import Recommendations from "./Recommendations/Recommendations";
-import AdvancedProfile from "./AdvancedProfile/AdvancedProfile";
 import ModifyAdvanced from "./ModifyAdvanced/ModifyAdvanced";
 import AdvancedRecommendations from "./AdvancedRecommendations/AdvancedRecommendations";
 import Experiment from "./Experiment/Experiment";
@@ -335,14 +334,14 @@ function App() {
                         ages={ages}
                         educations={educations}
                     />} />
-                    <Route path="/modifyaccount" element={<ModifyAccount
-                        toggleSignendIn={toggleSignendIn}
-                        toggleScreen={toggleScreen}
-                        isSignedIn={isSignedIn}
-                        countries={countries}
-                        educations={educations}
-                        ages={ages}
-                    />} />
+                    {/*<Route path="/modifyaccount" element={<ModifyAccount*/}
+                    {/*    toggleSignendIn={toggleSignendIn}*/}
+                    {/*    toggleScreen={toggleScreen}*/}
+                    {/*    isSignedIn={isSignedIn}*/}
+                    {/*    countries={countries}*/}
+                    {/*    educations={educations}*/}
+                    {/*    ages={ages}*/}
+                    {/*/>} />*/}
                     <Route path="/signin" element={<SignIn
                         toggleSignendIn={toggleSignendIn}
                         toggleScreen={toggleScreen}
@@ -354,10 +353,6 @@ function App() {
                         countries={countries}
                         educations={educations}
                         ages={ages} />} />
-                    <Route path="/AdvancedProfile" element={<AdvancedProfile
-                        toggleSignendIn={toggleSignendIn}
-                        toggleScreen={toggleScreen}
-                        isSignedIn={isSignedIn} />} />
                     <Route path="/ModifyAdvanced" element={<ModifyAdvanced
                         toggleSignendIn={toggleSignendIn}
                         toggleScreen={toggleScreen}

@@ -324,7 +324,7 @@ const AdvancedRecommendations = ({ toggleScreen, isSignedIn, toggleSignendIn, la
 
 
                 }
-                {/*<button className="action-btn" onClick={() => navigate("/Recommendations")}>Basic</button>*/}
+
                 <Container className="advanced-recommendations-btn">
                     <button onClick={() => navigate("/Recommendations")} className="action-btn">Basic</button>
                     <button onClick={() => navigate("/SavedRecommendations")} className="action-btn">Saved</button>

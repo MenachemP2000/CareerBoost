@@ -123,14 +123,11 @@
     background: linear-gradient(45deg, #32a0e4, #c8c9ca); /* Gradient background */
     border: none; /* Remove border */
     color: white; /* Text color */
-    /*padding: 10px 20px; !* Padding for buttons *!*/
-    /*font-size: 1.2rem; !* Font size *!*/
     font-weight: bold;
     border-radius: 8px; /* Rounded corners */
     text-align: center; /* Center align text */
     text-decoration: none; /* Remove underline from links */
     transition: background 0.3s ease; /* Smooth transition for hover effect */
-    /*width: 150px; !* Set specific width *!*/
     min-width: fit-content;
     height: fit-content; /* Set specific height */
 }
@@ -146,25 +143,6 @@
     justify-content: center;
     gap: 15px; /* Adjust the space between buttons */
 }
-
-/*.action-btn {*/
-/*    width: clamp(3rem, 10rem, 8rem);*/
-/*    padding: clamp(0.3rem, 1.5vw, 0.3rem) clamp(0.3rem, 1vw, 0.3rem);*/
-/*    font-size: clamp(0.3rem, 2vw, 1.3rem);*/
-/*    background: linear-gradient(45deg, #32a0e4, #c8c9ca); !* Gradient background *!*/
-/*    border: none; !* Remove border *!*/
-/*    color: white; !* Text color *!*/
-/*    !*padding: 10px 20px; !* Padding for buttons *!*!*/
-/*    !*font-size: 1.2rem; !* Font size *!*!*/
-/*    font-weight: bold;*/
-/*    border-radius: 8px; !* Rounded corners *!*/
-/*    text-align: center; !* Center align text *!*/
-/*    text-decoration: none; !* Remove underline from links *!*/
-/*    transition: background 0.3s ease; !* Smooth transition for hover effect *!*/
-/*    !*width: 150px; !* Set specific width *!*!*/
-/*    min-width: fit-content;*/
-/*    height: fit-content; !* Set specific height *!*/
-/*}*/
 
 
 /* Dark Mode */

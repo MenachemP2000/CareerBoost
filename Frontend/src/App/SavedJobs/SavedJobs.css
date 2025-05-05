@@ -35,20 +35,11 @@ body.dark-mode .saved-jobs-subtitle {
     margin: 0;
 }
 .saved-jobs-card{
-    /*width: 70%;*/
-    /*background-color: #ffffff;*/
-    /*border-radius: 1rem;*/
-    /*padding: 2rem;*/
-    /*box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);*/
-    /*margin-bottom: 5%;*/
-
         display: flex;
         flex-wrap: wrap;
         gap: 0.5rem;
         margin-top: 1rem;
         justify-content: flex-start;
-       /*box-shadow: 1px 4px 12px rgba(255, 255, 255, 0.05);*/
-
 }
 
 
@@ -58,7 +49,6 @@ body.dark-mode .saved-jobs-subtitle {
     font-weight: bold;
     margin-bottom: 0.5rem;
     font-size: clamp(1rem, 5vw, 1.5rem);
-    /*display: inline-block;*/
 }
 
 .job-card .saved-job-title-link:hover {
@@ -85,14 +75,11 @@ body.dark-mode .saved-jobs-subtitle {
     background: linear-gradient(45deg, #32a0e4, #c8c9ca); /* Gradient background */
     border: none; /* Remove border */
     color: white; /* Text color */
-    /*padding: 10px 20px; !* Padding for buttons *!*/
-    /*font-size: 1.2rem; !* Font size *!*/
     font-weight: bold;
     border-radius: 8px; /* Rounded corners */
     text-align: center; /* Center align text */
     text-decoration: none; /* Remove underline from links */
     transition: background 0.3s ease; /* Smooth transition for hover effect */
-    /*width: 150px; !* Set specific width *!*/
     min-width: fit-content;
     height: fit-content; /* Set specific height */
 }
@@ -147,7 +134,6 @@ body.dark-mode .saved-jobs-subtitle {
     transition: background-color 0.3s ease;
 }
 .filter-container {
-    /*width: fit-content;*/
     text-align: center;
     background-color: #f9f9f9;
     padding: 1.5rem;
@@ -157,7 +143,6 @@ body.dark-mode .saved-jobs-subtitle {
     display: flex;
     justify-content: center;
     flex-direction: row;
-
     gap: 1rem;
     transition: background-color 0.3s ease, box-shadow 0.3s ease;
     font-weight: bold; /* Make the text bold */
@@ -165,14 +150,6 @@ body.dark-mode .saved-jobs-subtitle {
 
 }
 
-/*.filters-title {*/
-/*    display:flex;*/
-/*    justify-content: center;*/
-/*    font-size: clamp(1rem, 2vw, 1.3rem);*/
-/*    font-weight: bold;*/
-/*    color: #333;*/
-/*    margin-bottom: 0.5rem;*/
-/*}*/
 .filter-option {
     display: flex;
     flex-direction: row;
@@ -220,7 +197,7 @@ form label,
     border: 1px solid #e5e7eb;
 }
 .saved-jobs-link{
-    color: #2563eb;
+    color: black;
     text-decoration: none;
     font-weight: bold;
     margin-bottom: 0.5rem;
@@ -249,12 +226,6 @@ form label,
     flex-direction: row;
     gap:  clamp(0.3rem, 1.5vw, 0.3rem);
     width: clamp(3rem, 10rem, 8rem);
-
-    /*!*display: flex;*!*/
-    /*flex-wrap: wrap;*/
-    /*align-items: center; !* ensures vertical centering *!*/
-    /*gap: 0.5rem;*/
-    /*!*margin-top: 1rem;*!*/
 }
 .remove-button {
     background-color: #ef4444; /* red */
@@ -262,34 +233,6 @@ form label,
     margin-top: 1rem;
     margin-left: 1rem;
 }
-
-/*.remove-button {*/
-/*    background-color: #ef4444;*/
-/*    color: white;*/
-/*    !*padding: 0.5rem 1rem;*!*/
-/*    !*border-radius: 0.5rem;*!*/
-/*    border: none;*/
-/*    font-weight: bold;*/
-/*    cursor: pointer;*/
-/*    !*transition: background-color 0.3s ease;*!*/
-
-/*    width: clamp(3rem, 10rem, 8rem);*/
-/*    padding: clamp(0.3rem, 1.5vw, 0.3rem) clamp(0.3rem, 1vw, 0.3rem);*/
-/*    font-size: clamp(0.3rem, 2vw, 1.3rem);*/
-/*    !*background: linear-gradient(45deg, #32a0e4, #c8c9ca); !* Gradient background *!*!*/
-/*    !*border: none; !* Remove border *!*!*/
-/*    !*color: white; !* Text color *!*!*/
-/*    !*padding: 10px 20px; !* Padding for buttons *!*!*/
-/*    !*font-size: 1.2rem; !* Font size *!*!*/
-/*    !*font-weight: bold;*!*/
-/*    border-radius: 8px; !* Rounded corners *!*/
-/*    text-align: center; !* Center align text *!*/
-/*    text-decoration: none; !* Remove underline from links *!*/
-/*    transition: background 0.3s ease; !* Smooth transition for hover effect *!*/
-/*    !*width: 150px; !* Set specific width *!*!*/
-/*    min-width: fit-content;*/
-/*    !*height: fit-content; !* Set specific height *!*!*/
-/*}*/
 
 .remove-button:hover {
     background-color: #dc2626;
@@ -306,9 +249,6 @@ body.dark-mode form label {
     margin-top: 1.5rem;
     margin-bottom: 1.5rem;
 }
-/*.saved-job-buttons{*/
-
-/*}*/
 
 .empty-message {
     text-align: center;
@@ -325,25 +265,9 @@ body.dark-mode form label {
     flex-wrap: wrap;
 }
 
-/*.job-card .saved-jobs-card-button {*/
-/*    width: 10rem;*/
-/*    !*padding: clamp(0.3rem, 1.5vw, 0.3rem) clamp(0.3rem, 1vw, 0.3rem);*!*/
-/*    font-size: clamp(0.3rem, 2vw, 1.3rem);*/
-/*    background-color: #9d3b3b;*/
-/*    color: #ad0202;*/
-/*    border: none;*/
-/*    cursor: pointer;*/
-/*    transition: background 0.3s, transform 0.2s;*/
-/*    border-radius: 12px;*/
-/*    font-weight: 600;*/
-/*    text-align: center;*/
-/*    min-width: 90px;*/
-/*    box-shadow: 0 2px 5px rgba(0,0,0,0.1);*/
-/*}*/
 .top-btns,
 .nav-buttons {
     display: flex;
-    /*justify-content: center;*/
     gap: 0.5rem;
     margin-top: 2rem;
     flex-wrap: wrap;
@@ -356,14 +280,11 @@ body.dark-mode form label {
     background: linear-gradient(45deg, #32a0e4, #c8c9ca); /* Gradient background */
     border: none; /* Remove border */
     color: white; /* Text color */
-    /*padding: 10px 20px; !* Padding for buttons *!*/
-    /*font-size: 1.2rem; !* Font size *!*/
     font-weight: bold;
     border-radius: 8px; /* Rounded corners */
     text-align: center; /* Center align text */
     text-decoration: none; /* Remove underline from links */
     transition: background 0.3s ease; /* Smooth transition for hover effect */
-    /*width: 150px; !* Set specific width *!*/
     min-width: fit-content;
     height: fit-content; /* Set specific height */
 }
@@ -450,11 +371,61 @@ body.dark-mode .empty-message {
     color: #b0b3b8;
 }
 
-/*body.dark-mode .nav-buttons button {*/
-/*    background-color: #4f46e5;*/
-/*    color: white;*/
-/*}*/
+.checkbox-container {
+    display: flex;
+    align-items: center;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  
+  .checkbox-container input {
+    display: none; /* Hide the default checkbox */
+  }
+  
+  .checkbox-container .checkbox-label {
+    position: relative;
+    padding-left: 30px;
+    cursor: pointer;
+  }
+  
+  .checkbox-container .checkbox-label::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    margin-top: 6px;
+    width: 20px;
+    height: 20px;
+    border-radius: 5px;
+    border: 2px solid #007bff;
+    background-color: white;
+    transition: background-color 0.3s, border-color 0.3s;
+  }
 
-/*body.dark-mode .nav-buttons button:hover {*/
-/*    background-color: #3730a3;*/
-/*}*/
+  .checkbox-container input:checked + .checkbox-label::after {
+    content: '';
+    position: absolute;
+    left: 5px;
+    top: 11px;
+    width: 10px;
+    height: 10px;
+    background-color: white;
+    border-radius: 50%;
+    transition: transform 0.2s;
+  }
+  
+  .checkbox-container input:checked + .checkbox-label::before {
+    background-color: #007bff;
+    border-color: #0056b3;
+  }
+  
+  
+  .checkbox-container input:not(:checked) + .checkbox-label::after {
+    transform: scale(0);
+  }
+  
+  .checkbox-container:hover .checkbox-label::before {
+    border-color: #0056b3;
+  }
+
+  

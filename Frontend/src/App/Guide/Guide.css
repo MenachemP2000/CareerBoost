@@ -4,9 +4,6 @@
     min-height: 100vh;
     display: flex;
     flex-direction: column;
-    /*align-items: center;*/
-    /*padding: 2rem 1rem;*/
-    /*justify-content: center;*/
     width: 100%;
     margin-bottom: 10%;
     margin-top: 5%;
@@ -40,7 +37,6 @@
 
 /* Guide Section */
 .guide-section {
-    /*text-align: left;*/
     margin-bottom: 20px;
 }
 
@@ -56,13 +52,6 @@
         justify-content: center;
         margin-bottom: 2rem;
 }
-/*.guide-row.left .guide-card {*/
-/*    margin-right: 1%    ;*/
-/*}*/
-
-/*.guide-row.right .guide-card {*/
-/*    margin-left: 1%;*/
-/*}*/
 
 /* Dark Mode Styles */
 body.dark-mode .guide-container {

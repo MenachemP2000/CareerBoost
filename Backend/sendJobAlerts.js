@@ -140,18 +140,50 @@ async function sendWeeklyJobAlerts() {
                     text: `Hi ${alert.email.split('@')[0]},\nHere are your latest job matches:\n\n${jobList}`,
                     html: `
                         <html>
-                            <head>
-                                <style>
-                                    body { font-family: Arial, sans-serif; line-height: 1.6; }
-                                    h3 { color: #333; }
-                                    ul { margin: 0; padding: 0; }
-                                    li { margin-bottom: 10px; }
-                                </style>
-                            </head>
-                            <body>
-                                <h3>Hi ${alert.email.split('@')[0]}, here are your latest job matches:</h3>
-                                <ul>${jobList}</ul>
-                            </body>
+                        <head>
+                        <style>
+                            body {
+                            font-family: Arial, sans-serif;
+                            line-height: 1.6;
+                            background-color: #f9f9f9;
+                            padding: 20px;
+                            color: #333;
+                            }
+
+                            h3 {
+                            color: #2c3e50;
+                            margin-bottom: 20px;
+                            }
+
+                            ul {
+                            list-style-type: none;
+                            padding: 0;
+                            margin: 0;
+                            }
+
+                            li {
+                            background: #fff;
+                            border: 1px solid #ddd;
+                            border-radius: 6px;
+                            padding: 15px;
+                            margin-bottom: 10px;
+                            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+                            }
+
+                            a {
+                            color: #007bff;
+                            text-decoration: none;
+                            }
+
+                            a:hover {
+                            text-decoration: underline;
+                            }
+                        </style>
+                        </head>
+                        <body>
+                        <h3>Hi ${alert.email.split('@')[0]}, here are your latest job matches:</h3>
+                        <ul>${jobList}</ul>
+                        </body>
                         </html>
                     `,
                     replyTo: 'support@careerboost.com',

@@ -703,7 +703,6 @@ export default function JobSearch({ toggleScreen, isSignedIn, toggleSignendIn, c
                     </button>
 
                     {/* Button to toggle dropdown */}
-
                         <button
                             className="job-search-button"
                             onClick={() => setIsOpen(!isOpen)}
@@ -725,25 +724,25 @@ export default function JobSearch({ toggleScreen, isSignedIn, toggleSignendIn, c
                             <Card.Header className="filter-dropdown-header">Filters</Card.Header>
                             <div className="filter-dropdown-body">
                                 {[
-                                    { name: 'countryEnabled', label: 'Include Country' },
-                                    { name: 'languagesEnabled', label: 'Include Languages' },
-                                    { name: 'databasesEnabled', label: 'Include Databases' },
-                                    { name: 'platformsEnabled', label: 'Include Platforms' },
-                                    { name: 'webFrameworksEnabled', label: 'Include Web Frameworks' },
-                                    { name: 'toolsEnabled', label: 'Include Tools' },
-                                    { name: 'educationEnabled', label: 'Include Education' },
-                                    { name: 'devTypeEnabled', label: 'Include Dev Type' },
-                                    { name: 'industryEnabled', label: 'Include Industry' },
-                                    { name: 'remoteWorkEnabled', label: 'Include Remote Work Preference' },
+                                    { name: 'countryEnabled', label: ' Country' },
+                                    { name: 'languagesEnabled', label: ' Languages' },
+                                    { name: 'databasesEnabled', label: ' Databases' },
+                                    { name: 'platformsEnabled', label: ' Platforms' },
+                                    { name: 'webFrameworksEnabled', label: ' Frameworks' },
+                                    { name: 'toolsEnabled', label: ' Tools' },
+                                    { name: 'educationEnabled', label: ' Education' },
+                                    { name: 'devTypeEnabled', label: ' DevType' },
+                                    { name: 'industryEnabled', label: ' Industry' },
+                                    { name: 'remoteWorkEnabled', label: ' Remote' },
                                 ].map(({ name, label }) => (
                                     <label key={name} className="filter-toggle">
-                                        {label}
                                         <input
                                             type="checkbox"
                                             name={name}
                                             checked={filters[name]}
                                             onChange={handleToggleChange}
                                         />
+                                         <span>{label}</span>
                                     </label>
                                 ))}
 
@@ -818,12 +817,15 @@ export default function JobSearch({ toggleScreen, isSignedIn, toggleSignendIn, c
                                     <option value="weekly">Weekly</option>
                                 </select>
                                 <button type="submit" className="alert-submit-btn">
-                                    Add alert
+                                    Alert
                                 </button>
                             </form>
 
+                            
+                            <br />
+
                             {(isSignedIn.alerts && isSignedIn.alerts.length > 0) && (
-                                <ul>
+                                <ul className="alert-list">
                                     {isSignedIn.alerts.map((alert, index) => (
                                         <li key={index} className="alert-item">
                                             <Card className="alert-card">
@@ -883,15 +885,15 @@ export default function JobSearch({ toggleScreen, isSignedIn, toggleSignendIn, c
 
                                             <Container className="job-save-button-container">
                                                 {isSignedIn.savedJobs && isSignedIn.savedJobs.find(savedJob => savedJob.link === job.link) ? (
-                                                    <button className="saved-button" disabled>
+                                                    <Button  className="saved-button" disabled>
                                                         Saved
-                                                    </button>
+                                                    </Button>
                                                     ):(
-                                                    <button
+                                                    <Button
                                                         onClick={() => saveJob(job)}
                                                         className="job-save-button">
                                                         Save
-                                                    </button>
+                                                    </Button>
                                                 )}
                                             </Container>
                                         </Card>
@@ -933,101 +935,3 @@ export default function JobSearch({ toggleScreen, isSignedIn, toggleSignendIn, c
     );
 }
 
-
-
-{/*<label style={{ display: "flex", gap: "10px", border: "1px solid", padding: "5px", margin: "10px", borderRadius: "10px", width: "18rem", backgroundColor: "lightblue", justifyContent: "space-between" }}>*/}
-{/*    Include Country*/}
-{/*    <input*/}
-{/*        type="checkbox"*/}
-{/*        name="countryEnabled"*/}
-{/*        checked={filters.countryEnabled}*/}
-{/*        onChange={handleToggleChange}*/}
-{/*    />*/}
-{/*</label>*/}
-{/*<label style={{ display: "flex", gap: "10px", border: "1px solid", padding: "5px", margin: "10px", borderRadius: "10px", width: "18rem", backgroundColor: "lightblue", justifyContent: "space-between" }}>*/}
-{/*    Include Languages*/}
-{/*    <input*/}
-{/*        type="checkbox"*/}
-{/*        name="languagesEnabled"*/}
-{/*        checked={filters.languagesEnabled}*/}
-{/*        onChange={handleToggleChange}*/}
-{/*    />*/}
-{/*</label>*/}
-{/*<label style={{ display: "flex", gap: "10px", border: "1px solid", padding: "5px", margin: "10px", borderRadius: "10px", width: "18rem", backgroundColor: "lightblue", justifyContent: "space-between" }}>*/}
-{/*    Include Databases*/}
-{/*    <input*/}
-{/*        type="checkbox"*/}
-{/*        name="databasesEnabled"*/}
-{/*        checked={filters.databasesEnabled}*/}
-{/*        onChange={handleToggleChange}*/}
-{/*    />*/}
-{/*</label>*/}
-{/*<label style={{ display: "flex", gap: "10px", border: "1px solid", padding: "5px", margin: "10px", borderRadius: "10px", width: "18rem", backgroundColor: "lightblue", justifyContent: "space-between" }}>*/}
-{/*    Include Platforms*/}
-{/*    <input*/}
-{/*        type="checkbox"*/}
-{/*        name="platformsEnabled"*/}
-{/*        checked={filters.platformsEnabled}*/}
-{/*        onChange={handleToggleChange}*/}
-{/*    />*/}
-{/*</label>*/}
-{/*<label style={{ display: "flex", gap: "10px", border: "1px solid", padding: "5px", margin: "10px", borderRadius: "10px", width: "18rem", backgroundColor: "lightblue", justifyContent: "space-between" }}>*/}
-{/*    Include Web Frameworks*/}
-
-{/*    <input*/}
-{/*        type="checkbox"*/}
-{/*        name="webFrameworksEnabled"*/}
-{/*        checked={filters.webFrameworksEnabled}*/}
-{/*        onChange={handleToggleChange}*/}
-{/*    />*/}
-{/*</label>*/}
-{/*<label style={{ display: "flex", gap: "10px", border: "1px solid", padding: "5px", margin: "10px", borderRadius: "10px", width: "18rem", backgroundColor: "lightblue", justifyContent: "space-between" }}>*/}
-{/*    Include Tools*/}
-
-{/*    <input*/}
-{/*        type="checkbox"*/}
-{/*        name="toolsEnabled"*/}
-{/*        checked={filters.toolsEnabled}*/}
-{/*        onChange={handleToggleChange}*/}
-{/*    />*/}
-{/*</label>*/}
-{/*<label style={{ display: "flex", gap: "10px", border: "1px solid", padding: "5px", margin: "10px", borderRadius: "10px", width: "18rem", backgroundColor: "lightblue", justifyContent: "space-between" }}>*/}
-{/*    Include Education*/}
-
-{/*    <input*/}
-{/*        type="checkbox"*/}
-{/*        name="educationEnabled"*/}
-{/*        checked={filters.educationEnabled}*/}
-{/*        onChange={handleToggleChange}*/}
-{/*    />*/}
-{/*</label>*/}
-{/*<label style={{ display: "flex", gap: "10px", border: "1px solid", padding: "5px", margin: "10px", borderRadius: "10px", width: "18rem", backgroundColor: "lightblue", justifyContent: "space-between" }}>*/}
-
-{/*    Include Dev Type*/}
-{/*    <input*/}
-{/*        type="checkbox"*/}
-{/*        name="devTypeEnabled"*/}
-{/*        checked={filters.devTypeEnabled}*/}
-{/*        onChange={handleToggleChange}*/}
-{/*    />*/}
-{/*</label>*/}
-{/*<label style={{ display: "flex", gap: "10px", border: "1px solid", padding: "5px", margin: "10px", borderRadius: "10px", width: "18rem", backgroundColor: "lightblue", justifyContent: "space-between" }}>*/}
-
-{/*    Include Industry*/}
-{/*    <input*/}
-{/*        type="checkbox"*/}
-{/*        name="industryEnabled"*/}
-{/*        checked={filters.industryEnabled}*/}
-{/*        onChange={handleToggleChange}*/}
-{/*    />*/}
-{/*</label>*/}
-{/*<label style={{ display: "flex", gap: "10px", border: "1px solid", padding: "5px", margin: "10px", borderRadius: "10px", width: "18rem", backgroundColor: "lightblue", justifyContent: "space-between" }}>*/}
-
-{/*    Include Remote Work Preference*/}
-{/*    <input*/}
-{/*        type="checkbox"*/}
-{/*        name="remoteWorkEnabled"*/}
-{/*        checked={filters.remoteWorkEnabled}*/}
-{/*        onChange={handleToggleChange}*/}
-{/*    />*/}
-{/*</label>*/}

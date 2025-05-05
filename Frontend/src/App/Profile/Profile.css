@@ -28,25 +28,16 @@
 
 /* Profile Card */
 .profile-card {
-    /*width: 100%;*/
-    /*max-width: 400px; !* Make it narrower *!*/
-    /*background: white;*/
     padding: 20px;
-    /*border-radius: 10px;*/
     text-align: center;
-    /*box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);*/
     position: relative;
-    /*width: 30%;*/
     margin-top: 3%;
-    /*margin-bottom: 10%;*/
     background-color: #fff;
-    /*padding: 20px;*/
     max-width: 500px;
     border-radius: 8px;
 
     min-width: 20rem;
     box-shadow: 1px 4px 10px rgba(0, 0, 0, 0.1);
-    /*text-align: center;*/
     transition: background-color 0.3s, box-shadow 0.3s, color 0.3s;
 }
 
@@ -55,7 +46,6 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    /*margin-top: -10px;*/
 }
 
 label {
@@ -82,15 +72,11 @@ body.dark-mode label {
 
 /* Profile Name */
 .profile-name {
-    /*font-size: 22px;*/
-    /*font-weight: bold;*/
     margin-top: 10px;
-
     font-size: 1.5rem;
     font-weight: 600;
     margin-bottom: 0.5rem;
     text-align: center;
-    /*color: #1f2937;*/
 }
 
 /* Profile Description */
@@ -102,8 +88,6 @@ body.dark-mode label {
 
 /* Profile Information */
 .profile-info {
-    /*font-size: 1rem;*/
-    /*color: #333;*/
     text-align: left;
     padding: 0 10px;
     margin-top: 15px;
@@ -111,13 +95,6 @@ body.dark-mode label {
     font-size: clamp(0.3rem, 2vw, 1.3rem);
 }
 
-/*!* Profile Info *!*/
-/*.profile-info {*/
-/*    font-size: 1rem;*/
-/*    color: #333;*/
-/*    text-align: left;*/
-/*    margin-top: 15px;*/
-/*}*/
 
 /* Profile Buttons (Stacked in Row) */
 .profile-buttons {
@@ -125,9 +102,7 @@ body.dark-mode label {
     flex-direction: row; /* Stack buttons vertically */
     align-items: center;
     justify-content: center;
-
     gap: 1rem;
-    /*justify-content: center;*/
     flex-wrap: wrap;
     margin-bottom: 10%;
     margin-top: 2rem;
@@ -141,14 +116,11 @@ body.dark-mode label {
     background: linear-gradient(45deg, #32a0e4, #c8c9ca); /* Gradient background */
     border: none; /* Remove border */
     color: white; /* Text color */
-    /*padding: 10px 20px; !* Padding for buttons *!*/
-    /*font-size: 1.2rem; !* Font size *!*/
     font-weight: bold;
     border-radius: 8px; /* Rounded corners */
     text-align: center; /* Center align text */
     text-decoration: none; /* Remove underline from links */
     transition: background 0.3s ease; /* Smooth transition for hover effect */
-    /*width: 150px; !* Set specific width *!*/
     min-width: fit-content;
     height: fit-content; /* Set specific height */
 
@@ -203,26 +175,10 @@ body.dark-mode .profile-name {
     color: #e4e6eb;
 }
 
-/*!* Dark Mode: Profile Description *!*/
-/*body.dark-mode .profile-description {*/
-/*    color: #b0b3b8;*/
-/*}*/
-
 /* Dark Mode: Profile Info */
 body.dark-mode .profile-info {
     color: #e4e6eb;
 }
-
-/*!* Dark Mode: Profile Buttons *!*/
-/*body.dark-mode .profile-button {*/
-/*    !*background: linear-gradient(45deg, #ff8e53, #ff6b6b);*!*/
-/*    color: black;*/
-/*}*/
-
-/*body.dark-mode .profile-button:hover {*/
-/*    !*background: linear-gradient(45deg, #ff6b6b, #ff8e53);*!*/
-/*    color: black;*/
-/*}*/
 
 /* Dark Mode: Profile Picture Border */
 body.dark-mode .profile-picture {

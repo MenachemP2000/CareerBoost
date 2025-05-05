@@ -676,42 +676,44 @@ const SavedJobs = ({toggleScreen, isSignedIn, toggleSignendIn}) => {
                     <div className="filter-panel">
                         <div className="filter-container">
                             {/* Filter Toggles */}
-                        {/*<h3 className="filters-title">Filters</h3>*/}
-                        <label>
-                        <input
+                            
+                            <label class="checkbox-container">
+                                <input
                                     type="checkbox"
                                     name="appliedEnabled"
                                     checked={filters.appliedEnabled}
                                     onChange={handleToggleChange}
                                 />
-                                Show Applied
+                                <span class="checkbox-label"> Applied</span>
                             </label>
-                            <label>
+                            <label class="checkbox-container">
                                 <input
                                     type="checkbox"
                                     name="interviewEnabled"
                                     checked={filters.interviewEnabled}
                                     onChange={handleToggleChange}
                                 />
-                                Show Interview
+                                
+                                <span class="checkbox-label"> Interview</span>
                             </label>
-                            <label>
+                            <label class="checkbox-container">
                                 <input
                                     type="checkbox"
                                     name="offerEnabled"
                                     checked={filters.offerEnabled}
                                     onChange={handleToggleChange}
                                 />
-                                Show Offer
+                                <span class="checkbox-label"> Offer</span>
                             </label>
-                            <label>
+                            <label class="checkbox-container">
                                 <input
                                     type="checkbox"
                                     name="rejectedEnabled"
                                     checked={filters.rejectedEnabled}
                                     onChange={handleToggleChange}
+                                    
                                 />
-                                Show Rejected
+                                <span class="checkbox-label"> Rejected</span>
                             </label>
                         </div>
                     </div>

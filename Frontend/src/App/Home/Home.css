@@ -110,13 +110,6 @@
 }
 
 
-/*!* Container styles *!*/
-/*.button-container {*/
-/*    display: flex;*/
-/*    justify-content: center;*/
-/*    gap: 10px; !* Add some space between buttons *!*/
-/*}*/
-
 /* Button styles */
 .button-container .btn-all {
     width: clamp(3rem, 10rem, 8rem);
@@ -125,14 +118,11 @@
     background: linear-gradient(45deg, #32a0e4, #c8c9ca); /* Gradient background */
     border: none; /* Remove border */
     color: white; /* Text color */
-    /*padding: 10px 20px; !* Padding for buttons *!*/
-    /*font-size: 1.2rem; !* Font size *!*/
     font-weight: bold;
     border-radius: 8px; /* Rounded corners */
     text-align: center; /* Center align text */
     text-decoration: none; /* Remove underline from links */
     transition: background 0.3s ease; /* Smooth transition for hover effect */
-    /*width: 150px; !* Set specific width *!*/
     min-width: fit-content;
     height: fit-content; /* Set specific height */
 }
@@ -141,17 +131,6 @@
     background: linear-gradient(45deg, #c8c9ca, #32a0e4); /* Reverse gradient on hover */
     color: white; /* Ensure text color remains white on hover */
 }
-
-/*!*dark mode*!*/
-/*body.dark-mode .home-container {*/
-/*    position: relative;*/
-/*    text-align: center;*/
-/*    min-height: 100vh;*/
-/*    background-color: rgb(12, 12, 12);*/
-/*    display: flex;*/
-/*    flex-direction: column;*/
-/*    align-items: center;*/
-/*}*/
 
 /* Home.css */
 body.dark-mode .picture-container{
@@ -179,56 +158,21 @@ body.dark-mode .home-title {
 
 body.dark-mode .home-underline {
     background-color: rgba(252, 251, 251, 0.5);
-    /*width: 300px;*/
-    /*height: 4px;*/
-    /*margin-top: 10px;*/
-
 }
 
 body.dark-mode .home-lead1 {
     color: #0d787a;
-    /*font-size: 1.25rem;*/
-    /*margin-bottom: 20px;*/
 }
 
 body.dark-mode .home-lead {
     color: white;
-    /*font-size: 1.25rem;*/
-    /*margin-bottom: 20px;*/
 }
 
 body.dark-mode .button-container .btn-all {
     background: linear-gradient(45deg, #0d787a, #c8c9ca); /* Gradient background */
-    /*border: none; !* Remove border *!*/
-    /*color: white; !* Text color *!*/
-    /*padding: 10px 20px; !* Padding for buttons *!*/
-    /*font-size: 1.2rem; !* Font size *!*/
-    /*font-weight: bold;*/
-    /*border-radius: 8px; !* Rounded corners *!*/
-    /*text-align: center; !* Center align text *!*/
-    /*text-decoration: none; !* Remove underline from links *!*/
-    /*transition: background 0.3s ease; !* Smooth transition for hover effect *!*/
-    /*height: fit-content;*/
 }
 
 body.dark-mode .btn-all:hover {
     background: linear-gradient(45deg, #c8c9ca, #0d787a); /* Reverse gradient on hover */
     color: black; /* Ensure text color remains white on hover */
 }
-
-/*button {*/
-/*    padding: 12px 25px; !* Slightly larger buttons *!*/
-/*    margin: 5px; !* Adjusted margin *!*/
-/*    font-size: 16px;*/
-/*    border-radius: 8px; !* More rounded corners *!*/
-/*    background-color: #343a40; !* Dark gray background *!*/
-/*    color: #fff; !* White text *!*/
-/*    border: none;*/
-/*    cursor: pointer;*/
-/*    transition: background-color 0.3s ease, transform 0.2s ease; !* Smooth transitions *!*/
-/*}*/
-
-/*button:hover {*/
-/*    background-color: #23272b; !* Slightly darker gray on hover *!*/
-/*    transform: translateY(-2px); !* Slight lift effect on hover *!*/
-/*}*/
