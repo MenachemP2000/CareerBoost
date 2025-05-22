@@ -1,9 +1,10 @@
-import cron from "node-cron"
-import nodemailer from "nodemailer"
-import User from "./models/User.js"
-import { decode } from "html-entities";
+// Import necessary modules
+import cron from "node-cron" // For scheduling periodic tasks
+import nodemailer from "nodemailer" // For sending emails
+import User from "./models/User.js" // User model to query alerts from MongoDB
+import { decode } from "html-entities"; // To decode HTML entities in job titles
 
-
+// Configure the email transporter using Gmail SMTP service
 const transporter = nodemailer.createTransport({
     service: "gmail",
     auth: {
@@ -12,43 +13,48 @@ const transporter = nodemailer.createTransport({
     },
 });
 
+// Utility function to decode HTML entities in job titles
 const decodeHtml = (html) => {
     return decode(html);
 };
 
+// Function to send daily job alerts to users
 async function sendDailyJobAlerts() {
 
+    // Query users who have at least one alert set to "daily"
     const alerts = await User.find(
         {
             "alerts.frequency": "daily", // Match alerts with frequency "daily"
         },
-        {
-            "alerts": 1
-        }
+        {"alerts": 1} // Only return the alerts field
     );
 
+    // Filter each user's alerts to retain only daily ones
     for (const alert of alerts) {
         alert.alerts = alert.alerts.filter((alert) => alert.frequency === "daily");
     }
 
+    // Log fetched alerts for debugging
     console.log("alerts", alerts);
 
-
+// Loop through each user
     for (const alertObject of alerts) {
-
-
+        // Loop through each of that user's alerts
         for (const alert of alertObject.alerts) {
             try {
+                // Fetch job data from the alert URL
                 const response = await fetch(alert.url);
 
                 if (!response.ok) {
                     throw new Error(`HTTP error! status: ${response.status}`);
                 }
 
+                // Convert response to JSON
                 const data = await response.json();
-
+                // Extract jobs array
                 const jobs = data.jobs;
 
+                // Construct HTML list of job links
                 const jobList = jobs.map((job) =>
                     `<li>
                         <a href="${job.link}" target="_blank">
@@ -57,9 +63,11 @@ async function sendDailyJobAlerts() {
                         .replace("LinkedIn", "")}
                         </a>
                     </li>`).join("");
+
+                // Define email contents
                 const mailOptions = {
                     from: "CareerBoost <boostcareer446@gmail.com>",
-                    to: alert.email,
+                    to: alert.email, // Recipient
                     subject: "Your CareerBoost Job Matches for Today! 🚀",
                     text: `Hi ${alert.email.split('@')[0]},\nHere are your latest job matches:\n\n${jobList}`,
                     html: `
@@ -78,22 +86,27 @@ async function sendDailyJobAlerts() {
                             </body>
                         </html>
                     `,
+                    // HTML version of the email
                     replyTo: 'support@careerboost.com',
                 };
+                // Log email for verification
                 console.log("mail", mailOptions);
 
-
+                // Send the email
                 await transporter.sendMail(mailOptions);
             }
             catch (error) {
+                // Catch and log errors for each alert
                 console.error("Error:", error);
             }
         }
     }
 }
 
+// Function to send weekly job alerts to users
 async function sendWeeklyJobAlerts() {
 
+    // Query users who have at least one alert set to "weekly"
     const alerts = await User.find(
         {
             "alerts.frequency": "weekly", // Match alerts with frequency "weekly"
@@ -103,18 +116,19 @@ async function sendWeeklyJobAlerts() {
         }
     );
 
+    // Filter alerts to include only weekly frequency
     for (const alert of alerts) {
         alert.alerts = alert.alerts.filter((alert) => alert.frequency === "weekly");
     }
 
+    // Log alerts
     console.log("alerts", alerts);
 
-
+    // Loop through users and their alerts
     for (const alertObject of alerts) {
-
-
         for (const alert of alertObject.alerts) {
             try {
+                // Fetch job results from the saved search URL
                 const response = await fetch(alert.url);
 
                 if (!response.ok) {
@@ -122,9 +136,9 @@ async function sendWeeklyJobAlerts() {
                 }
 
                 const data = await response.json();
-
                 const jobs = data.jobs;
 
+                // Format job links as HTML
                 const jobList = jobs.map((job) =>
                     `<li>
                         <a href="${job.link}" target="_blank">
@@ -133,6 +147,8 @@ async function sendWeeklyJobAlerts() {
                         .replace("LinkedIn", "")}
                         </a>
                     </li>`).join("");
+
+                // Weekly email template with styled HTML
                 const mailOptions = {
                     from: "CareerBoost <boostcareer446@gmail.com>",
                     to: alert.email,
@@ -190,15 +206,19 @@ async function sendWeeklyJobAlerts() {
                 };
                 console.log("mail", mailOptions);
 
-
+                // Send the email using the configured transporter
                 await transporter.sendMail(mailOptions);
             }
             catch (error) {
+                // Log errors
                 console.error("Error:", error);
             }
         }
     }
 }
 
+// Schedule the daily job alerts to run every day at 8 AM
 cron.schedule("0 8 * * *", sendDailyJobAlerts);
+
+// Schedule the weekly job alerts to run every Sunday at 9 AM
 cron.schedule("0 9 * * 0", sendWeeklyJobAlerts);

@@ -1,7 +1,9 @@
-const fs = require("fs");
-const path = require("path");
-const axios = require("axios");
+// Import necessary Node.js modules
+const fs = require("fs"); // File system module to write the JSON file
+const path = require("path");// Module to resolve file paths
+const axios = require("axios"); // HTTP client to fetch flag images
 
+// Define a dictionary mapping currency codes to country flag image URLs
 const currencyFlags = {
     "AUD": "https://flagcdn.com/w40/au.png",
     "CAD": "https://flagcdn.com/w40/ca.png",
@@ -153,27 +155,37 @@ const currencyFlags = {
     "USD": "https://flagcdn.com/w40/us.png"
 };
 
+// Fetch and convert all flag images
 async function fetchAndConvertFlags() {
+    // Object to hold currency codes mapped to Base64-encoded flag images
     let flagData = {};
 
+    // Loop through each currency and its corresponding image URL
     for (const [currency, url] of Object.entries(currencyFlags)) {
         try {
+            // Download the image as binary data
             const response = await axios.get(url, { responseType: "arraybuffer" });
+            // Convert the binary data to a Base64 string
             const base64 = Buffer.from(response.data).toString("base64");
+            // Store the result as a data URL
             flagData[currency] = `data:image/png;base64,${base64}`;
         } catch (error) {
+            // Log any download errors to the console
             console.error(`Failed to download ${currency}: ${error.message}`);
         }
     }
+    // Indicate that the downloads are done
     console.log("🚀 Flags downloaded");
 
-    // Save to JSON file
+    // Write the final flag data object to a JSON file named currencyFlags.json
     fs.writeFileSync(
         path.join(__dirname, "currencyFlags.json"),
         JSON.stringify(flagData, null, 2)
     );
 
+    // Confirmation message
     console.log("✅ Flags saved to currencyFlags.json");
 }
 
+// Run the function immediately when the script starts
 fetchAndConvertFlags();
