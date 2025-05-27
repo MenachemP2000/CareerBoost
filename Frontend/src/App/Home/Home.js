@@ -18,8 +18,6 @@ const Home = ({ toggleScreen, isSignedIn, toggleSignendIn }) => {
         toggleSignendIn(false);
     }
     return (
-
-        <section className="picture-container">
         <div className="home-container">
             {/*<img src={homeBg} alt="test bg" style={{ width: '200px' }} />*/}
 
@@ -78,7 +76,6 @@ const Home = ({ toggleScreen, isSignedIn, toggleSignendIn }) => {
             }
             </card>
         </div>
-            </section>
     );
 }
 

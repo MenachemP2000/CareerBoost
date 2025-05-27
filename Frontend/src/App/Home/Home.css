@@ -1,20 +1,22 @@
-/* Home.css */
-.picture-container {
-    background-image: url('../images/home-pic-light.png');
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center;
-    min-height: 100vh;
-}
-
 .home-container {
-    padding-top: 5vh; /* Adjust this as needed */
     display: flex;
     flex-direction: column;
+    justify-content: center;     /* Vertical centering */
+    align-items: center;         /* Horizontal centering */
     text-align: center;
-    justify-content: flex-start; /* Important: push card to top */
     min-height: 100vh;
     background-color: transparent;
+}
+
+.home-card {
+    width: 100%;
+    max-width: 600px;            /* Limits size */
+    border: 2px solid #30467e;
+    border-radius: 16px;
+    padding: 2rem;
+    background-color: white;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .home-title-container {
@@ -30,20 +32,20 @@
     align-items: center;
 }
 
-.home-card {
-    max-width: 55%;
-    min-width: 25rem;
-    position: relative;      /* Required for z-index to work */
-    /*z-index: 10;             !* Puts it above the background image *!*/
-    border: 2px solid #30467e; /* blue border */
-    border-radius: 16px;
-    padding: 2rem;
-    background-color: white;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    /*margin-top: 1rem;*/
-    margin-left: 5%;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
+/*.home-card {*/
+/*    align-content: center;*/
+/*    max-width: 55%;*/
+/*    min-width: 25rem; !* Required for z-index to work *!*/
+/*    !*z-index: 10;             !* Puts it above the background image *!*!*/
+/*    border: 2px solid #30467e; !* blue border *!*/
+/*    border-radius: 16px;*/
+/*    padding: 2rem;*/
+/*    background-color: white;*/
+/*    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);*/
+/*    !*margin-top: 1rem;*!*/
+/*    !*margin-left: 5%;*!*/
+/*    transition: transform 0.3s ease, box-shadow 0.3s ease;*/
+/*}*/
 
 .home-card:hover {
     transform: translateY(-5px);
@@ -134,7 +136,7 @@
 
 /* Home.css */
 body.dark-mode .picture-container{
-    background-image: url('../images/img_1.png');
+    /*background-image: url('../images/img_1.png');*/
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;

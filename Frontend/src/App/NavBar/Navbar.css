@@ -1,15 +1,35 @@
 .Navbar-App {
     width: 100vw;
-    position: absolute;
-    z-index: 9999;
+    position: fixed;
+    top: 0;
+    left: 0;
     max-width: 100%;
+    background-color: white;
+    /*box-shadow: 0 2px 4px rgba(0,0,0,0.1);*/
+}
+.brand-container {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem; /* Adjust spacing between image and text */
+    text-decoration: none; /* Remove link underline if any */
 }
 
+.brand-text {
+    font-size: 1.5rem; /* Adjust as needed */
+    font-weight: bold;
+    color: inherit; /* Keeps same color as surrounding text */
+    margin: 0;
+}
+
+/* Override Bootstrap navbar link font size */
+.Navbar-App .nav-link {
+    font-size: 1.5rem !important; /* or 18px, adjust as needed */
+    /*font-weight: 500;*/
+}
 /* Light mode styles */
 .navbar-light {
-    background-color: rgba(255, 255, 255, 0.9); /* Light transparent white */
+    background-color: rgba(255, 255, 255, 0.95); /* Light transparent white */
     color: black;
-    padding: 10px;
 }
 .logo-link {
     color: black;
@@ -25,11 +45,15 @@
 .navbar-light .dropdown-toggle:hover {
     color: #555; /* Slightly darker color on hover */
 }
+.custom-switch-large .form-check-input {
+    width: 3rem;
+    height: 1.5rem;
+    cursor: pointer;
+}
  /*Dark mode styles*/
 body.dark-mode .navbar-light {
     background-color: rgb(12, 12, 12); /* Half transparent black */
     color: white;
-    margin-bottom: 0;
 }
 
 body.dark-mode .navbar-light .navbar-brand,

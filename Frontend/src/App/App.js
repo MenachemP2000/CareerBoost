@@ -9,7 +9,6 @@ import config from './config';
 import React, { useState, useEffect, useCallback, useRef } from 'react';
 import SignIn from "./SignIn/SignIn";
 import Profile from "./Profile/Profile";
-import About from "./components/about";
 import Recommendations from "./Recommendations/Recommendations";
 import ModifyAdvanced from "./ModifyAdvanced/ModifyAdvanced";
 import AdvancedRecommendations from "./AdvancedRecommendations/AdvancedRecommendations";
@@ -21,8 +20,9 @@ import JobSearch from "./JobSearch/JobSearch";
 import FeaturedJobs from "./FeaturedJobs/FeaturedJobs";
 import SavedJobs from "./SavedJobs/SavedJobs";
 import FooterComponent from "./Footer/Footer";
-
-
+import JsonData from "./data/data.json";
+import About from "./components/about";
+import Header from "./components/header";
 function App() {
     const [screen, setScreen] = useState(false);
 
@@ -299,6 +299,16 @@ function App() {
         setScreen(screen);
     }, []);
 
+
+
+
+    const [landingPageData, setLandingPageData] = useState({});
+    useEffect(() => {
+        setLandingPageData(JsonData);
+    }, []);
+
+
+
     return (
         <Router>
             <div>
@@ -312,19 +322,26 @@ function App() {
                     setExchangeRates={setExchangeRates}
                     setExchangeRate={setExchangeRate}
                     setCurrencyFlags={setCurrencyFlags}
-
                 />
 
+
+
                 <Routes>
-                    <Route path="/" element={<Home
+                    <Route path="/" element={
+                        <>
+                        <Header data={landingPageData.Header} />
+                        <Home
                         toggleScreen={toggleScreen}
                         isSignedIn={isSignedIn}
-                        toggleSignendIn={toggleSignendIn} />} />
+                        toggleSignendIn={toggleSignendIn} />
+                        </>} />
                     <Route path="/Guide" element={<Guide
                         toggleScreen={toggleScreen}
                         isSignedIn={isSignedIn}
                         toggleSignendIn={toggleSignendIn} />} />
-                    <Route path="./components/about" element={<About/>} />
+
+                    <Route path="/about" element={<About data={landingPageData.About}/>} />
+
                     {/*<Route path="/aboutus" element={<AboutUs />} />*/}
                     <Route path="/contactus" element={<Contact />} />
                     <Route path="/createaccount" element={<CreateAccount

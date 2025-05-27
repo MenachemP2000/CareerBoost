@@ -82,16 +82,18 @@ function NavbarComponent({ exchangeRates, setExchangeRates, selectedCurrency, se
         <div>
             <Navbar className="Navbar-App" expand="lg" expanded={isExpanded}>
                 <Container>
-                    <Navbar.Brand as={Link} to="/">
-                        <img src="careerboost.ico" width="32px" alt="CareerBoost" /> CareerBoost
+                    <Navbar.Brand as={Link} to="/" className="brand-container">
+                        <img src="careerboost.ico" width="32px" alt="CareerBoost"/>
+                        <span className="brand-text">CareerBoost</span>
                     </Navbar.Brand>
+
 
                     <Navbar.Toggle
                         aria-controls="navbar-nav"
                         onClick={() => setIsExpanded(prevState => !prevState)}
                     />
 
-                    <Navbar.Collapse id="navbar-nav">
+                    <Navbar.Collapse>
                         <Nav className="ms-auto d-flex align-items-center">
                             <Dropdown className="ms-3"
                                       style={{
@@ -129,6 +131,7 @@ function NavbarComponent({ exchangeRates, setExchangeRates, selectedCurrency, se
                                         type="switch"
                                         id="custom-switch"
                                         // label={darkMode ? "Dark Mode" : "Light Mode"}
+                                        className="custom-switch-large"
                                         checked={darkMode}
                                         onChange={toggleDarkMode}
                                     />
@@ -141,7 +144,6 @@ function NavbarComponent({ exchangeRates, setExchangeRates, selectedCurrency, se
                             <Link to="/Recommendations" className="nav-link" onClick={() => setIsExpanded(false)}>Recommendations</Link>
                             <Link to="/SavedJobs" className="nav-link" onClick={() => setIsExpanded(false)}>Jobs</Link>
                             <Link to="/Guide" className="nav-link" onClick={() => setIsExpanded(false)}>Guide</Link>
-                            <Link to="/contactus" className="nav-link" onClick={() => setIsExpanded(false)}>Contact Us</Link>
                             <Link to="/contactus" className="nav-link" onClick={() => setIsExpanded(false)}>Contact Us</Link>
                         </Nav>
                     </Navbar.Collapse>

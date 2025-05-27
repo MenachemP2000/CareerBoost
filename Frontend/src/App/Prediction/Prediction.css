@@ -1,5 +1,6 @@
 /* Prediction Page Container */
 .prediction-container {
+    padding: 4rem 1rem;
     background-color: white;
     min-height: 100vh;
     display: flex;
