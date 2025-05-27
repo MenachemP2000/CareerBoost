@@ -79,7 +79,6 @@ function NavbarComponent({ exchangeRates, setExchangeRates, selectedCurrency, se
     }, [darkMode]);
 
     return (
-        <div>
             <Navbar className="Navbar-App" expand="lg" expanded={isExpanded}>
                 <Container>
                     <Navbar.Brand as={Link} to="/" className="brand-container">
@@ -144,12 +143,11 @@ function NavbarComponent({ exchangeRates, setExchangeRates, selectedCurrency, se
                             <Link to="/Recommendations" className="nav-link" onClick={() => setIsExpanded(false)}>Recommendations</Link>
                             <Link to="/SavedJobs" className="nav-link" onClick={() => setIsExpanded(false)}>Jobs</Link>
                             <Link to="/Guide" className="nav-link" onClick={() => setIsExpanded(false)}>Guide</Link>
-                            <Link to="/contactus" className="nav-link" onClick={() => setIsExpanded(false)}>Contact Us</Link>
+                            {/*<Link to="/contactus" className="nav-link" onClick={() => setIsExpanded(false)}>Contact Us</Link>*/}
                         </Nav>
                     </Navbar.Collapse>
                 </Container>
             </Navbar>
-        </div>
     );
 }
 

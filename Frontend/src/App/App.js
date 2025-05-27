@@ -1,7 +1,6 @@
 import "./App.css";
 import Home from "./Home/Home";
 import AboutUs from "./About/About";
-import Contact from "./Contacts/Contact";
 import NavbarComponent from "./NavBar/Navbar";
 import CreateAccount from './CreateAccount/CreateAccount';
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom"; // Import Routes
@@ -22,7 +21,12 @@ import SavedJobs from "./SavedJobs/SavedJobs";
 import FooterComponent from "./Footer/Footer";
 import JsonData from "./data/data.json";
 import About from "./components/about";
+import Contact from "./components/contact";
 import Header from "./components/header";
+
+
+
+
 function App() {
     const [screen, setScreen] = useState(false);
 
@@ -334,16 +338,19 @@ function App() {
                         toggleScreen={toggleScreen}
                         isSignedIn={isSignedIn}
                         toggleSignendIn={toggleSignendIn} />
+                        <About data={landingPageData.About}/>
+                        <Contact data={landingPageData.Contact}/>
                         </>} />
                     <Route path="/Guide" element={<Guide
                         toggleScreen={toggleScreen}
                         isSignedIn={isSignedIn}
                         toggleSignendIn={toggleSignendIn} />} />
 
-                    <Route path="/about" element={<About data={landingPageData.About}/>} />
+                    {/*<Route path="/about" element={<About data={landingPageData.About}/>} />*/}
 
                     {/*<Route path="/aboutus" element={<AboutUs />} />*/}
-                    <Route path="/contactus" element={<Contact />} />
+                    {/*<Route path="/contactus" element={<Contact />} />*/}
+
                     <Route path="/createaccount" element={<CreateAccount
                         toggleSignendIn={toggleSignendIn}
                         toggleScreen={toggleScreen}
