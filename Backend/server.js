@@ -1,11 +1,18 @@
+// Import required packages
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors'); // Import CORS middleware
 const fileUpload = require('express-fileupload');
 const path = require('path');
+
+// Initialize the Express application
 const app = express();
+
+// Define the port to use (from environment variable or fallback to 4001)
 const port = process.env.PORT || 4001;
 const mongodbUri = process.env.MONGODB_URI || "mongodb://localhost:27017/careerboost";
+
+//Import updates, flag icons and job alerts emails
 require("./exchangeRates");
 require("./generateFlagsJson");
 require("./sendJobAlerts");
@@ -14,15 +21,13 @@ require("./sendJobAlerts");
 app.use(express.json({ limit: '1000mb' })); // You can adjust the limit as needed
 app.use(express.urlencoded({ limit: '1000mb', extended: true })); // Also increase for URL-encoded payloads
 
+// Check if MongoDB URI is defined
 if (!mongodbUri) {
   console.error('MONGODB_URI is not defined');
   process.exit(1);
 }
-// Middleware
-
 
 // Use express.json middleware
-
 app.use(express.json());
 
 // Allow all origins in CORS
@@ -39,7 +44,7 @@ mongoose.connect(mongodbUri, { useNewUrlParser: true, useUnifiedTopology: true }
   .then(() => console.log('MongoDB connected'))
   .catch(err => console.log(err));
 
-// Import routes
+// Import routes files (each exports an Express router)
 const userRoutes = require('./routes/userRoutes');
 const tokenRoutes = require('./routes/tokenRoutes');
 const modelRoutes = require('./routes/modelRoutes');

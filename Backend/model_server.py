@@ -1,3 +1,4 @@
+# Import necessary libraries
 import sys
 import json
 import joblib
@@ -5,17 +6,20 @@ import pandas as pd
 import numpy as np
 import traceback
 
+# Load the preprocessed dataset (used to extract features and encodings)
 dtf = pd.read_csv("./categorical_dtf.csv",index_col='ResponseId', encoding='utf-8')
 X_data = dtf.drop(columns=['ConvertedCompYearly'])
 X_columns = X_data.columns
 
-# Load the model once
+# Load the trained machine learning model and label encoders
 model = joblib.load("model.pkl")
 label_encoder_dict = joblib.load("label_encoders.pkl")  
 
+# Specify which columns are categorical (these use label encoders)
 categorical_columns = ["MainBranch", "Age", "RemoteWork", "EdLevel", "DevType", "OrgSize", "Country", "Industry", "ICorPM"]
 
 print("Python Model Server Ready", flush=True)
+
 
 def recommend_skills_individual_with_best_value(user_profile,top_n=5):
     """
@@ -31,6 +35,7 @@ def recommend_skills_individual_with_best_value(user_profile,top_n=5):
     current_salary = model.predict(user_profile.reshape(1, -1))[0]
     
     recommendations = []
+    # Flags used to customize recommendation text based on feature category
     isLanguage = False
     isEmployment = False
     isDataBase = False
@@ -106,7 +111,7 @@ def recommend_skills_individual_with_best_value(user_profile,top_n=5):
             continue
         
         
-        
+        # Create human-readable recommendation based on feature category and flag
         if isLanguage:
             if best_value_str == 1:
                 recommendation = f"You should learn {feature} to increase your salary by approximately "
@@ -173,7 +178,8 @@ def recommend_skills_individual_with_best_value(user_profile,top_n=5):
                 recommendation = f"You should stop using {feature} as your operating system to increase your salary by approximately "       
         else:
             recommendation = f"Change your {feature} to {best_value_str} to increase your salary by approximately "
-        
+
+         # Reset feature type flags
         if feature == 'Crystal' :
             isLanguage = False
         if feature == 'Not employed, and not looking for work' :
@@ -188,7 +194,8 @@ def recommend_skills_individual_with_best_value(user_profile,top_n=5):
             isTool = False
         if feature == 'Haiku' :
             isOS = False
-        
+
+        # Save recommendation
         recommendations.append((best_value_str, best_salary_increase, recommendation, i, best_value, feature))
         
     
@@ -206,7 +213,8 @@ def recommend_skills_individual_with_best_value(user_profile,top_n=5):
         user_profile_copy[index] = best_value
     prediction = model.predict(user_profile_copy.reshape(1, -1))[0]
     combined = int(prediction)
-    
+
+     # Filter and return recommendations with actual salary increase
     recommendationsIncrese = [recommendation[1] for recommendation in recommendations if ((recommendation[1] >= 1) & (recommendation[0] != "nan"))]
     recommendationsIncrese = [ int(recommendation) for recommendation in recommendationsIncrese]
     recommendationsFeature = [recommendation[5] for recommendation in recommendations if ((recommendation[1] >= 1) & (recommendation[0] != "nan"))]
@@ -265,7 +273,8 @@ def most_impactful_skills(user_profile):
             
         
         impacts.append({"impact": int(-worst_salary_decrease),"feature": feature})
-        
+
+    # Sort by biggest negative impact and return top 3
     impacts = sorted(impacts, key=lambda x: x['impact'], reverse=True)
     temp = impacts[0]
     impacts[0] = impacts[1]
@@ -273,7 +282,7 @@ def most_impactful_skills(user_profile):
     impacts = impacts[:3]
     return impacts
     
-
+# Main server loop: reads input, processes request, sends output
 while True:
     try:
         # Read input data
@@ -283,6 +292,7 @@ while True:
         request_type = request.get("type")  # "predict" or "recommend"
         user_profile = request.get("data")
         df = np.zeros(len(X_columns))
+         # Populate the user profile into model input format
         for key, value in user_profile.items():
             index = X_columns.get_loc(key)
             if key in label_encoder_dict:
@@ -319,7 +329,7 @@ while True:
 
         else:
             response = {"error": "Invalid request type"}
-
+    # Catch and report any exceptions for debugging
     except Exception as e:
         error_details = traceback.format_exc()  # Get full traceback
         print(json.dumps({"error": str(e), "traceback": error_details}), flush=True)
