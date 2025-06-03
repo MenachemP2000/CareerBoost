@@ -26,6 +26,7 @@ jobs:
         ssh -o StrictHostKeyChecking=no ubuntu@ec2-13-60-199-107.eu-north-1.compute.amazonaws.com << 'EOF'
           cd ~/CareerBoost  # Navigate to your repository on the server
           git checkout -- Backend/exchange_rates.json
+          git checkout -- Backend/currencyFlags.json
           git pull origin master  # Pull the latest changes
           sudo systemctl stop careerboost.service  # Stop the service
           cd Frontend

@@ -1,9 +1,8 @@
-import fs from "fs";
-import path from "path";
-import { fileURLToPath } from "url";
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const fs = require('fs') ;
+const path = require('path') ;
+const fileURLToPath = require('url') ;
 
-export async function getExchangeRates(req, res) {
+exports.getExchangeRates = async (req, res) => {
     const filePath = path.join(__dirname, "../exchange_rates.json");
 
     // Check if file exists
@@ -20,7 +19,7 @@ export async function getExchangeRates(req, res) {
     });
 };
 
-export async function getCurrenciesFlags(req, res) {
+exports.getCurrenciesFlags = async (req, res) => {
     const filePath = path.join(__dirname, "../currencyFlags.json");
 
     // Check if file exists
