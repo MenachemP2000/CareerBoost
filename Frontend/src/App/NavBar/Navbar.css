@@ -1,6 +1,8 @@
 .Navbar-App {
     width: 100vw;
-    position: absolute;
+    position: fixed; /* Changed from absolute to fixed */
+    top: 0; /* Ensure it's at the top */
+    left: 0;
     z-index: 9999;
     max-width: 100%;
 }
@@ -19,13 +21,32 @@
 .navbar-light .dropdown-toggle {
     color: black; /* Black text color for better contrast */
     font-size: clamp(0.3rem, 1rem, 1.3rem);
+    position: relative;
+    transition: color 0.2s;
+}
+
+.navbar-light .nav-link::after {
+    content: "";
+    display: block;
+    position: absolute;
+    left: 0;
+    bottom: 2px; /* Closer to the text */
+    width: 0;
+    height: 2px;
+    background: linear-gradient(90deg, #3a8dde 0%, #5ee2ff 100%);
+    transition: width 0.3s ease;
+}
+
+.navbar-light .nav-link:hover::after {
+    width: 100%;
 }
 
 .navbar-light .nav-link:hover,
 .navbar-light .dropdown-toggle:hover {
     color: #555; /* Slightly darker color on hover */
 }
- /*Dark mode styles*/
+
+/*Dark mode styles*/
 body.dark-mode .navbar-light {
     background-color: rgb(12, 12, 12); /* Half transparent black */
     color: white;

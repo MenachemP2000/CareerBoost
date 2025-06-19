@@ -80,7 +80,7 @@ function NavbarComponent({ exchangeRates, setExchangeRates, selectedCurrency, se
 
     return (
         <div>
-            <Navbar className="Navbar-App" expand="lg" expanded={isExpanded}>
+            <Navbar className="Navbar-App" fixed="top" expand="lg" expanded={isExpanded}>
                 <Container>
                     <Navbar.Brand as={Link} to="/">
                         <img src="careerboost.ico" width="32px" alt="CareerBoost" /> CareerBoost

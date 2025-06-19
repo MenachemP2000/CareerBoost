@@ -9,7 +9,6 @@ import config from './config';
 import React, { useState, useEffect, useCallback, useRef } from 'react';
 import SignIn from "./SignIn/SignIn";
 import Profile from "./Profile/Profile";
-import ModifyAccount from "./ModifyAccount/ModifyAccount";
 import Recommendations from "./Recommendations/Recommendations";
 import ModifyAdvanced from "./ModifyAdvanced/ModifyAdvanced";
 import AdvancedRecommendations from "./AdvancedRecommendations/AdvancedRecommendations";
@@ -320,6 +319,7 @@ function App() {
                         toggleScreen={toggleScreen}
                         isSignedIn={isSignedIn}
                         toggleSignendIn={toggleSignendIn} />} />
+                        
                     <Route path="/Guide" element={<Guide
                         toggleScreen={toggleScreen}
                         isSignedIn={isSignedIn}
@@ -334,14 +334,7 @@ function App() {
                         ages={ages}
                         educations={educations}
                     />} />
-                    {/*<Route path="/modifyaccount" element={<ModifyAccount*/}
-                    {/*    toggleSignendIn={toggleSignendIn}*/}
-                    {/*    toggleScreen={toggleScreen}*/}
-                    {/*    isSignedIn={isSignedIn}*/}
-                    {/*    countries={countries}*/}
-                    {/*    educations={educations}*/}
-                    {/*    ages={ages}*/}
-                    {/*/>} />*/}
+
                     <Route path="/signin" element={<SignIn
                         toggleSignendIn={toggleSignendIn}
                         toggleScreen={toggleScreen}
