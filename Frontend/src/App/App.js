@@ -20,7 +20,7 @@ import JobSearch from "./JobSearch/JobSearch";
 import FeaturedJobs from "./FeaturedJobs/FeaturedJobs";
 import SavedJobs from "./SavedJobs/SavedJobs";
 import FooterComponent from "./Footer/Footer";
-
+import Features from "./Features/Features";
 
 function App() {
     const [screen, setScreen] = useState(false);
@@ -315,11 +315,15 @@ function App() {
                 />
 
                 <Routes>
-                    <Route path="/" element={<Home
-                        toggleScreen={toggleScreen}
-                        isSignedIn={isSignedIn}
-                        toggleSignendIn={toggleSignendIn} />} />
-                        
+                    <Route path="/" element={ <>
+                    <Home
+                    toggleScreen={toggleScreen}
+                    isSignedIn={isSignedIn}
+                    toggleSignendIn={toggleSignendIn}
+                     />
+                      <Features />
+                     </>} />
+
                     <Route path="/Guide" element={<Guide
                         toggleScreen={toggleScreen}
                         isSignedIn={isSignedIn}
