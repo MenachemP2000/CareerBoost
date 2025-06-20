@@ -21,6 +21,7 @@ import FeaturedJobs from "./FeaturedJobs/FeaturedJobs";
 import SavedJobs from "./SavedJobs/SavedJobs";
 import FooterComponent from "./Footer/Footer";
 import Features from "./Features/Features";
+import About from "./About_Us/about";
 
 function App() {
     const [screen, setScreen] = useState(false);
@@ -322,6 +323,7 @@ function App() {
                     toggleSignendIn={toggleSignendIn}
                      />
                       <Features />
+                      <About />
                      </>} />
 
                     <Route path="/Guide" element={<Guide
