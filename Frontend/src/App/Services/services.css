@@ -1,0 +1,110 @@
+.services-section {
+  background: linear-gradient(to right, #667eea, #76b2fe);
+  color: white;
+  text-align: center;
+  padding: 80px 20px;
+}
+.section-title {
+  text-align: center;
+  margin-bottom: 40px;
+  position: relative;
+}
+.section-title h2 {
+  font-size: 36px;
+  font-weight: 700;
+  margin-bottom: 10px;
+  position: relative;
+  display: inline-block;
+}
+
+.section-title h2::after {
+  /* content: ""; */
+  display: block;
+  width: 50px;
+  height: 4px;
+  background: #fff;
+  margin: 10px auto 0;
+  border-radius: 2px;
+}
+
+.section-title p {
+  font-size: 18px;
+  margin-top: 10px;
+  white-space: nowrap; /* ✅ keeps it on one line */
+  overflow: hidden;
+  text-overflow: ellipsis; 
+}
+
+.section-title p::after {
+  content: none !important;
+}
+
+.services-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 40px;
+}
+
+.service-card {
+  flex: 1 1 260px;
+  max-width: 300px;
+  background: transparent;
+  color: white;
+  text-align: center;
+}
+
+.service-icon {
+  width: 100px;
+  height: 100px;
+  margin: 0 auto 20px;
+  background: radial-gradient(circle at 30% 30%, #5a6ee3, #3f92fa);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+}
+
+.service-icon i {
+  font-size: 36px;
+  color: white;
+}
+
+.service-card h3 {
+  font-size: 20px;
+  margin-bottom: 10px;
+  font-weight: 600;
+}
+
+.service-card p {
+  font-size: 15px;
+  line-height: 1.6;
+  color: #e6e6e6;
+}
+body.dark-mode .services-section {
+    background: linear-gradient(to right, #232526, #414345);
+    color: #e6e6e6;
+}
+
+body.dark-mode .section-title h2::after {
+    background: #e6e6e6;
+}
+
+body.dark-mode .service-card {
+    color: #e6e6e6;
+    background: transparent;
+}
+
+body.dark-mode .service-icon {
+    background: radial-gradient(circle at 30% 30%, #232a3a, #2a3a4d);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5);
+}
+
+body.dark-mode .service-icon i {
+    color: #e6e6e6;
+}
+
+body.dark-mode .service-card p {
+    color: #b0b0b0;
+}

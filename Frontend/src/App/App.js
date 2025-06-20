@@ -22,6 +22,7 @@ import SavedJobs from "./SavedJobs/SavedJobs";
 import FooterComponent from "./Footer/Footer";
 import Features from "./Features/Features";
 import About from "./About_Us/about";
+import Services from "./Services/services";
 
 function App() {
     const [screen, setScreen] = useState(false);
@@ -324,6 +325,7 @@ function App() {
                      />
                       <Features />
                       <About />
+                      <Services />
                      </>} />
 
                     <Route path="/Guide" element={<Guide
