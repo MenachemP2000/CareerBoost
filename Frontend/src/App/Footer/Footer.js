@@ -8,7 +8,8 @@ function Footer() {
                 <div>
                     <h4>Company</h4>
                     <ul>
-                        <li><Link to="/contactus">Contact Us</Link></li>
+                        <li><Link to="/?scroll=contact">Contact Us</Link></li>
+
                     </ul>
                 </div>
                 <div>
