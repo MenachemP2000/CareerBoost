@@ -2,7 +2,8 @@ import "./Features.css";
 import chatIcon from "../images/chat.png";
 import megaphoneIcon from "../images/megaphone.png";
 import supportIcon from "../images/support.png";
-import magicwandIcon from "../images/magic-wand.png"; 
+import magicwandIcon from "../images/wand.png"; 
+
 
 const featuresData = [
   {
