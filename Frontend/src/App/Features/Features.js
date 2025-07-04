@@ -1,24 +1,26 @@
-import React from "react";
 import "./Features.css";
-
+import chatIcon from "../images/chat.png";
+import megaphoneIcon from "../images/megaphone.png";
+import supportIcon from "../images/support.png";
+import magicwandIcon from "../images/magic-wand.png"; // Assuming you have a magic wand icon
 const featuresData = [
   {
-    image: "../images/chat.png",
+    image: chatIcon,
     title: "Communication",
     text: "Engage easily with effective communication tools."
   },
   {
-    icon: "fa fa-bullhorn",
+    image: megaphoneIcon,
     title: "Promotion",
     text: "Promote your work and reach a wider audience."
   },
   {
-    icon: "fa fa-users",
+    image: supportIcon,
     title: "Collaboration",
     text: "Work together efficiently with team features."
   },
   {
-    icon: "fa fa-magic",
+    image: magicwandIcon,
     title: "Customization",
     text: "Personalize your experience effortlessly."
   }
