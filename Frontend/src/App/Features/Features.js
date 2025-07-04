@@ -3,7 +3,7 @@ import "./Features.css";
 
 const featuresData = [
   {
-    icon: "fa fa-comments-o",
+    image: "../images/chat.png",
     title: "Communication",
     text: "Engage easily with effective communication tools."
   },
@@ -32,7 +32,7 @@ const Features = () => {
         {featuresData.map((item, index) => (
           <div className="feature-card" key={index}>
             <div className="feature-icon">
-              <i className={item.icon}></i>
+              <img src={item.image} alt={item.title}/>
             </div>
             <h3>{item.title}</h3>
             <p>{item.text}</p>
