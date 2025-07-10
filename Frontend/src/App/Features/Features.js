@@ -1,30 +1,29 @@
 import "./Features.css";
-import chatIcon from "../images/chat.png";
-import megaphoneIcon from "../images/megaphone.png";
-import supportIcon from "../images/support.png";
 import magicwandIcon from "../images/wand.png"; 
-
-
+import resumeIcon from "../images/resume.png"; // Assuming you have a resume icon
+import salaryIcon from "../images/salary.png"; // Assuming you have a salary icon
+import compassIcon from "../images/compass.png"; // Assuming you have a compass icon
+import brainIcon from "../images/brain-organ.png"; // Assuming you have a brain icon
 const featuresData = [
   {
-    image: chatIcon,
-    title: "Communication",
-    text: "Engage easily with effective communication tools."
+    image: resumeIcon,
+    title: "Profile Building",
+    text: "Create and manage your professional resume effortlessly."
   },
   {
-    image: megaphoneIcon,
-    title: "Promotion",
-    text: "Promote your work and reach a wider audience."
+    image: salaryIcon,
+    title: "Salary Prediction",
+    text: "Get accurate salary estimates based on your role, location, and background."
   },
   {
-    image: supportIcon,
-    title: "Collaboration",
-    text: "Work together efficiently with team features."
+    image: compassIcon,
+    title: "Job Discovery",
+    text: "Explore personalized job opportunities tailored to your strengths."
   },
   {
-    image: magicwandIcon,
-    title: "Customization",
-    text: "Personalize your experience effortlessly."
+    image: brainIcon,
+    title: "Career Guidance",
+    text: "Access tools and tips to help you grow and succeed professionally."
   }
 ];
 
