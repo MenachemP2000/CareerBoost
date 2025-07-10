@@ -2,22 +2,22 @@ import "./about.css";
 import aboutImage from "../images/about.jpg"; // Adjust the path as necessary
 
 const About = () => {
-  const paragraph = `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-  incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-  ullamco laboris nisi ut aliquip ex ea commodo consequat.`;
+  const paragraph = `At CareerBoost, we’re on a mission to help you unlock your full career potential. Whether you're a student, a recent graduate, or a seasoned professional looking for a change, our platform provides smart tools to help you move forward with confidence.
+
+From personalized profiles to real-time salary predictions and tailored job matches, we use data and design to guide you toward the right opportunities.`;
 
   const reasonsLeft = [
-    "Lorem ipsum dolor",
-    "Tempor incididunt",
-    "Lorem ipsum dolor",
-    "Incididunt ut labore"
+    "Smart profiles",
+    "Salary insights",
+    "Job matching",
+    "Easy to use"
   ];
 
   const reasonsRight = [
-    "Aliquip ex ea commodo",
-    "Lorem ipsum dolor",
-    "Exercitation ullamco",
-    "Lorem ipsum dolor"
+    "Trusted by many",
+    "Always improving",
+    "For every stage",
+    "Data-driven tools"
   ];
 
   return (

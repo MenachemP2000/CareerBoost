@@ -328,7 +328,7 @@ function App() {
                      />
                       <Features />
                       <About />
-                      <Services />
+                      {/* <Services /> */}
                       <Contact />
                      </>} />
 

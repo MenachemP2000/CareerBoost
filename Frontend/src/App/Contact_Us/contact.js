@@ -7,9 +7,9 @@ const contactInfo = {
   address: "4321 California St, San Francisco, CA 12345",
   phone: "+1 123 456 1234",
   email: "info@company.com",
-  facebook: "https://facebook.com/example",
-  twitter: "https://twitter.com/example",
-  youtube: "https://youtube.com/example"
+  // facebook: "https://facebook.com/example",
+  // twitter: "https://twitter.com/example",
+  // youtube: "https://youtube.com/example"
 };
 
 const initialState = {

@@ -162,7 +162,7 @@ body.dark-mode .home-underline {
 }
 
 body.dark-mode .home-lead1 {
-    color: #0d787a;
+    color: #274884;
 }
 
 body.dark-mode .home-lead {
@@ -170,10 +170,10 @@ body.dark-mode .home-lead {
 }
 
 body.dark-mode .button-container .btn-all {
-    background: linear-gradient(45deg, #0d787a, #c8c9ca); /* Gradient background */
+    background: linear-gradient(45deg, #274884, #c8c9ca); /* Gradient background */
 }
 
 body.dark-mode .btn-all:hover {
-    background: linear-gradient(45deg, #c8c9ca, #0d787a); /* Reverse gradient on hover */
+    background: linear-gradient(45deg, #c8c9ca, #274884); /* Reverse gradient on hover */
     color: black; /* Ensure text color remains white on hover */
 }
