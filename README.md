@@ -54,19 +54,18 @@ CareerBoost is a web application designed to help software developers make smart
 ```bash
 # Clone the repo
 git clone https://github.com/MenachemP2000/CareerBoost.git
-cd CareerBoost
 
-# Install backend dependencies
-cd server
-npm install
 
 # Install frontend dependencies
-cd ../client
+cd ../Frontend
 npm install
+npm run build
 
-# (Optional) Set up Python environment for salary prediction
-cd ../predictor
-pip install -r requirements.txt
+# Install backend dependencies
+cd Backend
+npm install
+node server.js
+
 
 
 ### website:
