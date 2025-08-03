@@ -1,6 +1,9 @@
 # CareerBoost
 
-CareerBoost is a web application designed to help software developers make smarter career decisions using data from the Stack Overflow Developer Survey. It provides salary predictions, skill-based recommendations, and a job search engine tailored to the user’s profile.
+CareerBoost is a web application designed to help software developers make smarter career decisions using data from the Stack Overflow Developer Survey. It provides salary predictions, skill-based recommendations, and a job search engine tailored to the user’s profile
+
+### website:
+https://careerboost.menachem.website
 
 ## 🔍 Features
 
@@ -65,8 +68,3 @@ npm run build
 cd Backend
 npm install
 node server.js
-
-
-
-### website:
-https://careerboost.menachem.website
