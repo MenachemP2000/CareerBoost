@@ -187,12 +187,13 @@ const Profile = ({toggleScreen, isSignedIn, toggleSignendIn, countries, educatio
             <div className="profile-buttons">
                 {!editMode ? (
                     <>
-                        <button onClick={() => navigate("/ModifyAdvanced")}
+                        <button as={Button} className="profile-button" onClick={handleEditToggle}>Edit
+                        </button>
+                       
+                        <>
+                         <button onClick={() => navigate("/ModifyAdvanced")}
                                 className="profile-button">Advanced
                         </button>
-                        <>
-                            <button as={Button} className="profile-button" onClick={handleEditToggle}>Edit
-                            </button>
                         </>
                         <button onClick={handleSignout} className="profile-button">Sign Out</button>
                     </>
