@@ -18,11 +18,8 @@ if (!mongodbUri) {
   console.error('MONGODB_URI is not defined');
   process.exit(1);
 }
-// Middleware
-
 
 // Use express.json middleware
-
 app.use(express.json());
 
 // Allow all origins in CORS
