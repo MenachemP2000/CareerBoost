@@ -1,152 +1,189 @@
 /* AdvancedProfile.css */
-
-/* Profile Page Container */
-.advanced-container {
-    background-color: white;
+/* Page */
+.advanced-container{
+    background:#efefef;                /* light gray page */
+    margin-top: 2rem;
     min-height: 100vh;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
-    width: 100%;
-}
-/* Profile Card */
-.advanced-card {
-    text-align: center;
-    position: relative;
-    background-color: #fff;
-    /*margin-bottom: 10%;*/
-    padding: 20px;
-    max-width: 500px;
-    border-radius: 8px;
-    width: 30%;
-    min-width: 20rem;
-    box-shadow: 1px 4px 10px rgba(0, 0, 0, 0.1);
-    transition: background-color 0.3s, box-shadow 0.3s, color 0.3s;
+    justify-content: flex-start;
+    padding: 2rem 1rem;
+    box-sizing: border-box;
 }
 
-.advanced-title {
-    margin-top: 3rem;
-    font-size: clamp(1.5rem, 2.5rem, 2.8rem);
-    font-weight: 600;
-    margin-bottom: 1rem;
-    text-align: center;
-    color: #1f2937;
-}
-
-body.dark-mode .advanced-title {
-    color: #ffffff;
-}
-
-.advanced-subtitle {
-    font-size: 16px;
-    color: #7f8c8d;
-    text-align: center;
-    margin-bottom: 40px;
-}
-body.dark-mode .advanced-subtitle {
-    color: #b0b0b0;
-}
-.advanced-card .title {
-    font-size: 2rem;
-    font-weight: 600;
-    margin-bottom: 2.5rem;
-    text-align: center;
-    color: #1f2937;
-}
-
-.advanced-card .advanced-information{
-    font-size: 1.5rem;
-    font-weight: 600;
-    margin-bottom: 0.5rem;
-    text-align: center;
-    color: #1f2937;
-}
-
-/* Form Controls */
-.advanced-card .form-group label {
-    font-weight: bold;
-    text-align: left;
-    display: block;
-    margin-bottom: 5px;
-}
-
-.advanced-card .form-control,
-.advanced-card .css-2b097c-container{
-    width: 100%;
-    border-radius: 6px;
-    border: 1px solid #ccc;
-    padding: 10px;
-    background-color: #f8f9fa;
-    cursor: pointer;
-}
-
-.advanced-card .form-control:disabled,
-.advanced-card .css-2b097c-container--is-disabled {
-    background-color: #e9ecef;
-}
-
-.advanced-card .form-control:focus {
-    border-color: #007bff;
-    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
-}
-
-/* Profile Buttons */
-.advanced-buttons {
-    flex-direction: row;
-    align-items: center;
-    display: flex;
-    gap: 1rem;
-    justify-content: center;
-    flex-wrap: wrap;
-    margin-bottom: 10%;
+/* Title + subtitle */
+.advanced-title{
     margin-top: 2rem;
+    font-size: clamp(2rem, 4vw, 2.8rem);
+    font-weight: 700;
+    /*margin-bottom: 0.5rem;*/
+    text-align: center;
+    color: #1f2937;
+    letter-spacing: 0.02em;
+}
+.advanced-subtitle{
+    font-size: clamp(1rem, 2vw, 1.2rem);
+    color:#4b5563;
+    text-align: center;
+    margin-bottom: 5rem;
+    font-style: italic;
+}
+/* layout column */
+.advanced-layout{
+    width:100%;
+    max-width:1060px;
+    display:flex;
+    flex-direction:column;
+    gap:1.25rem;              /* space between rectangles */
+    margin:0 auto;
+}
+/* the white rectangles */
+.settings-section{
+    background:#fff;
+    border:1px solid #e5e7eb;
+    border-radius:12px;
+    overflow:hidden;
+}
+/* header inside each rectangle */
+.section-header{
+    padding:1.25rem 1.5rem 0.75rem;
+    border-bottom:1px solid #f3f4f6;
+}
+.section-title{
+    margin:0;
+    font-size:1.15rem;
+    font-weight:700;
+    color:#111827;
+}
+.section-subtitle{
+    margin:0.35rem 0 0;
+    color:#6b7280;
+    font-size:0.95rem;
 }
 
-.advanced-button {
-    width: clamp(3rem, 10rem, 8rem);
-    padding: clamp(0.3rem, 1.5vw, 0.3rem) clamp(0.3rem, 1vw, 0.3rem);
-    font-size: clamp(0.3rem, 2vw, 1.3rem);
-    background: linear-gradient(45deg, #32a0e4, #c8c9ca); /* Gradient background */
-    border: none; /* Remove border */
-    color: white; /* Text color */
-    /*padding: 10px 20px; !* Padding for buttons *!*/
-    /*font-size: 1.2rem; !* Font size *!*/
-    font-weight: bold;
-    border-radius: 8px; /* Rounded corners */
-    text-align: center; /* Center align text */
-    text-decoration: none; /* Remove underline from links */
-    transition: background 0.3s ease; /* Smooth transition for hover effect */
-    /*width: 150px; !* Set specific width *!*/
-    min-width: fit-content;
-    height: fit-content; /* Set specific height */
+/* footer (Save/Cancel) inside each rectangle */
+.section-actions{
+    display:flex;
+    gap:.75rem;
+    justify-content:flex-end;
+    padding:1rem 1.5rem 1.25rem;
+    border-top:1px solid #f3f4f6;
 }
 
-.advanced-button:hover {
-    background: linear-gradient(45deg, #c8c9ca, #32a0e4); /* Reverse gradient on hover */
+/* Rows */
+.field-row{
+    display:grid;
+    grid-template-columns:260px 1fr 44px;/* label | value | chevron */
+    align-items:center;
+    gap:1rem;
+    padding:1.1rem 2rem;
+    border-top:1px solid #eef1f4;
+}
+.field-row:first-of-type{ border-top-color:#e6e7eb; }
+
+.field-label{
+    color:#111827;
+    font-weight:700;
+    font-size:1.05rem;
+}
+.field-value{ min-height:42px; display:flex; align-items:center; }
+.value-text{ color:#111827; font-size:1.05rem; }
+
+/* Green action chevron */
+.field-edit{
+    width:36px; height:36px;
+    border:none; border-radius:999px;
+    background:#22c55e;
+    display:grid; place-items:center;
+    cursor:pointer;
+    transition:transform .08s ease, filter .15s ease;
+}
+.field-edit:hover{ filter:brightness(1.06); }
+.field-edit:active{ transform:scale(.97); }
+.field-edit .chev{
+    width:8px; height:8px; display:inline-block;
+    border-right:2px solid #fff; border-bottom:2px solid #fff;
+    transform:rotate(-45deg);
 }
 
-/* Dark Mode */
-body.dark-mode .advanced-container {
-    background-color: rgb(12,12,12);
+/* Chips for view mode of multi-selects */
+.chips{ display:flex; flex-wrap:wrap; gap:.4rem; }
+.chip{
+    background:#f3f4f6; color:#111827;
+    padding:.25rem .5rem;
+    border-radius:999px;
+    font-size:.9rem;
+    border:1px solid #e6e7eb;
 }
-body.dark-mode .advanced-card .title,
-body.dark-mode .advanced-card .advanced-information {
-    color: #e4e6eb;
-}
-body.dark-mode .advanced-card {
-    background: #242526;
-    color: white;
-    box-shadow: 0 4px 10px rgba(255, 255, 255, 0.1);
-}
-
-body.dark-mode .form-control,
-body.dark-mode .css-2b097c-container {
-    background-color: #6e6c6c;
-    color: #050505;
+/* Buttons row */
+.advanced-buttons{
+    display:flex;
+    gap:.75rem;
+    justify-content:center;
+    align-items:center;
+    margin-top:1rem;
 }
 
-
-body.dark-mode .advanced-button:hover {
-    color: black;
+/* Modern buttons (same look as the new Profile page) */
+.advanced-button{
+    appearance:none;
+    border:1px solid #d1d5db;
+    background:#fff;
+    color:#111827;
+    border-radius:12px;
+    padding:.7rem 1.2rem;
+    font-size:clamp(.95rem,1.8vw,1.05rem);
+    font-weight:700;
+    cursor:pointer;
+    box-shadow:0 1px 2px rgba(0,0,0,.02);
+    transition:background .2s,color .2s,border-color .2s,box-shadow .25s,transform .02s;
 }
+.advanced-button:hover{
+    background:#111827; color:#fff; border-color:#111827;
+    box-shadow:0 6px 16px rgba(17,24,39,.14);
+}
+.advanced-button:active{ transform:translateY(.5px); }
+
+/* Optional: stronger primary style if you add a class */
+.advanced-button.is-primary{
+    background:#111827; color:#fff; border-color:transparent;
+}
+
+/* React-Select: keep consistent control height (optional) */
+.field-value .css-13cymwt-control,
+.field-value .css-t3ipsp-control{
+    min-height:42px;
+}
+
+/* Dark mode */
+body.dark-mode .advanced-container{ background:#18191a; }
+body.dark-mode .settings-section{ background:#242526; border-color:#3a3b3c; box-shadow:none; }
+body.dark-mode .section-title, body.dark-mode .value-text, body.dark-mode .field-label,body.dark-mode .advanced-title, body.dark-mode .advanced-subtitle{  color: #e4e6eb; }
+body.dark-mode .section-subtitle{ color:#b0b3b8; }
+body.dark-mode .field-row{ border-top-color:#2f3031; }
+body.dark-mode .chip{ background:#2a2b2d; color:#e4e6eb; border-color:#3a3b3c; }
+/*!* Dark Mode *!*/
+/*body.dark-mode .advanced-container {*/
+/*    background-color: rgb(12,12,12);*/
+/*}*/
+/*body.dark-mode .advanced-title,*/
+/*body.dark-mode .advanced-card .advanced-information {*/
+/*    color: #e4e6eb;*/
+/*}*/
+/*body.dark-mode .advanced-card {*/
+/*    background: #242526;*/
+/*    color: white;*/
+/*    box-shadow: 0 4px 10px rgba(255, 255, 255, 0.1);*/
+/*}*/
+
+/*body.dark-mode .form-control,*/
+/*body.dark-mode .css-2b097c-container {*/
+/*    background-color: #6e6c6c;*/
+/*    color: #050505;*/
+/*}*/
+
+
+/*body.dark-mode .advanced-button:hover {*/
+/*    color: black;*/
+/*}*/
