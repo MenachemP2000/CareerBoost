@@ -214,11 +214,11 @@ const Prediction = ({ toggleScreen, isSignedIn, toggleSignendIn, selectedCurrenc
                                         <span className="kpi-sub">per year</span>
                                     </div>
                                 </div>
-
-                                <div className="btn-row">
+                                <br/>
+                                <div className="profile-buttons">
                                     <button onClick={handlePredict} className="profile-button">Re-predict</button>
                                     <Link to="/Experiment" className="btn-ghost">Experiment</Link>
-                                    <button onClick={handleSignout} className="btn-ghost">Sign Out</button>
+                                    <button onClick={handleSignout} className="profile-button is-danger-outline">Sign Out</button>
                                 </div>
                             </>
                         )}

@@ -1,18 +1,31 @@
 import React from "react";
-import { Container, Row, Col, Card, Button } from 'react-bootstrap';
-import { Link } from "react-router-dom";
-import { useEffect, useState } from "react";
-import { useNavigate } from 'react-router-dom';
-import { Dropdown, DropdownButton, Form } from "react-bootstrap";
+// import {Container, Row, Col, Card, Button} from 'react-bootstrap';
+// import {Link} from "react-router-dom";
+import {useEffect, useState} from "react";
+import {useNavigate} from 'react-router-dom';
+import {Dropdown, DropdownButton, Form} from "react-bootstrap";
 import config from '../config';
 import "./AdvancedRecommendations.css"
-const AdvancedRecommendations = ({ toggleScreen, isSignedIn, toggleSignendIn, languages, databases,
-    platforms, webframesworks, tools, OpSys, employments, exchangeRate, selectedCurrency }) => {
+
+const AdvancedRecommendations = ({
+                                     // App-level props
+                                     toggleScreen, isSignedIn, toggleSignendIn,
+                                     // Vocab lists used for filtering by feature family
+                                     languages, databases, platforms, webframesworks, tools, OpSys, employments,
+                                     // Currency display
+                                     exchangeRate, selectedCurrency
+                                 }) => {
     const navigate = useNavigate();
+    // ----- Local state -----
     const [error, setError] = useState('');
+    // Whether to reverse the natural order (low → high)
     const [backwardsort, setBackwardsort] = useState(false);
+    // The currently shown recommendation strings
     const [recommendations, setRecommendations] = useState([]);
+    // Map: recommendation string → numeric increase (in base currency)
     const [recommendationsIncrese, setRecommendationsIncrese] = useState({});
+
+    // Toggle visibility of feature families
     const [showPath, setShowPath] = useState(true);
     const [showLanguages, setShowLanguages] = useState(true);
     const [showDatabases, setShowDatabases] = useState(true);
@@ -22,14 +35,17 @@ const AdvancedRecommendations = ({ toggleScreen, isSignedIn, toggleSignendIn, la
     const [showOpSys, setShowOpSys] = useState(true);
     const [showEmployments, setShowEmployments] = useState(true);
 
+    // Toggle visibility of feature families
     const paths = [
         "MainBranch", "Age", "RemoteWork", "EdLevel", "YearsCode", "YearsCodePro", "DevType",
         "OrgSize", "Country", "ICorPM", "WorkExp", "Industry", "JobSat"
     ];
 
+    // Guard route + set current page label for navbar highlighting
     useEffect(() => {
 
         let filteredRecommendations = [];
+        // Build a convenience structure describing which families are on/off
         let dict = {
             languages: [showLanguages, languages],
             databases: [showDatabases, databases],
@@ -41,6 +57,13 @@ const AdvancedRecommendations = ({ toggleScreen, isSignedIn, toggleSignendIn, la
             paths: [showPath, paths]
         };
 
+        // Create a map: recommendation string → increase value
+        const inc = {};
+        isSignedIn.recommendations.forEach((value, i) => {
+            inc[value] = isSignedIn.recommendationsIncrese[i];
+        });
+        setRecommendationsIncrese(inc);
+
         let increaseDictionary = {}
         setRecommendationsIncrese(increaseDictionary);
 
@@ -51,18 +74,23 @@ const AdvancedRecommendations = ({ toggleScreen, isSignedIn, toggleSignendIn, la
         if (Object.values(dict).some(([show]) => show)) {
             filteredRecommendations = isSignedIn.recommendations?.length
                 ? isSignedIn.recommendations
-                    .map((recommendation, i) => ({ recommendation, i }))
-                    .filter(({ i }) =>
+                    .map((recommendation, i) => ({recommendation, i}))
+                    .filter(({i}) =>
+                        // Only keep recs with a known source feature
                         isSignedIn.recommendationsFeature?.[i] &&
+                        // Keep if its source feature belongs to any enabled family
                         Object.entries(dict).some(([key, [show, values]]) =>
                             show && values.includes(isSignedIn.recommendationsFeature[i])
                         )
                     )
-                    .map(({ recommendation }) => recommendation)
+                    .map(({recommendation}) => recommendation)
                 : [];
         }
-        let sortedRecommendations = [...filteredRecommendations]; // Copy to avoid mutation
 
+        // Copy to avoid mutation
+        let sortedRecommendations = [...filteredRecommendations];
+
+        // Optional reverse to “low → high”
         if (backwardsort) {
             sortedRecommendations.reverse(); // Simply flip the order
         }
@@ -71,6 +99,7 @@ const AdvancedRecommendations = ({ toggleScreen, isSignedIn, toggleSignendIn, la
     }, [showPath, showLanguages, showDatabases, showPlatforms, showWebframesworks, showTools, showOpSys,
         showEmployments, backwardsort, isSignedIn]);
 
+    // page guard + set current page name
     useEffect(() => {
         toggleScreen("AdvancedRecommendations");
         if (!isSignedIn) {
@@ -78,15 +107,25 @@ const AdvancedRecommendations = ({ toggleScreen, isSignedIn, toggleSignendIn, la
         }
     });
 
+    // ----- Handlers -----
+
     const handleSignout = () => {
         toggleSignendIn(false);
     }
+
+    // Calls the model to re-generate recommendations, then persists them
     const handleRecommendations = async (e) => {
         e.preventDefault();
-        const payload = { _id: isSignedIn._id, username: isSignedIn.username };
+        const payload = {_id: isSignedIn._id, username: isSignedIn.username};
 
         try {
-            const userprofile = { Country: isSignedIn.country, WorkExp: isSignedIn.experience, EdLevel: isSignedIn.education, Age: isSignedIn.age };
+            // Build the feature payload for the ML endpoint
+            const userprofile = {
+                Country: isSignedIn.country,
+                WorkExp: isSignedIn.experience,
+                EdLevel: isSignedIn.education,
+                Age: isSignedIn.age
+            };
             if (isSignedIn.MainBranch) {
                 userprofile.MainBranch = isSignedIn.MainBranch;
             }
@@ -149,6 +188,7 @@ const AdvancedRecommendations = ({ toggleScreen, isSignedIn, toggleSignendIn, la
                     userprofile[isSignedIn.OpSys[i]] = 1;
                 }
             }
+
             // Send the registration data to the server
             const response = await fetch(`${config.apiBaseUrl}/api/model/recommend`, {
                 method: 'POST',
@@ -159,6 +199,8 @@ const AdvancedRecommendations = ({ toggleScreen, isSignedIn, toggleSignendIn, la
             });
 
             const result = await response.json();
+
+            // Merge result into payload for persistence
             payload.topRecommendations = result.topRecommendations;
             payload.combined = result.combined;
             payload.recommendations = result.recommendations;
@@ -193,147 +235,131 @@ const AdvancedRecommendations = ({ toggleScreen, isSignedIn, toggleSignendIn, la
                 setError(result.message);
                 return;
             }
+            // Refresh app-level signed-in state
             toggleSignendIn(isSignedIn.username);
         } catch (error) {
             setError('An error occurred. Please try again.');
             console.error('Error:', error);
         }
     }
+    // ----- Render -----
     return (
 
-        <div className="advanced-recommendations-container">
-            <h3 className="advanced-recommendations-title">Advanced Recommendations</h3>
-            <div className="advanced-recommendations-overlay">
+        <div className="advrec-page">
+            <header className="profile-header">
+                <h1 className="profile-title">Advanced Recommendations</h1>
+                <p className="profile-subtitle">Here’s your full recommendations list.</p>
+            </header>
 
-                <p className="advanced-recommendations-subtitle">Here's your full recommendations list:</p>
 
-                {(!isSignedIn.recommendations) &&
-                    <Row className="advanced-recommendations-row">
-                        <Card className="advanced-recommendations-card">
-                            <Card.Header>Get Recommendations</Card.Header>
-                            <Card.Body>
-                                <Card.Text>
-                                    Click the button below to get recommendations Based on your profile
-                                </Card.Text>
-                                <Button onClick={handleRecommendations} variant="primary"
-                                        className="advanced-recommendations-btn">Recommendations</Button>
-                            </Card.Body>
-                        </Card>
-                    </Row>
-                }
+            {/* Main content block */}
+            <section className="section">
+                <div className="section-header">
+                    <h2 className="section-title">Recommendations</h2>
 
-                {(isSignedIn.recommendations) &&
-                    <Card className="advanced-recommendations-card">
-                        <Card.Header>Recommendations</Card.Header>
-
-                        <DropdownButton title="Options" variant="primary" className="custom-dropdown">
+                    {/* Right-aligned toolbar with a compact dropdown of toggles */}
+                    <div className="toolbar">
+                        <DropdownButton title="Options" align="end" className="toolbar-dropdown">
                             {[
-                                {
-                                    id: "checkbox1",
-                                    state: showLanguages,
-                                    setState: setShowLanguages,
-                                    label: "Show Recommendations for Languages"
-                                },
-                                {
-                                    id: "checkboxDatabases",
-                                    state: showDatabases,
-                                    setState: setShowDatabases,
-                                    label: "Show Recommendations for Databases"
-                                },
-                                {
-                                    id: "checkboxPlatforms",
-                                    state: showPlatforms,
-                                    setState: setShowPlatforms,
-                                    label: "Show Recommendations for Platforms"
-                                },
-                                {
-                                    id: "checkboxWebframesworks",
-                                    state: showWebframesworks,
-                                    setState: setShowWebframesworks,
-                                    label: "Show Recommendations for Web Frameworks"
-                                },
-                                {
-                                    id: "checkboxTools",
-                                    state: showTools,
-                                    setState: setShowTools,
-                                    label: "Show Recommendations for Tools"
-                                },
-                                {
-                                    id: "checkboxOpSys",
-                                    state: showOpSys,
-                                    setState: setShowOpSys,
-                                    label: "Show Recommendations for Operating Systems"
-                                },
-                                {
-                                    id: "checkboxEmployments",
-                                    state: showEmployments,
-                                    setState: setShowEmployments,
-                                    label: "Show Recommendations for Employment Status"
-                                },
-                                {
-                                    id: "checkbox2",
-                                    state: showPath,
-                                    setState: setShowPath,
-                                    label: "Show Recommendations for Career Path"
-                                },
-                                {
-                                    id: "checkbox3",
-                                    state: backwardsort,
-                                    setState: setBackwardsort,
-                                    label: "Sort Low to High"
-                                }
-                            ].map(({id, state, setState, label}) => (
+                                { id: "lang", state: showLanguages, set: setShowLanguages, label: "Show Languages" },
+                                { id: "db", state: showDatabases, set: setShowDatabases, label: "Show Databases" },
+                                { id: "plat", state: showPlatforms, set: setShowPlatforms, label: "Show Platforms" },
+                                { id: "web", state: showWebframesworks, set: setShowWebframesworks, label: "Show Web Frameworks" },
+                                { id: "tools", state: showTools, set: setShowTools, label: "Show Tools" },
+                                { id: "ops", state: showOpSys, set: setShowOpSys, label: "Show Operating Systems" },
+                                { id: "emp", state: showEmployments, set: setShowEmployments, label: "Show Employment Status" },
+                                { id: "path", state: showPath, set: setShowPath, label: "Show Career Path" },
+                                { id: "sort", state: backwardsort, set: setBackwardsort, label: "Sort Low to High" },
+                            ].map(({ id, state, set, label }) => (
                                 <Dropdown.Item as="div" key={id} className="filter-option">
                                     <Form.Check
                                         type="checkbox"
-                                        id={id}
+                                        id={`opt-${id}`}
                                         checked={state}
-                                        onChange={() => setState(!state)}
+                                        onChange={() => set(!state)}
                                         label={label}
                                     />
                                 </Dropdown.Item>
                             ))}
                         </DropdownButton>
+                    </div>
+                </div>
 
-                        <Card.Body>
-                            <ul className="advanced-recommendations-list">
-                                {recommendations.map((recommendation, index) => {
-                                    return (
-                                        <li key={index} className="advanced-recommendations-item">
-                                            <span className="recommendation-text">{recommendation.replace(/(to |it would |will )?increase your salary by approximately /g, "")} </span>
-                                            <span className="salary-increase">
-                                                    
-                                                    + {new Intl.NumberFormat('en', {
-                                                        style: 'currency',
-                                                        currency: selectedCurrency,
-                                                        maximumFractionDigits: 0
-                                                    }).format(Math.floor(recommendationsIncrese[recommendation] * exchangeRate))}
-                                                </span>
-                                        </li>
-                                    );
-                                })}
-                            </ul>
-                        </Card.Body>
-                        <Card.Body>
-                            <Card.Text className="re-recommended-text">
-                                If you change your information, you can ask to be re-recommended:
-                            </Card.Text>
-                            <button onClick={handleRecommendations} className="re-btn">Re-Recommended</button>
-                        </Card.Body>
-                    </Card>
+                {/* Empty state */}
+                {!isSignedIn?.recommendations || recommendations.length === 0 ? (
+                    <>
+                        <p className="muted">Click the button below to get recommendations based on your profile.</p>
+                        <div className="cta-center">
+                            <button className="profile-button" onClick={handleRecommendations}>
+                                Get Recommendations
+                            </button>
+                        </div>
+                    </>
+                ) : (
+                    <>
+                        {/* Table-like list with two columns: text + increase */}
+                        <div className="list">
+                            <div className="list-header">
+                                <div>Recommendation</div>
+                                <div>Increase</div>
+                            </div>
+
+                            {recommendations.map((rec, i) => (
+                                <div key={`${rec}-${i}`} className="list-row">
+                                    {/* Recommendation text with boilerplate removed */}
+                                    <div className="col-name">
+                                        {rec.replace(
+                                            /(to |it would |will )?increase your salary by approximately /g,
+                                            ""
+                                        )}
+                                    </div>
+
+                                    {/* Currency pill on the right */}
+                                    <div className="col-inc">
+                    <span className="pill pill-positive">
+                      +
+                        {" "}
+                        {new Intl.NumberFormat("en", {
+                            style: "currency",
+                            currency: selectedCurrency,
+                            maximumFractionDigits: 0,
+                        }).format(
+                            Math.floor((recommendationsIncrese[rec] || 0) * exchangeRate)
+                        )}
+                    </span>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+
+                        {/* Recompute CTA */}
+                        <div className="cta-center">
+                            <button className="profile-button" onClick={handleRecommendations}>
+                                Re-Recommended
+                            </button>
+                        </div>
+                    </>
+                )}
+            </section>
 
 
-                }
+            {/* Bottom navigation: matches Profile/Prediction ghost buttons */}
+                <div className="profile-buttons">
+                    <button onClick={() => navigate("/Recommendations")} className="profile-button is-outline">
+                        Basic
+                    </button>
+                    <button onClick={() => navigate("/SavedRecommendations")} className="profile-button is-outlineprofile-button is-outline">
+                        Saved
+                    </button>
+                    <button onClick={handleSignout} className="profile-button is-danger-outline">
+                        Sign Out
+                    </button>
+                </div>
 
-                <Container className="advanced-recommendations-btn">
-                    <button onClick={() => navigate("/Recommendations")} className="action-btn">Basic</button>
-                    <button onClick={() => navigate("/SavedRecommendations")} className="action-btn">Saved</button>
-                    <button onClick={handleSignout} className="action-btn">Sign Out</button>
-                </Container>
 
-            </div>
         </div>
-    );
+    )
+        ;
 }
 
 export default AdvancedRecommendations;
