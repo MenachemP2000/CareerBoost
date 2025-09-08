@@ -8,7 +8,7 @@ import defaultProfilePic from "../images/man-profile.svg";
 
 const Profile = ({toggleScreen, isSignedIn, toggleSignendIn, countries, educations, ages}) => {
     const navigate = useNavigate();
-    const [error, setError] = useState('');
+    // const [error, setError] = useState('');
 
 
     // NEW: track which field is being edited
@@ -62,9 +62,9 @@ const Profile = ({toggleScreen, isSignedIn, toggleSignendIn, countries, educatio
                 }, body: JSON.stringify(payload)
             });
 
-            const result = await response.json();
+            // const result = await response.json();
             if (!response.ok) {
-                setError(result.message);
+                // setError(result.message);
                 return;
             }
 
@@ -72,7 +72,7 @@ const Profile = ({toggleScreen, isSignedIn, toggleSignendIn, countries, educatio
             // setEditMode(false); // Switch back to view mode after saving
             navigate("/Profile"); // Redirect to the profile page
         } catch (error) {
-            setError('An error occurred. Please try again.');
+            // setError('An error occurred. Please try again.');
             console.error('Error:', error);
         }
     };

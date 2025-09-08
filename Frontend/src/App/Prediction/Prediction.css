@@ -1,114 +1,256 @@
-/* Prediction Page Container */
-.prediction-container {
-    background-color: white;
+/* Page shell — aligns with Profile page */
+:root {
+    --bg: #f7f9fc;
+    --card: #ffffff;
+    --text: #111827;
+    --muted: #6b7280;
+    --border: #e5e7eb;
+    --shadow: 0 6px 16px rgba(17,24,39,.06);
+    --accent: #0f766e; /* KPI color */
+}
+body.dark-mode {
+    --bg: #0b1220;
+    --card: #0f172a;
+    --text: #e5e7eb;
+    --muted: #94a3b8;
+    --border: #1f2a44;
+    --shadow: 0 8px 24px rgba(0,0,0,.45);
+    --accent: #34d399;
+}
+
+.prediction-page {
+    background:#efefef;
     min-height: 100vh;
+    padding: 48px 16px 80px;
+}
+
+/* Header */
+.page-header {
+    max-width: 1120px;
+    margin: 0 auto 20px;
+    text-align: center;
+}
+.page-title {
+    font-size: clamp(1.6rem, 3vw, 2rem);
+    font-weight: 800;
+    color: var(--text);
+    margin: 0 0 6px;
+}
+.page-subtitle {
+    color: var(--muted);
+    margin: 0;
+}
+
+/* Sections (no Bootstrap Cards) */
+.section {
+    max-width: 1120px;
+    margin: 14px auto;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 20px 22px;
+    box-shadow: var(--shadow);
+}
+.section-header {
     display: flex;
-    flex-direction: column;
     align-items: center;
-    justify-content: center;
-    width: 100%;
+    gap: 10px;
+    margin-bottom: 12px;
 }
-.prediction-header{
-    margin-top: 5rem;
-    font-size: 2rem;
-    font-weight: 600;
-    margin-bottom: 0.5rem;
-    text-align: center;
-    color: #1f2937;
-}
-/* Prediction Card */
-.prediction-card {
-    width: 100%;
-    max-width: 600px;
-    background: white;
-    padding: 20px;
-    border-radius: 10px;
-    text-align: center;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+.section-title {
+    font-size: clamp(1.05rem, 1.7vw, 1.2rem);
+    font-weight: 800;
+    color: var(--text);
     position: relative;
-    margin-bottom: 10px;
+}
+.section-title::after {
+    content: "";
+    display: block;
+    height: 3px;
+    width: 36px;
+    background: var(--border);
+    border-radius: 999px;
+    margin-top: 6px;
+}
+.section-hint {
+    margin-left: auto;
+    color: var(--muted);
+    font-size: 0.9rem;
 }
 
-.repredict-button{
-    width: clamp(3rem, 10rem, 8rem);
-    padding: clamp(0.3rem, 1.5vw, 0.3rem) clamp(0.3rem, 1vw, 0.3rem);
-    font-size: clamp(0.3rem, 2vw, 1.3rem);
-    background: linear-gradient(45deg, #32a0e4, #c8c9ca); /* Gradient background */
-    color: white;
-    border: none;
-    border-radius: 0.75rem;
+.muted { color: var(--muted); }
+
+/* KPI */
+.kpi-wrap { margin: 6px 0 10px; }
+.kpi { display: flex; align-items: baseline; gap: 10px; }
+.currency {
+    font-size: clamp(1.6rem, 3.4vw, 2.2rem);
+    font-weight: 900;
+    color: var(--accent);
+    letter-spacing: .3px;
+}
+.kpi-sub { color: var(--muted); font-weight: 600; }
+
+/* Buttons — primary uses your existing .profile-button */
+.btn-row { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 8px; }
+.btn-ghost {
+    appearance: none;
+    background: transparent;
+    color: var(--text);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 0.7rem 1.1rem;
+    font-weight: 700;
     cursor: pointer;
-    transition: background-color 0.3s ease;
-    font-weight: bold;
-}
-.repredict-button:hover{
-    background: linear-gradient(45deg, #c8c9ca, #32a0e4); /* Reverse gradient on hover */
-}
-/* Prediction Buttons */
-.prediction-buttons {
-    display: flex;
-    flex-direction: row; /* Stack buttons vertically */
+    text-decoration: none; /* for Link */
+    display: inline-flex;
     align-items: center;
     justify-content: center;
-
-    gap: 1rem;
-    /*justify-content: center;*/
-    flex-wrap: wrap;
-    margin-bottom: 10%;
-    margin-top: 3rem;
 }
-.prediction-button {
-    width: clamp(3rem, 10rem, 8rem);
-    padding: clamp(0.3rem, 1.5vw, 0.3rem) clamp(0.3rem, 1vw, 0.3rem);
-    font-size: clamp(0.3rem, 2vw, 1.3rem);
-    background: linear-gradient(45deg, #32a0e4, #c8c9ca); /* Gradient background */
-    border: none; /* Remove border */
-    color: white; /* Text color */
-    font-weight: bold;
-    border-radius: 8px; /* Rounded corners */
-    text-align: center; /* Center align text */
-    text-decoration: none; /* Remove underline from links */
-    transition: background 0.3s ease; /* Smooth transition for hover effect */
-    min-width: fit-content;
-    height: fit-content; /* Set specific height */
+.btn-ghost:hover { background: rgba(0,0,0,.03); }
+body.dark-mode .btn-ghost:hover { background: rgba(255,255,255,.05); }
+
+/* Chart container + tooltip */
+.chart-wrap {
+    background: rgba(17,24,39,.02);
+    border: 1px dashed var(--border);
+    border-radius: 12px;
+    padding: 12px;
+    min-height: 260px;
 }
 
-.prediction-button:hover {
-    background: linear-gradient(45deg, #c8c9ca, #32a0e4);
+.cb-tooltip {
+    background: var(--card);
+    color: var(--text);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 10px 12px;
+    box-shadow: var(--shadow);
 }
-/* Dark Mode */
-body.dark-mode .prediction-container {
-    background-color: #050505;
-}
-/* Make sure text is visible in dark mode */
-body.dark-mode .prediction-container h3,
-body.dark-mode .prediction-container p {
-    color: white; /* Ensures contrast in dark mode */
-}
+.cb-tooltip-title { font-weight: 700; margin-bottom: 4px; }
+.cb-tooltip-value { color: var(--muted); font-weight: 600; }
 
-/* Ensure underline is visible */
-body.dark-mode .underline {
-    background-color: white; /* Adjust to ensure visibility */
-}
+/* Recharts label color */
+.recharts-label-list .recharts-text { fill: var(--muted); font-weight: 600; }
+
+/* Footer actions (optional) */
+.footer-actions { text-align: center; }
+
+.error-msg { color: #b91c1c; text-align: center; margin-top: 14px; }
 
 
-body.dark-mode .prediction-card {
-    background: #242526;
-    color: white;
-    box-shadow: 0 4px 10px rgba(255, 255, 255, 0.1);
-}
 
-body.dark-mode .prediction-chart {
-    background: #242526;
-    color: white;
-    box-shadow: 0 4px 10px rgba(255, 255, 255, 0.1);
-}
+/*!* Prediction Page Container *!*/
+/*.prediction-container {*/
+/*    background-color: white;*/
+/*    min-height: 100vh;*/
+/*    display: flex;*/
+/*    flex-direction: column;*/
+/*    align-items: center;*/
+/*    justify-content: center;*/
+/*    width: 100%;*/
+/*}*/
+/*.prediction-header{*/
+/*    margin-top: 5rem;*/
+/*    font-size: 2rem;*/
+/*    font-weight: 600;*/
+/*    margin-bottom: 0.5rem;*/
+/*    text-align: center;*/
+/*    color: #1f2937;*/
+/*}*/
+/*!* Prediction Card *!*/
+/*.prediction-card {*/
+/*    width: 100%;*/
+/*    max-width: 600px;*/
+/*    background: white;*/
+/*    padding: 20px;*/
+/*    border-radius: 10px;*/
+/*    text-align: center;*/
+/*    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);*/
+/*    position: relative;*/
+/*    margin-bottom: 10px;*/
+/*}*/
 
-.repredict-button:hover{
-    background: linear-gradient(45deg, #c8c9ca, #32a0e4); /* Reverse gradient on hover */
-}
+/*.repredict-button{*/
+/*    width: clamp(3rem, 10rem, 8rem);*/
+/*    padding: clamp(0.3rem, 1.5vw, 0.3rem) clamp(0.3rem, 1vw, 0.3rem);*/
+/*    font-size: clamp(0.3rem, 2vw, 1.3rem);*/
+/*    background: linear-gradient(45deg, #32a0e4, #c8c9ca); !* Gradient background *!*/
+/*    color: white;*/
+/*    border: none;*/
+/*    border-radius: 0.75rem;*/
+/*    cursor: pointer;*/
+/*    transition: background-color 0.3s ease;*/
+/*    font-weight: bold;*/
+/*}*/
+/*.repredict-button:hover{*/
+/*    background: linear-gradient(45deg, #c8c9ca, #32a0e4); !* Reverse gradient on hover *!*/
+/*}*/
+/*!* Prediction Buttons *!*/
+/*.prediction-buttons {*/
+/*    display: flex;*/
+/*    flex-direction: row; !* Stack buttons vertically *!*/
+/*    align-items: center;*/
+/*    justify-content: center;*/
 
-body.dark-mode .prediction-button:hover,
-body.dark-mode .repredict-button:hover{
-    color: black;
-}
+/*    gap: 1rem;*/
+/*    !*justify-content: center;*!*/
+/*    flex-wrap: wrap;*/
+/*    margin-bottom: 10%;*/
+/*    margin-top: 3rem;*/
+/*}*/
+/*.prediction-button {*/
+/*    width: clamp(3rem, 10rem, 8rem);*/
+/*    padding: clamp(0.3rem, 1.5vw, 0.3rem) clamp(0.3rem, 1vw, 0.3rem);*/
+/*    font-size: clamp(0.3rem, 2vw, 1.3rem);*/
+/*    background: linear-gradient(45deg, #32a0e4, #c8c9ca); !* Gradient background *!*/
+/*    border: none; !* Remove border *!*/
+/*    color: white; !* Text color *!*/
+/*    font-weight: bold;*/
+/*    border-radius: 8px; !* Rounded corners *!*/
+/*    text-align: center; !* Center align text *!*/
+/*    text-decoration: none; !* Remove underline from links *!*/
+/*    transition: background 0.3s ease; !* Smooth transition for hover effect *!*/
+/*    min-width: fit-content;*/
+/*    height: fit-content; !* Set specific height *!*/
+/*}*/
+
+/*.prediction-button:hover {*/
+/*    background: linear-gradient(45deg, #c8c9ca, #32a0e4);*/
+/*}*/
+/*!* Dark Mode *!*/
+/*body.dark-mode .prediction-container {*/
+/*    background-color: #050505;*/
+/*}*/
+/*!* Make sure text is visible in dark mode *!*/
+/*body.dark-mode .prediction-container h3,*/
+/*body.dark-mode .prediction-container p {*/
+/*    color: white; !* Ensures contrast in dark mode *!*/
+/*}*/
+
+/*!* Ensure underline is visible *!*/
+/*body.dark-mode .underline {*/
+/*    background-color: white; !* Adjust to ensure visibility *!*/
+/*}*/
+
+
+/*body.dark-mode .prediction-card {*/
+/*    background: #242526;*/
+/*    color: white;*/
+/*    box-shadow: 0 4px 10px rgba(255, 255, 255, 0.1);*/
+/*}*/
+
+/*body.dark-mode .prediction-chart {*/
+/*    background: #242526;*/
+/*    color: white;*/
+/*    box-shadow: 0 4px 10px rgba(255, 255, 255, 0.1);*/
+/*}*/
+
+/*.repredict-button:hover{*/
+/*    background: linear-gradient(45deg, #c8c9ca, #32a0e4); !* Reverse gradient on hover *!*/
+/*}*/
+
+/*body.dark-mode .prediction-button:hover,*/
+/*body.dark-mode .repredict-button:hover{*/
+/*    color: black;*/
+/*}*/

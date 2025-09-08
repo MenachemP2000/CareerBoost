@@ -67,9 +67,9 @@
         color: #111827;
     }
 
-    .section-subtitle {
+.section-header .section-subtitle {
         margin: -2rem 0 1rem;
-        color: #6b7280;
+        color: #806b76;
         font-size: 1.2rem;
     }
 /* rows */
