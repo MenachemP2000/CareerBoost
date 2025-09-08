@@ -9,6 +9,7 @@
     --shadow:0 6px 16px rgba(17,24,39,.06);
     --accent:#0f766e;            /* KPI color */
 }
+
 body.dark-mode{
     --bg:#0b1220;
     --card:#0f172a;
