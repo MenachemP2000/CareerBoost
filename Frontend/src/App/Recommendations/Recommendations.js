@@ -300,7 +300,9 @@ const Recommendations = ({toggleScreen, isSignedIn, toggleSignendIn, exchangeRat
 
 
                     <ul className="rec-list">
-                        {recommendations.map((rec, i) => (
+                        {recommendations
+                            .map((rec, i) => (
+
                             <li key={i} className="rec-item">
                                  <span className="rec-text">
                                      {rec.replace(/(to |it would |will )?increase your salary by approximately /g, "")}

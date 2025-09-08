@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React, {useEffect, useState} from "react";
+import {useNavigate} from "react-router-dom";
 import config from "../config";
 import "./SavedRecommendations.css";
 
@@ -51,8 +51,8 @@ const SavedRecommendations = ({
     const handleSignout = () => toggleSignendIn(false);
 
     const handleChange = (e) => {
-        const { name, value } = e.target;
-        setFormData((s) => ({ ...s, [name]: value }));
+        const {name, value} = e.target;
+        setFormData((s) => ({...s, [name]: value}));
     };
 
     // Display label helper; prevents NaN
@@ -65,7 +65,10 @@ const SavedRecommendations = ({
     // Derived collections for rendering
     const savedList = isSignedIn?.savedRecommendations || [];
     const allRecs = isSignedIn?.recommendations || [];
-    const addOptions = allRecs.filter((r) => !savedList.includes(r));
+    const addOptions = allRecs.filter(
+        (r) => !(isSignedIn.savedRecommendations || []).includes(r) &&
+            Number(recommendationsIncrese?.[r]) > 0
+    );
 
     const handleAdd = async (e) => {
         e.preventDefault();
@@ -92,7 +95,7 @@ const SavedRecommendations = ({
                 setError(result.message);
                 return;
             }
-            setFormData((s) => ({ ...s, addRecommendation: "" }));
+            setFormData((s) => ({...s, addRecommendation: ""}));
             toggleSignendIn(isSignedIn.username);
         } catch (err) {
             setError("An error occurred. Please try again.");
@@ -125,12 +128,16 @@ const SavedRecommendations = ({
                 setError(result.message);
                 return;
             }
-            setFormData((s) => ({ ...s, removeRecommendation: "" }));
+            setFormData((s) => ({...s, removeRecommendation: ""}));
             toggleSignendIn(isSignedIn.username);
         } catch (err) {
             setError("An error occurred. Please try again.");
             console.error(err);
         }
+    };
+    const incFor = (rec) => {
+        const v = Number(recommendationsIncrese?.[rec]);
+        return Number.isFinite(v) && v > 0 ? v : null;
     };
 
     return (
@@ -153,15 +160,24 @@ const SavedRecommendations = ({
                             <div>Recommendation</div>
                             <div>Increase</div>
                         </div>
-
-                        {savedList.map((rec, idx) => (
-                            <div className="list-row" key={`${rec}-${idx}`}>
-                                <div className="col-name">{rec}</div>
-                                <div className="col-inc">
-                                    <span className="pill pill-positive">{incLabel(rec)}</span>
+                        // In JSX:
+                        {(isSignedIn.savedRecommendations || []).map((rec, i) => {
+                            const inc = incFor(rec);
+                            return (
+                                <div className="list-row" key={`${rec}-${i}`}>
+                                    <div className="col-name">{rec}</div>
+                                    <div className="col-inc">
+                                        {inc ? (
+                                            <span className="pill pill-positive">
+              {fmt.format(Math.floor(inc * exchangeRate))}
+            </span>
+                                        ) : (
+                                            <span className="pill pill-neutral">—</span> // or hide entirely
+                                        )}
+                                    </div>
                                 </div>
-                            </div>
-                        ))}
+                            );
+                        })}
                     </div>
                 )}
 
@@ -206,17 +222,17 @@ const SavedRecommendations = ({
             </section>
 
 
-                <div className="profile-buttons">
-                    <button className="profile-button is-outline" onClick={() => navigate("/Recommendations")}>
-                        Basic
-                    </button>
-                    <button className="profile-button is-outline" onClick={() => navigate("/AdvancedRecommendations")}>
-                        Advanced
-                    </button>
-                    <button className="profile-button is-danger-outline" onClick={handleSignout}>
-                        Sign Out
-                    </button>
-                </div>
+            <div className="profile-buttons">
+                <button className="profile-button is-outline" onClick={() => navigate("/Recommendations")}>
+                    Basic
+                </button>
+                <button className="profile-button is-outline" onClick={() => navigate("/AdvancedRecommendations")}>
+                    Advanced
+                </button>
+                <button className="profile-button is-danger-outline" onClick={handleSignout}>
+                    Sign Out
+                </button>
+            </div>
 
             {error && <p className="error-msg">{error}</p>}
         </div>
