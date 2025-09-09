@@ -1,11 +1,11 @@
-import { useState, useEffect } from "react";
+import {useState, useEffect} from "react";
 import config from '../config';
-import { useNavigate, Link } from 'react-router-dom';
-import { Container, Row, Col, Card, Button } from 'react-bootstrap';
+import {useNavigate, Link} from 'react-router-dom';
+import {Card} from 'react-bootstrap';
 import "./FeaturedJobs.css";
 
 
-export default function FeaturedJobs({ toggleScreen, isSignedIn, toggleSignendIn, countryCrMap }) {
+export default function FeaturedJobs({toggleScreen, isSignedIn, toggleSignendIn, countryCrMap}) {
     const navigate = useNavigate();
     const [jobs, setJobs] = useState([]); // Ensure this is an array
     const [loading, setLoading] = useState(false);
@@ -30,9 +30,8 @@ export default function FeaturedJobs({ toggleScreen, isSignedIn, toggleSignendIn
     };
 
 
-
     const buildSearchQuery = (user) => {
-        const {DevType } = user;
+        const {DevType} = user;
 
         let query = `site:linkedin.com/jobs/view `;
         // Include DevType if selected
@@ -149,12 +148,14 @@ export default function FeaturedJobs({ toggleScreen, isSignedIn, toggleSignendIn
     const searchJobs = async (searchQuery) => {
         setLoading(true);
         try {
-            const response = await fetch(`${config.apiBaseUrl}/api/jobs/search-jobs?query=${encodeURIComponent(searchQuery)}&page=1&recency=d1&country=${countryCrMap[isSignedIn.country]}`);
+            const response = await fetch(`${config.apiBaseUrl}/api/jobs/search-jobs?query=${encodeURIComponent(
+                searchQuery
+            )}&page=1&recency=d1&country=${countryCrMap[isSignedIn.country]}`);
+
 
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
-
             const data = await response.json();
             const dataJobs = data.jobs;
 
@@ -166,8 +167,7 @@ export default function FeaturedJobs({ toggleScreen, isSignedIn, toggleSignendIn
                     job.job = decodeHtml(job.pagemap.metatags[0]["og:title"].split("גיוס עובדים")[1].split("|").slice(0, -1).join("|").trim());
                     job.location = decodeHtml(job.pagemap.metatags[0]["og:title"].split("גיוס עובדים")[1].split("|").slice(-1)[0].replace("LinkedIn", "").trim());
                 });
-            }
-            else if (isSignedIn.country === "United States of America") {
+            } else if (isSignedIn.country === "United States of America") {
                 dataJobs.forEach(job => {
                     job.parsedTitle = decodeHtml(job.pagemap.metatags[0]["og:title"]).replace("| LinkedIn", "").replace("LinkedIn", "");
                     job.country = "USA";
@@ -175,8 +175,7 @@ export default function FeaturedJobs({ toggleScreen, isSignedIn, toggleSignendIn
                     job.job = decodeHtml(job.pagemap.metatags[0]["og:title"].split("hiring")[1].trim().split("in ")[0].trim());
                     job.location = decodeHtml(job.pagemap.metatags[0]["og:title"].split("hiring")[1].split("in ")[1].replace("| LinkedIn", "").trim());
                 });
-            }
-            else {
+            } else {
                 dataJobs.forEach(job => {
                     job.parsedTitle = decodeHtml(job.pagemap.metatags[0]["og:title"]).replace("| LinkedIn", "").replace("LinkedIn", "");
                     job.country = isSignedIn.country;
@@ -206,7 +205,7 @@ export default function FeaturedJobs({ toggleScreen, isSignedIn, toggleSignendIn
 
         console.log(`Size of JSON object: ${sizeInKB.toFixed(2)} KB`);
 
-        const payload = { _id: isSignedIn._id, username: isSignedIn.username };
+        const payload = {_id: isSignedIn._id, username: isSignedIn.username};
         const savedJobs = isSignedIn.savedJobs || [];
         savedJobs.push(job);
         payload.savedJobs = savedJobs;
@@ -222,7 +221,6 @@ export default function FeaturedJobs({ toggleScreen, isSignedIn, toggleSignendIn
             });
 
             const result = await response.json();
-
             if (!response.ok) {
                 // If the server responds with an error, set the error message
                 setError(result.message);
@@ -238,65 +236,63 @@ export default function FeaturedJobs({ toggleScreen, isSignedIn, toggleSignendIn
 
     return (
         <div className="featured-jobs-container">
-            <h1 className="featured-jobs-header">Featured Jobs</h1>
-            <Card className="featured-jobs-card">
-                {loading && <p className="featured-jobs-loading">Loading...</p>}
+            <h1 className="profile-title">Featured Jobs</h1>
+            <br/>
 
-                {(!loading && jobs.length > 0) && (
-                        <ul className="featured-jobs-list">
-                            {jobs.map((job, index) => (
-                                <li key={index} className="featured-job-item">
-                                    <Card className="featured-job-card">
-                                        <Card.Link href={job.link}
-                                                   target="_blank"
-                                                   rel="noopener noreferrer"
-                                                   className="featured-job-link"
-                                        >
-                                            {job.parsedTitle}
-                                        </Card.Link>
+            {loading && <p className="featured-jobs-loading">Loading...</p>}
 
-                                        <Card.Text className="featured-job-details">
-                                            {job.snippet.match(/\d+\s\w+\sago/).length > 0 && (
-                                                <div className="featured-posted-date">
-                                                    Posted: {job.snippet.match(/\d+\s\w+\sago/)}
-                                                </div>
-                                            )}
-                                            {(job.country === "Israel" || job.country === "USA") && (
-                                                <div className="featured-job-info">
-                                                    <div  className="featured-company"> Company: {job.company}
-                                                    </div>
-                                                    <div className="featured-position"> Job: {job.job}
-                                                    </div>
-                                                    <div className="featured-location"> Location: {job.location}
-                                                    </div>
-                                                </div>
-                                            )}
-                                        </Card.Text>
+            {!loading && jobs.length > 0 && (
+                <ul className="fj-list">
+                    {jobs.map((job, index) => {
+                        const postedMatch = job?.snippet?.match?.(/\d+\s\w+\sago/);
+                        const isSaved = !!isSignedIn.savedJobs?.some((s) => s.link === job.link);
 
-                                        <div className="featured-job-actions">
-                                            {isSignedIn.savedJobs && isSignedIn.savedJobs.find(savedJob => savedJob.link === job.link) ? (
-                                                <button disabled>Saved</button>
-                                                ) : (
-                                                <button className="featured-save-button" onClick={() => saveJob(job)}>Save</button>
-                                            )}
+                        return (
+                            <li key={index} className="fj-row">
+                                <a
+                                    href={job.link}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="fj-title"
+                                >
+                                    {job.parsedTitle}
+                                </a>
+
+                                <div className="fj-meta">
+                                    {postedMatch && <span className="fj-posted">Posted: {postedMatch[0]}</span>}
+                                    {(job.country === "Israel" || job.country === "USA") && (
+                                        <div className="fj-info">
+                                            <span><strong>Company:</strong> {job.company}</span>
+                                            <span><strong>Job:</strong> {job.job}</span>
+                                            <span><strong>Location:</strong> {job.location}</span>
                                         </div>
-                                    </Card>
-                                </li>
-                            ))}
-                        </ul>
-                )}
-                {(!loading && jobs.length === 0) && (
-                    <p className="featured-jobs-empty">No jobs found</p>
-                )}
-            </Card>
+                                    )}
+                                </div>
 
+                                <div className="fj-actions">
+                                    {isSaved ? (
+                                        <button className="profile-button is-disabled" disabled>Saved</button>
+                                    ) : (
+                                        <button className="profile-button is-outline"
+                                                onClick={() => saveJob(job)}>Save</button>
+                                    )}
+                                </div>
+                            </li>
+                        );
+                    })}
+                </ul>
+            )}
+            {(!loading && jobs.length === 0) && (
+                <p className="featured-jobs-empty">No jobs found</p>
+            )}
 
-            <div className="featured-jobs-navigation">
+            <br/>
+            <div className="profile-buttons">
                 <Link to="/JobSearch">
-                    <button className="featured-nav-button">Search</button>
+                    <button className="profile-button is-outline">Search</button>
                 </Link>
                 <Link to="/SavedJobs">
-                    <button className="featured-nav-button">Saved</button>
+                    <button className="profile-button is-outline">Saved</button>
                 </Link>
             </div>
         </div>

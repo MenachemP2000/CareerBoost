@@ -1,5 +1,4 @@
 import "./Features.css";
-import magicwandIcon from "../images/wand.png"; 
 import resumeIcon from "../images/resume.png"; // Assuming you have a resume icon
 import salaryIcon from "../images/salary.png"; // Assuming you have a salary icon
 import compassIcon from "../images/compass.png"; // Assuming you have a compass icon
