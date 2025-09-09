@@ -24,7 +24,7 @@
 }
 
 .home-title {
-    color: #ea4c0f;
+    color: #a6360b;
     font-size: clamp(1.5rem, 2.5rem, 2.8rem);
     display: flex;
     align-items: center;
@@ -100,7 +100,7 @@
 .hello {
     font-size: clamp(0.5rem, 1.5rem, 2.5rem); /* Increase font size */
     font-weight: bold; /* Make the text bold */
-    color: #ea4c0f; /* Green color */
+    color: #a6360b; /* Green color */
     text-align: center; /* Center align the text */
     margin-bottom: 20px; /* Add some space below the paragraph */
     background-color: #f0f0f0; /* Light grey background */

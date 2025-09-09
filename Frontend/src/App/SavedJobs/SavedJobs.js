@@ -568,6 +568,12 @@ const SavedJobs = ({toggleScreen, isSignedIn, toggleSignendIn}) => {
                 <button className="profile-button is-outline" onClick={() => setIsOpen(!isOpen)}>
                     Filters
                 </button>
+                <Link to="/FeaturedJobs">
+                    <button className="profile-button is-outline">Featured</button>
+                </Link>
+                <Link to="/JobSearch">
+                    <button className="profile-button is-outline">Search</button>
+                </Link>
             </div>
 
             {/* Filters Panel with floating dropdown menu */}
@@ -726,15 +732,15 @@ const SavedJobs = ({toggleScreen, isSignedIn, toggleSignendIn}) => {
                 )}
             </div>
 
-            {/* Navigation Buttons */}
-            <div className="profile-buttons">
-                <Link to="/FeaturedJobs">
-                    <button className="profile-button is-outline">Featured</button>
-                </Link>
-                <Link to="/JobSearch">
-                    <button className="profile-button is-outline">Search</button>
-                </Link>
-            </div>
+            {/*/!* Navigation Buttons *!/*/}
+            {/*<div className="profile-buttons">*/}
+            {/*    <Link to="/FeaturedJobs">*/}
+            {/*        <button className="profile-button is-outline">Featured</button>*/}
+            {/*    </Link>*/}
+            {/*    <Link to="/JobSearch">*/}
+            {/*        <button className="profile-button is-outline">Search</button>*/}
+            {/*    </Link>*/}
+            {/*</div>*/}
 
 
         </div>

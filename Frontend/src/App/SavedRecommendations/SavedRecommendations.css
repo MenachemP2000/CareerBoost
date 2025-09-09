@@ -24,7 +24,7 @@ body.dark-mode{
 
 /* Page shell */
 .saved-page{
-    background:var(--bg);
+    background:#efefef;
     min-height:100vh;
     width:100%;
     padding:48px 16px 80px;

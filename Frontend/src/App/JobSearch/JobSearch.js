@@ -414,12 +414,11 @@ export default function JobSearch({ toggleScreen, isSignedIn, toggleSignendIn, c
 
 
     const saveJob = async (job) => {
-
         const payload = { _id: isSignedIn._id, username: isSignedIn.username };
         const savedJobs = isSignedIn.savedJobs || [];
-
         savedJobs.push(job);
         payload.savedJobs = savedJobs;
+
         try {
             // Send the registration data to the server
             const response = await fetch(`${config.apiBaseUrl}/api/users/${isSignedIn._id}`, {
@@ -690,246 +689,231 @@ export default function JobSearch({ toggleScreen, isSignedIn, toggleSignendIn, c
 
     return (
         <div className="job-search-container">
-            <h1 className="job-search-header">Search jobs</h1>
+            <h1 className="profile-title">Search jobs</h1>
+            <p className="profile-subtitle">Find roles and add them to your saved list.</p>
 
-            <Card className="job-search-card">
-                <div className="job-search-controls">
-                    <button
-                        onClick={() => searchJobs(1)} // Reset to page 1 on search
-                        className="job-search-button"
-                        disabled={loading}
-                    >
-                        {loading ? "Searching..." : "Search"}
-                    </button>
+            {/* Top buttons */}
+            <div className="profile-buttons">
+                <button
+                    onClick={() => searchJobs(1)} // Reset to page 1 on search
+                    className="profile-button is-outline"
+                    disabled={loading}
+                >
+                    {loading ? "Searching..." : "Search"}
+                </button>
 
-                    {/* Button to toggle dropdown */}
-                        <button
-                            className="job-search-button"
-                            onClick={() => setIsOpen(!isOpen)}
-                        >
-                            Filters
-                        </button>
-                    <button
-                        className="job-search-button"
-                        onClick={() => setAlertIsOpen(!alertsIsOpen)}
-                    >
-                        Alerts
-                    </button>
-                </div>
+                {/* Button to toggle dropdown */}
+                <button
+                    className="profile-button is-outline"
+                    onClick={() => setIsOpen(!isOpen)}
+                >
+                    Filters
+                </button>
+                <button
+                    className="profile-button is-outline"
+                    onClick={() => setAlertIsOpen(!alertsIsOpen)}
+                >
+                    Alerts
+                </button>
+            </div>
 
-                    {/* Floating dropdown menu */}
-                    {isOpen && (
-                        <Card className="filter-dropdown-card">
-                            {/* Filter Toggles */}
-                            <Card.Header className="filter-dropdown-header">Filters</Card.Header>
-                            <div className="filter-dropdown-body">
-                                {[
-                                    { name: 'countryEnabled', label: ' Country' },
-                                    { name: 'languagesEnabled', label: ' Languages' },
-                                    { name: 'databasesEnabled', label: ' Databases' },
-                                    { name: 'platformsEnabled', label: ' Platforms' },
-                                    { name: 'webFrameworksEnabled', label: ' Frameworks' },
-                                    { name: 'toolsEnabled', label: ' Tools' },
-                                    { name: 'educationEnabled', label: ' Education' },
-                                    { name: 'devTypeEnabled', label: ' DevType' },
-                                    { name: 'industryEnabled', label: ' Industry' },
-                                    { name: 'remoteWorkEnabled', label: ' Remote' },
-                                ].map(({ name, label }) => (
-                                    <label key={name} className="filter-toggle">
-                                        <input
-                                            type="checkbox"
-                                            name={name}
-                                            checked={filters[name]}
-                                            onChange={handleToggleChange}
-                                        />
-                                         <span>{label}</span>
-                                    </label>
-                                ))}
-
-                            </div>
-
-                            {/* Keyword Exclusion Filter Input */}
-                            <div className="keyword-section">
-                                <label>
-                                    <span>Exclude Keywords (e.g., Senior): </span>
-                                    <input
-                                        type="text"
-                                        value={filters.keywords}
-                                        onChange={handleKeywordsChange}
-                                        className="keyword-input"
-                                        placeholder="Enter keywords to exclude, comma-separated"
-                                    />
-                                </label>
-                            </div>
-
-                            {/* Keyword Inclusion Filter Input */}
-                            <div className="keyword-section">
-                                <label>
-                                    <span> Include Keywords (e.g., Junior): </span>
-                                    <input
-                                        type="text"
-                                        value={filters.includeKeywords}
-                                        onChange={handleIncludeKeywordsChange}
-                                        className="keyword-input"
-                                        placeholder="Enter keywords to include, comma-separated"
-                                    />
-                                </label>
-                            </div>
-
-                            {/* Recency Selection */}
-                            <div className="recency-section">
-                                <label>
-                                    <span>Recency: </span>
-                                    <select
-                                        value={recency}
-                                        onChange={handleRecencyChange}
-                                        className="recency-select"
-                                    >
-                                        <option value="d1">Past 24 Hours</option>
-                                        <option value="d7">Past 7 Days</option>
-                                        <option value="d30">Past 30 Days</option>
-                                    </select>
-                                </label>
-                            </div>
-                        </Card>
-                    )}
-
-                <div>
-                    {/* Floating dropdown menu */}
-                    {alertsIsOpen && (
-                        <div className="alert-dropdown-wrapper">
-                            <Card className="alert-dropdown-card">
-                                <h2 className="alert-dropdown-header">Alerts</h2>
-                            {/*<Card.Header className="text-lg font-bold mb-4">Alerts</Card.Header>*/}
-
-
-                            <form onSubmit={handleSubmit} className="p-" style={{ display: "flex", gap: "10px", justifyContent: "center" }}>
-                                <input
-                                    type="email"
-                                    placeholder="Enter your email"
-                                    value={email}
-                                    onChange={(e) => setEmail(e.target.value)}
-                                    required
-                                    className="border p-2 rounded"
-                                />
-                                <select value={frequency} onChange={(e) => setFrequency(e.target.value)} className="ml-2 border p-2 rounded">
-                                    <option value="daily">Daily</option>
-                                    <option value="weekly">Weekly</option>
-                                </select>
-                                <button type="submit" className="alert-submit-btn">
-                                    Alert
-                                </button>
-                            </form>
-
-                            
-                            <br />
-
-                            {(isSignedIn.alerts && isSignedIn.alerts.length > 0) && (
-                                <ul className="alert-list">
-                                    {isSignedIn.alerts.map((alert, index) => (
-                                        <li key={index} className="alert-item">
-                                            <Card className="alert-card">
-                                                <Card.Body>
-                                                    <p><strong>Query:</strong> {alert.query}</p>
-                                                    <p><strong>Recency:</strong> {alert.recency}</p>
-                                                    <p><strong>Email:</strong> {alert.email}</p>
-                                                    <p><strong>Frequency:</strong> {alert.frequency}</p>
-                                                    <p><strong>Country:</strong> {alert.country}</p>
-                                                </Card.Body>
-                                                <Button onClick={() => deleteAlert(alert)}
-                                                        variant="danger"
-                                                        className="alert-delete-btn">
-                                                    Delete
-                                                </Button>
-                                            </Card>
-                                        </li>
-                                    ))}
-                                </ul>
-                             )}
-                            </Card>
+            {/* Filters (Saved-Jobs style) */}
+            {isOpen && (
+                <>
+                    <div className="fd-backdrop" onClick={() => setIsOpen(false)} />
+                    <div className="filter-dropdown" role="dialog" aria-label="Filter search jobs">
+                        <div className="fd-header">
+                            <span>Filters</span>
+                            <button className="icon-btn" aria-label="Close" onClick={() => setIsOpen(false)}>✕</button>
                         </div>
-                    )}
-                </div>
 
+                        {/* toggles */}
+                        <div className="fd-body">
+                            {[
+                                { name: 'countryEnabled', label: 'Country' },
+                                { name: 'languagesEnabled', label: 'Languages' },
+                                { name: 'databasesEnabled', label: 'Databases' },
+                                { name: 'platformsEnabled', label: 'Platforms' },
+                                { name: 'webFrameworksEnabled', label: 'Frameworks' },
+                                { name: 'toolsEnabled', label: 'Tools' },
+                                { name: 'educationEnabled', label: 'Education' },
+                                { name: 'devTypeEnabled', label: 'DevType' },
+                                { name: 'industryEnabled', label: 'Industry' },
+                                { name: 'remoteWorkEnabled', label: 'Remote' },
+                            ].map(({ name, label }) => (
+                                <label key={name} className="fd-check">
+                                    <input
+                                        type="checkbox"
+                                        name={name}
+                                        checked={!!filters[name]}
+                                        onChange={handleToggleChange}
+                                    />
+                                    <span>{label}</span>
+                                </label>
+                            ))}
+                        </div>
 
-                <div className="job-list-card">
-                    {loading && <p className="job-list-loading">Loading...</p>}
-                    {(!loading && jobs.length > 0) && (
-                            <ul className="job-list">
-                                {jobs.map((job, index) => (
-                                    <li key={index} className="job-list-item">
-                                        <Card className="job-card">
-                                            <Card.Link
-                                                href={job.link}
-                                                target="_blank"
-                                                rel="noopener noreferrer"
-                                                className="job-title-link"
-                                            >
-                                                {job.parsedTitle}
-                                            </Card.Link>
+                        {/* fields */}
+                        <div className="fd-section">
+                            <label className="fd-field">
+                                <span>Exclude keywords (e.g., Senior)</span>
+                                <input
+                                    type="text"
+                                    value={filters.keywords}
+                                    onChange={handleKeywordsChange}
+                                    placeholder="Enter keywords to exclude, comma-separated"
+                                />
+                            </label>
 
-                                            <Card.Body className="job-card-body">
-                                                {job.snippet.match(/\d+\s\w+\sago/).length > 0 &&
-                                                    <div className="job-posted-date">
-                                                        <strong> Posted:</strong> {job.snippet.match(/\d+\s\w+\sago/)}
-                                                    </div>
-                                                }
-                                                {(job.country === "Israel" || job.country === "USA") && (
-                                                        <div className="job-meta">
-                                                            <div><strong>Company:</strong> {job.company}</div>
-                                                            <div><strong>Job:</strong> {job.job}</div>
-                                                            <div><strong>Location:</strong> {job.location}</div>
-                                                        </div>
-                                                        )}
-                                            </Card.Body>
+                            <label className="fd-field">
+                                <span>Include keywords (e.g., Junior)</span>
+                                <input
+                                    type="text"
+                                    value={filters.includeKeywords}
+                                    onChange={handleIncludeKeywordsChange}
+                                    placeholder="Enter keywords to include, comma-separated"
+                                />
+                            </label>
 
-                                            <Container className="job-save-button-container">
-                                                {isSignedIn.savedJobs && isSignedIn.savedJobs.find(savedJob => savedJob.link === job.link) ? (
-                                                    <Button  className="saved-button" disabled>
-                                                        Saved
-                                                    </Button>
-                                                    ):(
-                                                    <Button
-                                                        onClick={() => saveJob(job)}
-                                                        className="job-save-button">
-                                                        Save
-                                                    </Button>
-                                                )}
-                                            </Container>
-                                        </Card>
+                            <label className="fd-field">
+                                <span>Recency</span>
+                                <select value={recency} onChange={handleRecencyChange}>
+                                    <option value="d1">Past 24 Hours</option>
+                                    <option value="d7">Past 7 Days</option>
+                                    <option value="d30">Past 30 Days</option>
+                                </select>
+                            </label>
+                        </div>
+
+                        <div className="fd-actions">
+                            {/*<button*/}
+                            {/*    className="profile-button subtle"*/}
+                            {/*    onClick={() => setFilters(prev => ({ ...prev, keywords: "", includeKeywords: "" }))}*/}
+                            {/*>*/}
+                            {/*    Reset*/}
+                            {/*</button>*/}
+                            <button
+                                className="profile-button"
+                                onClick={() => { setIsOpen(false); searchJobs(1); }}
+                            >
+                                Apply
+                            </button>
+                        </div>
+                    </div>
+                </>
+            )}
+
+            {/* Alerts (Saved-Jobs style) */}
+            {alertsIsOpen && (
+                <>
+                    <div className="fd-backdrop" onClick={() => setAlertIsOpen(false)} />
+                    <div className="alert-dropdown" role="dialog" aria-label="Job alerts">
+                        <div className="fd-header">
+                            <span>Alerts</span>
+                            <button className="icon-btn" aria-label="Close" onClick={() => setAlertIsOpen(false)}>✕</button>
+                        </div>
+
+                        <form onSubmit={handleSubmit} className="alert-form">
+                            <input
+                                type="email"
+                                placeholder="Enter your email"
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
+                                required
+                            />
+                            <select value={frequency} onChange={(e) => setFrequency(e.target.value)}>
+                                <option value="daily">Daily</option>
+                                <option value="weekly">Weekly</option>
+                            </select>
+                            <button type="submit" className="profile-button">Alert</button>
+                        </form>
+
+                        {isSignedIn.alerts?.length > 0 && (
+                            <ul className="alert-list">
+                                {isSignedIn.alerts.map((alert, index) => (
+                                    <li key={index} className="alert-row">
+                                        <div className="alert-meta">
+                                            <p><strong>Query:</strong> {alert.query}</p>
+                                            <p><strong>Recency:</strong> {alert.recency}</p>
+                                            <p><strong>Email:</strong> {alert.email}</p>
+                                            <p><strong>Frequency:</strong> {alert.frequency}</p>
+                                            <p><strong>Country:</strong> {alert.country}</p>
+                                        </div>
+                                        <button className="alert-delete-btn" onClick={() => deleteAlert(alert)}>Delete</button>
                                     </li>
                                 ))}
                             </ul>
-                    )}
-                    {(!loading && jobs.length === 0) && (
-                        <p className="job-list-empty">No jobs found</p>
-                    )}
-                </div>
+                        )}
+                    </div>
+                </>
+            )}
 
-                {/* Pagination */}
-                <div className="pagination-controls">
+            {/* Results list (no cards) */}
+            <div className="js-list-shell">
+                {loading && <p className="job-list-loading">Loading...</p>}
 
-                    {/* Next Page Button */}
-                    <button
-                        onClick={() => handlePageChange(page + 1)}
-                        disabled={page >= totalPages}
-                        className="load-more-button"
-                        title="Load more content"
-                    >
-                        More
-                    </button>
-                </div>
-            </Card>
+                {!loading && jobs.length > 0 && (
+                    <ul className="js-list">
+                        {jobs.map((job, index) => {
+                            const postedMatch = job?.snippet?.match?.(/\d+\s\w+\sago/);
+                            const isSaved = !!isSignedIn.savedJobs?.some((s) => s.link === job.link);
+                            return (
+                                <li key={index} className="js-row">
+                                    <a href={job.link} target="_blank" rel="noopener noreferrer" className="js-title">
+                                        {job.parsedTitle}
+                                    </a>
 
-                {/* Navigation */}
-                <div className="job-navigation-buttons">
-                    <Link to={"/FeaturedJobs"}>
-                        <button className="nav-link-button">Featured</button>
-                          </Link>
-                    <Link to={"/SavedJobs"}>
-                        <button className="nav-link-button">Saved</button>
-                          </Link>
-                </div>
+                                    <div className="js-meta">
+                                        {postedMatch && <span className="js-posted">Posted: {postedMatch[0]}</span>}
+                                        {(job.country === "Israel" || job.country === "USA") && (
+                                            <div className="js-info">
+                                                <span><strong>Company:</strong> {job.company}</span>
+                                                <span><strong>Job:</strong> {job.job}</span>
+                                                <span><strong>Location:</strong> {job.location}</span>
+                                            </div>
+                                        )}
+                                    </div>
+
+                                    <div className="js-actions">
+                                        {isSaved ? (
+                                            <button className="profile-button subtle is-disabled" disabled>Saved</button>
+                                        ) : (
+                                            <button className="profile-button is-outline" onClick={() => saveJob(job)}>Save</button>
+                                        )}
+                                    </div>
+                                </li>
+                            );
+                        })}
+                    </ul>
+                )}
+                {(!loading && jobs.length === 0) && (
+                    <p className="job-list-empty">No jobs found</p>
+                )}
+            </div>
+
+            {/* Pagination */}
+            <div className="pagination-controls">
+
+                {/* Next Page Button */}
+                <button
+                    onClick={() => handlePageChange(page + 1)}
+                    disabled={page >= totalPages}
+                    className="profile-button ghost"
+                    title="Load more content"
+                >
+                    More
+                </button>
+            </div>
+<br/>
+            {/* Navigation */}
+            <div className="profile-buttons">
+                <Link to={"/FeaturedJobs"}>
+                    <button className="profile-button is-outline">Featured</button>
+                </Link>
+                <Link to={"/SavedJobs"}>
+                    <button className="profile-button is-outline">Saved</button>
+                </Link>
+            </div>
 
         </div>
     );
