@@ -290,7 +290,7 @@ const SavedJobs = ({toggleScreen, isSignedIn, toggleSignendIn}) => {
 
       };
       const [filters, setFilters] = useState(defaultFilters);
-      const resetFilters = () => setFilters(defaultFilters);
+      // const resetFilters = () => setFilters(defaultFilters);
 
           // close dropdown on outside click / Esc
               useEffect(() => {

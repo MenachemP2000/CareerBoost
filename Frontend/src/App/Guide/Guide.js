@@ -1,13 +1,12 @@
 import React from "react";
-import {useEffect, useState} from "react";
-import {useNavigate} from 'react-router-dom';
+import {useEffect} from "react";
 import "./Guide.css";
 /* Import JPGs exactly like About.js */
 import step1Image from "../images/step1.jpg";
 import step3Image from "../images/step3.jpg";
 const Guide = ({toggleScreen, isSignedIn, toggleSignendIn}) => {
-    const navigate = useNavigate();
-    const [error, setError] = useState('');
+    // const navigate = useNavigate();
+    // const [, setError] = useState('');
 
     useEffect(() => {
         toggleScreen("Guide");
