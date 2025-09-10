@@ -227,3 +227,164 @@ body.dark-mode .btn-ghost:hover{ background:rgba(255,255,255,.05); }
     .form-grid{ grid-template-columns:1fr; }
     .col-span-2{ grid-column:auto; }
 }
+/* =========================================
+   Dark mode — match Advanced/Profile theme
+   ========================================= */
+
+/* Page + sections */
+body.dark-mode .experiment-page{
+    background:#18191a;                  /* like .advanced-container */
+}
+body.dark-mode .section{
+    background:#242526;                  /* like .settings-section */
+    border:1px solid #3a3b3c;
+    box-shadow:none;
+}
+
+/* Titles & subtitles */
+body.dark-mode .page-title,
+body.dark-mode .section-title{
+    color:#e4e6eb;
+}
+body.dark-mode .page-subtitle{
+    color:#b0b3b8;
+}
+body.dark-mode .section-title::after{
+    background:#3a3b3c;                  /* subtle underline in dark */
+}
+
+/* Form labels + native inputs */
+body.dark-mode .section .form-label{ color:#e4e6eb; }
+body.dark-mode .section .form-control,
+body.dark-mode .section .form-select{
+    background:#1c1d1f;
+    color:#e4e6eb;
+    border-color:#3a3b3c;
+}
+body.dark-mode .section .form-control::placeholder{ color:#8b919a; }
+body.dark-mode .section .form-control:focus,
+body.dark-mode .section .form-select:focus{
+    border-color:#60a5fa;
+    box-shadow:0 0 0 .2rem rgba(96,165,250,.15);
+}
+
+/* React-Select (classNamePrefix="rs") */
+body.dark-mode .rs__control{
+    background:#1c1d1f !important;
+    border-color:#3a3b3c !important;
+    box-shadow:none !important;
+}
+body.dark-mode .rs__single-value{ color:#e4e6eb !important; }
+body.dark-mode .rs__placeholder{ color:#8b919a !important; }
+body.dark-mode .rs__menu{
+    background:#242526 !important;
+    border-color:#3a3b3c !important;
+    box-shadow:none !important;
+}
+body.dark-mode .rs__option{ color:#e4e6eb !important; }
+body.dark-mode .rs__option--is-focused{ background:#2a2b2d !important; }
+body.dark-mode .rs__option--is-selected{
+    background:#374151 !important; color:#e4e6eb !important;
+}
+body.dark-mode .rs__multi-value{
+    background:#2a2b2d !important;        /* like chips in Advanced */
+}
+body.dark-mode .rs__indicator{ color:#b0b3b8 !important; }
+
+/* Sticky action bar */
+body.dark-mode .action-bar{
+    background:#242526;
+    border-color:#3a3b3c;
+    box-shadow:none;
+}
+
+/* Buttons */
+body.dark-mode .btn-ghost{
+    color:#e4e6eb;
+    border-color:#3a3b3c;
+    background:transparent;
+}
+body.dark-mode .btn-ghost:hover{ background:#2a2b2d; }
+
+/* Keep your primary .profile-button look in dark mode */
+body.dark-mode .profile-button{
+    background:#111827;                   /* same as Profile */
+    color:#fff;
+}
+
+/* KPI color to match green accents used elsewhere */
+body.dark-mode .currency{ color:#22c55e; }
+
+/* =========================
+   Dark mode — match Profile
+   ========================= */
+
+/* Page background */
+body.dark-mode .recommendations-page{
+    background:#18191a;                 /* like .advanced-container */
+}
+
+/* Sections / cards */
+body.dark-mode .section{
+    background:#242526;                 /* like .settings-section */
+    border:1px solid #3a3b3c;
+    box-shadow:none;
+}
+
+/* Titles & subtitles */
+body.dark-mode .section-title,
+body.dark-mode .page-title{
+    color:#e4e6eb;
+}
+body.dark-mode .page-subtitle,
+body.dark-mode .kpi-lead,
+body.dark-mode .kpi-sub,
+body.dark-mode .muted{
+    color:#b0b3b8;
+}
+body.dark-mode .section-title::after{
+    background:#3a3b3c;                 /* subtle underline */
+}
+
+/* List rows / text */
+body.dark-mode .rec-item{
+    border-bottom:1px solid #2f3031;
+}
+body.dark-mode .rec-text{ color:#e4e6eb; }
+
+/* Accent (KPI number) */
+body.dark-mode .currency{ color:#22c55e; }
+
+/* Chart & tooltip */
+body.dark-mode .chart-wrap{
+    background:#1d1f20;
+    border-color:#2f3031;
+}
+body.dark-mode .cb-tooltip{
+    background:#242526;
+    color:#e4e6eb;
+    border-color:#3a3b3c;
+}
+
+/* Buttons */
+body.dark-mode .btn-ghost{
+    color:#e4e6eb;
+    border-color:#3a3b3c;
+    background:transparent;
+}
+body.dark-mode .btn-ghost:hover{ background:#2a2b2d; }
+
+body.dark-mode .profile-button{
+    background:#111827;                 /* same primary as Profile */
+    color:#fff;
+}
+
+/* Optional: add a blue underline to the page title (scoped) */
+.recommendations-page .page-title::after{
+    content:"";
+    display:block;
+    width:56px; height:4px;
+    background:#3b82f6;
+    border-radius:999px;
+    margin:6px auto 0;
+}

@@ -45,15 +45,6 @@ const ModifyAdvanced = ({
         // setIsEditing(true); // reuse your bottom buttons
     };
 
-    // const resetAllFields = () =>
-    //     setFieldEditing({
-    //         country: false, education: false, experience: false, age: false,
-    //         MainBranch: false, RemoteWork: false, DevType: false, OrgSize: false,
-    //         ICorPM: false, Industry: false, YearsCode: false, YearsCodePro: false, JobSat: false,
-    //         languages: false, databases: false, platforms: false, webframesworks: false, tools: false,
-    //         OpSys: false, employments: false,
-    //     });
-
 
 
     // const isAnyEditing = Object.values(fieldEditing).some(Boolean);
@@ -75,14 +66,6 @@ const ModifyAdvanced = ({
             ...keys.reduce((acc, k) => ((acc[k] = on), acc), {}),
         }));
 
-    // const editSection = (key) => {
-    //     // snapshot current values for Cancel
-    //     sectionSnapshots.current[key] = GROUPS[key].reduce(
-    //         (m, k) => ({ ...m, [k]: formData[k] }),
-    //         {}
-    //     );
-    //     setFieldsEditing(GROUPS[key], true);
-    // };
 
     const cancelSection = (key) => {
         const snap = sectionSnapshots.current[key] || {};
@@ -147,46 +130,6 @@ const ModifyAdvanced = ({
         });
     };
 
-    // const handleCancel = () => {
-    //     setFormData({...isSignedIn});
-    //     resetAllFields();
-    //     // setIsEditing(false);
-    // };
-
-    // const handleSubmit = async (e) => {
-    //     e.preventDefault();
-    //     const payload = {_id: isSignedIn._id, ...formData};
-    //     try {
-    //         // Send the registration data to the server
-    //         const response = await fetch(`${config.apiBaseUrl}/api/users/${isSignedIn._id}`, {
-    //             method: 'PATCH',
-    //             headers: {
-    //                 'Content-Type': 'application/json',
-    //                 'Authorization': `Bearer ${localStorage.getItem('token')}`
-    //             },
-    //             body: JSON.stringify(payload)
-    //         });
-    //
-    //         const result = await response.json();
-    //         //return viewmode
-    //         // setIsEditing(false);
-    //         if (!response.ok) {
-    //             // If the server responds with an error, set the error message
-    //             setError(result.message);
-    //             return;
-    //         } else {
-    //             toggleSignendIn(isSignedIn.username);
-    //             //stay in page
-    //             // navigate("/AdvancedProfile");
-    //         }
-    //     } catch (error) {
-    //         setError('An error occurred. Please try again.');
-    //         console.error('Error:', error);
-    //     }
-    //     // on success:
-    //     resetAllFields();
-    //     setIsEditing(false);
-    // };
     // shared submit function used by Save All or Save Section
     const submitPatch = async () => {
         const payload = { _id: isSignedIn._id, ...formData };
@@ -216,11 +159,6 @@ const ModifyAdvanced = ({
         }
     };
 
-    // const handleSubmit = async (e) => {
-    //     if (e?.preventDefault) e.preventDefault();
-    //     const ok = await submitPatch();
-    //     if (ok) resetAllFields();
-    // };
 
     return (
             <div className="advanced-container">
@@ -231,12 +169,6 @@ const ModifyAdvanced = ({
 
                 {/* SETTINGS LAYOUT (no card) */}
                 <div className="advanced-layout">
-                    {/* Section: Profile Information */}
-                        <div className="section-header">
-                            <h3 className="section-title">Profile Information</h3>
-                            <p className="section-subtitle">Shown on your public profile.</p>
-                        </div>
-
 
                         {/* ===== 1) Country – Age ===== */}
                         <section className="settings-section">
@@ -815,24 +747,9 @@ const ModifyAdvanced = ({
                         </div>
                     </section>
             </div>
+                <br/>
             <div className="advanced-buttons">
-                {/*{!isEditing ? (*/}
-                {/*    <button as={Button} className="advanced-button" onClick={() => setIsEditing(true)}>*/}
-                {/*        Edit Profile*/}
-                {/*    </button>*/}
-                {/*) : (*/}
-                {/*    <>*/}
-                {/*        <button as={Button} className="advanced-button" onClick={handleCancel}>*/}
-                {/*            Cancel*/}
-                {/*        </button>*/}
-                {/*        <button as={Button} className="advanced-button" onClick={handleSubmit}>*/}
-                {/*            Save Information*/}
-                {/*        </button>*/}
-                {/*    </>*/}
-                {/*)}*/}
-
-
-                <button as={Button} className="advanced-button" onClick={() => navigate("/Profile")}>
+                <button className="advanced-button" onClick={() => navigate("/Profile")}>
                     Back
                 </button>
             </div>
@@ -844,242 +761,3 @@ const ModifyAdvanced = ({
 }
 
 export default ModifyAdvanced;
-
-// {/* Education */}
-// <div className="field-row">
-//     <div className="field-label">Education</div>
-//     <div className="field-value">
-//         {!isEditing ? (
-//             <span className="value-text">{formData.education || "Not Provided"}</span>
-//         ) : (
-//             <Form.Control
-//                 as="select"
-//                 name="education"
-//                 value={formData.education}
-//                 onChange={handleChange}
-//             >
-//                 <option value="">Select your education</option>
-//                 {educations.map((education, index) => (
-//                     <option key={index} value={education}>{education}</option>
-//                 ))}
-//             </Form.Control>
-//         )}
-//     </div>
-//     <button className="field-edit" type="button" onClick={() => setIsEditing(true)} aria-label="Edit education">
-//         <span className="chev" />
-//     </button>
-// </div>
-//
-// <Form.Group controlId="formEducation" className="mb-3">
-//     <Form.Label>Education</Form.Label>
-//     <Form.Control
-//         as="select"
-//         name="education"
-//         value={formData.education}
-//         onChange={handleChange}
-//         disabled={!isEditing}
-//     >
-//         <option value="">Select your education</option>
-//         {educations.map((education, index) => (
-//             <option key={index} value={education}>
-//                 {education}
-//             </option>
-//         ))}
-//     </Form.Control>
-// </Form.Group>
-//
-// <Form.Group controlId="formExperience" className="mb-3">
-//     <Form.Label>Years of Experience</Form.Label>
-//     <Form.Control
-//         type="number"
-//         placeholder="Enter your years of experience"
-//         name="experience"
-//         value={formData.experience}
-//         onChange={handleChange}
-//         disabled={!isEditing}
-//     />
-// </Form.Group>
-//
-// <Form.Group controlId="formAge" className="mb-3">
-//     <Form.Label>Age</Form.Label>
-//     <Form.Control
-//         as="select"
-//         name="age"
-//         value={formData.age}
-//         onChange={handleChange}
-//         disabled={!isEditing}
-//     >
-//         <option value="">Select your age range</option>
-//         {ages.map((age, index) => (
-//             <option key={index} value={age}>
-//                 {age}
-//             </option>
-//         ))}
-//     </Form.Control>
-// </Form.Group>
-//
-// <br></br>
-//
-// <Card.Title className="advanced-information">Advanced Information</Card.Title>
-//
-// <Form.Group controlId="formMainBranch" className="mb-3">
-//     <Form.Label>Devloper by profession</Form.Label>
-//     <Form.Control
-//         as="select"
-//         name="MainBranch"
-//         value={formData.MainBranch}
-//         onChange={handleChange}
-//         disabled={!isEditing}
-//     >
-//         <option value="">Select which of the following options best
-//             describes you today
-//         </option>
-//         {MainBranchs.map((mainbranch, index) => (
-//             <option key={index} value={mainbranch}>
-//                 {mainbranch}
-//             </option>
-//         ))}
-//     </Form.Control>
-// </Form.Group>
-//
-// <Form.Group controlId="formRemoteWork" className="mb-3">
-//     <Form.Label>Remote Work</Form.Label>
-//     <Form.Control
-//         as="select"
-//         name="RemoteWork"
-//         value={formData.RemoteWork}
-//         onChange={handleChange}
-//         disabled={!isEditing}
-//     >
-//         <option value="">Select which best describes your current work
-//             situation
-//         </option>
-//         {RemoteWork.map((remotework, index) => (
-//             <option key={index} value={remotework}>
-//                 {remotework}
-//             </option>
-//         ))}
-//     </Form.Control>
-// </Form.Group>
-//
-// <Form.Group controlId="formDevType" className="mb-3">
-//     <Form.Label>Developer Type</Form.Label>
-//     <Form.Control
-//         as="select"
-//         name="DevType"
-//         value={formData.DevType}
-//         onChange={handleChange}
-//         disabled={!isEditing}
-//     >
-//         <option value="">Select which of the following describes your
-//             current job
-//         </option>
-//         {DevType.map((devtype, index) => (
-//             <option key={index} value={devtype}>
-//                 {devtype}
-//             </option>
-//         ))}
-//     </Form.Control>
-// </Form.Group>
-//
-// <Form.Group controlId="formOrgSize" className="mb-3">
-//     <Form.Label>Organization Size</Form.Label>
-//     <Form.Control
-//         as="select"
-//         name="OrgSize"
-//         value={formData.OrgSize}
-//         onChange={handleChange}
-//         disabled={!isEditing}
-//     >
-//         <option value="">Select how many people are employed in your
-//             organization
-//         </option>
-//         {OrgSize.map((orgsize, index) => (
-//             <option key={index} value={orgsize}>
-//                 {orgsize}
-//             </option>
-//         ))}
-//     </Form.Control>
-// </Form.Group>
-//
-// <Form.Group controlId="formICorPM" className="mb-3">
-//     <Form.Label>Individual contributor or people manager</Form.Label>
-//     <Form.Control
-//         as="select"
-//         name="ICorPM"
-//         value={formData.ICorPM}
-//         onChange={handleChange}
-//         disabled={!isEditing}
-//     >
-//         <option value="">Select if you are an individual contributor or
-//             people manager
-//         </option>
-//         {ICorPM.map((icorpm, index) => (
-//             <option key={index} value={icorpm}>
-//                 {icorpm}
-//             </option>
-//         ))}
-//     </Form.Control>
-// </Form.Group>
-//
-// <Form.Group controlId="formIndustry" className="mb-3">
-//     <Form.Label>Industry</Form.Label>
-//     <Form.Control
-//         as="select"
-//         name="Industry"
-//         value={formData.Industry}
-//         onChange={handleChange}
-//         disabled={!isEditing}
-//     >
-//         <option value="">Select what industry is the company you work for
-//             in
-//         </option>
-//         {Industry.map((industry, index) => (
-//             <option key={index} value={industry}>
-//                 {industry}
-//             </option>
-//         ))}
-//     </Form.Control>
-// </Form.Group>
-//
-// <Form.Group controlId="formYearsCode" className="mb-3">
-//     <Form.Label>Years of coding</Form.Label>
-//     <Form.Control
-//         type="number"
-//         name="YearsCode"
-//         value={formData.YearsCode}
-//         onChange={handleChange}
-//         disabled={!isEditing}
-//         min="0"
-//         max="50"
-//         placeholder="Enter the number of years you've been coding"
-//     />
-// </Form.Group>
-//
-// <Form.Group controlId="formYearsCodePro" className="mb-3">
-//     <Form.Label>Years of professional coding</Form.Label>
-//     <Form.Control
-//         type="number"
-//         name="YearsCodePro"
-//         value={formData.YearsCodePro}
-//         onChange={handleChange}
-//         disabled={!isEditing}
-//         min="0"
-//         max="50"
-//         placeholder="Enter the number of years you've been coding professionally"
-//     />
-// </Form.Group>
-//
-// <Form.Group controlId="formJobSat" className="mb-3">
-//     <Form.Label>Job satisfaction</Form.Label>
-//     <Form.Control
-//         type="number"
-//         name="JobSat"
-//         value={formData.JobSat}
-//         onChange={handleChange}
-//         disabled={!isEditing}
-//         min="0"
-//         max="10"
-//         placeholder="Enter your job satisfaction score from 0 to 10"
-//     />
-// </Form.Group>

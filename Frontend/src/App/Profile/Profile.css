@@ -57,21 +57,27 @@
     overflow: hidden;
 }
 
-.section-header {
-    padding: 1.25rem 1.5rem 0.5rem 1.5rem;
+.section-header{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
 }
-    .section-title {
-        margin: 0;
-        font-size: 1.15rem;
-        font-weight: 700;
-        color: #111827;
-    }
 
-.section-header .section-subtitle {
-        margin: -2rem 0 1rem;
-        color: #806b76;
-        font-size: 1.2rem;
-    }
+.section-title{
+    margin:0 !important;
+    line-height:1.2;
+    position:relative;
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: #111827;
+}
+
+.section-header .section-subtitle{
+    margin: 0;
+    color: #806b76;
+    font-size: 1.2rem;
+}
+
 /* rows */
 .field-row {
     display: grid;

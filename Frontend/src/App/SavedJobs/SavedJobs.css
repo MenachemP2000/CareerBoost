@@ -140,3 +140,67 @@ body.dark-mode .filter-container {
 /* Buttons up top and nav buttons – keep your existing but ensure hover */
 .top-btns { justify-content: center; }
 .navigation-buttons { justify-content: center; margin-top: 3rem; gap: 1rem; }
+ /* ================================
+    Dark mode — match Profile theme
+    ================================ */
+ body.dark-mode .saved-jobs-container{
+     background:#18191a;
+ }
+
+ /* Rows, text, links */
+ body.dark-mode .job-row{ border-bottom-color:#2f3031; }
+ body.dark-mode .job-row:hover{ background:#1f2022; }
+
+ body.dark-mode .job-title{ color:#93c5fd; }
+ body.dark-mode .job-title:hover{ color:#bfdbfe; text-decoration:underline; }
+
+ body.dark-mode .job-meta-line{ color:#b0b3b8; }
+ body.dark-mode .meta strong{ color:#e4e6eb; }
+
+ /* Chips / state buttons */
+ body.dark-mode .chip{
+     background:#2a2b2d;
+     color:#e4e6eb;
+     border:1px solid #3a3b3c;
+ }
+ body.dark-mode .chip[aria-disabled="true"]{ opacity:.45; }
+
+ /* Remove button */
+ body.dark-mode .remove-button{ background-color:#ef4444; color:#fff; }
+ body.dark-mode .remove-button:hover{ background-color:#dc2626; }
+
+ /* Custom checkboxes used in filters/chips */
+ body.dark-mode .checkbox-container .checkbox-label::before{
+     background-color:#1c1d1f;           /* dark surface */
+     border-color:#3b82f6;                /* blue border */
+ }
+ body.dark-mode .checkbox-container input:checked + .checkbox-label::before{
+     background-color:#2563eb;            /* blue fill when checked */
+     border-color:#3b82f6;
+ }
+ body.dark-mode .checkbox-container input:checked + .checkbox-label::after{
+     background:#ffffff;
+ }
+
+ /* Filter panel */
+ body.dark-mode .filter-container{
+     background-color:#1e1f21;
+     color:#e4e6eb;
+     box-shadow:none;
+     border:1px solid #2f3031;
+ }
+
+ /* Top & navigation buttons (use same primary look as Profile) */
+ body.dark-mode .top-btns .btn,
+ body.dark-mode .navigation-buttons .btn{
+     background:#111827;
+     color:#fff;
+     border:1px solid transparent;
+     border-radius:12px;
+     box-shadow:0 1px 2px rgba(0,0,0,.04);
+ }
+ body.dark-mode .top-btns .btn:hover,
+ body.dark-mode .navigation-buttons .btn:hover{
+     filter:brightness(1.06);
+     box-shadow:0 6px 16px rgba(17,24,39,.16);
+ }

@@ -630,7 +630,7 @@ const SavedJobs = ({toggleScreen, isSignedIn, toggleSignendIn}) => {
                       }}>
 
                     <Form.Group className="form-group" controlId="formJobTitle">
-                        <Form.Label>Job Title</Form.Label>
+                        {/*<Form.Label>Job Title</Form.Label>*/}
                         <Form.Control
                             type="text"
                             placeholder="Enter job title"
@@ -638,33 +638,34 @@ const SavedJobs = ({toggleScreen, isSignedIn, toggleSignendIn}) => {
                             required
                         />
                     </Form.Group>
+                    <br/>
                     <Form.Group className="form-group" controlId="formLink">
-                        <Form.Label>Link</Form.Label>
+                        {/*<Form.Label>Link</Form.Label>*/}
                         <Form.Control
                             type="url" placeholder="Enter Link"
                             onChange={(e) => setNewJob({...newJob, link: e.target.value})}
                             required
                         />
                     </Form.Group>
-
+                    <br/>
                     <Form.Group className="form-group" controlId="formCompany">
-                        <Form.Label>Company</Form.Label>
+                        {/*<Form.Label>Company</Form.Label>*/}
                         <Form.Control
                             type="text"
                             placeholder="Enter company"
                             onChange={(e) => setNewJob({...newJob, company: e.target.value})}/>
                     </Form.Group>
-
+                    <br/>
                     <Form.Group className="form-group" controlId="formJob">
-                        <Form.Label>Job</Form.Label>
+                        {/*<Form.Label>Job</Form.Label>*/}
                         <Form.Control
                             type="text"
                             placeholder="Enter job"
                             onChange={(e) => setNewJob({...newJob, job: e.target.value})}/>
                     </Form.Group>
-
+                    <br/>
                     <Form.Group className="form-group" controlId="formLocation">
-                        <Form.Label>Location</Form.Label>
+                        {/*<Form.Label>Location</Form.Label>*/}
                         <Form.Control
                             type="text"
                             placeholder="Enter location"

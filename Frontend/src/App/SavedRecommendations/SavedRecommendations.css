@@ -12,15 +12,15 @@
     --shadow:0 6px 16px rgba(17,24,39,.06);
     --accent:#0f766e;
 }
-body.dark-mode{
-    --bg:#0b1220;
-    --card:#0f172a;
-    --text:#e5e7eb;
-    --muted:#94a3b8;
-    --border:#1f2a44;
-    --shadow:0 8px 24px rgba(0,0,0,.45);
-    --accent:#34d399;
-}
+/*body.dark-mode{*/
+/*    --bg:#0b1220;*/
+/*    --card:#0f172a;*/
+/*    --text:#e5e7eb;*/
+/*    --muted:#94a3b8;*/
+/*    --border:#1f2a44;*/
+/*    --shadow:0 8px 24px rgba(0,0,0,.45);*/
+/*    --accent:#34d399;*/
+/*}*/
 
 /* Page shell */
 .saved-page{
@@ -172,4 +172,74 @@ body.dark-mode .btn-ghost:hover{ background:rgba(255,255,255,.05); }
     .section{ padding:16px; }
     .list-header,
     .list-row{ grid-template-columns: 1fr 140px; }
+}
+/* ================================
+   Dark mode — match Profile theme
+   ================================ */
+
+/* Page background */
+body.dark-mode .saved-page{
+    background:#18191a;
+}
+
+/* Section card */
+body.dark-mode .section{
+    background:#242526;
+    border:1px solid #3a3b3c;
+    box-shadow:none;
+}
+
+/* Titles & subtitles */
+body.dark-mode .page-title,
+body.dark-mode .section-title{ color:#e4e6eb; }
+body.dark-mode .page-subtitle{ color:#b0b3b8; }
+body.dark-mode .section-title::after{ background:#3a3b3c; }
+
+/* List/table */
+body.dark-mode .list{
+    background:#1c1d1f;
+    border-color:#2f3031;
+}
+body.dark-mode .list-header{
+    background:#1a1b1d;
+    color:#b0b3b8;
+    border-bottom-color:#2f3031;
+}
+body.dark-mode .list-row{
+    border-bottom-color:#2f3031;
+}
+body.dark-mode .list-row:hover{
+    background:#1f2022;
+}
+body.dark-mode .col-name{ color:#e4e6eb; }
+
+/* Increase pill */
+body.dark-mode .pill-positive{
+    background:rgba(34,197,94,.16);
+    color:#22c55e;
+    border-color:rgba(34,197,94,.35);
+}
+
+/* Select inputs */
+body.dark-mode .select{
+    background:#1c1d1f;
+    color:#e4e6eb;
+    border-color:#3a3b3c;
+}
+body.dark-mode .select:focus{
+    border-color:#60a5fa;
+    box-shadow:0 0 0 3px rgba(96,165,250,.15);
+}
+
+/* Buttons */
+body.dark-mode .btn-ghost{
+    color:#e4e6eb;
+    border-color:#3a3b3c;
+    background:transparent;
+}
+body.dark-mode .btn-ghost:hover{ background:#2a2b2d; }
+
+body.dark-mode .profile-button{
+    background:#111827;  /* same primary as Profile */
+    color:#fff;
 }

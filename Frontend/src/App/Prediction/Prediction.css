@@ -7,15 +7,6 @@
     --shadow: 0 6px 16px rgba(17,24,39,.06);
     --accent: #0f766e; /* KPI color */
 }
-body.dark-mode {
-    --bg: #0b1220;
-    --card: #0f172a;
-    --text: #e5e7eb;
-    --muted: #94a3b8;
-    --border: #1f2a44;
-    --shadow: 0 8px 24px rgba(0,0,0,.45);
-    --accent: #34d399;
-}
 
 .prediction-page {
     background:#efefef;
@@ -72,7 +63,6 @@ body.dark-mode {
     margin-top: 6px;
 }
 .section-hint {
-    margin-left: auto;
     color: var(--muted);
     font-size: 0.9rem;
 }
@@ -138,118 +128,64 @@ body.dark-mode .btn-ghost:hover { background: rgba(255,255,255,.05); }
 .error-msg { color: #b91c1c; text-align: center; margin-top: 14px; }
 
 
+/* === Match Advanced Profile dark theme === */
 
-/*!* Prediction Page Container *!*/
-/*.prediction-container {*/
-/*    background-color: white;*/
-/*    min-height: 100vh;*/
-/*    display: flex;*/
-/*    flex-direction: column;*/
-/*    align-items: center;*/
-/*    justify-content: center;*/
-/*    width: 100%;*/
-/*}*/
-/*.prediction-header{*/
-/*    margin-top: 5rem;*/
-/*    font-size: 2rem;*/
-/*    font-weight: 600;*/
-/*    margin-bottom: 0.5rem;*/
-/*    text-align: center;*/
-/*    color: #1f2937;*/
-/*}*/
-/*!* Prediction Card *!*/
-/*.prediction-card {*/
-/*    width: 100%;*/
-/*    max-width: 600px;*/
-/*    background: white;*/
-/*    padding: 20px;*/
-/*    border-radius: 10px;*/
-/*    text-align: center;*/
-/*    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);*/
-/*    position: relative;*/
-/*    margin-bottom: 10px;*/
-/*}*/
+/* Page background */
+body.dark-mode .prediction-page{
+    background:#18191a;             /* same as .advanced-container */
+}
 
-/*.repredict-button{*/
-/*    width: clamp(3rem, 10rem, 8rem);*/
-/*    padding: clamp(0.3rem, 1.5vw, 0.3rem) clamp(0.3rem, 1vw, 0.3rem);*/
-/*    font-size: clamp(0.3rem, 2vw, 1.3rem);*/
-/*    background: linear-gradient(45deg, #32a0e4, #c8c9ca); !* Gradient background *!*/
-/*    color: white;*/
-/*    border: none;*/
-/*    border-radius: 0.75rem;*/
-/*    cursor: pointer;*/
-/*    transition: background-color 0.3s ease;*/
-/*    font-weight: bold;*/
-/*}*/
-/*.repredict-button:hover{*/
-/*    background: linear-gradient(45deg, #c8c9ca, #32a0e4); !* Reverse gradient on hover *!*/
-/*}*/
-/*!* Prediction Buttons *!*/
-/*.prediction-buttons {*/
-/*    display: flex;*/
-/*    flex-direction: row; !* Stack buttons vertically *!*/
-/*    align-items: center;*/
-/*    justify-content: center;*/
+/* Cards/sections */
+body.dark-mode .section{
+    background:#242526;              /* same as .settings-section */
+    border:1px solid #3a3b3c;
+    box-shadow:none;
+}
 
-/*    gap: 1rem;*/
-/*    !*justify-content: center;*!*/
-/*    flex-wrap: wrap;*/
-/*    margin-bottom: 10%;*/
-/*    margin-top: 3rem;*/
-/*}*/
-/*.prediction-button {*/
-/*    width: clamp(3rem, 10rem, 8rem);*/
-/*    padding: clamp(0.3rem, 1.5vw, 0.3rem) clamp(0.3rem, 1vw, 0.3rem);*/
-/*    font-size: clamp(0.3rem, 2vw, 1.3rem);*/
-/*    background: linear-gradient(45deg, #32a0e4, #c8c9ca); !* Gradient background *!*/
-/*    border: none; !* Remove border *!*/
-/*    color: white; !* Text color *!*/
-/*    font-weight: bold;*/
-/*    border-radius: 8px; !* Rounded corners *!*/
-/*    text-align: center; !* Center align text *!*/
-/*    text-decoration: none; !* Remove underline from links *!*/
-/*    transition: background 0.3s ease; !* Smooth transition for hover effect *!*/
-/*    min-width: fit-content;*/
-/*    height: fit-content; !* Set specific height *!*/
-/*}*/
+/* Title + subtitle colors */
+body.dark-mode .page-title,
+body.dark-mode .section-title{
+    color:#e4e6eb;                   /* same as advanced titles */
+}
+body.dark-mode .page-subtitle,
+body.dark-mode .section-hint,
+body.dark-mode .muted{
+    color:#b0b3b8;                   /* same as .section-subtitle */
+}
 
-/*.prediction-button:hover {*/
-/*    background: linear-gradient(45deg, #c8c9ca, #32a0e4);*/
-/*}*/
-/*!* Dark Mode *!*/
-/*body.dark-mode .prediction-container {*/
-/*    background-color: #050505;*/
-/*}*/
-/*!* Make sure text is visible in dark mode *!*/
-/*body.dark-mode .prediction-container h3,*/
-/*body.dark-mode .prediction-container p {*/
-/*    color: white; !* Ensures contrast in dark mode *!*/
-/*}*/
+/* Underlines */
+body.dark-mode .section-title::after{
+    background:#3a3b3c;              /* subtle divider in dark */
+}
 
-/*!* Ensure underline is visible *!*/
-/*body.dark-mode .underline {*/
-/*    background-color: white; !* Adjust to ensure visibility *!*/
-/*}*/
+/* KPI number color (green, like advanced accents) */
+body.dark-mode .currency{ color:#22c55e; } /* or #16a34a */
 
+/* Chart container + tooltip */
+body.dark-mode .chart-wrap{
+    background:#1d1f20;
+    border-color:#2f3031;            /* like .field-row border */
+}
+body.dark-mode .cb-tooltip{
+    background:#242526;
+    color:#e4e6eb;
+    border-color:#3a3b3c;
+}
 
-/*body.dark-mode .prediction-card {*/
-/*    background: #242526;*/
-/*    color: white;*/
-/*    box-shadow: 0 4px 10px rgba(255, 255, 255, 0.1);*/
-/*}*/
+/* Buttons */
+body.dark-mode .btn-ghost{
+    color:#e4e6eb;
+    border-color:#3a3b3c;
+    background:transparent;
+}
+body.dark-mode .btn-ghost:hover{ background:#2a2b2d; }
 
-/*body.dark-mode .prediction-chart {*/
-/*    background: #242526;*/
-/*    color: white;*/
-/*    box-shadow: 0 4px 10px rgba(255, 255, 255, 0.1);*/
-/*}*/
-
-/*.repredict-button:hover{*/
-/*    background: linear-gradient(45deg, #c8c9ca, #32a0e4); !* Reverse gradient on hover *!*/
-/*}*/
-
-/*body.dark-mode .prediction-button:hover,*/
-/*body.dark-mode .repredict-button:hover{*/
-/*    color: black;*/
-/*}*/
+/* Optional: add a blue underline under the top page title, like your section headers */
+.page-title::after{
+    content:"";
+    display:block;
+    width:56px; height:4px;
+    background:#3b82f6;
+    border-radius:999px;
+    margin:6px auto 0;
+}

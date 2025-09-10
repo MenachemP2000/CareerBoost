@@ -190,3 +190,89 @@ body.dark-mode .btn-ghost:hover{ background:rgba(255,255,255,.05); }
     .list-header,
     .list-row{ grid-template-columns: 1fr 120px; }
 }
+/* ================================
+   Dark mode — match Profile theme
+   ================================ */
+
+/* Page background */
+body.dark-mode .advrec-page{
+    background:#18191a;
+}
+
+/* Section cards */
+body.dark-mode .section{
+    background:#242526;
+    border:1px solid #3a3b3c;
+    box-shadow:none;
+}
+
+/* Titles & subtitles */
+body.dark-mode .page-title,
+body.dark-mode .section-title{ color:#e4e6eb; }
+body.dark-mode .page-subtitle{ color:#b0b3b8; }
+body.dark-mode .section-title::after{ background:#3a3b3c; }
+
+/* Toolbar buttons (React-Bootstrap) */
+body.dark-mode .toolbar .btn,
+body.dark-mode .custom-dropdown .btn,
+body.dark-mode .toolbar-dropdown .btn{
+    color:#e4e6eb !important;
+    background:transparent !important;
+    border:1px solid #3a3b3c !important;
+}
+body.dark-mode .toolbar .btn:hover,
+body.dark-mode .custom-dropdown .btn:hover,
+body.dark-mode .toolbar-dropdown .btn:hover{
+    background:#2a2b2d !important;
+}
+
+/* Dropdown menu */
+body.dark-mode .dropdown-menu{
+    background:#242526;
+    color:#e4e6eb;
+    border:1px solid #3a3b3c;
+    box-shadow:none;
+}
+body.dark-mode .dropdown-menu .dropdown-item{
+    color:#e4e6eb;
+}
+body.dark-mode .dropdown-menu .dropdown-item:hover{
+    background:#2a2b2d;
+    color:#e4e6eb;
+}
+
+/* Table-like list */
+body.dark-mode .list{
+    background:#1c1d1f;
+    border-color:#2f3031;
+}
+body.dark-mode .list-header{
+    background:#1a1b1d;
+    color:#b0b3b8;
+    border-bottom-color:#2f3031;
+}
+body.dark-mode .list-row{
+    border-bottom-color:#2f3031;
+}
+body.dark-mode .list-row:hover{ background:#1f2022; }
+body.dark-mode .col-name{ color:#e4e6eb; }
+
+/* Increase pill */
+body.dark-mode .pill-positive{
+    background:rgba(34,197,94,.16);
+    color:#22c55e;
+    border-color:rgba(34,197,94,.35);
+}
+
+/* Buttons */
+body.dark-mode .btn-ghost{
+    color:#e4e6eb;
+    border-color:#3a3b3c;
+    background:transparent;
+}
+body.dark-mode .btn-ghost:hover{ background:#2a2b2d; }
+
+body.dark-mode .profile-button{
+    background:#111827;   /* same primary as Profile */
+    color:#fff;
+}

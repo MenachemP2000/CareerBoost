@@ -153,3 +153,15 @@ body.dark-mode .btn-ghost:hover{ background:rgba(255,255,255,.05); }
     .section{ padding:16px; }
     .currency{ font-size:clamp(1.2rem,4vw,1.5rem); }
 }
+/* Make inline salary visible and themed */
+.recommendations-page .salary-estimate{
+    color: var(--accent);
+    font-weight: 900;
+    letter-spacing: .2px;
+    margin: 0 .25rem;
+}
+
+/* (Optional) force the green used elsewhere in dark mode) */
+body.dark-mode .recommendations-page .salary-estimate{
+    color: #22c55e; /* or keep var(--accent) if you prefer */
+}

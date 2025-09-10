@@ -110,3 +110,54 @@ body.dark-mode .fj-title { color: #60a5fa; }
 body.dark-mode .fj-meta { color: #e5e7eb; }
 
 body.dark-mode .fj-posted { color: #9aa4af; }
+/* ================================
+   Dark mode — match Profile theme
+   ================================ */
+
+/* Page bg */
+body.dark-mode .featured-jobs-container{
+    background:#18191a;
+}
+
+/* Row dividers + hover */
+body.dark-mode .fj-row{
+    border-bottom:1px solid #2f3031;
+}
+body.dark-mode .fj-row:hover{
+    background:#1f2022;
+}
+
+/* Titles + meta text */
+body.dark-mode .fj-title{ color:#93c5fd; }
+body.dark-mode .fj-title:hover{ color:#bfdbfe; text-decoration:underline; }
+
+body.dark-mode .fj-meta{ color:#e5e7eb; }     /* company/job/location line */
+body.dark-mode .fj-meta strong{ color:#e5e7eb; }
+body.dark-mode .fj-posted{ color:#b0b3b8; }   /* “Posted: …” */
+
+/* “Save” buttons (and any profile buttons in actions/nav) */
+body.dark-mode .fj-actions .profile-button,
+body.dark-mode .fj-nav .profile-button{
+    background:#111827;
+    color:#fff;
+    border:1px solid transparent;
+    border-radius:12px;
+    box-shadow:0 1px 2px rgba(0,0,0,.04);
+}
+body.dark-mode .fj-actions .profile-button:hover,
+body.dark-mode .fj-nav .profile-button:hover{
+    filter:brightness(1.06);
+    box-shadow:0 6px 16px rgba(17,24,39,.16);
+}
+
+/* If your Save uses a plain .btn instead of .profile-button, style it too */
+body.dark-mode .fj-actions .btn{
+    background:#111827;
+    color:#fff;
+    border:1px solid transparent;
+    border-radius:12px;
+}
+body.dark-mode .fj-actions .btn:hover{ filter:brightness(1.06); }
+
+/* Optional header text (if you render one) */
+body.dark-mode .featured-jobs-header{ color:#e4e6eb; }
