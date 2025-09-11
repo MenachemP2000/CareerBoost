@@ -338,12 +338,7 @@ const Recommendations = ({toggleScreen, isSignedIn, toggleSignendIn, exchangeRat
 
                             <CartesianGrid vertical={false} stroke="var(--border)"/>
                             <XAxis dataKey="name" tick={{fill: "var(--muted)"}} axisLine={false} tickLine={false}/>
-                            <YAxis
-                                tickFormatter={(v) => new Intl.NumberFormat('en', {
-                                    notation: 'compact', maximumFractionDigits: 1
-                                }).format(v)}
-                                tick={{fill: "var(--muted)"}} axisLine={false} tickLine={false}
-                            />
+                           
                             <Tooltip
                                 content={({active, payload, label}) => {
                                     if (!active || !payload?.length) return null;

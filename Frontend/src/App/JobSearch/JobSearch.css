@@ -1,6 +1,6 @@
 /* Page shell – match Saved Jobs vibe */
 .job-search-container {
-    background:#efefef;
+    background: #efefef;
     margin-top: 2rem;
     min-height: 100vh;
     display: flex;
@@ -33,10 +33,16 @@
     justify-content: center;
     margin-bottom: 8px;
 }
-.top-btn { /* optional spacing helper */ }
+
+.top-btn {
+    /* optional spacing helper */
+}
 
 /* Results list – no cards */
-.js-list-shell { width: 100%; }
+.js-list-shell {
+    width: 100%;
+}
+
 .js-list {
     list-style: none;
     padding: 0;
@@ -45,6 +51,7 @@
     display: grid;
     gap: 10px;
 }
+
 .js-row {
     display: grid;
     grid-template-columns: 1fr auto;
@@ -53,7 +60,10 @@
     border-bottom: 1px solid #e5e7eb;
     align-items: start;
 }
-.js-row:last-child { border-bottom: none; }
+
+.js-row:last-child {
+    border-bottom: none;
+}
 
 /* Title + meta */
 .js-title {
@@ -63,7 +73,10 @@
     font-weight: 700;
     font-size: clamp(1rem, 2vw, 1.15rem);
 }
-.js-title:hover { text-decoration: underline; }
+
+.js-title:hover {
+    text-decoration: underline;
+}
 
 .js-meta {
     grid-column: 1 / 2;
@@ -72,14 +85,21 @@
     font-size: 0.96rem;
     color: #111827;
 }
-.js-posted { color: #6b7280; }
+
+.js-posted {
+    color: #6b7280;
+}
 
 .js-info {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 14px 24px;
+    display: block;
+
 }
-.js-info span { white-space: nowrap; }
+
+.js-info span {
+    display: block;
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+}
 
 /* Actions */
 .js-actions {
@@ -88,10 +108,17 @@
     align-items: start;
     gap: 8px;
 }
-.profile-button.is-disabled { opacity: .65; cursor: not-allowed; }
+
+.profile-button.is-disabled {
+    opacity: .65;
+    cursor: not-allowed;
+}
 
 /* Pagination + bottom nav */
-.pagination-controls { margin-top: 22px; }
+.pagination-controls {
+    margin-top: 22px;
+}
+
 .job-navigation-buttons {
     display: flex;
     gap: 14px;
@@ -102,7 +129,7 @@
 .fd-backdrop {
     position: fixed;
     inset: 0;
-    background: rgba(17,24,39,.35);
+    background: rgba(17, 24, 39, .35);
     backdrop-filter: blur(1px);
     z-index: 25;
 }
@@ -116,7 +143,7 @@
     background: #fff;
     border: 1px solid #e5e7eb;
     border-radius: 14px;
-    box-shadow: 0 20px 60px rgba(17,24,39,.18);
+    box-shadow: 0 20px 60px rgba(17, 24, 39, .18);
     z-index: 26;
 }
 
@@ -128,6 +155,7 @@
     font-weight: 700;
     border-bottom: 1px solid #eef0f2;
 }
+
 .icon-btn {
     appearance: none;
     border: 1px solid transparent;
@@ -155,12 +183,15 @@
     font-size: .95rem;
 }
 
-.fd-check input[type="checkbox"]{
-    appearance:auto;          /* ensure native checkbox */
-    width:16px !important;
-    height:16px !important;
-    margin:0;                 /* no extra gap on the left */
-    flex:0 0 auto !important; /* don't stretch */
+.fd-check input[type="checkbox"] {
+    appearance: auto;
+    /* ensure native checkbox */
+    width: 16px !important;
+    height: 16px !important;
+    margin: 0;
+    /* no extra gap on the left */
+    flex: 0 0 auto !important;
+    /* don't stretch */
 }
 
 /* Form fields */
@@ -170,11 +201,13 @@
     grid-template-columns: 1fr;
     gap: 10px;
 }
+
 .fd-field {
     display: grid;
     gap: 6px;
     text-align: left;
 }
+
 .fd-field input,
 .fd-field select {
     width: 100%;
@@ -201,6 +234,7 @@
     flex-wrap: wrap;
     gap: 10px;
 }
+
 .alert-form input,
 .alert-form select {
     padding: 8px 10px;
@@ -209,7 +243,12 @@
     background: #fff;
 }
 
-.alert-list { list-style: none; padding: 0 14px 14px; margin: 0; }
+.alert-list {
+    list-style: none;
+    padding: 0 14px 14px;
+    margin: 0;
+}
+
 .alert-row {
     display: grid;
     grid-template-columns: 1fr auto;
@@ -217,8 +256,16 @@
     padding: 10px 0;
     border-bottom: 1px solid #eef0f2;
 }
-.alert-row:last-child { border-bottom: none; }
-.alert-meta p { margin: 0; font-size: .95rem; }
+
+.alert-row:last-child {
+    border-bottom: none;
+}
+
+.alert-meta p {
+    margin: 0;
+    font-size: .95rem;
+}
+
 .alert-delete-btn {
     align-self: start;
     background: #e11d48;
@@ -228,7 +275,10 @@
     padding: 8px 12px;
     cursor: pointer;
 }
-.alert-delete-btn:hover { background: #be123c; }
+
+.alert-delete-btn:hover {
+    background: #be123c;
+}
 
 /* Loading/empty text */
 .job-list-loading,
@@ -239,28 +289,68 @@
 
 /* Responsive */
 @media (max-width: 640px) {
-    .js-row { grid-template-columns: 1fr; }
-    .js-actions { grid-column: 1 / -1; }
-    .filter-dropdown, .alert-dropdown { right: 12px; left: 12px; width: auto; }
+    .js-row {
+        grid-template-columns: 1fr;
+    }
+
+    .js-actions {
+        grid-column: 1 / -1;
+    }
+
+    .filter-dropdown,
+    .alert-dropdown {
+        right: 12px;
+        left: 12px;
+        width: auto;
+    }
 }
 
 /* Dark mode */
-body.dark-mode .job-search-container { background: #181a1b; }
-body.dark-mode .page-title { color: #e0e6ed; }
-body.dark-mode .page-subtitle { color: #9aa4af; }
+body.dark-mode .job-search-container {
+    background: #181a1b;
+}
 
-body.dark-mode .js-row { border-bottom: 1px solid #2b2f33; }
-body.dark-mode .js-title { color: #60a5fa; }
-body.dark-mode .js-meta { color: #e5e7eb; }
-body.dark-mode .js-posted { color: #9aa4af; }
+body.dark-mode .page-title {
+    color: #e0e6ed;
+}
+
+body.dark-mode .page-subtitle {
+    color: #9aa4af;
+}
+
+body.dark-mode .js-row {
+    border-bottom: 1px solid #2b2f33;
+}
+
+body.dark-mode .js-title {
+    color: #60a5fa;
+}
+
+body.dark-mode .js-meta {
+    color: #e5e7eb;
+}
+
+body.dark-mode .js-posted {
+    color: #9aa4af;
+}
 
 body.dark-mode .filter-dropdown,
 body.dark-mode .alert-dropdown {
     background: #1f2327;
     border-color: #2b2f33;
 }
-body.dark-mode .fd-header { border-bottom: 1px solid #2b2f33; color: #e0e6ed; }
-body.dark-mode .fd-check { background: #1b1f24; border-color: #2b2f33; color: #d6dde6; }
+
+body.dark-mode .fd-header {
+    border-bottom: 1px solid #2b2f33;
+    color: #e0e6ed;
+}
+
+body.dark-mode .fd-check {
+    background: #1b1f24;
+    border-color: #2b2f33;
+    color: #d6dde6;
+}
+
 body.dark-mode .fd-field input,
 body.dark-mode .fd-field select,
 body.dark-mode .alert-form input,
@@ -269,4 +359,7 @@ body.dark-mode .alert-form select {
     border-color: #2b2f33;
     color: #e5e7eb;
 }
-body.dark-mode .fd-actions { border-top: 1px solid #2b2f33; }
+
+body.dark-mode .fd-actions {
+    border-top: 1px solid #2b2f33;
+}

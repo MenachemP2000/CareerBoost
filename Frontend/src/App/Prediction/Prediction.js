@@ -258,8 +258,7 @@ const Prediction = ({ toggleScreen, isSignedIn, toggleSignendIn, selectedCurrenc
                                         <YAxis
                                             type="category"
                                             dataKey="feature"
-                                            width={180}
-                                            tick={{ fill: "var(--text)" }}
+                                            tick={{ fill: "var(--text)",fontSize: "small" }}
                                             axisLine={false}
                                         />
                                         <Tooltip content={<CustomTooltip />} />
@@ -282,97 +281,6 @@ const Prediction = ({ toggleScreen, isSignedIn, toggleSignendIn, selectedCurrenc
         </div>
     );
 
-//     return (
-//
-//         <div className="prediction-page">
-//             <header className="page-header">
-//                 <h1 className="page-title">Prediction</h1>
-//                 <p className="page-subtitle">Your projected salary based on your profile.</p>
-//             </header>
-//
-//             {isSignedIn &&
-//
-//                 <Row className="d-flex justify-content-center">
-//
-//                     {/*{((!isSignedIn.prediction) || isSignedIn.prediction === 0) &&*/}
-//                     {/*    <Card className="prediction-card">*/}
-//                     {/*        <Card.Header>Salary Prediction</Card.Header>*/}
-//                     {/*        <Card.Body>*/}
-//                     {/*            <Card.Text>*/}
-//                     {/*                We Havent Predicted your Salary Yet,*/}
-//                     {/*                click the button below to*/}
-//                     {/*                Let our AI predict your salary!*/}
-//                     {/*            </Card.Text>*/}
-//                     {/*            <Button onClick={handlePredict} className="prediction-button">Predict</Button>*/}
-//                     {/*        </Card.Body>*/}
-//                     {/*    </Card>*/}
-//
-//                     {/*}*/}
-//
-//
-//                     {(isSignedIn.prediction && isSignedIn.prediction !== 0) &&
-//                         <Card className="prediction-card " style={{margin: "10px", maxWidth: "80vw"}}>
-//                             <Card.Header>Salary Prediction</Card.Header>
-//                             <Card.Body>
-//                                 The model predicts your salary to be around:
-//                                 <br/>
-//                                 <br/>
-//
-//                                 <Card.Title style={{color: "green"}}>{new Intl.NumberFormat('en', {
-//                                     style: 'currency',
-//                                     currency: selectedCurrency,
-//                                     maximumFractionDigits: 0
-//                                 }).format(Math.floor(isSignedIn.prediction * exchangeRate))} per year</Card.Title>
-//                                 <br/>
-//                                 <button onClick={handlePredict} className="repredict-button">Re-predict</button>
-//                             </Card.Body>
-//
-//                             <Card className="prediction-card " style={{margin: "10px", maxWidth: "80vw"}}>
-//                                 <Card.Header>Top Salary Impacting Features</Card.Header>
-//                                 <ResponsiveContainer height={400} className="prediction-chart ">
-//                                     <BarChart data={top3Data}>
-//                                         <XAxis axisLine={false} dataKey="feature" tick={false}/>
-//                                         <YAxis axisLine={false} tick={false}/>
-//                                         <Tooltip labelStyle={{color: "black"}}/>
-//                                         <Bar dataKey="impact" label>
-//                                             {top3Data.map((entry, index) => (
-//                                                 <Cell key={`cell-${index}`} fill={COLORS[index]}/>
-//                                             ))}
-//                                             <LabelList
-//                                                 dataKey="feature"
-//                                                 fontSize={15}
-//                                                 fill="#fff"
-//                                             />
-//                                             <LabelList
-//                                                 dataKey="impact"
-//                                                 position="top"
-//                                                 fontSize={15}
-//                                                 fill="#aaa"
-//                                             />
-//                                         </Bar>
-//                                     </BarChart>
-//                                 </ResponsiveContainer>
-//
-//                             </Card>
-//                         </Card>
-//
-//
-//                     }
-//                     <div className="prediction-buttons">
-//                         <>
-//                             <Link to="/Experiment">
-//                                 <button className="prediction-button">Experiment</button>
-//                             </Link>
-//                         </>
-//                         <>
-//                             <button onClick={handleSignout} className="prediction-button">Sign Out</button>
-//                         </>
-//                     </div>
-//                 </Row>
-//             }
-//
-// </div>
-// );
 }
 
 export default Prediction;

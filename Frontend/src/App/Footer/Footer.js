@@ -8,7 +8,7 @@ function Footer() {
                 <div>
                     <h4>Company</h4>
                     <ul>
-                        <li><Link to="/?scroll=contact">Contact Us</Link></li>
+                        <li><a href="https://www.linkedin.com/in/menachem-parente-753697187/">LinkedIn</a></li>
 
                     </ul>
                 </div>
@@ -16,13 +16,6 @@ function Footer() {
                     <h4>Resources</h4>
                     <ul>
                         <li><Link to="/guide">Guide</Link></li>
-                    </ul>
-                </div>
-                <div>
-                    <h4>Social Media</h4>
-                    <ul>
-                        <li><a href="#">LinkedIn</a></li>
-                        <li><a href="#">Facebook</a></li>
                     </ul>
                 </div>
             </div>

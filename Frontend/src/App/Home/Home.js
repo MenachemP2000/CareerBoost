@@ -22,15 +22,6 @@ const Home = ({toggleScreen, isSignedIn, toggleSignendIn}) => {
 
         <section className="picture-container">
             <div className="home-container">
-                {/*<img src={homeBg} alt="test bg" style={{ width: '200px' }} />*/}
-
-                {/*<div className="carousel-item">*/}
-                {/*    <img src="..." alt="..."/>*/}
-                {/*    <div className="carousel-caption d-none d-md-block">*/}
-                {/*        <h5>...</h5>*/}
-                {/*        <p>...</p>*/}
-                {/*    </div>*/}
-                {/*</div>*/}
                 <card className="home-card">
                     <div className="home-title-container">
                         <h3 className="home-title">
@@ -67,7 +58,7 @@ const Home = ({toggleScreen, isSignedIn, toggleSignendIn}) => {
                     }
 
                     {isSignedIn &&
-                        <Row className="button-row"> {/* הוספת מחלקה button-row */}
+                        <Row className="button-row"> 
                             <p className="hello">
                                 Hello {isSignedIn.username}!
                             </p>

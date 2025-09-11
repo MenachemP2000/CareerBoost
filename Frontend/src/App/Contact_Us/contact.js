@@ -4,12 +4,7 @@ import emailjs from "emailjs-com";
 import "./Contact.css";
 
 const contactInfo = {
-  address: "4321 California St, San Francisco, CA 12345",
-  phone: "+1 123 456 1234",
   email: "info@company.com",
-  // facebook: "https://facebook.com/example",
-  // twitter: "https://twitter.com/example",
-  // youtube: "https://youtube.com/example"
 };
 
 const initialState = {
@@ -88,11 +83,6 @@ const Contact = () => {
             <p><i className="fa fa-envelope"></i> {contactInfo.email}</p>
           </div>
         </div>
-        {/* <div className="social-icons">
-          <a href={contactInfo.facebook}><i className="fa fa-facebook"></i></a>
-          <a href={contactInfo.twitter}><i className="fa fa-twitter"></i></a>
-          <a href={contactInfo.youtube}><i className="fa fa-youtube"></i></a>
-        </div> */}
       </div>
     </div>
   );

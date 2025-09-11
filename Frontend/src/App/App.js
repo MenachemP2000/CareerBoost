@@ -23,8 +23,6 @@ import FooterComponent from "./Footer/Footer";
 import Features from "./Features/Features";
 import About from "./About_Us/about";
 import Contact from "./Contact_Us/contact";
-import Services from "./Services/services";
-import { useLocation } from 'react-router-dom';
 
 function App() {
     const [screen, setScreen] = useState(false);
@@ -328,8 +326,6 @@ function App() {
                      />
                       <Features />
                       <About />
-                      {/* <Services /> */}
-                      <Contact />
                      </>} />
 
                     <Route path="/Guide" element={<Guide

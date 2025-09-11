@@ -63,13 +63,17 @@
 
 .fj-posted { color: #6b7280; }
 
+
 .fj-info {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 14px 24px;
+    display: block;
+
 }
 
-.fj-info span { white-space: nowrap; }
+.fj-info span {
+    display: block;
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+}
 
 /* Actions column */
 .fj-actions {

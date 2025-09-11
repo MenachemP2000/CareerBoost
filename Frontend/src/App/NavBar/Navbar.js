@@ -123,12 +123,12 @@ function NavbarComponent({ exchangeRates, setExchangeRates, selectedCurrency, se
                             </Dropdown>
 
                             {/* Dark Mode Toggle */}
-                            <div className="ms-3">
+                            <div id="mode-toggle" className="ms-3">
                                 <Form>
                                     <Form.Check
                                         type="switch"
                                         id="custom-switch"
-                                        // label={darkMode ? "Dark Mode" : "Light Mode"}
+                                        label={darkMode ? "🌙" : "🌞"}
                                         checked={darkMode}
                                         onChange={toggleDarkMode}
                                     />

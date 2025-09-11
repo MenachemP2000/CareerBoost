@@ -293,3 +293,12 @@ body.dark-mode .field-row { border-top-color: #2f3031; }
 
 
 
+@media screen and (max-width: 768px){
+    .profile-layout{
+        grid-template-columns: 1fr ;
+    }
+    div .field-row{
+        grid-template-columns: 1fr; 
+    }
+    
+}

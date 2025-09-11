@@ -5,4 +5,6 @@ const router = express.Router();
 
 router.get("/search-jobs", searchJobs);
 
+
+
 module.exports = router;

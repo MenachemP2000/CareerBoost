@@ -3,12 +3,15 @@ import nodemailer from "nodemailer"
 import User from "./models/User.js"
 import { decode } from "html-entities";
 
+const unsubscribeUrl = `careerboost.menachem.website/JobSearch`;
+
+
 
 const transporter = nodemailer.createTransport({
     service: "gmail",
     auth: {
         user: "boostcareer446@gmail.com",
-        pass: "lsiv mzbq ufya rovo",  // Not recommended, but works temporarily
+        pass: "lsiv mzbq ufya rovo",
     },
 });
 
@@ -20,7 +23,7 @@ async function sendDailyJobAlerts() {
 
     const alerts = await User.find(
         {
-            "alerts.frequency": "daily", // Match alerts with frequency "daily"
+            "alerts.frequency": "daily"
         },
         {
             "alerts": 1
@@ -75,10 +78,12 @@ async function sendDailyJobAlerts() {
                             <body>
                                 <h3>Hi ${alert.email.split('@')[0]}, here are your latest job matches:</h3>
                                 <ul>${jobList}</ul>
+                                <p style="font-size:12px;color:#666">Don’t want these alerts? <a href="${unsubscribeUrl}">Unsubscribe</a>.</p>
                             </body>
+                            
                         </html>
                     `,
-                    replyTo: 'support@careerboost.com',
+                    replyTo: 'boostcareer446@gmail.com',
                 };
                 console.log("mail", mailOptions);
 
@@ -183,10 +188,12 @@ async function sendWeeklyJobAlerts() {
                         <body>
                         <h3>Hi ${alert.email.split('@')[0]}, here are your latest job matches:</h3>
                         <ul>${jobList}</ul>
+                        <p style="font-size:12px;color:#666">Don’t want these alerts? <a href="${unsubscribeUrl}">Unsubscribe</a>.</p>
+
                         </body>
                         </html>
                     `,
-                    replyTo: 'support@careerboost.com',
+                    replyTo: 'boostcareer446@gmail.com',
                 };
                 console.log("mail", mailOptions);
 

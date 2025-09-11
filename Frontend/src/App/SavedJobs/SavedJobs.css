@@ -204,3 +204,12 @@ body.dark-mode .filter-container {
      filter:brightness(1.06);
      box-shadow:0 6px 16px rgba(17,24,39,.16);
  }
+
+ @media (max-width: 768px) {
+  .recharts-wrapper {
+    display: none;
+  }
+  .filter-container{
+    flex-direction: column;
+  }
+}

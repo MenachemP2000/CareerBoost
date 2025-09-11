@@ -177,3 +177,30 @@ body.dark-mode .btn-all:hover {
     background: linear-gradient(45deg, #c8c9ca, #274884); /* Reverse gradient on hover */
     color: black; /* Ensure text color remains white on hover */
 }
+
+@media screen and (max-width: 768px){
+     h3 img  {
+        display: none;
+
+    }
+    p.home-lead, p.home-lead1, h3 img  {
+        font-size: medium;
+
+    }
+    card.home-card {
+        position: static;
+        box-sizing: border-box;
+        min-width: fit-content;
+        margin: 10px;
+
+    }
+    .home-container{
+        
+        justify-content: center;
+    }
+    div.about-left{
+        display: none;
+
+    }
+    
+}

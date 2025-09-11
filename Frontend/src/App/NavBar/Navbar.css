@@ -77,3 +77,22 @@ body.dark-mode .dropdown-item {
 body.dark-mode .dropdown-item:hover {
     background-color: rgba(60, 60, 60, 0.78); /* Slightly lighter background on hover */
 }
+
+button.navbar-toggler{
+    background-color: lightgray;
+
+}
+
+.dark-mode .navbar-toggler{
+    background-color: grey;
+}
+
+#mode-toggle{
+    border: 1px,solid, grey ;
+    border-radius: 20px;
+    padding-bottom: 3px;
+    padding-left: 3px;
+    padding-right: 3px;
+    margin-top: 3px;
+    justify-self: center;
+}
