@@ -1,19 +1,49 @@
 import React from "react";
-import { Row, Card, Button } from 'react-bootstrap';
+// import { Row, Card, Button } from 'react-bootstrap';
 import { Link } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 import { useNavigate } from 'react-router-dom';
 import config from '../config';
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Cell, ResponsiveContainer, LabelList } from 'recharts';
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Cell, ResponsiveContainer, LabelList  } from 'recharts';
 import './Prediction.css';
+import "../Profile/Profile.css";
 
 
 const Prediction = ({ toggleScreen, isSignedIn, toggleSignendIn, selectedCurrency, exchangeRate }) => {
+
     const navigate = useNavigate();
     const [error, setError] = useState('');
     const [top3Data, setTop3Data] = useState(isSignedIn.impacts ? isSignedIn.impacts.slice(0, 3) : []); //top 3 impacting features
 
-    const COLORS = ['#BFC1C2', '#F1C232', '#B08D57'];
+
+// compact number formatter for axes/labels (10K, 20K…)
+    const formatCompact = (n) =>
+        new Intl.NumberFormat("en", { notation: "compact", maximumFractionDigits: 1 }).format(n);
+
+
+// small tooltip component for the chart
+    const CustomTooltip = ({ active, payload, label }) => {
+        if (!active || !payload?.length) return null;
+        const v = payload[0].value;
+        return (
+            <div className="cb-tooltip">
+                <div className="cb-tooltip-title">{label}</div>
+                <div className="cb-tooltip-value">{formatCompact(v)} impact</div>
+            </div>
+        );
+    };
+
+    const chartData = useMemo(() => {
+        const COLORS = ["#14b8a6", "#4f46e5", "#f59e0b"];
+        return (top3Data || []).map((d, i) => ({
+            ...d,
+            impact: Number(d.impact),
+            _color: COLORS[i % COLORS.length],
+        }));
+    }, [top3Data]);
+
+
+
     useEffect(() => {
         toggleScreen("Prediction");
         if (!isSignedIn) {
@@ -144,99 +174,205 @@ const Prediction = ({ toggleScreen, isSignedIn, toggleSignendIn, selectedCurrenc
             setError('An error occurred. Please try again.');
             console.error('Error:', error);
         }
+
     }
     return (
+        <div className="prediction-page">
+            <header className="page-header">
+                <h1 className="profile-title">Prediction</h1>
+                <p className="profile-subtitle">Your projected salary based on your profile.</p>
+            </header>
 
-        <div className="position-relative text-white text-center" >
-            <div className="prediction-container">
-                <h1 className="prediction-header">Prediction</h1>
-                <div className="underline mx-auto mb-3"></div>
-
-                <p className="lead text-center">
-                    Here's our model's Prediction:
-                </p>
-                {isSignedIn &&
-
-                     <Row className="d-flex justify-content-center">
-                        {((!isSignedIn.prediction) || isSignedIn.prediction === 0) &&
-                            <Card className="prediction-card">
-                                <Card.Header>Salary Prediction</Card.Header>
-                                <Card.Body >
-                                    <Card.Text>
-                                        We Havent Predicted your Salary Yet,
-                                        click the button below to
-                                        Let our AI predict your salary!
-                                    </Card.Text>
-                                    <Button onClick={handlePredict} className="prediction-button">Predict</Button>
-                                </Card.Body>
-                            </Card>
-
-                        }
-                        {(isSignedIn.prediction && isSignedIn.prediction !== 0) &&
-                            <Card className="prediction-card " style={{ margin: "10px", maxWidth: "80vw" }} >
-                                <Card.Header>Salary Prediction</Card.Header>
-                                <Card.Body >
-                                    The model predicts your salary to be around:
-                                    <br />
-                                    <br />
-
-                                    <Card.Title style={{ color: "green" }}>{new Intl.NumberFormat('en', {
-                                        style: 'currency',
-                                        currency: selectedCurrency,
-                                        maximumFractionDigits: 0
-                                    }).format(Math.floor(isSignedIn.prediction * exchangeRate))} per year</Card.Title>
-                                    <br />
-                                    <button onClick={handlePredict} className="repredict-button">Re-predict</button>
-                                </Card.Body>
-
-                                <Card className="prediction-card " style={{ margin: "10px", maxWidth: "80vw" }}>
-                                    <Card.Header>Top Salary Impacting Features</Card.Header>
-                                        <ResponsiveContainer  height={400}  className="prediction-chart ">
-                                            <BarChart data={top3Data}>
-                                                <XAxis axisLine={false} dataKey="feature" tick={false} />
-                                                <YAxis axisLine={false} tick={false} />
-                                                <Tooltip  labelStyle={{ color: "black" }}/>
-                                                <Bar dataKey="impact" label>
-                                                    {top3Data.map((entry, index) => (
-                                                        <Cell key={`cell-${index}`} fill={COLORS[index]} />
-                                                    ))}
-                                                    <LabelList
-                                                        dataKey="feature"
-                                                        fontSize={15}
-                                                        fill= "#fff"
-                                                    />
-                                                    <LabelList
-                                                        dataKey="impact"
-                                                        position="top"
-                                                        fontSize={15}
-                                                        fill="#aaa"
-                                                    />
-                                                </Bar>
-                                            </BarChart>
-                                        </ResponsiveContainer>
-
-                                </Card>
-                            </Card>
-
-
-                        }
-                        <div className="prediction-buttons">
-                            <>
-                                <Link to="/Experiment">
-                                    <button className="prediction-button">Experiment</button>
-                                </Link>
-                                </>
-                            <>
-                            <button onClick={handleSignout} className="prediction-button">Sign Out</button>
-                            </>
+            {isSignedIn && (
+                <>
+                    {/* Salary section */}
+                    <section className="section">
+                        <div className="section-header">
+                            <h2 className="section-title">Salary Prediction</h2>
                         </div>
-                    </Row>
-                }
 
+                        {(!isSignedIn.prediction || isSignedIn.prediction === 0) ? (
+                            <>
+                                <p className="muted">
+                                    We haven’t predicted your salary yet. Click below and we’ll do it now.
+                                </p>
+                                <div className="btn-row">
+                                    <button onClick={handlePredict} className="profile-button">Predict</button>
+                                </div>
+                            </>
+                        ) : (
+                            <>
+                                <div className="kpi-wrap" aria-live="polite">
+                                    <div className="kpi">
+                  <span className="currency">
+                    {new Intl.NumberFormat("en", {
+                        style: "currency",
+                        currency: selectedCurrency,
+                        maximumFractionDigits: 0,
+                    }).format(Math.floor(isSignedIn.prediction * exchangeRate))}
+                  </span>
+                                        <span className="kpi-sub">per year</span>
+                                    </div>
+                                </div>
+                                <br/>
+                                <div className="profile-buttons">
+                                    <button onClick={handlePredict} className="profile-button">Re-predict</button>
+                                    <Link to="/Experiment" className="btn-ghost">Experiment</Link>
+                                    <button onClick={handleSignout} className="profile-button is-danger-outline">Sign Out</button>
+                                </div>
+                            </>
+                        )}
+                    </section>
 
-            </div>
+                    {/* Feature importance section */}
+                    {(isSignedIn.prediction && isSignedIn.prediction !== 0) && (
+                        <section className="section">
+                            <div className="section-header">
+                                <h2 className="section-title">Top Salary Drivers</h2>
+                                <span className="section-hint">Model feature impact</span>
+                            </div>
+
+                            <div className="chart-wrap">
+                                <ResponsiveContainer width="100%" height={320}>
+                                    <BarChart
+                                        data={chartData}
+                                        layout="vertical"
+                                        margin={{ top: 8, right: 24, bottom: 8, left: 16 }}
+                                    >
+                                        <defs>
+                                            {chartData.map((d, i) => (
+                                                <linearGradient id={`grad-${i}`} key={i} x1="0" y1="0" x2="1" y2="0">
+                                                    <stop offset="0%" stopColor={d._color} stopOpacity={0.9} />
+                                                    <stop offset="100%" stopColor={d._color} stopOpacity={0.65} />
+                                                </linearGradient>
+                                            ))}
+                                        </defs>
+
+                                        <CartesianGrid strokeDasharray="3 3" vertical={false} />
+                                        <XAxis
+                                            type="number"
+                                            tickFormatter={formatCompact}
+                                            tick={{ fill: "var(--muted)" }}
+                                            axisLine={false}
+                                        />
+                                        <YAxis
+                                            type="category"
+                                            dataKey="feature"
+                                            width={180}
+                                            tick={{ fill: "var(--text)" }}
+                                            axisLine={false}
+                                        />
+                                        <Tooltip content={<CustomTooltip />} />
+
+                                        <Bar dataKey="impact" barSize={24} radius={[0, 12, 12, 0]}>
+                                            {chartData.map((_, i) => (
+                                                <Cell key={i} fill={`url(#grad-${i})`} />
+                                            ))}
+                                            <LabelList dataKey="impact" position="right" formatter={formatCompact} />
+                                        </Bar>
+                                    </BarChart>
+                                </ResponsiveContainer>
+                            </div>
+                        </section>
+                    )}
+                </>
+            )}
+
+            {error && <p className="error-msg">{error}</p>}
         </div>
     );
+
+//     return (
+//
+//         <div className="prediction-page">
+//             <header className="page-header">
+//                 <h1 className="page-title">Prediction</h1>
+//                 <p className="page-subtitle">Your projected salary based on your profile.</p>
+//             </header>
+//
+//             {isSignedIn &&
+//
+//                 <Row className="d-flex justify-content-center">
+//
+//                     {/*{((!isSignedIn.prediction) || isSignedIn.prediction === 0) &&*/}
+//                     {/*    <Card className="prediction-card">*/}
+//                     {/*        <Card.Header>Salary Prediction</Card.Header>*/}
+//                     {/*        <Card.Body>*/}
+//                     {/*            <Card.Text>*/}
+//                     {/*                We Havent Predicted your Salary Yet,*/}
+//                     {/*                click the button below to*/}
+//                     {/*                Let our AI predict your salary!*/}
+//                     {/*            </Card.Text>*/}
+//                     {/*            <Button onClick={handlePredict} className="prediction-button">Predict</Button>*/}
+//                     {/*        </Card.Body>*/}
+//                     {/*    </Card>*/}
+//
+//                     {/*}*/}
+//
+//
+//                     {(isSignedIn.prediction && isSignedIn.prediction !== 0) &&
+//                         <Card className="prediction-card " style={{margin: "10px", maxWidth: "80vw"}}>
+//                             <Card.Header>Salary Prediction</Card.Header>
+//                             <Card.Body>
+//                                 The model predicts your salary to be around:
+//                                 <br/>
+//                                 <br/>
+//
+//                                 <Card.Title style={{color: "green"}}>{new Intl.NumberFormat('en', {
+//                                     style: 'currency',
+//                                     currency: selectedCurrency,
+//                                     maximumFractionDigits: 0
+//                                 }).format(Math.floor(isSignedIn.prediction * exchangeRate))} per year</Card.Title>
+//                                 <br/>
+//                                 <button onClick={handlePredict} className="repredict-button">Re-predict</button>
+//                             </Card.Body>
+//
+//                             <Card className="prediction-card " style={{margin: "10px", maxWidth: "80vw"}}>
+//                                 <Card.Header>Top Salary Impacting Features</Card.Header>
+//                                 <ResponsiveContainer height={400} className="prediction-chart ">
+//                                     <BarChart data={top3Data}>
+//                                         <XAxis axisLine={false} dataKey="feature" tick={false}/>
+//                                         <YAxis axisLine={false} tick={false}/>
+//                                         <Tooltip labelStyle={{color: "black"}}/>
+//                                         <Bar dataKey="impact" label>
+//                                             {top3Data.map((entry, index) => (
+//                                                 <Cell key={`cell-${index}`} fill={COLORS[index]}/>
+//                                             ))}
+//                                             <LabelList
+//                                                 dataKey="feature"
+//                                                 fontSize={15}
+//                                                 fill="#fff"
+//                                             />
+//                                             <LabelList
+//                                                 dataKey="impact"
+//                                                 position="top"
+//                                                 fontSize={15}
+//                                                 fill="#aaa"
+//                                             />
+//                                         </Bar>
+//                                     </BarChart>
+//                                 </ResponsiveContainer>
+//
+//                             </Card>
+//                         </Card>
+//
+//
+//                     }
+//                     <div className="prediction-buttons">
+//                         <>
+//                             <Link to="/Experiment">
+//                                 <button className="prediction-button">Experiment</button>
+//                             </Link>
+//                         </>
+//                         <>
+//                             <button onClick={handleSignout} className="prediction-button">Sign Out</button>
+//                         </>
+//                     </div>
+//                 </Row>
+//             }
+//
+// </div>
+// );
 }
 
 export default Prediction;

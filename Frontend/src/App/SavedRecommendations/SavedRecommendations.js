@@ -1,287 +1,242 @@
-import React from "react";
-import { Container, Row, Col, Card, Button } from 'react-bootstrap';
-import { Link } from "react-router-dom";
-import { useEffect, useState } from "react";
-import { useNavigate } from 'react-router-dom';
-import config from '../config';
-import { Form } from 'react-bootstrap';
-import "./SavedRecommendations.css"
+import React, {useEffect, useState} from "react";
+import {useNavigate} from "react-router-dom";
+import config from "../config";
+import "./SavedRecommendations.css";
 
-const SavedRecommendations = ({ toggleScreen, isSignedIn, toggleSignendIn, exchangeRate, selectedCurrency }) => {
+const SavedRecommendations = ({
+                                  toggleScreen,
+                                  isSignedIn,
+                                  toggleSignendIn,
+                                  exchangeRate,
+                                  selectedCurrency,
+                              }) => {
     const navigate = useNavigate();
-    const [recommendations, setRecommendations] = useState(false);
-    const [recommendationsIncrese, setRecommendationsIncrese] = useState(false);
-    const [error, setError] = useState('');
 
+    // Map: recommendation text -> increase (in model's base currency)
+    const [recommendationsIncrese, setRecommendationsIncrese] = useState({});
+    const [error, setError] = useState("");
+
+    // Controlled selects
+    const [formData, setFormData] = useState({
+        addRecommendation: "",
+        removeRecommendation: "",
+    });
+
+    // Currency formatter
+    const fmt = new Intl.NumberFormat("en", {
+        style: "currency",
+        currency: selectedCurrency,
+        maximumFractionDigits: 0,
+    });
+
+    // Page setup / guard
     useEffect(() => {
         toggleScreen("SavedRecommendations");
-        if (!isSignedIn) {
-            navigate("/");
-        }
-    });
+        if (!isSignedIn) navigate("/");
+    }, [isSignedIn, navigate, toggleScreen]);
 
+    // Build quick lookup map for increases
     useEffect(() => {
-        if (!isSignedIn.recommendations || !isSignedIn.recommendationsIncrese) {
-            setRecommendations(false);
-            setRecommendationsIncrese(false);
+        if (!isSignedIn?.recommendations || !isSignedIn?.recommendationsIncrese) {
+            setRecommendationsIncrese({});
             return;
         }
-        if (isSignedIn.recommendations.length === 0 || isSignedIn.recommendationsIncrese.length === 0) {
-            setRecommendations(false);
-            setRecommendationsIncrese(false);
-            return;
-        }
-
-        let filteredRecommendations = [];
-        let increaseDictionary = {}
-
-        for (let i = 0; i < isSignedIn.recommendations.length; i++) {
-            filteredRecommendations.push(isSignedIn.recommendations[i]);
-        }
-
-        isSignedIn.recommendations.forEach((value, i) => {
-            increaseDictionary[value] = isSignedIn.recommendationsIncrese[i];
+        const map = {};
+        isSignedIn.recommendations.forEach((rec, i) => {
+            map[rec] = isSignedIn.recommendationsIncrese[i];
         });
-        setRecommendationsIncrese(increaseDictionary);
-
-        setRecommendations(filteredRecommendations);
-
+        setRecommendationsIncrese(map);
     }, [isSignedIn]);
 
-    const [formData, setFormData] = useState({
-    });
-
-    const handleSignout = () => {
-        toggleSignendIn(false);
-    }
+    const handleSignout = () => toggleSignendIn(false);
 
     const handleChange = (e) => {
-        const { name, value } = e.target;
-        setFormData({
-            ...formData,
-            [name]: value
-        });
-        console.log(formData);
+        const {name, value} = e.target;
+        setFormData((s) => ({...s, [name]: value}));
     };
+
+    // Display label helper; prevents NaN
+    const incLabel = (rec) => {
+        const inc = recommendationsIncrese[rec];
+        if (typeof inc !== "number" || Number.isNaN(inc)) return "—";
+        return fmt.format(Math.floor(inc * exchangeRate));
+    };
+
+    // Derived collections for rendering
+    const savedList = isSignedIn?.savedRecommendations || [];
+    const allRecs = isSignedIn?.recommendations || [];
+    const addOptions = allRecs.filter(
+        (r) => !(isSignedIn.savedRecommendations || []).includes(r) &&
+            Number(recommendationsIncrese?.[r]) > 0
+    );
 
     const handleAdd = async (e) => {
         e.preventDefault();
-        if (formData.addRecommendation === '' || !formData.addRecommendation) {
-            return;
-        }
-        const savedRecommendations = isSignedIn.savedRecommendations ? isSignedIn.savedRecommendations : [];
-        setFormData({ ...formData, addRecommendation: '' });
-        const payload = { _id: isSignedIn._id, savedRecommendations: [...savedRecommendations, formData.addRecommendation] };
+        const chosen = formData.addRecommendation;
+        if (!chosen) return;
+
+        const saved = isSignedIn.savedRecommendations || [];
+        const payload = {
+            _id: isSignedIn._id,
+            savedRecommendations: [...saved, chosen],
+        };
+
         try {
-            // Send the registration data to the server
-            const response = await fetch(`${config.apiBaseUrl}/api/users/${isSignedIn._id}`, {
-                method: 'PATCH',
+            const res = await fetch(`${config.apiBaseUrl}/api/users/${isSignedIn._id}`, {
+                method: "PATCH",
                 headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${localStorage.getItem('token')}`
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${localStorage.getItem("token")}`,
                 },
-                body: JSON.stringify(payload)
+                body: JSON.stringify(payload),
             });
-
-            const result = await response.json();
-
-            if (!response.ok) {
-                // If the server responds with an error, set the error message
+            const result = await res.json();
+            if (!res.ok) {
                 setError(result.message);
                 return;
             }
-            else {
-                toggleSignendIn(isSignedIn.username);
-            }
-        } catch (error) {
-            setError('An error occurred. Please try again.');
-            console.error('Error:', error);
+            setFormData((s) => ({...s, addRecommendation: ""}));
+            toggleSignendIn(isSignedIn.username);
+        } catch (err) {
+            setError("An error occurred. Please try again.");
+            console.error(err);
         }
     };
 
     const handleRemove = async (e) => {
         e.preventDefault();
-        const savedRecommendations = isSignedIn.savedRecommendations;
-        if (formData.removeRecommendation === '') {
-            return;
-        }
         const remove = formData.removeRecommendation;
-        const newRecommendations = savedRecommendations.filter(recommendation => recommendation !== remove);
-        setFormData({ ...formData, removeRecommendation: '' });
-        const payload = { _id: isSignedIn._id, savedRecommendations: newRecommendations };
+        if (!remove) return;
+
+        const saved = isSignedIn.savedRecommendations || [];
+        const payload = {
+            _id: isSignedIn._id,
+            savedRecommendations: saved.filter((r) => r !== remove),
+        };
 
         try {
-            // Send the registration data to the server
-            const response = await fetch(`${config.apiBaseUrl}/api/users/${isSignedIn._id}`, {
-                method: 'PATCH',
+            const res = await fetch(`${config.apiBaseUrl}/api/users/${isSignedIn._id}`, {
+                method: "PATCH",
                 headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${localStorage.getItem('token')}`
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${localStorage.getItem("token")}`,
                 },
-                body: JSON.stringify(payload)
+                body: JSON.stringify(payload),
             });
-
-            const result = await response.json();
-
-            if (!response.ok) {
-                // If the server responds with an error, set the error message
+            const result = await res.json();
+            if (!res.ok) {
                 setError(result.message);
                 return;
             }
-            else {
-                toggleSignendIn(isSignedIn.username);
-            }
-        } catch (error) {
-            setError('An error occurred. Please try again.');
-            console.error('Error:', error);
+            setFormData((s) => ({...s, removeRecommendation: ""}));
+            toggleSignendIn(isSignedIn.username);
+        } catch (err) {
+            setError("An error occurred. Please try again.");
+            console.error(err);
         }
+    };
+    const incFor = (rec) => {
+        const v = Number(recommendationsIncrese?.[rec]);
+        return Number.isFinite(v) && v > 0 ? v : null;
     };
 
     return (
-        <div className="saved-recommendations-container">
-                <h3 className="saved-recommendations-title">Saved Recommendations</h3>
-                <p className="saved-recommendations-subtitle">Here's your saved recommendations.</p>
+        <div className="saved-page">
+            <header className="page-header">
+                <h1 className="profile-title">Saved Recommendations</h1>
+                <p className="profile-subtitle">Here’s your saved recommendations.</p>
+            </header>
 
-                <div className="saved-recommendations-overlay">
-                    {/*<Col md={8}>*/}
-                        {isSignedIn.recommendations &&
-                            <Card className="saved-recommendations-card">
-                                <Card.Header className="saved-recommendations-header">Saved Recommendations</Card.Header>
-
-                                <Card.Body>
-                                    {!isSignedIn.savedRecommendations || (isSignedIn.savedRecommendations && isSignedIn.savedRecommendations.length == 0) &&
-                                        <Card.Text className="saved-recommendations-empty">
-                                            No saved recommendations yet, add some!
-                                        </Card.Text>
-                                    }
-
-                                    {isSignedIn.savedRecommendations && isSignedIn.savedRecommendations.length > 0 &&
-                                        <ul className="recommendations-list">
-                                            {isSignedIn.savedRecommendations.map((recommendation, index) => {
-                                                return (
-                                                    <li key={index} className="saved-recommendations-item">
-
-                                                        <span className="saved-recommendation-text">{"• "+recommendation}</span>
-                                                        <span className="saved-salary-increase">
-                                                                {new Intl.NumberFormat('en', {
-                                                                    style: 'currency',
-                                                                    currency: selectedCurrency,
-                                                                    maximumFractionDigits: 0
-                                                                }).format(Math.floor(recommendationsIncrese[recommendation] * exchangeRate))}
-                                                            </span>
-
-                                                    </li>
-                                                );
-                                            })}
-                                        </ul>
-                                    }
-                                    {!isSignedIn.savedRecommendations &&
-                                        <Form onSubmit={handleAdd} className="saved-recommendations-form">
-                                            <Form.Group controlId="formaddRecommendation" className="mb-3">
-                                                <Form.Control
-                                                    as="select"
-                                                    name="addRecommendation"
-                                                    value={formData.addRecommendation}
-                                                    onChange={handleChange}
-                                                    className="saved-recommendations-select"
-                                                >
-                                                    <option value="">Select recommendation to save</option>
-                                                    {isSignedIn.recommendations
-                                                        .map((recommendation, index) => (
-                                                            <option key={index} value={recommendation}>
-                                                                {`${recommendation} ${new Intl.NumberFormat('en', {
-                                                                    style: 'currency',
-                                                                    currency: selectedCurrency,
-                                                                    maximumFractionDigits: 0
-                                                                }).format(Math.floor(recommendationsIncrese[recommendation] * exchangeRate))}`}                                                            </option>
-                                                        ))}
-                                                </Form.Control>
-                                            </Form.Group>
-                                            <button className="action-btn" type="submit">Add</button>
-                                        </Form>
-                                    }
-
-                                    {isSignedIn.savedRecommendations &&
-                                        <Form onSubmit={handleAdd}>
-                                            <Form.Group controlId="formaddRecommendation" className="mb-3">
-                                                <Form.Control
-                                                    as="select"
-                                                    name="addRecommendation"
-                                                    value={formData.addRecommendation}
-                                                    onChange={handleChange}
-                                                    classname="addRecommendation"
-                                                >
-                                                    <option value="">Select recommendation to save</option>
-                                                    {isSignedIn.recommendations
-                                                        .filter(recommendation => !isSignedIn.savedRecommendations.includes(recommendation))
-                                                        .map((recommendation, index) => (
-                                                            <option key={index} value={recommendation}>
-                                                                {`${recommendation} ${new Intl.NumberFormat('en', {
-                                                                    style: 'currency',
-                                                                    currency: selectedCurrency,
-                                                                    maximumFractionDigits: 0
-                                                                }).format(Math.floor(recommendationsIncrese[recommendation] * exchangeRate))}`}
-                                                            </option>
-                                                        ))}
-                                                </Form.Control>
-                                            </Form.Group>
-
-                                            <button className="card-btn" type="submit">Add</button>
-                                        </Form>
-                                    }
-                                    {isSignedIn.savedRecommendations && isSignedIn.savedRecommendations.length > 0 &&
-                                        <Form onSubmit={handleRemove}>
-                                            <Form.Group controlId="formaremoveRecommendation" className="mb-3">
-                                                <Form.Control
-                                                    as="select"
-                                                    name="removeRecommendation"
-                                                    value={formData.removeRecommendation}
-                                                    onChange={handleChange}
-                                                >
-                                                    <option value="">Select recommendation to remove</option>
-                                                    {isSignedIn.savedRecommendations
-                                                        .map((recommendation, index) => (
-                                                            <option key={index} value={recommendation}>
-                                                                {`${recommendation} ${new Intl.NumberFormat('en', {
-                                                                    style: 'currency',
-                                                                    currency: selectedCurrency,
-                                                                    maximumFractionDigits: 0
-                                                                }).format(Math.floor(recommendationsIncrese[recommendation] * exchangeRate))}   `}
-                                                            </option>
-                                                        ))}
-                                                </Form.Control>
-                                            </Form.Group>
-
-                                            <button className="card-btn" type="submit">Remove</button>
-                                        </Form>
-                                    }
-                                </Card.Body>
-
-                            </Card>
-                        }
-                    {/*</Col>*/}
+            <section className="section">
+                <div className="section-header">
+                    <h2 className="section-title">Saved Recommendations</h2>
                 </div>
 
-                {!isSignedIn.recommendations &&
-                    <Card className="saved-recommendations-empty-card">>
-                        <Card.Body>
-                            <Card.Text>
-                                No saved recommendations yet, first get some recommendations!
-                            </Card.Text>
-                        </Card.Body>
-                    </Card>
-                }
+                {savedList.length === 0 ? (
+                    <p className="muted center">No saved recommendations yet — add some below.</p>
+                ) : (
+                    <div className="list">
+                        <div className="list-header">
+                            <div>Recommendation</div>
+                            <div>Increase</div>
+                        </div>
+                        // In JSX:
+                        {(isSignedIn.savedRecommendations || []).map((rec, i) => {
+                            const inc = incFor(rec);
+                            return (
+                                <div className="list-row" key={`${rec}-${i}`}>
+                                    <div className="col-name">{rec}</div>
+                                    <div className="col-inc">
+                                        {inc ? (
+                                            <span className="pill pill-positive">
+              {fmt.format(Math.floor(inc * exchangeRate))}
+            </span>
+                                        ) : (
+                                            <span className="pill pill-neutral">—</span> // or hide entirely
+                                        )}
+                                    </div>
+                                </div>
+                            );
+                        })}
+                    </div>
+                )}
 
+                {/* Add & Remove */}
+                <div className="forms">
+                    <form className="form-row" onSubmit={handleAdd}>
+                        <select
+                            className="select"
+                            name="addRecommendation"
+                            value={formData.addRecommendation || ""}
+                            onChange={handleChange}
+                        >
+                            <option value="">Select recommendation to save</option>
+                            {addOptions.map((rec, i) => (
+                                <option key={`add-${i}`} value={rec}>
+                                    {rec} ({incLabel(rec)})
+                                </option>
+                            ))}
+                        </select>
+                        <button type="submit" className="profile-button">Add</button>
+                    </form>
 
-                <div className="actions-container">
-                    <button className="action-btn" onClick={()=>navigate("/Recommendations")}>Basic</button>
-                    <button  className="action-btn" onClick={()=>navigate("/AdvancedRecommendations")} >Advanced</button>
-                    <button onClick={handleSignout} className="action-btn">Sign Out</button>
+                    {savedList.length > 0 && (
+                        <form className="form-row" onSubmit={handleRemove}>
+                            <select
+                                className="select"
+                                name="removeRecommendation"
+                                value={formData.removeRecommendation || ""}
+                                onChange={handleChange}
+                            >
+                                <option value="">Select recommendation to remove</option>
+                                {savedList.map((rec, i) => (
+                                    <option key={`rm-${i}`} value={rec}>
+                                        {rec} ({incLabel(rec)})
+                                    </option>
+                                ))}
+                            </select>
+                            <button type="submit" className="profile-button is-danger-outline">Remove</button>
+                        </form>
+                    )}
                 </div>
+            </section>
 
+
+            <div className="profile-buttons">
+                <button className="profile-button is-outline" onClick={() => navigate("/Recommendations")}>
+                    Basic
+                </button>
+                <button className="profile-button is-outline" onClick={() => navigate("/AdvancedRecommendations")}>
+                    Advanced
+                </button>
+                <button className="profile-button is-danger-outline" onClick={handleSignout}>
+                    Sign Out
+                </button>
+            </div>
+
+            {error && <p className="error-msg">{error}</p>}
         </div>
-    // <button as={Button} className="advanced-button" onClick={() => navigate("/Profile")}>
     );
-}
+};
 
 export default SavedRecommendations;

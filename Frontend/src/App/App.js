@@ -1,7 +1,7 @@
 import "./App.css";
 import Home from "./Home/Home";
 import AboutUs from "./About/About";
-import Contact from "./Contacts/Contact";
+// import Contact from "./Contacts/Contact";
 import NavbarComponent from "./NavBar/Navbar";
 import CreateAccount from './CreateAccount/CreateAccount';
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom"; // Import Routes
@@ -9,7 +9,6 @@ import config from './config';
 import React, { useState, useEffect, useCallback, useRef } from 'react';
 import SignIn from "./SignIn/SignIn";
 import Profile from "./Profile/Profile";
-import ModifyAccount from "./ModifyAccount/ModifyAccount";
 import Recommendations from "./Recommendations/Recommendations";
 import ModifyAdvanced from "./ModifyAdvanced/ModifyAdvanced";
 import AdvancedRecommendations from "./AdvancedRecommendations/AdvancedRecommendations";
@@ -21,7 +20,11 @@ import JobSearch from "./JobSearch/JobSearch";
 import FeaturedJobs from "./FeaturedJobs/FeaturedJobs";
 import SavedJobs from "./SavedJobs/SavedJobs";
 import FooterComponent from "./Footer/Footer";
-
+import Features from "./Features/Features";
+import About from "./About_Us/about";
+import Contact from "./Contact_Us/contact";
+import Services from "./Services/services";
+import { useLocation } from 'react-router-dom';
 
 function App() {
     const [screen, setScreen] = useState(false);
@@ -262,6 +265,7 @@ function App() {
         localStorage.setItem('isSignedIn', JSON.stringify(isSignedIn));
     }, [isSignedIn]);
 
+    
     const getUserByUserName = async (username) => {
         try {
             const response = await fetch(`${config.apiBaseUrl}/api/users/username/${username}`, {
@@ -316,16 +320,24 @@ function App() {
                 />
 
                 <Routes>
-                    <Route path="/" element={<Home
-                        toggleScreen={toggleScreen}
-                        isSignedIn={isSignedIn}
-                        toggleSignendIn={toggleSignendIn} />} />
+                    <Route path="/" element={ <>
+                    <Home
+                    toggleScreen={toggleScreen}
+                    isSignedIn={isSignedIn}
+                    toggleSignendIn={toggleSignendIn}
+                     />
+                      <Features />
+                      <About />
+                      {/* <Services /> */}
+                      <Contact />
+                     </>} />
+
                     <Route path="/Guide" element={<Guide
                         toggleScreen={toggleScreen}
                         isSignedIn={isSignedIn}
                         toggleSignendIn={toggleSignendIn} />} />
                     <Route path="/aboutus" element={<AboutUs />} />
-                    <Route path="/contactus" element={<Contact />} />
+                    {/* <Route path="/contactus" element={<Contact />} /> */}
                     <Route path="/createaccount" element={<CreateAccount
                         toggleSignendIn={toggleSignendIn}
                         toggleScreen={toggleScreen}
@@ -334,14 +346,7 @@ function App() {
                         ages={ages}
                         educations={educations}
                     />} />
-                    {/*<Route path="/modifyaccount" element={<ModifyAccount*/}
-                    {/*    toggleSignendIn={toggleSignendIn}*/}
-                    {/*    toggleScreen={toggleScreen}*/}
-                    {/*    isSignedIn={isSignedIn}*/}
-                    {/*    countries={countries}*/}
-                    {/*    educations={educations}*/}
-                    {/*    ages={ages}*/}
-                    {/*/>} />*/}
+
                     <Route path="/signin" element={<SignIn
                         toggleSignendIn={toggleSignendIn}
                         toggleScreen={toggleScreen}

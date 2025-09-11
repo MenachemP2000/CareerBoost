@@ -1,6 +1,6 @@
 /* Home.css */
 .picture-container {
-    background-image: url('../images/home-pic-light.png');
+    background-image: url('../images/intro-bg.jpg');
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
@@ -24,7 +24,7 @@
 }
 
 .home-title {
-    color: #ea4c0f;
+    color: #a6360b;
     font-size: clamp(1.5rem, 2.5rem, 2.8rem);
     display: flex;
     align-items: center;
@@ -43,6 +43,7 @@
     /*margin-top: 1rem;*/
     margin-left: 5%;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+    margin-top: 6vh; /* Add space from the top to avoid touching navbar */
 }
 
 .home-card:hover {
@@ -99,7 +100,7 @@
 .hello {
     font-size: clamp(0.5rem, 1.5rem, 2.5rem); /* Increase font size */
     font-weight: bold; /* Make the text bold */
-    color: #ea4c0f; /* Green color */
+    color: #a6360b; /* Green color */
     text-align: center; /* Center align the text */
     margin-bottom: 20px; /* Add some space below the paragraph */
     background-color: #f0f0f0; /* Light grey background */
@@ -134,7 +135,7 @@
 
 /* Home.css */
 body.dark-mode .picture-container{
-    background-image: url('../images/img_1.png');
+    background-image: url('../images/intro-bg-dark.png');
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
@@ -161,7 +162,7 @@ body.dark-mode .home-underline {
 }
 
 body.dark-mode .home-lead1 {
-    color: #0d787a;
+    color: #274884;
 }
 
 body.dark-mode .home-lead {
@@ -169,10 +170,10 @@ body.dark-mode .home-lead {
 }
 
 body.dark-mode .button-container .btn-all {
-    background: linear-gradient(45deg, #0d787a, #c8c9ca); /* Gradient background */
+    background: linear-gradient(45deg, #274884, #c8c9ca); /* Gradient background */
 }
 
 body.dark-mode .btn-all:hover {
-    background: linear-gradient(45deg, #c8c9ca, #0d787a); /* Reverse gradient on hover */
+    background: linear-gradient(45deg, #c8c9ca, #274884); /* Reverse gradient on hover */
     color: black; /* Ensure text color remains white on hover */
 }

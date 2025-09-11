@@ -1,28 +1,14 @@
+/* Page container */
 .featured-jobs-container {
-    background-color: white;
-    width: 100%;
-    margin: 2rem auto;
-    padding: 1.5rem;
+    background:#efefef;
+    margin-top: 2rem;
+    min-height: 100vh;
     display: flex;
     flex-direction: column;
     align-items: center;
-}
-
-.featured-jobs-header {
-    font-size: 2rem;
-    font-weight: 600;
-    margin-bottom: 2.5rem;
-    text-align: center;
-    color: #1f2937;
-}
-
-.featured-jobs-card {
-    width: 70%;
-    background-color: #ffffff;
-    border-radius: 1rem;
-    padding: 2rem;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-    margin-bottom: 5%;
+    justify-content: flex-start;
+    padding: 2rem 1rem;
+    box-sizing: border-box;
 }
 
 .featured-jobs-loading,
@@ -31,172 +17,148 @@
     color: #6b7280;
 }
 
-.featured-jobs-list {
+/* Card-less list (matches Saved Jobs feel) */
+.fj-list {
     list-style: none;
+    margin: 0 auto;
     padding: 0;
-    margin: 0;
+    max-width: 980px;
+    width: 100%;
+    display: grid;
+    gap: 10px;
 }
 
-.featured-job-item {
-    /*background-color: #f3f4f6;*/
-    padding: 1rem;
-    border-radius: 0.75rem;
-    margin-outside: 2rem;
-    margin-bottom: 1rem;
-    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+.fj-row {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 10px 16px;
+    padding: 12px 10px;
+    border-bottom: 1px solid #e5e7eb; /* subtle divider */
+    align-items: start;
 }
 
-.featured-job-card{
-    font-size: 1rem; /* Base font size for card */
-    padding: 1rem 1.5rem; /* Add horizontal padding */
-    border-radius: 0.75rem;
-    background-color: #f9fafb;
-    /*box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);*/
-    border: 1px solid #e5e7eb;
+.fj-row:last-child {
+    border-bottom: none;
 }
 
-.featured-job-title {
-    font-size: 1.2em;
-    font-weight: 500;
-    margin-bottom: 0.5rem;
-}
-
-.featured-job-link {
+/* Title/link */
+.fj-title {
+    grid-column: 1 / 2;
     color: #2563eb;
     text-decoration: none;
-    font-weight: bold;
-    margin-bottom: 0.5rem;
-    font-size: clamp(1rem, 2vw, 1.3rem);
+    font-weight: 700;
+    font-size: clamp(1rem, 2vw, 1.15rem);
 }
 
-.featured-job-link:hover {
-    text-decoration: underline;
+.fj-title:hover { text-decoration: underline; }
+
+/* Meta block beneath title */
+.fj-meta {
+    grid-column: 1 / 2;
+    display: grid;
+    gap: 6px;
+    font-size: 0.95rem;
+    color: #111827;
 }
 
+.fj-posted { color: #6b7280; }
 
-.featured-job-details {
-    font-size: 0.75em;
-    color: black;
-    margin-bottom: 1rem;
-}
-
-
-.featured-job-info > div {
-    margin-bottom: 0.25rem;
-}
-
-.featured-job-actions {
-    margin-top: 1rem;
+.fj-info {
     display: flex;
-    justify-content: flex-end;
-    margin-right: 2rem;
+    flex-wrap: wrap;
+    gap: 14px 24px;
 }
 
-.featured-save-button {
-    width: fit-content;
-    min-width: 5rem;
-    padding: 1px;
-    background-color: #c8c9ca;
-    color: white;
-    border: none;
-    border-radius: 0.5rem;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    margin-right: -1rem;
-    height: fit-content;
-    font-size: 1.25rem;
+.fj-info span { white-space: nowrap; }
+
+/* Actions column */
+.fj-actions {
+    grid-column: 2 / 3;
+    display: flex;
+    align-items: start;
+    gap: 8px;
 }
 
-.featured-save-button:hover {
-    background-color: #acacac;
+/* Bottom nav buttons use your profile-button style */
+.fj-nav {
+    display: flex;
+    gap: 14px;
+    margin-top: 28px;
 }
 
-.featured-save-button.saved {
-    background-color: #9ca3af;
+/* Optional: make disabled state obvious if your global CSS lacks it */
+.profile-button.is-disabled {
+    opacity: 0.65;
     cursor: not-allowed;
 }
 
-.featured-jobs-navigation {
-    display: flex;
-    justify-content: center;
-    gap: 2rem;
-    margin-top: 3rem;
-    margin-bottom: 5%;
+/* Responsive */
+@media (max-width: 640px) {
+    .fj-row { grid-template-columns: 1fr; }
+    .fj-actions { grid-column: 1 / -1; }
 }
 
-.featured-nav-button {
-    width: clamp(3rem, 10rem, 12rem);
-    padding: clamp(0.5rem, 1.5vw, 0.75rem) clamp(0.5rem, 2vw, 1rem);
-    font-size: clamp(0.3rem, 2vw, 1.3rem);
-    background: linear-gradient(45deg, #32a0e4, #c8c9ca); /* Gradient background */
-    color: white;
-    border: none;
-    border-radius: 0.75rem;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    font-weight: bold;
+/* Dark mode */
+body.dark-mode { background-color: rgb(12,12,12); }
+
+body.dark-mode .featured-jobs-header { color: #f3f4f6; }
+
+body.dark-mode .fj-row { border-bottom: 1px solid #2b2f33; }
+
+body.dark-mode .fj-title { color: #60a5fa; }
+
+body.dark-mode .fj-meta { color: #e5e7eb; }
+
+body.dark-mode .fj-posted { color: #9aa4af; }
+/* ================================
+   Dark mode — match Profile theme
+   ================================ */
+
+/* Page bg */
+body.dark-mode .featured-jobs-container{
+    background:#18191a;
 }
 
-.featured-nav-button:hover {
-    background: linear-gradient(45deg, #c8c9ca, #32a0e4); /* Reverse gradient on hover */
+/* Row dividers + hover */
+body.dark-mode .fj-row{
+    border-bottom:1px solid #2f3031;
+}
+body.dark-mode .fj-row:hover{
+    background:#1f2022;
 }
 
-/* Dark Mode Styles */
-body.dark-mode {
-    background-color: rgb(12,12,12); /* or #0c0c0c for slightly softer */
-}
-body.dark-mode .featured-jobs-container {
-    background-color: rgb(12, 12, 12);
+/* Titles + meta text */
+body.dark-mode .fj-title{ color:#93c5fd; }
+body.dark-mode .fj-title:hover{ color:#bfdbfe; text-decoration:underline; }
+
+body.dark-mode .fj-meta{ color:#e5e7eb; }     /* company/job/location line */
+body.dark-mode .fj-meta strong{ color:#e5e7eb; }
+body.dark-mode .fj-posted{ color:#b0b3b8; }   /* “Posted: …” */
+
+/* “Save” buttons (and any profile buttons in actions/nav) */
+body.dark-mode .fj-actions .profile-button,
+body.dark-mode .fj-nav .profile-button{
+    background:#111827;
+    color:#fff;
+    border:1px solid transparent;
+    border-radius:12px;
+    box-shadow:0 1px 2px rgba(0,0,0,.04);
 }
 
-body.dark-mode .featured-jobs-header {
-    color: #f3f4f6;
+body.dark-mode .fj-actions .profile-button:hover,
+body.dark-mode .fj-nav .profile-button:hover{
+    filter:brightness(1.06);
+    box-shadow:0 6px 16px rgba(17,24,39,.16);
 }
 
-body.dark-mode .featured-jobs-card {
-    background-color: #121212;
-    box-shadow: none;
+/* If your Save uses a plain .btn instead of .profile-button, style it too */
+body.dark-mode .fj-actions .btn{
+    background:#111827;
+    color:#fff;
+    border:1px solid transparent;
+    border-radius:12px;
 }
+body.dark-mode .fj-actions .btn:hover{ filter:brightness(1.06); }
 
-body.dark-mode .featured-jobs-loading,
-body.dark-mode .featured-jobs-empty {
-    color: #d1d5db;
-}
-
-body.dark-mode .featured-job-card {
-    background-color: #6e6c6c;
-    border-color: #2c2c2c;
-}
-
-body.dark-mode .featured-job-link {
-    color: #60a5fa;
-}
-
-body.dark-mode .featured-job-details {
-    color: #e5e7eb;
-}
-
-body.dark-mode .featured-save-button.saved {
-    background-color: #6b7280;
-}
-
-body.dark-mode .featured-nav-button {
-    background-color: #3730a3;
-}
-
-body.dark-mode .featured-nav-button:hover {
-    background-color: #312e81;
-}
-
-
-@media (min-width: 768px) {
-    .featured-job-card {
-        font-size: 1.2rem;
-    }
-}
-
-@media (min-width: 1024px) {
-    .featured-job-card {
-        font-size: 1.4rem;
-    }
-}
+/* Optional header text (if you render one) */
+body.dark-mode .featured-jobs-header{ color:#e4e6eb; }

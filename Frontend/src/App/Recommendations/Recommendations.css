@@ -1,168 +1,167 @@
-.recommendations-container {
-    background-color: white;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
+/* ===========================
+   Recommendations.css (FULL)
+   =========================== */
+
+/* ---- Shared tokens (align with Profile/Prediction) ---- */
+:root{
+    --bg:#efefef;
+    --card:#ffffff;
+    --text:#111827;
+    --muted:#6b7280;
+    --border:#e5e7eb;
+    --shadow:0 6px 16px rgba(17,24,39,.06);
+    --accent:#0f766e;            /* KPI accent */
+}
+body.dark-mode{
+    --bg:#0b1220;
+    --card:#0f172a;
+    --text:#e5e7eb;
+    --muted:#94a3b8;
+    --border:#1f2a44;
+    --shadow:0 8px 24px rgba(0,0,0,.45);
+    --accent:#34d399;
 }
 
-.recommendations-overlay {
-    text-align: center;
-    background: white;
-    padding: 30px;
-    border-radius: 8px;
-    box-shadow: 1px 4px 10px rgba(0, 0, 0, 0.1);
-    max-width: 1100px;
-    width: 100%;
+/* ---- Page shell ---- */
+.recommendations-page{
+    background:#efefef;
+    min-height:100vh;
+    width:100%;
+    padding:48px 16px 80px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+}
+.page-header{ max-width:1120px; margin:0 auto 20px; text-align:center; }
+/*.page-title{*/
+/*    font-size:clamp(1.6rem,3vw,2rem);*/
+/*    font-weight:800;*/
+/*    color:var(--text);*/
+/*    margin:0 0 6px;*/
+/*}*/
+/*.page-subtitle{ color:var(--muted); margin:0; }*/
+
+/* ---- Section (replaces Cards) ---- */
+.section{
+    max-width:1120px;
+    width:100%;
+    margin:14px auto;
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:16px;
+    padding:20px 22px;
+    box-shadow:var(--shadow);
+}
+.section-header{ display:flex; align-items:center; gap:10px; margin-bottom:12px; }
+.section-title{
+    font-size:clamp(1.05rem,1.7vw,1.2rem);
+    font-weight:800; color:var(--text); position:relative;
+}
+.section-title::after{
+    content:"";
+    display:block;
+    height:3px; width:36px;
+    background:var(--border);
+    border-radius:999px;
+    margin-top:6px;
 }
 
-.recommendations-title {
-    margin-top: 3rem;
-    font-size: clamp(1.5rem, 2.5rem, 2.8rem);
-    font-weight: 600;
-    margin-bottom: 1rem;
-    text-align: center;
-    color: #1f2937;
+/* ---- Recommendation list ---- */
+.rec-list{ list-style:none; padding:0; margin:0; }
+.rec-item{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:10px 0;
+    border-bottom:1px solid var(--border);
 }
-body.dark-mode .recommendations-title {
-    color: #ffffff;
-}
-.recommendations-subtitle {
-    font-size: 16px;
-    color: #7f8c8d;
-    text-align: center;
-    margin-bottom: 40px;
+.rec-item:last-child{ border-bottom:0; }
+.rec-text{ flex:1; font-weight:600; color:var(--text); }
+.rec-inc{ color:#16a34a; font-weight:800; white-space:nowrap; }
+
+/* ---- KPI ---- */
+.kpi-wrap{ display:flex; justify-content:center; margin:16px 0; }
+.kpi{ display:flex; gap:10px; align-items:baseline; flex-wrap:wrap; text-align:center; }
+.kpi-lead{ color:var(--muted); font-weight:600; }
+.currency{ font-size:clamp(1.4rem,3vw,1.8rem); font-weight:900; color:var(--accent); }
+.kpi-sub{ color:var(--muted); font-weight:600; }
+
+/* ---- Chart container ---- */
+.chart-wrap{
+    background:rgba(17,24,39,.02);
+    border:1px dashed var(--border);
+    border-radius:12px;
+    padding:12px;
+    margin-top:8px;
 }
 
-.recommendations-card {
-    margin-bottom: 20px;
-    border-radius: 8px;
+/* Tooltip for modern chart */
+.cb-tooltip{
+    background:var(--card);
+    color:var(--text);
+    border:1px solid var(--border);
+    border-radius:10px;
+    padding:10px 12px;
+    box-shadow:var(--shadow);
+}
+.cb-tooltip-title{ font-weight:700; margin-bottom:4px; }
+.cb-tooltip-value{ color:var(--muted); font-weight:600; }
+
+/* ---- Buttons ---- */
+.btn-row{ display:flex; gap:10px; flex-wrap:wrap; }
+.btn-row.center{ justify-content:center; }
+.profile-button{
+    appearance:none;
+    border:1px solid transparent;
+    border-radius:12px;
+    padding:.7rem 1.2rem;
+    font-weight:700;
+    background:#111827;
+    color:#fff;
+    box-shadow:0 1px 2px rgba(0,0,0,.04);
+    transition:background .2s,color .2s,border-color .2s,box-shadow .25s,transform .02s;
+}
+.profile-button:hover{
+    filter:brightness(1.06);
+    box-shadow:0 6px 16px rgba(17,24,39,.16);
+}
+.profile-button:active{ transform:translateY(.5px); }
+
+.btn-ghost{
+    appearance:none;
+    background:transparent;
+    color:var(--text);
+    border:1px solid var(--border);
+    border-radius:12px;
+    padding:.7rem 1.1rem;
+    font-weight:700;
+    cursor:pointer;
+}
+.btn-ghost:hover{ background:rgba(0,0,0,.03); }
+body.dark-mode .btn-ghost:hover{ background:rgba(255,255,255,.05); }
+
+/* ---- Footer actions ---- */
+.footer-actions{ text-align:center; }
+
+/* ---- Utilities ---- */
+.muted{ color:var(--muted); }
+.center{ text-align:center; }
+.error-msg{ color:#b91c1c; text-align:center; margin-top:14px; }
+
+/* ---- Responsive ---- */
+@media (max-width: 640px){
+    .section{ padding:16px; }
+    .currency{ font-size:clamp(1.2rem,4vw,1.5rem); }
+}
+/* Make inline salary visible and themed */
+.recommendations-page .salary-estimate{
+    color: var(--accent);
+    font-weight: 900;
+    letter-spacing: .2px;
+    margin: 0 .25rem;
 }
 
-.recommendations-card .card-header{
-    font-size: 2rem;
-    font-weight: 600;
-    margin-bottom: 2.5rem;
-    text-align: center;
-    color: #1f2937;
-
+/* (Optional) force the green used elsewhere in dark mode) */
+body.dark-mode .recommendations-page .salary-estimate{
+    color: #22c55e; /* or keep var(--accent) if you prefer */
 }
-
-.recommendations-list {
-    list-style: none;
-    padding: 0;
-}
-
-.recommendations-item {
-    display: flex;
-    justify-content: space-between;
-    padding: 10px 0;
-    border-bottom: 1px solid #ddd;
-}
-.recommendation-text {
-    flex: 1;
-    text-align: left;
-    /*font-size: 16px;*/
-    /*color: #333;*/
-    font-weight: 500;
-    color: #050505;
-    font-size: clamp(0.3rem, 2vw, 1.3rem);
-}
-
-.increase-approximate{
-    text-decoration: none;
-    font-weight: bold;
-    margin-bottom: 0.5rem;
-    font-size: clamp(1rem, 2vw, 1.3rem);
-}
-.salary-estimate {
-    color: #00e676;
-    font-weight: bold;
-    margin-bottom: 0.5rem;
-    font-size: clamp(1rem, 2vw, 1.3rem);
-}
-
-.recommendations-btn {
-    background: linear-gradient(45deg, #00b894, #00e676); /* Teal to Green gradient */
-    color: #fff;
-    border: none;
-    padding: clamp(0.3rem, 1.5vw, 0.3rem) clamp(0.3rem, 1vw, 0.3rem);
-    margin-top: 10px;
-    cursor: pointer;
-    font-weight: bold;
-    border-radius: 8px;
-    transition: background 0.3s ease;
-    margin-bottom: 1rem;
-    width: clamp(10rem, 15rem, 16rem);
-}
-
-.recommendations-btn:hover {
-    background: linear-gradient(45deg, #00e676, #66ffa6); /* Lighter Green on hover */
-    color: black;
-}
-
-.recommendations-actions {
-    display: flex;
-    justify-content: center;
-    flex-direction: row;
-    align-items: center;
-    gap: 1rem;
-    flex-wrap: wrap;
-    margin-bottom: 10%;
-    margin-top: 2rem;
-}
-
-.recommendations-actions .action-btn {
-    border: none;
-    color: white;
-    font-weight: bold;
-    text-align: center;
-    text-decoration: none;
-    transition: background 0.3s ease;
-    width: clamp(3rem, 10rem, 8rem);
-    padding: clamp(0.3rem, 1.5vw, 0.3rem) clamp(0.3rem, 1vw, 0.3rem);
-    font-size: clamp(0.3rem, 2vw, 1.3rem);
-    background: linear-gradient(45deg, #32a0e4, #c8c9ca); /* Gradient background */
-    border-radius: 8px; /* Rounded corners */
-    min-width: fit-content;
-    height: fit-content; /* Set specific height */
-}
-
-.recommendations-actions .action-btn:hover {
-    background: linear-gradient(45deg, #c8c9ca, #32a0e4); /* Reverse gradient on hover */
-}
-
-/* Dark Mode */
-body.dark-mode .recommendations-container {
-    background-color: rgb(12,12,12);
-}
-body.dark-mode .recommendations-overlay{
-    background: #242526;
-    color: white;
-    box-shadow: 0 4px 10px rgba(255, 255, 255, 0.1);
-}
-
-/* Ensure text is visible in dark mode */
-body.dark-mode .recommendations-container p {
-    color: white; /* Ensures contrast in dark mode */
-}
-/* Dark card style */
-body.dark-mode .recommendations-card {
-    background: #242526;
-    color: white;
-    box-shadow: 0 4px 10px rgba(255, 255, 255, 0.1);
-    border-radius: 8px;
-    border: 1px solid #333;
-}
-
-body.dark-mode .recommendations-actions .action-btn {
-    background: linear-gradient(45deg, #32a0e4, #c8c9ca);
-    color: white;
-}
-
-body.dark-mode .recommendations-actions .action-btn:hover {
-    background: linear-gradient(45deg, #c8c9ca, #32a0e4);
-}
-
