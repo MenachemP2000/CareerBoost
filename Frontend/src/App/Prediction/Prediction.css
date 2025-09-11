@@ -189,11 +189,3 @@ body.dark-mode .btn-ghost:hover{ background:#2a2b2d; }
     border-radius:999px;
     margin:6px auto 0;
 }
-
-@media screen and (max-width: 768px){
-    .recharts-wrapper {
-        
-
-    }
-    
-}

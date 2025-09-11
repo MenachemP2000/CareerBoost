@@ -160,7 +160,6 @@ const SavedRecommendations = ({
                             <div>Recommendation</div>
                             <div>Increase</div>
                         </div>
-                        // In JSX:
                         {(isSignedIn.savedRecommendations || []).map((rec, i) => {
                             const inc = incFor(rec);
                             return (

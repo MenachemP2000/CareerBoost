@@ -206,7 +206,7 @@ body.dark-mode .filter-container {
  }
 
  @media (max-width: 768px) {
-  .recharts-wrapper {
+  #sankey .recharts-wrapper {
     display: none;
   }
   .filter-container{

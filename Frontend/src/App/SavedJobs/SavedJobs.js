@@ -508,7 +508,7 @@ const SavedJobs = ({toggleScreen, isSignedIn, toggleSignendIn}) => {
             {(isSignedIn.savedJobs &&
                 isSignedIn.savedJobs.filter(job => job.applied).length > 0 &&
                 data?.nodes?.length && data?.links?.length) && (
-                <div className="d-flex justify-content-center">
+                <div className="d-flex justify-content-center" id="sankey">
                     <Sankey
                         width={800}
                         height={400}

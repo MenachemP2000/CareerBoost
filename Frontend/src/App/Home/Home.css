@@ -59,9 +59,9 @@
 
 .home-underline {
     background-color: lightgrey;
-    width: 300px;
+    width: 200px;
     height: 4px;
-    margin-top: 10px; /* Adjust this value to move the underline closer to the text */
+    margin-top: 10px; 
 }
 
 .home-lead1 {
