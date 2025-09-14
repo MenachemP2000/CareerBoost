@@ -1,16 +1,20 @@
 // Home.js
 import React from "react";
-import {Container, Row, Button} from 'react-bootstrap';
-import {Link, useNavigate} from "react-router-dom";
-import {useEffect} from "react";
+import { Container, Row, Button } from 'react-bootstrap';
+import { Link, useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 import './Home.css';
 import homeBg from '../images/home-pic-light.png';
 
 
 import Slider from "./Slider";
 
-const Home = ({toggleScreen, isSignedIn, toggleSignendIn}) => {
+const Home = ({ toggleScreen, isSignedIn, toggleSignendIn }) => {
 
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
+    
     useEffect(() => {
         toggleScreen("home");
     });
@@ -25,7 +29,7 @@ const Home = ({toggleScreen, isSignedIn, toggleSignendIn}) => {
                 <card className="home-card">
                     <div className="home-title-container">
                         <h3 className="home-title">
-                            <img src="careerboost.ico" alt="CareerBoost" style={{width: "6rem"}}/> CareerBoost
+                            <img src="careerboost.ico" alt="CareerBoost" style={{ width: "6rem" }} /> CareerBoost
                         </h3>
                         <div className="home-underline"></div>
                     </div>
@@ -44,13 +48,13 @@ const Home = ({toggleScreen, isSignedIn, toggleSignendIn}) => {
                         <Row className="button-row"> {/* button-row */}
                             <div className="button-container">
                                 <button type="button"
-                                        className="profile-button is-outline"
-                                        onClick={() => navigate("/Createaccount")}>
+                                    className="profile-button is-outline"
+                                    onClick={() => navigate("/Createaccount")}>
                                     Create Account
                                 </button>
                                 <button type="button"
-                                        className="profile-button"
-                                        onClick={() => navigate("/Signin")}>
+                                    className="profile-button"
+                                    onClick={() => navigate("/Signin")}>
                                     Sign In
                                 </button>
                             </div>
@@ -58,7 +62,7 @@ const Home = ({toggleScreen, isSignedIn, toggleSignendIn}) => {
                     }
 
                     {isSignedIn &&
-                        <Row className="button-row"> 
+                        <Row className="button-row">
                             <p className="hello">
                                 Hello {isSignedIn.username}!
                             </p>
