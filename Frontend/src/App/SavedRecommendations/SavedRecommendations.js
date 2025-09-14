@@ -35,6 +35,11 @@ const SavedRecommendations = ({
         if (!isSignedIn) navigate("/");
     }, [isSignedIn, navigate, toggleScreen]);
 
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
+
+
     // Build quick lookup map for increases
     useEffect(() => {
         if (!isSignedIn?.recommendations || !isSignedIn?.recommendationsIncrese) {

@@ -15,6 +15,11 @@ const CreateAccount = ({toggleSignendIn, toggleScreen, isSignedIn, countries, ed
         }
     });
 
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
+
+
     const [formData, setFormData] = useState({
         username: '',
         password: '',

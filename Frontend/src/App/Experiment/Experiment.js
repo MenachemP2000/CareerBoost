@@ -19,6 +19,11 @@ const Experiment = ({ toggleSignendIn, toggleScreen, isSignedIn, languages, empl
         }
     });
 
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
+
+
     const [formData, setFormData] = useState({
         languages: isSignedIn.experiment && isSignedIn.experiment.languages ? isSignedIn.experiment.languages : [],
         employments: isSignedIn.experiment && isSignedIn.experiment.employments ? isSignedIn.experiment.employments : [],

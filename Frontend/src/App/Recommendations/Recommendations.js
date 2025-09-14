@@ -70,6 +70,10 @@ const Recommendations = ({toggleScreen, isSignedIn, toggleSignendIn, exchangeRat
         }
     }, [isSignedIn, navigate, toggleScreen]);
 
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
+
 
     // Build top-5 list and chart data when user/FX changes
     useEffect(() => {

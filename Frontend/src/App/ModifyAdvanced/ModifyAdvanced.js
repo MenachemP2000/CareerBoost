@@ -90,6 +90,11 @@ const ModifyAdvanced = ({
         }
     }, [isSignedIn, navigate, toggleScreen]);
 
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
+
+
 
     const [formData, setFormData] = useState({
         languages: isSignedIn.languages || [],

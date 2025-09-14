@@ -9,6 +9,9 @@ import defaultProfilePic from "../images/man-profile.svg";
 const Profile = ({toggleScreen, isSignedIn, toggleSignendIn, countries, educations, ages}) => {
     const navigate = useNavigate();
     // const [error, setError] = useState('');
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
 
 
     // NEW: track which field is being edited

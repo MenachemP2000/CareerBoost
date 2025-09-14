@@ -20,6 +20,11 @@ export default function FeaturedJobs({toggleScreen, isSignedIn, toggleSignendIn,
     }, [isSignedIn]);
 
     useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
+
+
+    useEffect(() => {
         const searchQuery = buildSearchQuery(isSignedIn);
         searchJobs(searchQuery);
     }, [isSignedIn.username]);
