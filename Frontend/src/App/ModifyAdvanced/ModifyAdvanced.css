@@ -163,27 +163,3 @@ body.dark-mode .section-title, body.dark-mode .value-text, body.dark-mode .field
 body.dark-mode .section-subtitle{ color:#b0b3b8; }
 body.dark-mode .field-row{ border-top-color:#2f3031; }
 body.dark-mode .chip{ background:#2a2b2d; color:#e4e6eb; border-color:#3a3b3c; }
-/*!* Dark Mode *!*/
-/*body.dark-mode .advanced-container {*/
-/*    background-color: rgb(12,12,12);*/
-/*}*/
-/*body.dark-mode .advanced-title,*/
-/*body.dark-mode .advanced-card .advanced-information {*/
-/*    color: #e4e6eb;*/
-/*}*/
-/*body.dark-mode .advanced-card {*/
-/*    background: #242526;*/
-/*    color: white;*/
-/*    box-shadow: 0 4px 10px rgba(255, 255, 255, 0.1);*/
-/*}*/
-
-/*body.dark-mode .form-control,*/
-/*body.dark-mode .css-2b097c-container {*/
-/*    background-color: #6e6c6c;*/
-/*    color: #050505;*/
-/*}*/
-
-
-/*body.dark-mode .advanced-button:hover {*/
-/*    color: black;*/
-/*}*/
