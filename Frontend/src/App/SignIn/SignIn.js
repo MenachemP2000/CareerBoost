@@ -11,6 +11,11 @@ const SignIn = ({ toggleScreen, isSignedIn, toggleSignendIn }) => {
     });
     const navigate = useNavigate();
 
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
+
+
 
     const logIn = async () => {
         localStorage.setItem('token', '');

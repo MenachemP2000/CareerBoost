@@ -5,8 +5,11 @@ import "./Guide.css";
 import step1Image from "../images/step1.jpg";
 import step3Image from "../images/step3.jpg";
 const Guide = ({toggleScreen, isSignedIn, toggleSignendIn}) => {
-    // const navigate = useNavigate();
-    // const [, setError] = useState('');
+
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
+
 
     useEffect(() => {
         toggleScreen("Guide");

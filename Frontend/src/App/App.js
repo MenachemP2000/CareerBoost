@@ -22,7 +22,7 @@ import SavedJobs from "./SavedJobs/SavedJobs";
 import FooterComponent from "./Footer/Footer";
 import Features from "./Features/Features";
 import About from "./About_Us/about";
-import Contact from "./Contact_Us/contact";
+
 
 function App() {
     const [screen, setScreen] = useState(false);

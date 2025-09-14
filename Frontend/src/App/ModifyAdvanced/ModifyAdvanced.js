@@ -90,6 +90,11 @@ const ModifyAdvanced = ({
         }
     }, [isSignedIn, navigate, toggleScreen]);
 
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
+
+
 
     const [formData, setFormData] = useState({
         languages: isSignedIn.languages || [],
@@ -519,7 +524,7 @@ const ModifyAdvanced = ({
                                         ...fd,
                                         languages: (selected || []).map(o => o.value)
                                     }))}
-                                    menuPlacement="top"
+                                    menuPlacement="bottom"
                                     placeholder="Select the languages you've used extensively in the past year"
                                 />
                             )}
@@ -550,7 +555,7 @@ const ModifyAdvanced = ({
                                         ...fd,
                                         databases: (selected || []).map(o => o.value)
                                     }))}
-                                    menuPlacement="top"
+                                    menuPlacement="bottom"
                                     placeholder="Select the databases you've used extensively in the past year"
                                 />
                             )}
@@ -580,7 +585,7 @@ const ModifyAdvanced = ({
                                         ...fd,
                                         platforms: (selected || []).map(o => o.value)
                                     }))}
-                                    menuPlacement="top"
+                                    menuPlacement="bottom"
                                     placeholder="Select the platforms you've used extensively in the past year"
                                 />
                             )}
@@ -611,7 +616,7 @@ const ModifyAdvanced = ({
                                         ...fd,
                                         webframesworks: (selected || []).map(o => o.value)
                                     }))}
-                                    menuPlacement="top"
+                                    menuPlacement="bottom"
                                     placeholder="Select the web frameworks you've used extensively in the past year"
                                 />
                             )}
@@ -663,7 +668,7 @@ const ModifyAdvanced = ({
                                         ...fd,
                                         tools: (selected || []).map(o => o.value)
                                     }))}
-                                    menuPlacement="top"
+                                    menuPlacement="bottom"
                                     placeholder="Select the tools you've used extensively in the past year"
                                 />
                             )}
@@ -693,7 +698,7 @@ const ModifyAdvanced = ({
                                         ...fd,
                                         OpSys: (selected || []).map(o => o.value)
                                     }))}
-                                    menuPlacement="top"
+                                    menuPlacement="bottom"
                                     placeholder="Select the Operating Systems you've used extensively in the past year"
                                 />
                             )}
@@ -723,7 +728,7 @@ const ModifyAdvanced = ({
                                         ...fd,
                                         employments: (selected || []).map(o => o.value)
                                     }))}
-                                    menuPlacement="top"
+                                    menuPlacement="bottom"
                                     placeholder="Select all that describe your employment status"
                                 />
                             )}

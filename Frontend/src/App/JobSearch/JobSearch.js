@@ -32,10 +32,16 @@ export default function JobSearch({ toggleScreen, isSignedIn, toggleSignendIn, c
         if (!isSignedIn) {
             navigate("/");
         }
+
+
         const searchQuery = buildSearchQuery(isSignedIn);
         setSearchQuery(searchQuery);
         console.log("filters", filters);
     }, [filters, isSignedIn]); // Update searchQuery whenever filters change
+
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
 
     useEffect(() => {
         if (!loading) {

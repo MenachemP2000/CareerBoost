@@ -107,6 +107,10 @@ const AdvancedRecommendations = ({
         }
     });
 
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
+
     // ----- Handlers -----
 
     const handleSignout = () => {

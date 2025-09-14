@@ -16,6 +16,10 @@ const AppliedButton = ({job, isSignedIn, toggleSignendIn}) => {
         setChecked(Boolean(job.applied));
     }, [job.applied]);
 
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
+
 
     const handleApplied = async () => {
         setChecked(!checked);

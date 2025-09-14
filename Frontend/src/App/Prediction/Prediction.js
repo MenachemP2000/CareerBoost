@@ -50,6 +50,12 @@ const Prediction = ({ toggleScreen, isSignedIn, toggleSignendIn, selectedCurrenc
             navigate("/signin");
         }
     });
+
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
+
+
     useEffect(() => {
         setTop3Data(isSignedIn.impacts ? isSignedIn.impacts.slice(0, 3) : []); //top 3 impacting features
     }, [isSignedIn]);
