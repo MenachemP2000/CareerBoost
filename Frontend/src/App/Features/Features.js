@@ -4,7 +4,6 @@ import salaryIcon from "../images/salary.png"; // Assuming you have a salary ico
 import compassIcon from "../images/compass.png"; // Assuming you have a compass icon
 import brainIcon from "../images/brain-organ.png"; // Assuming you have a brain icon
 const featuresData = [
-
   {
     image: resumeIcon,
     title: "Profile Building",
