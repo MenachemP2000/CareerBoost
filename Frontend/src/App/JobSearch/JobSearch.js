@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import config from '../config';
 import { useNavigate, Link } from 'react-router-dom';
-import { Container, Row, Col, Card, Button } from 'react-bootstrap';
 import "./JobSearch.css";
 
 export default function JobSearch({ toggleScreen, isSignedIn, toggleSignendIn, countryCrMap }) {
