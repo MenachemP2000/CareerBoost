@@ -1,13 +1,16 @@
-import axios from "axios";
-import fs from "fs";
-import xml2js from "xml2js";
-import cron from "node-cron";
+import axios from "axios";    // For making HTTP requests
+import fs from "fs";          // For reading/writing files
+import xml2js from "xml2js";  // For converting XML to JSON
+import cron from "node-cron"; // For scheduling tasks
 
+// Function to fetch and save exchange rates
 async function fetchExchangeRates() {
     try {
+        // URL for USD-based exchange rates from FloatRates
         const url = "https://www.floatrates.com/daily/usd.xml";
         console.log("Fetching exchange rates...");
 
+        // Make GET request to fetch XML data
         const response = await axios.get(url);
         const xml = response.data;
         
@@ -15,9 +18,10 @@ async function fetchExchangeRates() {
         const parser = new xml2js.Parser({ explicitArray: false });
         const result = await parser.parseStringPromise(xml);
 
-        // Extract exchange rates
+        // Extract exchange rates into a key-value object
         const rates = {};
         result.channel.item.forEach((item) => {
+            // Example: rates["EUR"] = 0.92
             rates[item.targetCurrency] = parseFloat(item.exchangeRate);
         });
 
