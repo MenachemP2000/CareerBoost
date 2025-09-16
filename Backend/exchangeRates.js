@@ -3,6 +3,7 @@ import fs from "fs";          // For reading/writing files
 import xml2js from "xml2js";  // For converting XML to JSON
 import cron from "node-cron"; // For scheduling tasks
 
+
 // Function to fetch and save exchange rates
 async function fetchExchangeRates() {
     try {
