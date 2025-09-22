@@ -1,13 +1,17 @@
-import React, {useState, useEffect} from "react";
-import {Container, Row, Col, Card, Button, Form} from 'react-bootstrap';
-import {useNavigate} from 'react-router-dom';
+import React, { useState, useEffect } from "react";
+import { useNavigate } from 'react-router-dom';
 import config from '../config';
 import "./CreateAccount.css";
 
-const CreateAccount = ({toggleSignendIn, toggleScreen, isSignedIn, countries, educations, ages}) => {
+const CreateAccount = ({ toggleSignendIn, toggleScreen, isSignedIn, countries, educations, ages }) => {
     const navigate = useNavigate();
     const [error, setError] = useState('');
 
+    /* -------------------------------
+       Effects
+    ------------------------------- */
+
+    // On mount: set screen label + redirect if already signed in
     useEffect(() => {
         toggleScreen("CreateAccount");
         if (isSignedIn) {
@@ -15,10 +19,14 @@ const CreateAccount = ({toggleSignendIn, toggleScreen, isSignedIn, countries, ed
         }
     });
 
+    // Scroll to top on first render
     useEffect(() => {
         window.scrollTo(0, 0);
     }, []);
 
+    /* -------------------------------
+       Form State
+    ------------------------------- */
 
     const [formData, setFormData] = useState({
         username: '',
@@ -26,31 +34,33 @@ const CreateAccount = ({toggleSignendIn, toggleScreen, isSignedIn, countries, ed
         country: '',
         experience: '',
         age: '',
-        education: ''
-        //gender: '',
-        // birthMonth: '',
-        // birthDay: '',
-        // birthYear: ''
+        education: '',
+        firstName: '',   // added for consistency
+        lastName: ''     // added for consistency
     });
 
+    // Update form data when user types/selects
     const handleChange = (e) => {
-        const {name, value} = e.target;
+        const { name, value } = e.target;
         setFormData({
             ...formData,
             [name]: value
         });
     };
 
+    /* -------------------------------
+       Login Helper
+    ------------------------------- */
+
+    // Logs the user in immediately after signup
     const logIn = async () => {
-        localStorage.setItem('token', '');
-        const { username, password} = formData;
-        const data = { username: username, password: password }
+        localStorage.setItem('token', ''); // clear any old token
+        const { username, password } = formData;
+        const data = { username, password };
         try {
             const response = await fetch(`${config.apiBaseUrl}/api/tokens`, {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
+                headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(data)
             });
             if (!response.ok) {
@@ -58,40 +68,40 @@ const CreateAccount = ({toggleSignendIn, toggleScreen, isSignedIn, countries, ed
             }
             const { token } = await response.json();
             localStorage.setItem('token', token);
-            return true
+            return true;
         } catch (error) {
-            console.error('Error loggin in:', error);
-            return false
+            console.error('Error logging in:', error);
+            return false;
         }
     };
 
+    /* -------------------------------
+       Form Submit
+    ------------------------------- */
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        // Construct the payload
         const payload = formData;
-        const {username, password, country, experience, age, education} = formData;
+
         try {
-            // Send the registration data to the server
+            // Call backend to create a new user
             const response = await fetch(`${config.apiBaseUrl}/api/users`, {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
+                headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(payload)
             });
 
             const result = await response.json();
 
             if (!response.ok) {
-                // If the server responds with an error, set the error message
+                // Display backend error message
                 setError(result.message);
                 return;
             }
 
-            // If registration is successful, proceed with login or other actions
+            // If signup succeeded, log the user in and update state
             await logIn();
-            toggleSignendIn(username);
+            toggleSignendIn(formData.username);
             navigate("/");
         } catch (error) {
             setError('An error occurred. Please try again.');
@@ -99,30 +109,68 @@ const CreateAccount = ({toggleSignendIn, toggleScreen, isSignedIn, countries, ed
         }
     };
 
+    /* -------------------------------
+       Render (JSX)
+    ------------------------------- */
+
     return (
         <div className="signup-container">
+            {/* App logo/title */}
             <h1 className="careerboost-title">careerboost</h1>
 
+            {/* Main signup card wrapper */}
             <div className="signup-card">
+                {/* Section title + subtitle */}
                 <h2 className="signup-title">Create a new account</h2>
                 <p className="signup-subtitle">It's quick and easy.</p>
 
+                {/* Signup form */}
                 <form onSubmit={handleSubmit} className="signup-form">
+
+                    {/* First & Last name fields side by side */}
                     <div className="input-group">
-                        <input type="text" name="firstName" placeholder="First name" value={formData.firstName}
-                               onChange={handleChange} required/>
-                        <input type="text" name="lastName" placeholder="Last name" value={formData.lastName}
-                               onChange={handleChange} required/>
+                        <input
+                            type="text"
+                            name="firstName"
+                            placeholder="First name"
+                            value={formData.firstName}
+                            onChange={handleChange}
+                            required
+                        />
+                        <input
+                            type="text"
+                            name="lastName"
+                            placeholder="Last name"
+                            value={formData.lastName}
+                            onChange={handleChange}
+                            required
+                        />
                     </div>
 
-                    <input type="text" name="username" placeholder="Username" value={formData.username}
-                           onChange={handleChange} required/>
-                    <input type="password" name="password" placeholder="New password" value={formData.password}
-                           onChange={handleChange} required/>
+                    {/* Username field */}
+                    <input
+                        type="text"
+                        name="username"
+                        placeholder="Username"
+                        value={formData.username}
+                        onChange={handleChange}
+                        required
+                    />
 
+                    {/* Password field */}
+                    <input
+                        type="password"
+                        name="password"
+                        placeholder="New password"
+                        value={formData.password}
+                        onChange={handleChange}
+                        required
+                    />
 
+                    {/* Basic info label */}
                     <label>Basic Information</label>
 
+                    {/* Country selection dropdown */}
                     <select name="country" value={formData.country} onChange={handleChange} required>
                         <option value="">Select your country</option>
                         {countries.map((country, index) => (
@@ -130,6 +178,7 @@ const CreateAccount = ({toggleSignendIn, toggleScreen, isSignedIn, countries, ed
                         ))}
                     </select>
 
+                    {/* Education selection dropdown */}
                     <select name="education" value={formData.education} onChange={handleChange} required>
                         <option value="">Select your education</option>
                         {educations.map((education, index) => (
@@ -137,8 +186,17 @@ const CreateAccount = ({toggleSignendIn, toggleScreen, isSignedIn, countries, ed
                         ))}
                     </select>
 
-                    <input type="number" name="experience" placeholder="Years of experience" value={formData.experience} onChange={handleChange} required />
+                    {/* Experience numeric input */}
+                    <input
+                        type="number"
+                        name="experience"
+                        placeholder="Years of experience"
+                        value={formData.experience}
+                        onChange={handleChange}
+                        required
+                    />
 
+                    {/* Age selection dropdown */}
                     <select name="age" value={formData.age} onChange={handleChange} required>
                         <option value="">Select your age range</option>
                         {ages.map((age, index) => (
@@ -146,15 +204,15 @@ const CreateAccount = ({toggleSignendIn, toggleScreen, isSignedIn, countries, ed
                         ))}
                     </select>
 
+                    {/* Submit button */}
                     <button type="submit" className="signup-button">Sign Up</button>
 
+                    {/* Error message (only rendered if error exists) */}
                     {error && <div className="error-message">{error}</div>}
-
                 </form>
             </div>
         </div>
-    )
-        ;
-}
+    );
+};
 
 export default CreateAccount;

@@ -1,37 +1,38 @@
-/* Page shell — aligns with Profile page */
+/* === Page Shell — aligns with Profile page === */
 :root {
-    --card: #ffffff;
-    --text: #111827;
-    --muted: #6b7280;
-    --border: #e5e7eb;
-    --shadow: 0 6px 16px rgba(17,24,39,.06);
-    --accent: #0f766e; /* KPI color */
+    /* Theme variables */
+    --card: #ffffff; /* white card background */
+    --text: #111827; /* primary text color */
+    --muted: #6b7280; /* secondary text color */
+    --border: #e5e7eb; /* light gray border */
+    --shadow: 0 6px 16px rgba(17,24,39,.06); /* soft shadow */
+    --accent: #0f766e; /* KPI highlight color */
 }
 
 .prediction-page {
-    background:#efefef;
-    min-height: 100vh;
-    padding: 48px 16px 80px;
+    background:#efefef;  /* light gray page bg */
+    min-height: 100vh;   /* full viewport height */
+    padding: 48px 16px 80px; /* spacing around content */
 }
 
-/* Header */
+/* === Header === */
 .page-header {
-    max-width: 1120px;
+    max-width: 1120px;   /* center with max width */
     margin: 0 auto 20px;
     text-align: center;
 }
 .page-title {
-    font-size: clamp(1.6rem, 3vw, 2rem);
+    font-size: clamp(1.6rem, 3vw, 2rem); /* responsive title */
     font-weight: 800;
     color: var(--text);
     margin: 0 0 6px;
 }
 .page-subtitle {
-    color: var(--muted);
+    color: var(--muted); /* softer subtitle */
     margin: 0;
 }
 
-/* Sections (no Bootstrap Cards) */
+/* === Sections (like cards, but no Bootstrap) === */
 .section {
     max-width: 1120px;
     margin: 14px auto;
@@ -58,7 +59,7 @@
     display: block;
     height: 3px;
     width: 36px;
-    background: var(--border);
+    background: var(--border); /* small underline */
     border-radius: 999px;
     margin-top: 6px;
 }
@@ -67,21 +68,27 @@
     font-size: 0.9rem;
 }
 
+/* Helper muted text */
 .muted { color: var(--muted); }
 
-/* KPI */
+/* === KPI styles === */
 .kpi-wrap { margin: 6px 0 10px; }
 .kpi { display: flex; align-items: baseline; gap: 10px; }
 .currency {
     font-size: clamp(1.6rem, 3.4vw, 2.2rem);
     font-weight: 900;
-    color: var(--accent);
+    color: var(--accent); /* green/teal */
     letter-spacing: .3px;
 }
 .kpi-sub { color: var(--muted); font-weight: 600; }
 
-/* Buttons — primary uses your existing .profile-button */
-.btn-row { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 8px; }
+/* === Buttons === */
+.btn-row {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-top: 8px;
+}
 .btn-ghost {
     appearance: none;
     background: transparent;
@@ -91,7 +98,7 @@
     padding: 0.7rem 1.1rem;
     font-weight: 700;
     cursor: pointer;
-    text-decoration: none; /* for Link */
+    text-decoration: none; /* works for Links too */
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -99,15 +106,14 @@
 .btn-ghost:hover { background: rgba(0,0,0,.03); }
 body.dark-mode .btn-ghost:hover { background: rgba(255,255,255,.05); }
 
-/* Chart container + tooltip */
+/* === Chart container + tooltip === */
 .chart-wrap {
     background: rgba(17,24,39,.02);
     border: 1px dashed var(--border);
     border-radius: 12px;
     padding: 12px;
-    min-height: 260px;
+    min-height: 260px; /* ensures space for chart */
 }
-
 .cb-tooltip {
     background: var(--card);
     color: var(--text);
@@ -119,73 +125,80 @@ body.dark-mode .btn-ghost:hover { background: rgba(255,255,255,.05); }
 .cb-tooltip-title { font-weight: 700; margin-bottom: 4px; }
 .cb-tooltip-value { color: var(--muted); font-weight: 600; }
 
-/* Recharts label color */
-.recharts-label-list .recharts-text { fill: var(--muted); font-weight: 600; }
+/* Recharts label text style */
+.recharts-label-list .recharts-text {
+    fill: var(--muted);
+    font-weight: 600;
+}
 
-/* Footer actions (optional) */
+/* Footer action buttons area */
 .footer-actions { text-align: center; }
 
-.error-msg { color: #b91c1c; text-align: center; margin-top: 14px; }
+/* Error message */
+.error-msg {
+    color: #b91c1c; /* red */
+    text-align: center;
+    margin-top: 14px;
+}
 
-
-/* === Match Advanced Profile dark theme === */
+/* === Dark Theme (match Advanced Profile page) === */
 
 /* Page background */
-body.dark-mode .prediction-page{
-    background:#18191a;             /* same as .advanced-container */
+body.dark-mode .prediction-page {
+    background:#18191a; /* dark gray */
 }
 
 /* Cards/sections */
-body.dark-mode .section{
-    background:#242526;              /* same as .settings-section */
+body.dark-mode .section {
+    background:#242526;
     border:1px solid #3a3b3c;
-    box-shadow:none;
+    box-shadow:none; /* no shadow in dark mode */
 }
 
-/* Title + subtitle colors */
+/* Title + subtitle */
 body.dark-mode .page-title,
-body.dark-mode .section-title{
-    color:#e4e6eb;                   /* same as advanced titles */
+body.dark-mode .section-title {
+    color:#e4e6eb; /* light gray text */
 }
 body.dark-mode .page-subtitle,
 body.dark-mode .section-hint,
-body.dark-mode .muted{
-    color:#b0b3b8;                   /* same as .section-subtitle */
+body.dark-mode .muted {
+    color:#b0b3b8; /* muted gray text */
 }
 
 /* Underlines */
-body.dark-mode .section-title::after{
-    background:#3a3b3c;              /* subtle divider in dark */
+body.dark-mode .section-title::after {
+    background:#3a3b3c; /* darker divider */
 }
 
-/* KPI number color (green, like advanced accents) */
-body.dark-mode .currency{ color:#22c55e; } /* or #16a34a */
+/* KPI number (green in dark mode) */
+body.dark-mode .currency { color:#22c55e; } /* bright green */
 
-/* Chart container + tooltip */
-body.dark-mode .chart-wrap{
+/* Chart + tooltip */
+body.dark-mode .chart-wrap {
     background:#1d1f20;
-    border-color:#2f3031;            /* like .field-row border */
+    border-color:#2f3031;
 }
-body.dark-mode .cb-tooltip{
+body.dark-mode .cb-tooltip {
     background:#242526;
     color:#e4e6eb;
     border-color:#3a3b3c;
 }
 
 /* Buttons */
-body.dark-mode .btn-ghost{
+body.dark-mode .btn-ghost {
     color:#e4e6eb;
     border-color:#3a3b3c;
     background:transparent;
 }
-body.dark-mode .btn-ghost:hover{ background:#2a2b2d; }
+body.dark-mode .btn-ghost:hover { background:#2a2b2d; }
 
-/* Optional: add a blue underline under the top page title, like your section headers */
-.page-title::after{
+/* Extra: Blue underline under top page title */
+.page-title::after {
     content:"";
     display:block;
     width:56px; height:4px;
-    background:#3b82f6;
+    background:#3b82f6; /* blue accent */
     border-radius:999px;
     margin:6px auto 0;
 }

@@ -1,11 +1,17 @@
+// Import the CSS styles specific to the About component
 import "./about.css";
-import aboutImage from "../images/about.jpg"; // Adjust the path as necessary
 
+// Import the About image (adjust the path if needed)
+import aboutImage from "../images/about.jpg";
+
+// Functional component for the About section
 const About = () => {
+  // Paragraph text (mission statement)
   const paragraph = `At CareerBoost, we’re on a mission to help you unlock your full career potential. Whether you're a student, a recent graduate, or a seasoned professional looking for a change, our platform provides smart tools to help you move forward with confidence.
 
 From personalized profiles to real-time salary predictions and tailored job matches, we use data and design to guide you toward the right opportunities.`;
 
+  // List items for the left column
   const reasonsLeft = [
     "Smart profiles",
     "Salary insights",
@@ -13,6 +19,7 @@ From personalized profiles to real-time salary predictions and tailored job matc
     "Easy to use"
   ];
 
+  // List items for the right column
   const reasonsRight = [
     "Trusted by many",
     "Always improving",
@@ -21,28 +28,42 @@ From personalized profiles to real-time salary predictions and tailored job matc
   ];
 
   return (
-    <section className="about-section">
-      <div className="about-container">
-        <div className="about-left">
-          <img src={aboutImage} alt="About us" className="about-image" />
-        </div>
-        <div className="about-right">
-          <h2 className="section-title">About Us</h2>
-          <p className="about-description">{paragraph}</p>
+      // Main wrapper for the About section
+      <section className="about-section">
+        <div className="about-container">
 
-          <h3 className="about-subtitle">Why Choose Us?</h3>
-          <div className="about-lists">
-            <ul>
-              {reasonsLeft.map((item, i) => <li key={i}>{item}</li>)}
-            </ul>
-            <ul>
-              {reasonsRight.map((item, i) => <li key={i}>{item}</li>)}
-            </ul>
+          {/* Left side: image section */}
+          <div className="about-left">
+            <img src={aboutImage} alt="About us" className="about-image" />
+          </div>
+
+          {/* Right side: text content */}
+          <div className="about-right">
+            {/* Section title */}
+            <h2 className="section-title">About Us</h2>
+
+            {/* Mission paragraph */}
+            <p className="about-description">{paragraph}</p>
+
+            {/* Subtitle for bullet points */}
+            <h3 className="about-subtitle">Why Choose Us?</h3>
+
+            {/* Two-column list of reasons */}
+            <div className="about-lists">
+              {/* Left column */}
+              <ul>
+                {reasonsLeft.map((item, i) => <li key={i}>{item}</li>)}
+              </ul>
+              {/* Right column */}
+              <ul>
+                {reasonsRight.map((item, i) => <li key={i}>{item}</li>)}
+              </ul>
+            </div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
   );
 };
 
+// Export the component so it can be used in App.js or other pages
 export default About;

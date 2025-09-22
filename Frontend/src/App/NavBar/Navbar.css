@@ -1,54 +1,62 @@
+/* ===== Navbar wrapper ===== */
 .Navbar-App {
-    width: 100vw;
-    position: fixed; /* Changed from absolute to fixed */
-    top: 0; /* Ensure it's at the top */
-    left: 0;
-    z-index: 9999;
-    max-width: 100%;
+    width: 100vw;             /* Span full viewport width */
+    position: fixed;          /* Stays pinned at the top even when scrolling */
+    top: 0;                   /* Stick to top edge */
+    left: 0;                  /* Align to left edge */
+    z-index: 9999;            /* Always on top of other content */
+    max-width: 100%;          /* Prevent accidental overflow */
 }
 
-/* Light mode styles */
+/* ===== Light mode styles ===== */
 .navbar-light {
-    background-color: rgba(255, 255, 255, 0.9); /* Light transparent white */
-    color: black;
-    padding: 10px;
+    background-color: rgba(255, 255, 255, 0.9); /* Semi-transparent white background */
+    color: black;                               /* Default text color */
+    padding: 10px;                              /* Spacing inside navbar */
 }
+
+/* Branding logo link */
 .logo-link {
     color: black;
 }
+
+/* Brand text + nav links + dropdown toggle */
 .navbar-light .navbar-brand,
 .navbar-light .nav-link,
 .navbar-light .dropdown-toggle {
-    color: black; /* Black text color for better contrast */
-    font-size: clamp(0.3rem, 1rem, 1.3rem);
-    position: relative;
-    transition: color 0.2s;
+    color: black;                                /* Dark text for contrast */
+    font-size: clamp(0.3rem, 1rem, 1.3rem);      /* Responsive font size */
+    position: relative;                          /* So ::after underline works */
+    transition: color 0.2s;                      /* Smooth color fade on hover */
 }
 
+/* Animated underline for nav links */
 .navbar-light .nav-link::after {
     content: "";
     display: block;
     position: absolute;
     left: 0;
-    bottom: 2px; /* Closer to the text */
-    width: 0;
+    bottom: 2px; /* Position line closer to text */
+    width: 0;    /* Start hidden */
     height: 2px;
-    background: linear-gradient(90deg, #3a8dde 0%, #5ee2ff 100%);
-    transition: width 0.3s ease;
+    background: linear-gradient(90deg, #3a8dde 0%, #5ee2ff 100%); /* Blue gradient line */
+    transition: width 0.3s ease; /* Animate line expansion */
 }
 
+/* Show underline on hover */
 .navbar-light .nav-link:hover::after {
     width: 100%;
 }
 
+/* Hover color change for links */
 .navbar-light .nav-link:hover,
 .navbar-light .dropdown-toggle:hover {
-    color: #555; /* Slightly darker color on hover */
+    color: #555; /* Slightly darker gray */
 }
 
-/*Dark mode styles*/
+/* ===== Dark mode styles ===== */
 body.dark-mode .navbar-light {
-    background-color: rgb(12, 12, 12); /* Half transparent black */
+    background-color: rgb(12, 12, 12); /* Solid dark background */
     color: white;
     margin-bottom: 0;
 }
@@ -56,43 +64,44 @@ body.dark-mode .navbar-light {
 body.dark-mode .navbar-light .navbar-brand,
 body.dark-mode .navbar-light .nav-link,
 body.dark-mode .navbar-light .dropdown-toggle {
-    color: white; /* White text color for better contrast */
+    color: white; /* White text for visibility */
 }
 
 body.dark-mode .navbar-light .nav-link:hover,
 body.dark-mode .navbar-light .dropdown-toggle:hover {
-    color: #ccc; /* Slightly lighter color on hover */
+    color: #ccc; /* Light gray on hover */
 }
 
-/* Additional styles for dropdown menu */
+/* Dropdown menu in dark mode */
 body.dark-mode .dropdown-menu {
-    background-color: rgba(47, 45, 45, 0.78); /* Half transparent black for dropdown */
-    color: white; /* White text color */
+    background-color: rgba(47, 45, 45, 0.78); /* Semi-transparent dark background */
+    color: white;
 }
 
 body.dark-mode .dropdown-item {
-    color: white; /* White text color for dropdown items */
+    color: white; /* White text inside dropdown */
 }
 
 body.dark-mode .dropdown-item:hover {
-    background-color: rgba(60, 60, 60, 0.78); /* Slightly lighter background on hover */
+    background-color: rgba(60, 60, 60, 0.78); /* Lighter gray hover background */
 }
 
-button.navbar-toggler{
-    background-color: lightgray;
-
+/* ===== Mobile hamburger toggle button ===== */
+button.navbar-toggler {
+    background-color: lightgray; /* Light background in light mode */
 }
 
-.dark-mode .navbar-toggler{
-    background-color: grey;
+.dark-mode .navbar-toggler {
+    background-color: grey; /* Darker button in dark mode */
 }
 
-#mode-toggle{
-    border: 1px,solid, grey ;
-    border-radius: 20px;
+/* ===== Dark mode toggle switch wrapper ===== */
+#mode-toggle {
+    border: 1px solid grey;    /* Subtle border (NOTE: fixed syntax here) */
+    border-radius: 20px;       /* Rounded pill shape */
     padding-bottom: 3px;
     padding-left: 3px;
     padding-right: 3px;
     margin-top: 3px;
-    justify-self: center;
+    justify-self: center;      /* Center alignment if in grid/flex parent */
 }

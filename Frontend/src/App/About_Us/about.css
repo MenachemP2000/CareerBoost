@@ -1,58 +1,60 @@
+/* ===========================
+   About Section - Light Mode
+   =========================== */
 .about-section {
-  background: #fff;
-  padding: 60px 20px;
+  background: #fff;              /* White background for the section */
+  padding: 60px 20px;            /* Top/Bottom padding 60px, Left/Right 20px */
 }
 
 .about-container {
-  display: flex;
-  flex-direction: row;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: 40px;
-  max-width: 1200px;
-  margin: 0 auto;
-  flex-wrap: nowrap; /*force side-by-side */
+  display: flex;                 /* Use flexbox for side-by-side layout */
+  flex-direction: row;           /* Place items horizontally */
+  align-items: flex-start;       /* Align items at the top */
+  justify-content: space-between;/* Push left/right sides apart */
+  gap: 40px;                     /* Space between left and right sides */
+  max-width: 1200px;             /* Limit width for better readability */
+  margin: 0 auto;                /* Center horizontally */
+  flex-wrap: nowrap;             /* Keep items side-by-side (no wrapping) */
 }
 
-
 .about-left {
-  flex: 1 1 50%;
+  flex: 1 1 50%;                 /* Take up 50% of width, flexible */
   display: flex;
-  justify-content: flex-start;
+  justify-content: flex-start;   /* Align image to the left */
 }
 
 .about-right {
-  flex: 1 1 50%;
+  flex: 1 1 50%;                 /* Take up 50% of width, flexible */
 }
 
 .about-image {
   width: 100%;
-  max-width: 500px;
-  border-radius: 6px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  max-width: 500px;              /* Prevent image from being too large */
+  border-radius: 6px;            /* Rounded corners */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08); /* Soft shadow */
 }
 
 .section-title {
   font-size: 36px;
   font-weight: bold;
   margin-bottom: 20px;
-  position: relative;
+  position: relative;            /* Needed for ::after underline */
 }
 
 .section-title::after {
-  content: "";
+  content: "";                   /* Decorative underline */
   display: block;
   width: 50px;
   height: 4px;
-  background: #4a90e2;
+  background: #4a90e2;           /* Blue accent color */
   margin-top: 8px;
   border-radius: 2px;
 }
 
 .about-description {
   font-size: 16px;
-  line-height: 1.7;
-  color: #444;
+  line-height: 1.7;              /* Comfortable line spacing */
+  color: #444;                   /* Dark gray text */
   margin-bottom: 30px;
 }
 
@@ -63,13 +65,13 @@
 }
 
 .about-lists {
-  display: flex;
-  gap: 30px;
-  flex-wrap: wrap;
+  display: flex;                 /* Place lists side-by-side */
+  gap: 30px;                     /* Space between columns */
+  flex-wrap: wrap;               /* Allow wrapping on smaller screens */
 }
 
 .about-lists ul {
-  list-style: none;
+  list-style: none;              /* Remove default bullets */
   padding: 0;
 }
 
@@ -77,48 +79,52 @@
   font-size: 15px;
   color: #333;
   margin-bottom: 10px;
-  position: relative;
-  padding-left: 20px;
+  position: relative;            /* For custom checkmark positioning */
+  padding-left: 20px;            /* Space for checkmark */
 }
 
 .about-lists li::before {
-  content: "✔";
+  content: "✔";                  /* Add checkmark before list item */
   position: absolute;
   left: 0;
-  color: #4a90e2;
+  color: #4a90e2;                /* Blue checkmark */
 }
+
+/* ===========================
+   About Section - Dark Mode
+   =========================== */
 body.dark-mode .about-section {
-    background: #101214;
+  background: #101214;           /* Dark background */
 }
 
 body.dark-mode .about-container {
-    background: #101214;
+  background: #101214;           /* Match section background */
 }
 
 body.dark-mode .about-image {
-    box-shadow: 0 4px 12px rgba(0,0,0,0.32);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.32); /* Stronger shadow for dark bg */
 }
 
 body.dark-mode .section-title {
-    color: #e3e6ea;
+  color: #e3e6ea;                /* Light text */
 }
 
 body.dark-mode .section-title::after {
-    background: #6cb2fa;
+  background: #6cb2fa;           /* Lighter blue underline */
 }
 
 body.dark-mode .about-description {
-    color: #b0b8c1;
+  color: #b0b8c1;                /* Softer gray for paragraph */
 }
 
 body.dark-mode .about-subtitle {
-    color: #e3e6ea;
+  color: #e3e6ea;                /* Light subtitle text */
 }
 
 body.dark-mode .about-lists li {
-    color: #d1d5db;
+  color: #d1d5db;                /* Light gray list items */
 }
 
 body.dark-mode .about-lists li::before {
-    color: #6cb2fa;
+  color: #6cb2fa;                /* Lighter blue checkmarks */
 }

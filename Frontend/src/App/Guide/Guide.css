@@ -1,101 +1,128 @@
-/* Clean Microsoft-like layout, no cards */
+/* ============================
+   Guide Page Layout
+   ============================ */
+
+/* Overall page wrapper */
 .guide-page {
-    background: #efefef;
-    min-height: 100vh;
+    background: #efefef;          /* light gray background */
+    min-height: 100vh;            /* fill full viewport height */
     width: 100%;
-    margin-top: 2rem;
-    padding: 2rem 1rem;
+    margin-top: 2rem;             /* spacing from top */
+    padding: 2rem 1rem;           /* page padding */
     box-sizing: border-box;
 }
 
+/* Inner container centered with max width */
 .guide-inner {
-    max-width: 1120px;
-    margin: 0 auto 96px;
+    max-width: 1120px;            /* comfortable reading width */
+    margin: 0 auto 96px;          /* center horizontally + bottom spacing */
 }
 
-/* Title + subtitle reuse Profile styles already in your app */
+/* ============================
+   Title + Subtitle
+   (reuse styles from Profile page)
+   ============================ */
 .profile-title { margin-bottom: 6px; }
 .profile-subtitle { margin-bottom: 28px; }
 
-/* Steps */
+/* ============================
+   Steps Grid
+   ============================ */
+
+/* Container for all steps */
 .guide-list {
     display: grid;
-    gap: clamp(20px, 3vw, 36px);
+    gap: clamp(20px, 3vw, 36px);  /* responsive spacing between steps */
 }
 
+/* Step row with text + image side by side */
 .guide-section {
     display: grid;
-    grid-template-columns: 1.05fr 1fr;  /* text left, image right */
+    grid-template-columns: 1.05fr 1fr; /* text left, image right */
     align-items: center;
-    gap: clamp(16px, 3vw, 32px);
+    gap: clamp(16px, 3vw, 32px);       /* responsive gap between columns */
     padding: clamp(6px, 1vw, 8px) 0;
-    border-bottom: 1px solid #e5e7eb;   /* subtle divider like Microsoft */
+    border-bottom: 1px solid #e5e7eb;  /* subtle divider line */
 }
 
+/* Alternate layout: image left, text right */
 .guide-section.reverse {
-    grid-template-columns: 1fr 1.05fr;  /* image left, text right */
+    grid-template-columns: 1fr 1.05fr;
 }
-/* When a step has no image: single column, centered content */
+
+/* Special case: step without an image */
 .guide-section.no-media {
-    grid-template-columns: 1fr;
-    justify-items: center;   /* center the block horizontally */
-    text-align: center;      /* center the text */
+    grid-template-columns: 1fr;        /* single column */
+    justify-items: center;             /* center block horizontally */
+    text-align: center;                /* center the text */
     padding: clamp(16px, 2.5vw, 28px) 0;
 }
 
+/* Restrict text width for better readability */
 .guide-section.no-media .guide-copy {
-    max-width: 720px;        /* comfortable reading width */
+    max-width: 720px;
 }
 
-/* Optional: mobile keeps the same centering (no extra change needed) */
-
+/* Ensure correct order for reverse layout */
 .guide-section.reverse .guide-media { order: 1; }
 .guide-section.reverse .guide-copy  { order: 2; }
 
-
-
-/* Image slot (JPG) */
+/* ============================
+   Media (image slot)
+   ============================ */
 .guide-media {
-    border-radius: 14px;
-    overflow: hidden;
-    background: #f3f4f6;               /* placeholder bg if image missing */
-    aspect-ratio: 16 / 10;              /* nice, wide Microsoft feel */
+    border-radius: 14px;               /* rounded corners */
+    overflow: hidden;                  /* clip child image */
+    background: #f3f4f6;               /* placeholder bg */
+    aspect-ratio: 16 / 10;             /* wide, modern aspect ratio */
 }
 .guide-media img {
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    object-fit: cover;                 /* crop & fill area */
     display: block;
 }
 
-/* Copy */
+/* ============================
+   Text Copy
+   ============================ */
 .guide-copy { padding: 4px 0; }
+
 .guide-h4 {
     font-size: clamp(1.1rem, 2.2vw, 1.35rem);
     font-weight: 800;
     margin: 0 0 6px;
-    color: #111827;
-}
-.guide-text {
-    font-size: clamp(0.95rem, 1.5vw, 1.05rem);
-    color: #65676b;
-    margin: 0;
-    line-height: 1.6;
+    color: #111827;                    /* dark heading text */
 }
 
-/* Responsive */
+.guide-text {
+    font-size: clamp(0.95rem, 1.5vw, 1.05rem);
+    color: #65676b;                    /* muted gray */
+    margin: 0;
+    line-height: 1.6;                  /* improve readability */
+}
+
+/* ============================
+   Responsive (mobile < 900px)
+   ============================ */
 @media (max-width: 900px) {
     .guide-section,
     .guide-section.reverse {
-        grid-template-columns: 1fr;       /* stack on mobile */
+        grid-template-columns: 1fr;    /* stack text & image vertically */
     }
+
+    /* Reset order for stacked layout */
     .guide-section.reverse .guide-media,
-    .guide-section.reverse .guide-copy { order: initial; }
+    .guide-section.reverse .guide-copy {
+        order: initial;
+    }
 }
 
-/* Dark mode (matches your site's body.dark-mode) */
-body.dark-mode .guide-page { background: #0c0c0c; }
+/* ============================
+   Dark Mode Overrides
+   ============================ */
+body.dark-mode .guide-page { background: #0c0c0c; }     /* dark background */
 body.dark-mode .guide-section { border-bottom-color: #222; }
-body.dark-mode .guide-media { background: #121212; }
-body.dark-mode .guide-h4 { color: #e5e7eb; }
-body.dark-mode .guide-text { color: #b0b3b8; }
+body.dark-mode .guide-media { background: #121212; }    /* darker placeholder */
+body.dark-mode .guide-h4 { color: #e5e7eb; }            /* light heading */
+body.dark-mode .guide-text { color: #b0b3b8; }          /* muted light text */

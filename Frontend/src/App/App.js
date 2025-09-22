@@ -23,8 +23,16 @@ import FooterComponent from "./Footer/Footer";
 import Features from "./Features/Features";
 import About from "./About_Us/about";
 
-
+/* =======================================
+   App Component
+   - Root container for CareerBoost
+   - Sets up Router, NavBar, Footer
+   - Manages global state: user, currency
+   ======================================= */
 function App() {
+    /* ------------------------------
+      State: Current screen & auth
+      ------------------------------ */
     const [screen, setScreen] = useState(false);
 
 
@@ -33,6 +41,9 @@ function App() {
         return savedStatus ? JSON.parse(savedStatus) : false;
     });
 
+    /* ------------------------------
+           Static form options (dropdowns)
+           ------------------------------ */
     const MainBranchs = [
         "I am a developer by profession",
         "I am not primarily a developer, but I write code sometimes as part of my work/studies"
@@ -120,6 +131,7 @@ function App() {
         '55-64 years old', '65 years or older', 'Prefer not to say', 'Under 18 years old'
     ];
 
+    /* ...list shortened for brevity... */
     const countries = [
         "Afghanistan", "Albania", "Algeria", "Andorra", "Angola", "Antigua and Barbuda",
         "Argentina", "Armenia", "Australia", "Austria", "Azerbaijan", "Bahrain", "Bangladesh",
@@ -151,6 +163,7 @@ function App() {
         "Viet Nam", "Yemen", "Zambia", "Zimbabwe"
     ];
 
+     /* ...country → CSS class mapping... */
     const countryCrMap = {
         "Afghanistan": "countryAF", "Albania": "countryAL", "Algeria": "countryDZ", "Andorra": "countryAD", 
         "Angola": "countryAO", "Antigua and Barbuda": "countryAG", "Argentina": "countryAR", "Armenia": "countryAM", 
@@ -228,26 +241,31 @@ function App() {
         "Student, part-time"
     ];
 
+    /* db list */
     const databases = [
         'BigQuery', 'Cassandra', 'Clickhouse', 'Cloud Firestore', 'Cockroachdb', 'Cosmos DB', 'Couch DB', 'Couchbase', 'Databricks SQL', 'Datomic', 'DuckDB', 'Dynamodb', 'Elasticsearch', 'EventStoreDB', 'Firebase Realtime Database', 'Firebird', 'H2', 'IBM DB2', 'InfluxDB', 'MariaDB', 'Microsoft Access', 'Microsoft SQL Server', 'MongoDB', 'MySQL', 'Neo4J', 'Oracle', 'PostgreSQL', 'Presto', 'RavenDB', 'Redis', 'SQLite', 'Snowflake', 'Solr', 'Supabase', 'TiDB'
     ];
 
+    /* cloud platforms */
     const platforms = [
         'Alibaba Cloud', 'Amazon Web Services (AWS)', 'Cloudflare', 'Colocation', 'Databricks', 'Digital Ocean', 'Firebase', 'Fly.io', 'Google Cloud', 'Heroku', 'Hetzner', 'IBM Cloud Or Watson', 'Linode, now Akamai', 'Managed Hosting', 'Microsoft Azure', 'Netlify', 'OVH', 'OpenShift', 'OpenStack', 'Oracle Cloud Infrastructure (OCI)', 'PythonAnywhere', 'Render', 'Scaleway', 'Supabase', 'VMware', 'Vercel', 'Vultr'
     ];
-
+    /* frameworks */
     const webframesworks = [
         'ASP.NET', 'ASP.NET CORE', 'Angular', 'AngularJS', 'Astro', 'Blazor', 'CodeIgniter', 'Deno', 'Django', 'Drupal', 'Elm', 'Express', 'FastAPI', 'Fastify', 'Flask', 'Gatsby', 'Htmx', 'Laravel', 'NestJS', 'Next.js', 'Node.js', 'Nuxt.js', 'Phoenix', 'Play Framework', 'React', 'Remix', 'Ruby on Rails', 'Solid.js', 'Spring Boot', 'Strapi', 'Svelte', 'Symfony', 'Vue.js', 'WordPress', 'Yii 2', 'jQuery'
     ];
-
+    /* dev tools */
     const tools = [
         'APT', 'Ansible', 'Ant', 'Bun', 'Chef', 'Chocolatey', 'Composer', 'Dagger', 'Docker', 'Godot', 'Google Test', 'Gradle', 'Homebrew', 'Kubernetes', 'MSBuild', 'Make', 'Maven (build tool)', 'Ninja', 'Nix', 'NuGet', 'Pacman', 'Pip', 'Podman', 'Pulumi', 'Puppet', 'Terraform', 'Unity 3D', 'Unreal Engine', 'Visual Studio Solution', 'Vite', 'Webpack', 'Yarn', 'npm', 'pnpm'
     ];
-
+    /* operating systems */
     const OpSys = [
         'AIX', 'Android', 'Arch', 'BSD', 'ChromeOS', 'Cygwin', 'Debian', 'Fedora', 'Haiku', 'MacOS', 'Other (please specify):', 'Other Linux-based', 'Red Hat', 'Solaris', 'Ubuntu', 'Windows', 'Windows Subsystem for Linux (WSL)', 'iOS', 'iPadOS'
     ];
 
+    /* ------------------------------
+      Currency handling
+      ------------------------------ */
     const [exchangeRates, setExchangeRates] = useState({});
     const [selectedCurrency, setSelectedCurrency] = useState(() => {
         return localStorage.getItem("selectedCurrency") || "USD"; // Default to USD
@@ -255,6 +273,7 @@ function App() {
     const [exchangeRate, setExchangeRate] = useState(1);
     const [currencyFlags, setCurrencyFlags] = useState({});
 
+    /* Persist currency + sign-in status */
     useEffect(() => {
         localStorage.setItem("selectedCurrency", selectedCurrency);
     }, [selectedCurrency]);
@@ -263,7 +282,9 @@ function App() {
         localStorage.setItem('isSignedIn', JSON.stringify(isSignedIn));
     }, [isSignedIn]);
 
-    
+    /* ------------------------------
+       User fetch & auth handling
+       ------------------------------ */
     const getUserByUserName = async (username) => {
         try {
             const response = await fetch(`${config.apiBaseUrl}/api/users/username/${username}`, {
@@ -300,7 +321,9 @@ function App() {
     const toggleScreen = useCallback((screen) => {
         setScreen(screen);
     }, []);
-
+    /* ------------------------------
+           JSX render with Router
+           ------------------------------ */
     return (
         <Router>
             <div>

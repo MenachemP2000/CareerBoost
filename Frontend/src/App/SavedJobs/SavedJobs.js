@@ -7,29 +7,33 @@ import {Sankey, Tooltip, Layer, Text} from "recharts";
 import config from '../config';
 import "./SavedJobs.css";
 
+
+/* === Applied Button ===
+   Toggles a "job applied" state for a saved job
+   Updates backend via PATCH and refreshes signed-in state */
 const AppliedButton = ({job, isSignedIn, toggleSignendIn}) => {
     const [checked, setChecked] = useState(false);
     const [, setError] = useState(''); // not rendered here; keep setter only
 
-// Keep local UI in sync with prop
+// Keep local checkbox in sync with job prop
     useEffect(() => {
         setChecked(Boolean(job.applied));
     }, [job.applied]);
 
-    useEffect(() => {
-        window.scrollTo(0, 0);
-    }, []);
+    // Scroll top when component loads (not strictly needed here)
+    useEffect(() => {window.scrollTo(0, 0);}, []);
 
 
     const handleApplied = async () => {
-        setChecked(!checked);
+        setChecked(!checked); // optimistic toggle
+
+        // Update local savedJobs array with new applied value
         const savedJobs = isSignedIn.savedJobs.map((savedJob) =>
             savedJob.link === job.link ? {...savedJob, applied: !checked} : savedJob
         );
-        const payload = {_id: isSignedIn._id, savedJobs: savedJobs};
+        const payload = {_id: isSignedIn._id, savedJobs};
 
         try {
-            // Send the registration data to the server
             const response = await fetch(`${config.apiBaseUrl}/api/users/${isSignedIn._id}`, {
                 method: 'PATCH',
                 headers: {
@@ -40,19 +44,17 @@ const AppliedButton = ({job, isSignedIn, toggleSignendIn}) => {
             });
 
             const result = await response.json();
-
             if (!response.ok) {
-                // If the server responds with an error, set the error message
                 setError(result?.message || 'Something went wrong');
             } else {
-                toggleSignendIn(isSignedIn.username);
+                toggleSignendIn(isSignedIn.username); // refresh user state
             }
         } catch (error) {
             setError('An error occurred. Please try again.');
             console.error('Error:', error);
         }
-
     };
+
     return (
         <div className="chip">
             Applied
@@ -61,6 +63,7 @@ const AppliedButton = ({job, isSignedIn, toggleSignendIn}) => {
     );
 };
 
+/* === Interview Button === */
 const InterviewButton = ({job, isSignedIn, toggleSignendIn}) => {
     const [checked, setChecked] = useState(false);
     const [, setError] = useState('');
@@ -121,7 +124,7 @@ const OfferButton = ({job, isSignedIn, toggleSignendIn}) => {
         setChecked(Boolean(job.offer));
     }, [job.offer]);
 
-
+    /* === Offer Button === */
     const handleOffer = async () => {
         setChecked(!checked);
         const savedJobs = isSignedIn.savedJobs.map((savedJob) =>
@@ -169,6 +172,7 @@ const OfferButton = ({job, isSignedIn, toggleSignendIn}) => {
     );
 };
 
+/* === Rejected Button === */
 const RejectedButton = ({job, isSignedIn, toggleSignendIn}) => {
     const [checked, setChecked] = useState(false);
     const [, setError] = useState('');
@@ -226,6 +230,7 @@ const RejectedButton = ({job, isSignedIn, toggleSignendIn}) => {
     );
 };
 
+/* === Accepted Button === */
 const AcceptedButton = ({job, isSignedIn, toggleSignendIn}) => {
     const [checked, setChecked] = useState(false);
     const [, setError] = useState('');
@@ -278,15 +283,18 @@ const AcceptedButton = ({job, isSignedIn, toggleSignendIn}) => {
     );
 };
 
+/* === Main SavedJobs Component === */
 const SavedJobs = ({toggleScreen, isSignedIn, toggleSignendIn}) => {
     const navigate = useNavigate();
     const [, setError] = useState('');
-     // const [isOpen, setIsOpen] = useState(false);
+
+      // Dropdown states
       const [isOpen, setIsOpen] = useState(false);
       const dropdownRef = useRef(null);
       const filtersBtnRef = useRef(null);
 
-          const defaultFilters = {
+      // Filter toggles
+      const defaultFilters = {
         appliedEnabled: true,
         interviewEnabled: true,
         offerEnabled: true,
@@ -296,7 +304,7 @@ const SavedJobs = ({toggleScreen, isSignedIn, toggleSignendIn}) => {
       const [filters, setFilters] = useState(defaultFilters);
       // const resetFilters = () => setFilters(defaultFilters);
 
-          // close dropdown on outside click / Esc
+      /* Close filter dropdown on ESC key or outside click */
               useEffect(() => {
                    const onKey = (e) => e.key === 'Escape' && setIsOpen(false);
                     const onClick = (e) => {
@@ -328,6 +336,7 @@ const SavedJobs = ({toggleScreen, isSignedIn, toggleSignendIn}) => {
         console.log("Filters updated:", filters);
     }, [filters]);
 
+    // Run on mount: ensure screen is SavedJobs, redirect if not signed in
     useEffect(() => {
         toggleScreen("SavedJobs");
         if (!isSignedIn) {
@@ -335,11 +344,13 @@ const SavedJobs = ({toggleScreen, isSignedIn, toggleSignendIn}) => {
         }
     });
 
+    // Build Sankey data whenever savedJobs changes
     useEffect(() => {
-
         if (!isSignedIn.savedJobs) {
             return;
         }
+
+        // Group counts by stage
         const applied = isSignedIn.savedJobs.filter(job => job.applied);
         const appliedCount = applied.length;
         const appliedNoResponse = applied.filter(job => !job.interview && !job.rejected);
@@ -361,6 +372,7 @@ const SavedJobs = ({toggleScreen, isSignedIn, toggleSignendIn}) => {
         const accepted = offer.filter(job => job.accepted);
         const acceptedCount = accepted.length;
 
+        // Build links (flows) between stages
         let filteredLinks = [
             {source: 0, target: 1, value: appliedNoResponseCount},
             {source: 0, target: 2, value: appliedRejectedCount},
@@ -378,6 +390,7 @@ const SavedJobs = ({toggleScreen, isSignedIn, toggleSignendIn}) => {
         ].filter(link => link.value > 0);
 
 
+        // Mark nodes in use
         // Step 2: Identify nodes that are used in at least one link
         const usedNodeIndices = new Set();
         filteredLinks.forEach(link => {
@@ -427,6 +440,7 @@ const SavedJobs = ({toggleScreen, isSignedIn, toggleSignendIn}) => {
 
     }, [isSignedIn]);
 
+    // Remove a job
     const handleRemove = async (job) => {
         const newSavedJobs = isSignedIn.savedJobs.filter((savedJob) => savedJob.link !== job.link);
         const payload = {_id: isSignedIn._id, savedJobs: newSavedJobs};
@@ -456,6 +470,7 @@ const SavedJobs = ({toggleScreen, isSignedIn, toggleSignendIn}) => {
         }
     };
 
+    // Add a job (with defaults for missing fields)
     const handleAdd = async (job) => {
 
         const newJob = job;
@@ -503,12 +518,12 @@ const SavedJobs = ({toggleScreen, isSignedIn, toggleSignendIn}) => {
 
     return (
         <div className="saved-jobs-container">
-            {/* HERO / Title band */}
+            {/* Title */}
                 <h3 className="profile-title">Saved Jobs</h3>
                 <p className="profile-subtitle">Here’s your saved jobs.</p>
 
 
-            {/* Sankey Chart */}
+            {/* Sankey Chart: job funnel visualization */}
             {(isSignedIn.savedJobs &&
                 isSignedIn.savedJobs.filter(job => job.applied).length > 0 &&
                 data?.nodes?.length && data?.links?.length) && (
@@ -714,6 +729,7 @@ const SavedJobs = ({toggleScreen, isSignedIn, toggleSignendIn}) => {
                                             className="meta"><strong>Location:</strong> {job.location}</span>
                                     </div>
                                     <br/>
+                                    {/* Stage Buttons + Remove */}
                                     <div className="job-actions">
                                         <AppliedButton job={job} isSignedIn={isSignedIn}
                                                        toggleSignendIn={toggleSignendIn}/>

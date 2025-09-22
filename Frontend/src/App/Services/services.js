@@ -1,5 +1,12 @@
 import "./services.css";
 
+/* --------------------------------
+   Static data for services section
+   Each service has:
+   - icon (FontAwesome class)
+   - name (title text)
+   - text (description)
+--------------------------------- */
 const servicesList = [
   {
     icon: "fa fa-wordpress",
@@ -33,30 +40,41 @@ const servicesList = [
   }
 ];
 
+/* --------------------------------
+   Services Component
+   Renders:
+   - Section header (title + subtitle)
+   - Grid of service cards
+--------------------------------- */
 const Services = () => {
   return (
-    <div id="services" className="services-section">
-      <div className="container">
-        <div className="section-title">
-          <h2><span>Our Services</span></h2>
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit duis sed
-            dapibus leonec.
-          </p>
-        </div>
-        <div className="services-grid">
-          {servicesList.map((service, i) => (
-            <div className="service-card" key={i}>
-              <div className="service-icon">
-                <i className={service.icon}></i>
-              </div>
-              <h3>{service.name}</h3>
-              <p>{service.text}</p>
-            </div>
-          ))}
+      <div id="services" className="services-section">
+        <div className="container">
+          {/* Section Header */}
+          <div className="section-title">
+            <h2><span>Our Services</span></h2>
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit duis sed
+              dapibus leonec.
+            </p>
+          </div>
+
+          {/* Services Grid */}
+          <div className="services-grid">
+            {servicesList.map((service, i) => (
+                <div className="service-card" key={i}>
+                  {/* Icon (FontAwesome) */}
+                  <div className="service-icon">
+                    <i className={service.icon}></i>
+                  </div>
+                  {/* Service title + description */}
+                  <h3>{service.name}</h3>
+                  <p>{service.text}</p>
+                </div>
+            ))}
+          </div>
         </div>
       </div>
-    </div>
   );
 };
 

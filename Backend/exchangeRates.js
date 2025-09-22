@@ -1,10 +1,14 @@
 import axios from "axios";    // For making HTTP requests
 import fs from "fs";          // For reading/writing files
-import xml2js from "xml2js";  // For converting XML to JSON
+import xml2js from "xml2js";  // For converting XML (from FloatRates) to JSON
 import cron from "node-cron"; // For scheduling tasks
 
-
-// Function to fetch and save exchange rates
+// ==============================
+// Function: fetchExchangeRates
+// - Fetches latest USD-based exchange rates in XML
+// - Converts to JSON
+// - Saves to exchange_rates.json
+// ==============================
 async function fetchExchangeRates() {
     try {
         // URL for USD-based exchange rates from FloatRates
@@ -14,7 +18,7 @@ async function fetchExchangeRates() {
         // Make GET request to fetch XML data
         const response = await axios.get(url);
         const xml = response.data;
-        
+
         // Convert XML to JSON
         const parser = new xml2js.Parser({ explicitArray: false });
         const result = await parser.parseStringPromise(xml);
@@ -26,9 +30,10 @@ async function fetchExchangeRates() {
             rates[item.targetCurrency] = parseFloat(item.exchangeRate);
         });
 
-        rates["USD"] = 1; // Add USD to USD rate
+        // Add USD as reference (1:1)
+        rates["USD"] = 1;
 
-        // Save to JSON file
+        // Save to JSON file (pretty-printed with indentation)
         fs.writeFileSync("exchange_rates.json", JSON.stringify(rates, null, 2));
 
         //console.log("Exchange rates updated:", rates);
@@ -37,10 +42,15 @@ async function fetchExchangeRates() {
     }
 }
 
-// Schedule to run once a day at midnight
+// ==============================
+// Scheduling
+// ==============================
+
+// Run the task automatically every day at midnight (00:00 server time)
 cron.schedule("0 0 * * *", fetchExchangeRates);
 
-// Fetch immediately on startup
+// Fetch immediately on startup (so you don’t have to wait until midnight)
 fetchExchangeRates();
 
+// Export for potential reuse in other modules
 export default fetchExchangeRates;
