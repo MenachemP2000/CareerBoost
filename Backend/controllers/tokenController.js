@@ -1,10 +1,10 @@
 // Import JWT library for signing/verifying tokens
 const jwt = require("jsonwebtoken");
 
-// Secret key used to sign JWT tokens (⚠️ should be stored in environment variables, not hard-coded)
+// Secret key used to sign JWT tokens
 const key = "Some super secret key";
 
-// Import User model (assumes you have a Mongoose schema or similar)
+// Import User model
 const User = require("../models/User");
 
 // ------------------------------------------------------
@@ -58,7 +58,7 @@ exports.processLogin = async (req, res) => {
   }
 
   if (user) {
-    // Simple password check (⚠️ insecure: should hash + compare)
+    // Simple password check
     if (user.password !== req.body.password) {
       return res.status(404).send("Invalid password");
     } else {

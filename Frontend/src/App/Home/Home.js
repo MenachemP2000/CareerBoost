@@ -1,7 +1,7 @@
 // Home.js
 import React, { useEffect } from "react";
-import { Container, Row, Button } from 'react-bootstrap'; // Bootstrap layout/components
-import { Link, useNavigate } from "react-router-dom";    // Routing
+import { Row } from 'react-bootstrap'; // Bootstrap layout/components
+import { useNavigate } from "react-router-dom";    // Routing
 import './Home.css';                                     // Page-specific styles
 
 /**

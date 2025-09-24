@@ -9,7 +9,7 @@ const userSchema = new mongoose.Schema({
   },
   password: {
     type: String,
-    required: true    // Password is mandatory (⚠️ should be hashed before saving)
+    required: true    // Password is mandatory
   },
   country: {
     type: String,
@@ -73,7 +73,7 @@ const userSchema = new mongoose.Schema({
     type: Object      // All recommendations generated for user
   },
   experiment: {
-    type: Object      // Experiment data (tests, A/B, etc.)
+    type: Object      // Experiment data
   },
   savedRecommendations: {
     type: Object      // Saved recommendations chosen by user
@@ -91,7 +91,7 @@ const userSchema = new mongoose.Schema({
     type: Object      // Platforms/tools used
   },
   webframesworks: {
-    type: Object      // Web frameworks known (⚠️ typo: should be webFrameworks)
+    type: Object      // Web frameworks known
   },
   tools: {
     type: Object      // Developer tools used
@@ -106,7 +106,7 @@ const userSchema = new mongoose.Schema({
     type: Object      // Impact-related data (career goals, changes, etc.)
   },
   alerts: {
-    // Alerts/notifications for the user (⚠️ currently no type defined)
+    // Alerts/notifications for the user
   }
 });
 

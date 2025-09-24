@@ -1,7 +1,7 @@
 // Import axios HTTP client
 const axios = require("axios");
 
-// Multiple API keys (Google Custom Search limits usage per key, so you rotate keys if one hits the quota)
+// Multiple API keys (Google Custom Search limits usage per key, so rotate keys if one hits the quota)
 const API_KEYS = [
     "AIzaSyBmPK_o2bbxiCirLs_n_75VBym04pQZ9fE",
     "AIzaSyDzUBS2KK3Z-omo5WaUgcSFi_nFQlAga2A",

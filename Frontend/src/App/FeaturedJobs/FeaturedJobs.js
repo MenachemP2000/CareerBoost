@@ -1,7 +1,6 @@
 import {useState, useEffect} from "react";
 import config from '../config';
 import {useNavigate, Link} from 'react-router-dom';
-import {Card} from 'react-bootstrap'; // not used right now, can be removed
 import "./FeaturedJobs.css";
 
 export default function FeaturedJobs({toggleScreen, isSignedIn, toggleSignendIn, countryCrMap}) {

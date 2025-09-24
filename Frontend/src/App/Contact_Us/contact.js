@@ -5,7 +5,7 @@ import "./Contact.css";            // Styles for the contact section
 
 // Contact info displayed on the right side
 const contactInfo = {
-  email: "info@company.com",
+  email: "boostcareer446@gmail.com",
   // address and phone can be added here as needed
 };
 
@@ -103,8 +103,6 @@ const Contact = () => {
             {/* Contact info (static details) */}
             <div className="contact-info">
               <h3>Contact Info</h3>
-              <p><i className="fa fa-map-marker"></i> {contactInfo.address}</p>
-              <p><i className="fa fa-phone"></i> {contactInfo.phone}</p>
               <p><i className="fa fa-envelope"></i> {contactInfo.email}</p>
             </div>
           </div>

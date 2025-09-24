@@ -204,7 +204,10 @@ const AdvancedRecommendations = ({
 
                     {/* Toolbar dropdown for toggles */}
                     <div className="toolbar">
-                        <DropdownButton title="Options" align="end" className="toolbar-dropdown">
+                        <DropdownButton  title="Options"
+                                         align="end"
+                                         className="toolbar-dropdown"
+                                         autoClose="outside">
                             {[
                                 { id: "lang", state: showLanguages, set: setShowLanguages, label: "Show Languages" },
                                 { id: "db", state: showDatabases, set: setShowDatabases, label: "Show Databases" },

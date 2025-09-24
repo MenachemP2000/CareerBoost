@@ -1,7 +1,6 @@
 import "./App.css";
 import Home from "./Home/Home";
-import AboutUs from "./About/About";
-// import Contact from "./Contacts/Contact";
+import Contact from "./Contact_Us/contact";
 import NavbarComponent from "./NavBar/Navbar";
 import CreateAccount from './CreateAccount/CreateAccount';
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom"; // Import Routes
@@ -349,13 +348,14 @@ function App() {
                      />
                       <Features />
                       <About />
+                        <Contact/>
                      </>} />
 
                     <Route path="/Guide" element={<Guide
                         toggleScreen={toggleScreen}
                         isSignedIn={isSignedIn}
                         toggleSignendIn={toggleSignendIn} />} />
-                    <Route path="/aboutus" element={<AboutUs />} />
+                    {/*<Route path="/aboutus" element={<AboutUs />} />*/}
                     {/* <Route path="/contactus" element={<Contact />} /> */}
                     <Route path="/createaccount" element={<CreateAccount
                         toggleSignendIn={toggleSignendIn}
