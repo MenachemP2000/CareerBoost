@@ -1,38 +1,53 @@
 // Home.js
-import React from "react";
-import { Container, Row, Button } from 'react-bootstrap';
-import { Link, useNavigate } from "react-router-dom";
-import { useEffect } from "react";
-import './Home.css';
-import homeBg from '../images/home-pic-light.png';
+import React, { useEffect } from "react";
+import { Row } from 'react-bootstrap'; // Bootstrap layout/components
+import { useNavigate } from "react-router-dom";    // Routing
+import './Home.css';                                     // Page-specific styles
 
-
-import Slider from "./Slider";
-
+/**
+ * Home Component
+ * Landing page with hero section, intro text, and sign-in / sign-out options.
+ * Props:
+ *  - toggleScreen: function to set the active screen name
+ *  - isSignedIn: holds user object if signed in, otherwise false
+ *  - toggleSignendIn: function to change sign-in state
+ */
 const Home = ({ toggleScreen, isSignedIn, toggleSignendIn }) => {
 
+    // Scroll to top on mount
     useEffect(() => {
         window.scrollTo(0, 0);
     }, []);
-    
+
+    // Update screen name in parent whenever this component renders
     useEffect(() => {
         toggleScreen("home");
     });
+
+    // Navigation helper
     const navigate = useNavigate();
+
+    // Sign out handler: set isSignedIn back to false
     const handleSignout = () => {
         toggleSignendIn(false);
     }
-    return (
 
-        <section className="picture-container">
-            <div className="home-container">
+    return (
+        <section className="picture-container"> {/* Background image area */}
+            <div className="home-container">    {/* Flex container */}
+
+                {/* Card-like hero box (uses .home-card styling) */}
                 <card className="home-card">
+
+                    {/* Title block with logo + underline */}
                     <div className="home-title-container">
                         <h3 className="home-title">
                             <img src="careerboost.ico" alt="CareerBoost" style={{ width: "6rem" }} /> CareerBoost
                         </h3>
                         <div className="home-underline"></div>
                     </div>
+
+                    {/* Hero tagline */}
                     <p className="home-lead1">
                         Plan Your Career, Improve Your Future!
                     </p>
@@ -44,23 +59,29 @@ const Home = ({ toggleScreen, isSignedIn, toggleSignendIn }) => {
                         platform.
                     </p>
 
+                    {/* IF not signed in → show Create Account + Sign In buttons */}
                     {!isSignedIn &&
-                        <Row className="button-row"> {/* button-row */}
+                        <Row className="button-row">
                             <div className="button-container">
-                                <button type="button"
+                                <button
+                                    type="button"
                                     className="profile-button is-outline"
-                                    onClick={() => navigate("/Createaccount")}>
+                                    onClick={() => navigate("/Createaccount")}
+                                >
                                     Create Account
                                 </button>
-                                <button type="button"
+                                <button
+                                    type="button"
                                     className="profile-button"
-                                    onClick={() => navigate("/Signin")}>
+                                    onClick={() => navigate("/Signin")}
+                                >
                                     Sign In
                                 </button>
                             </div>
                         </Row>
                     }
 
+                    {/* IF signed in → show greeting + Guide + Sign Out */}
                     {isSignedIn &&
                         <Row className="button-row">
                             <p className="hello">

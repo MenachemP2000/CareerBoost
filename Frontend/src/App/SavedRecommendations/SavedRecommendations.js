@@ -3,6 +3,11 @@ import {useNavigate} from "react-router-dom";
 import config from "../config";
 import "./SavedRecommendations.css";
 
+/* =======================================
+   SavedRecommendations Component
+   - Lets users view, add, and remove saved recommendations
+   - Each recommendation shows a salary increase label
+   ======================================= */
 const SavedRecommendations = ({
                                   toggleScreen,
                                   isSignedIn,
@@ -12,35 +17,33 @@ const SavedRecommendations = ({
                               }) => {
     const navigate = useNavigate();
 
-    // Map: recommendation text -> increase (in model's base currency)
+    // Map: recommendation text -> increase value (in base currency)
     const [recommendationsIncrese, setRecommendationsIncrese] = useState({});
     const [error, setError] = useState("");
 
-    // Controlled selects
+    // Controlled selects for Add & Remove forms
     const [formData, setFormData] = useState({
         addRecommendation: "",
         removeRecommendation: "",
     });
 
-    // Currency formatter
+    // Currency formatter for increases (uses selectedCurrency)
     const fmt = new Intl.NumberFormat("en", {
         style: "currency",
         currency: selectedCurrency,
         maximumFractionDigits: 0,
     });
 
-    // Page setup / guard
+    /* === Initial setup & guards === */
     useEffect(() => {
-        toggleScreen("SavedRecommendations");
-        if (!isSignedIn) navigate("/");
+        toggleScreen("SavedRecommendations"); // mark active screen
+        if (!isSignedIn) navigate("/");       // redirect if signed out
     }, [isSignedIn, navigate, toggleScreen]);
 
-    useEffect(() => {
-        window.scrollTo(0, 0);
-    }, []);
+    // Scroll to top on mount
+    useEffect(() => { window.scrollTo(0, 0); }, []);
 
-
-    // Build quick lookup map for increases
+    /* === Build quick lookup map for increases === */
     useEffect(() => {
         if (!isSignedIn?.recommendations || !isSignedIn?.recommendationsIncrese) {
             setRecommendationsIncrese({});
@@ -55,26 +58,30 @@ const SavedRecommendations = ({
 
     const handleSignout = () => toggleSignendIn(false);
 
+    // Controlled select change handler
     const handleChange = (e) => {
         const {name, value} = e.target;
         setFormData((s) => ({...s, [name]: value}));
     };
 
-    // Display label helper; prevents NaN
+    // Display label helper (format increase)
     const incLabel = (rec) => {
         const inc = recommendationsIncrese[rec];
         if (typeof inc !== "number" || Number.isNaN(inc)) return "—";
         return fmt.format(Math.floor(inc * exchangeRate));
     };
 
-    // Derived collections for rendering
+    /* === Derived collections for rendering === */
     const savedList = isSignedIn?.savedRecommendations || [];
     const allRecs = isSignedIn?.recommendations || [];
+
+    // Only allow adding positive-valued recommendations not yet saved
     const addOptions = allRecs.filter(
         (r) => !(isSignedIn.savedRecommendations || []).includes(r) &&
             Number(recommendationsIncrese?.[r]) > 0
     );
 
+    /* === Handlers: Add & Remove === */
     const handleAdd = async (e) => {
         e.preventDefault();
         const chosen = formData.addRecommendation;
@@ -100,6 +107,7 @@ const SavedRecommendations = ({
                 setError(result.message);
                 return;
             }
+            // Reset select + refresh state
             setFormData((s) => ({...s, addRecommendation: ""}));
             toggleSignendIn(isSignedIn.username);
         } catch (err) {
@@ -133,6 +141,7 @@ const SavedRecommendations = ({
                 setError(result.message);
                 return;
             }
+            // Reset select + refresh state
             setFormData((s) => ({...s, removeRecommendation: ""}));
             toggleSignendIn(isSignedIn.username);
         } catch (err) {
@@ -140,23 +149,29 @@ const SavedRecommendations = ({
             console.error(err);
         }
     };
+
+    // Convenience helper: only returns valid positive increases
     const incFor = (rec) => {
         const v = Number(recommendationsIncrese?.[rec]);
         return Number.isFinite(v) && v > 0 ? v : null;
     };
 
+    /* === Render === */
     return (
         <div className="saved-page">
+            {/* Page Header */}
             <header className="page-header">
                 <h1 className="profile-title">Saved Recommendations</h1>
                 <p className="profile-subtitle">Here’s your saved recommendations.</p>
             </header>
 
+            {/* Main Section */}
             <section className="section">
                 <div className="section-header">
                     <h2 className="section-title">Saved Recommendations</h2>
                 </div>
 
+                {/* Empty state vs list */}
                 {savedList.length === 0 ? (
                     <p className="muted center">No saved recommendations yet — add some below.</p>
                 ) : (
@@ -165,7 +180,7 @@ const SavedRecommendations = ({
                             <div>Recommendation</div>
                             <div>Increase</div>
                         </div>
-                        {(isSignedIn.savedRecommendations || []).map((rec, i) => {
+                        {savedList.map((rec, i) => {
                             const inc = incFor(rec);
                             return (
                                 <div className="list-row" key={`${rec}-${i}`}>
@@ -173,10 +188,10 @@ const SavedRecommendations = ({
                                     <div className="col-inc">
                                         {inc ? (
                                             <span className="pill pill-positive">
-              {fmt.format(Math.floor(inc * exchangeRate))}
-            </span>
+                                                {fmt.format(Math.floor(inc * exchangeRate))}
+                                            </span>
                                         ) : (
-                                            <span className="pill pill-neutral">—</span> // or hide entirely
+                                            <span className="pill pill-neutral">—</span>
                                         )}
                                     </div>
                                 </div>
@@ -185,8 +200,9 @@ const SavedRecommendations = ({
                     </div>
                 )}
 
-                {/* Add & Remove */}
+                {/* Add & Remove forms */}
                 <div className="forms">
+                    {/* Add form */}
                     <form className="form-row" onSubmit={handleAdd}>
                         <select
                             className="select"
@@ -204,6 +220,7 @@ const SavedRecommendations = ({
                         <button type="submit" className="profile-button">Add</button>
                     </form>
 
+                    {/* Remove form (only if there are saved recs) */}
                     {savedList.length > 0 && (
                         <form className="form-row" onSubmit={handleRemove}>
                             <select
@@ -225,7 +242,7 @@ const SavedRecommendations = ({
                 </div>
             </section>
 
-
+            {/* Bottom Navigation */}
             <div className="profile-buttons">
                 <button className="profile-button is-outline" onClick={() => navigate("/Recommendations")}>
                     Basic
@@ -238,6 +255,7 @@ const SavedRecommendations = ({
                 </button>
             </div>
 
+            {/* Error message */}
             {error && <p className="error-msg">{error}</p>}
         </div>
     );

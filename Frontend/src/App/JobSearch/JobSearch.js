@@ -1,39 +1,42 @@
 import { useState, useEffect } from "react";
 import config from '../config';
 import { useNavigate, Link } from 'react-router-dom';
-import { Container, Row, Col, Card, Button } from 'react-bootstrap';
 import "./JobSearch.css";
 
 export default function JobSearch({ toggleScreen, isSignedIn, toggleSignendIn, countryCrMap }) {
     const navigate = useNavigate();
-    const [jobs, setJobs] = useState([]); // Ensure this is an array
 
+    // ------------------- State -------------------
+    const [jobs, setJobs] = useState([]);      // list of fetched jobs
     const [loading, setLoading] = useState(false);
-    const [page, setPage] = useState(1);
+    const [page, setPage] = useState(1);       // pagination state
     const [totalPages, setTotalPages] = useState(1);
-    const [searchQuery, setSearchQuery] = useState("");
-    const [recency, setRecency] = useState("d1");
+
+    const [searchQuery, setSearchQuery] = useState("");   // built Google query
+    const [recency, setRecency] = useState("d1");         // "d1"=1 day, "d7"=7 days, "d30"=30 days
+
     const [filters, setFilters] = useState({
         countryEnabled: true,
         devTypeEnabled: true,
-        keywords: "",  // New field for excluded keywords,
-        includeKeywords: ""  // New field for included keywords
+        keywords: "",        // excluded keywords
+        includeKeywords: ""  // explicitly required keywords
     });
-    const [isOpen, setIsOpen] = useState(false);
-    const [includeCountry, setIncludeCountry] = useState(false);
+
+    const [isOpen, setIsOpen] = useState(false);        // filter dropdown toggle
+    const [includeCountry, setIncludeCountry] = useState(false); // whether to include country param
     const [error, setError] = useState('');
+
+    // Alerts state
     const [email, setEmail] = useState("");
     const [frequency, setFrequency] = useState("daily");
     const [alertsIsOpen, setAlertIsOpen] = useState(false);
 
-
+    // ------------------- Effects -------------------
     useEffect(() => {
         toggleScreen("JobSearch");
         if (!isSignedIn) {
             navigate("/");
         }
-
-
         const searchQuery = buildSearchQuery(isSignedIn);
         setSearchQuery(searchQuery);
         console.log("filters", filters);
@@ -43,6 +46,7 @@ export default function JobSearch({ toggleScreen, isSignedIn, toggleSignendIn, c
         window.scrollTo(0, 0);
     }, []);
 
+    // Fetch jobs when user logs in / username changes
     useEffect(() => {
         if (!loading) {
             searchJobs(1);
@@ -50,39 +54,35 @@ export default function JobSearch({ toggleScreen, isSignedIn, toggleSignendIn, c
     }, [isSignedIn.username]);
 
 
-
+    // ------------------- Helpers -------------------
     const decodeHtml = (html) => {
         const doc = new DOMParser().parseFromString(html, 'text/html');
         return doc.documentElement.textContent || doc.body.textContent;
     };
 
+    /**
+     * Build the search query string using user profile + enabled filters.
+     */
     const buildSearchQuery = (user) => {
+        // destructure fields from profile
         const { country, experience, education, languages, Industry, RemoteWork, databases,
             platforms, webframesworks, tools, DevType } = user;
 
         let query = `site:linkedin.com/jobs/view `;
 
-        // Include country if selected
+        // Country flag
         if (country && filters.countryEnabled) setIncludeCountry(true);
         else setIncludeCountry(false);
 
-        // Include languages if selected
-        if (languages && languages.length > 0 && filters.languagesEnabled) query += `AND (${languages.join(" OR ")}) `;
+        // Languages, databases, frameworks, tools…
+        if (languages?.length > 0 && filters.languagesEnabled) query += `AND (${languages.join(" OR ")}) `;
+        if (databases?.length > 0 && filters.databasesEnabled) query += `AND (${databases.join(" OR ")}) `;
+        if (platforms?.length > 0 && filters.platformsEnabled) query += `AND (${platforms.join(" OR ")}) `;
+        if (webframesworks?.length > 0 && filters.webFrameworksEnabled) query += `AND (${webframesworks.join(" OR ")}) `;
+        if (tools?.length > 0 && filters.toolsEnabled) query += `AND (${tools.join(" OR ")}) `;
 
-        // Include databases if selected
-        if (databases && databases.length > 0 && filters.databasesEnabled) query += `AND (${databases.join(" OR ")}) `;
-
-        // Include platforms if selected
-        if (platforms && platforms.length > 0 && filters.platformsEnabled) query += `AND (${platforms.join(" OR ")}) `;
-
-        // Include web frameworks if selected
-        if (webframesworks && webframesworks.length > 0 && filters.webFrameworksEnabled) query += `AND (${webframesworks.join(" OR ")}) `;
-
-        // Include tools if selected
-        if (tools && tools.length > 0 && filters.toolsEnabled) query += `AND (${tools.join(" OR ")}) `;
-
-        // Include experience if selected
-        //if (experience && filters.experienceEnabled) query += `experience:${experience} years `;
+        // Education → long explicit OR queries for each level (Bachelor, Master, etc.)
+        // (kept as-is — heavy logic already built in your code)
 
         // Include education if selected
         // Include education if selected with flexible matching
@@ -101,8 +101,11 @@ export default function JobSearch({ toggleScreen, isSignedIn, toggleSignendIn, c
             }
         }
 
-        // Include DevType if selected
+         // DevType → map to search synonyms
         if (DevType && filters.devTypeEnabled) {
+
+            // Many if-blocks mapping profile role to query (kept intact)
+
             if (DevType == "Developer, full-stack") {
                 query += `AND (full-stack) `;
             }
@@ -207,11 +210,10 @@ export default function JobSearch({ toggleScreen, isSignedIn, toggleSignendIn, c
 
         // Include industry if selected
         if (Industry && filters.industryEnabled) query += `AND ${Industry} `;
-
         // Include remote work preference if selected
         if (RemoteWork && filters.remoteWorkEnabled) query += `AND ${RemoteWork} `;
 
-
+        // Include keywords (comma separated)
         if (filters.includeKeywords) {
             const words = filters.includeKeywords.split(",").map(word => word.trim()).filter(word => word);
             console.log("Included keywords:", words);
@@ -220,7 +222,7 @@ export default function JobSearch({ toggleScreen, isSignedIn, toggleSignendIn, c
             }
         }
 
-        // Exclude keywords if provided.
+        // Exclude keywords (comma separated, prefixed with -)
         // Splits the input by commas and prepends a minus sign to each term.
         if (filters.keywords) {
             const words = filters.keywords.split(",").map(word => word.trim()).filter(word => word);
@@ -229,22 +231,29 @@ export default function JobSearch({ toggleScreen, isSignedIn, toggleSignendIn, c
                 query += words.map(word => ` -${word}`).join(" ") + " ";
             }
         }
-        const noapplications = '"No longer accepting applications"';//try to Exclude jobs that are no longer accepting applications
+
+        // Always exclude expired jobs
+        const noapplications = '"No longer accepting applications"';
         query += `AND -${noapplications} `;
         console.log(query);
 
         return query;
     };
 
+    /**
+     * Fetch jobs from backend search API.
+     */
     const searchJobs = async (pageNumber) => {
         let initialSearch = true;
 
         if (pageNumber === 1 || !searchQuery) {
-            setJobs([]); // Clear jobs on new search
+            setJobs([]); // reset list on new search
         }
         setLoading(true);
+
         try {
             let url = ``;
+
             if (searchQuery) {
                 initialSearch = false;
                 url = `${config.apiBaseUrl}/api/jobs/search-jobs?query=${encodeURIComponent(searchQuery)}&page=${pageNumber}&recency=${recency}`;
@@ -254,8 +263,11 @@ export default function JobSearch({ toggleScreen, isSignedIn, toggleSignendIn, c
                 }
             }
             else {
+                // fallback → simple query based only on DevType
                 const { DevType } = isSignedIn;
                 let query = `site:linkedin.com/jobs/view `;
+
+
                 if (DevType) {
                     if (DevType == "Developer, full-stack") {
                         query += `AND (full-stack) `;
@@ -360,22 +372,21 @@ export default function JobSearch({ toggleScreen, isSignedIn, toggleSignendIn, c
                 }
                 const noapplications = '"No longer accepting applications"';//try to Exclude jobs that are no longer accepting applications
                 query += `AND -${noapplications} `;
-
+                // if-block mapping DevType to terms (same as above)
                 url = `${config.apiBaseUrl}/api/jobs/search-jobs?query=${encodeURIComponent(query)}&page=${pageNumber}&recency=${recency}`;
                 url += `&country=${countryCrMap[isSignedIn.country]}`;
             }
 
             const response = await fetch(url);
-
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
-
             const data = await response.json();
 
+            // Parse jobs depending on country
             const dataJobs = data.jobs;
-
             if ((includeCountry || initialSearch) && (isSignedIn.country === "Israel")) {
+                // parse Hebrew LinkedIn titles differently
                 dataJobs.forEach(job => {
                     job.parsedTitle = decodeHtml(job.pagemap.metatags[0]["og:title"]).replace("| LinkedIn", "").replace("LinkedIn", "");
                     job.country = "Israel";
@@ -385,6 +396,7 @@ export default function JobSearch({ toggleScreen, isSignedIn, toggleSignendIn, c
                 });
             }
             else if ((includeCountry || initialSearch) && (isSignedIn.country === "United States of America")) {
+                // parse US job titles differently
                 dataJobs.forEach(job => {
                     job.parsedTitle = decodeHtml(job.pagemap.metatags[0]["og:title"]).replace("| LinkedIn", "").replace("LinkedIn", "");
                     job.country = "USA";
@@ -395,6 +407,7 @@ export default function JobSearch({ toggleScreen, isSignedIn, toggleSignendIn, c
             }
             else {
                 dataJobs.forEach(job => {
+                    // fallback parsing
                     job.parsedTitle = decodeHtml(job.pagemap.metatags[0]["og:title"]).replace("| LinkedIn", "").replace("LinkedIn", "");
                     job.country = isSignedIn.country;
                     job.company = "not available";
@@ -403,6 +416,7 @@ export default function JobSearch({ toggleScreen, isSignedIn, toggleSignendIn, c
                 });
             }
 
+            // merge new jobs avoiding duplicates
             setJobs(prevJobs => {
                 const newJobs = dataJobs.filter(job =>
                     !prevJobs.some(existingJob => existingJob.link === job.link)
@@ -418,7 +432,9 @@ export default function JobSearch({ toggleScreen, isSignedIn, toggleSignendIn, c
         setLoading(false);
     };
 
-
+    /**
+     * Save a job to user's profile (PATCH user doc).
+     */
     const saveJob = async (job) => {
         const payload = { _id: isSignedIn._id, username: isSignedIn.username };
         const savedJobs = isSignedIn.savedJobs || [];
@@ -486,6 +502,9 @@ export default function JobSearch({ toggleScreen, isSignedIn, toggleSignendIn, c
         setRecency(e.target.value);
     };
 
+    /**
+     * Handle alerts → submit alert form and update user profile
+     */
     const handleSubmit = async (e) => {
         e.preventDefault();
         let initialSearch = true;
@@ -693,40 +712,26 @@ export default function JobSearch({ toggleScreen, isSignedIn, toggleSignendIn, c
         }
     }
 
+    // ------------------- Render -------------------
     return (
         <div className="job-search-container">
             <h1 className="profile-title">Search jobs</h1>
             <p className="profile-subtitle">Find roles and add them to your saved list.</p>
 
-            {/* Top buttons */}
+            {/* Action buttons: search / filters / alerts */}
             <div className="profile-buttons">
-                <button
-                    onClick={() => searchJobs(1)} // Reset to page 1 on search
-                    className="profile-button is-outline"
-                    disabled={loading}
-                >
+                <button onClick={() => searchJobs(1)} className="profile-button is-outline" disabled={loading}>
                     {loading ? "Searching..." : "Search"}
                 </button>
-
-                {/* Button to toggle dropdown */}
-                <button
-                    className="profile-button is-outline"
-                    onClick={() => setIsOpen(!isOpen)}
-                >
-                    Filters
-                </button>
-                <button
-                    className="profile-button is-outline"
-                    onClick={() => setAlertIsOpen(!alertsIsOpen)}
-                >
-                    Alerts
+                <button className="profile-button is-outline" onClick={() => setIsOpen(!isOpen)}>Filters</button>
+                <button className="profile-button is-outline" onClick={() => setAlertIsOpen(!alertsIsOpen)}>Alerts
                 </button>
             </div>
 
-            {/* Filters (Saved-Jobs style) */}
+            {/* Filters dropdown → checkboxes + keyword inputs */}
             {isOpen && (
                 <>
-                    <div className="fd-backdrop" onClick={() => setIsOpen(false)} />
+                    <div className="fd-backdrop" onClick={() => setIsOpen(false)}/>
                     <div className="filter-dropdown" role="dialog" aria-label="Filter search jobs">
                         <div className="fd-header">
                             <span>Filters</span>
@@ -736,17 +741,17 @@ export default function JobSearch({ toggleScreen, isSignedIn, toggleSignendIn, c
                         {/* toggles */}
                         <div className="fd-body">
                             {[
-                                { name: 'countryEnabled', label: 'Country' },
-                                { name: 'languagesEnabled', label: 'Languages' },
-                                { name: 'databasesEnabled', label: 'Databases' },
-                                { name: 'platformsEnabled', label: 'Platforms' },
-                                { name: 'webFrameworksEnabled', label: 'Frameworks' },
-                                { name: 'toolsEnabled', label: 'Tools' },
-                                { name: 'educationEnabled', label: 'Education' },
-                                { name: 'devTypeEnabled', label: 'DevType' },
-                                { name: 'industryEnabled', label: 'Industry' },
-                                { name: 'remoteWorkEnabled', label: 'Remote' },
-                            ].map(({ name, label }) => (
+                                {name: 'countryEnabled', label: 'Country'},
+                                {name: 'languagesEnabled', label: 'Languages'},
+                                {name: 'databasesEnabled', label: 'Databases'},
+                                {name: 'platformsEnabled', label: 'Platforms'},
+                                {name: 'webFrameworksEnabled', label: 'Frameworks'},
+                                {name: 'toolsEnabled', label: 'Tools'},
+                                {name: 'educationEnabled', label: 'Education'},
+                                {name: 'devTypeEnabled', label: 'DevType'},
+                                {name: 'industryEnabled', label: 'Industry'},
+                                {name: 'remoteWorkEnabled', label: 'Remote'},
+                            ].map(({name, label}) => (
                                 <label key={name} className="fd-check">
                                     <input
                                         type="checkbox"
@@ -800,7 +805,10 @@ export default function JobSearch({ toggleScreen, isSignedIn, toggleSignendIn, c
                             {/*</button>*/}
                             <button
                                 className="profile-button"
-                                onClick={() => { setIsOpen(false); searchJobs(1); }}
+                                onClick={() => {
+                                    setIsOpen(false);
+                                    searchJobs(1);
+                                }}
                             >
                                 Apply
                             </button>
@@ -812,11 +820,12 @@ export default function JobSearch({ toggleScreen, isSignedIn, toggleSignendIn, c
             {/* Alerts (Saved-Jobs style) */}
             {alertsIsOpen && (
                 <>
-                    <div className="fd-backdrop" onClick={() => setAlertIsOpen(false)} />
+                    <div className="fd-backdrop" onClick={() => setAlertIsOpen(false)}/>
                     <div className="alert-dropdown" role="dialog" aria-label="Job alerts">
                         <div className="fd-header">
                             <span>Alerts</span>
-                            <button className="icon-btn" aria-label="Close" onClick={() => setAlertIsOpen(false)}>✕</button>
+                            <button className="icon-btn" aria-label="Close" onClick={() => setAlertIsOpen(false)}>✕
+                            </button>
                         </div>
 
                         <form onSubmit={handleSubmit} className="alert-form">
@@ -845,7 +854,8 @@ export default function JobSearch({ toggleScreen, isSignedIn, toggleSignendIn, c
                                             <p><strong>Frequency:</strong> {alert.frequency}</p>
                                             <p><strong>Country:</strong> {alert.country}</p>
                                         </div>
-                                        <button className="alert-delete-btn" onClick={() => deleteAlert(alert)}>Delete</button>
+                                        <button className="alert-delete-btn" onClick={() => deleteAlert(alert)}>Delete
+                                        </button>
                                     </li>
                                 ))}
                             </ul>
@@ -854,7 +864,7 @@ export default function JobSearch({ toggleScreen, isSignedIn, toggleSignendIn, c
                 </>
             )}
 
-            {/* Results list (no cards) */}
+            {/* Job results list */}
             <div className="js-list-shell">
                 {loading && <p className="job-list-loading">Loading...</p>}
 
@@ -869,6 +879,7 @@ export default function JobSearch({ toggleScreen, isSignedIn, toggleSignendIn, c
                                         {job.parsedTitle}
                                     </a>
 
+                                    {/* Meta info */}
                                     <div className="js-meta">
                                         {postedMatch && <span className="js-posted">Posted: {postedMatch[0]}</span>}
                                         {(job.country === "Israel" || job.country === "USA") && (
@@ -880,11 +891,14 @@ export default function JobSearch({ toggleScreen, isSignedIn, toggleSignendIn, c
                                         )}
                                     </div>
 
+                                    {/* Save action */}
                                     <div className="js-actions">
                                         {isSaved ? (
-                                            <button className="profile-button subtle is-disabled" disabled>Saved</button>
+                                            <button className="profile-button subtle is-disabled"
+                                                    disabled>Saved</button>
                                         ) : (
-                                            <button className="profile-button is-outline" onClick={() => saveJob(job)}>Save</button>
+                                            <button className="profile-button is-outline"
+                                                    onClick={() => saveJob(job)}>Save</button>
                                         )}
                                     </div>
                                 </li>
@@ -897,7 +911,7 @@ export default function JobSearch({ toggleScreen, isSignedIn, toggleSignendIn, c
                 )}
             </div>
 
-            {/* Pagination */}
+            {/* Pagination → "More" button */}
             <div className="pagination-controls">
 
                 {/* Next Page Button */}
@@ -910,17 +924,13 @@ export default function JobSearch({ toggleScreen, isSignedIn, toggleSignendIn, c
                     More
                 </button>
             </div>
-<br/>
-            {/* Navigation */}
-            <div className="profile-buttons">
-                <Link to={"/FeaturedJobs"}>
-                    <button className="profile-button is-outline">Featured</button>
-                </Link>
-                <Link to={"/SavedJobs"}>
-                    <button className="profile-button is-outline">Saved</button>
-                </Link>
-            </div>
 
+            {/* Navigation to other job pages */}
+            <br/>
+            <div className="profile-buttons">
+                <Link to={"/FeaturedJobs"}><button className="profile-button is-outline">Featured</button></Link>
+                <Link to={"/SavedJobs"}><button className="profile-button is-outline">Saved</button></Link>
+            </div>
         </div>
     );
 }

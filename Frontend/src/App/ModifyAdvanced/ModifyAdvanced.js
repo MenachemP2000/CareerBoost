@@ -5,32 +5,34 @@ import { useNavigate } from 'react-router-dom';
 import config from '../config';
 import "./ModifyAdvanced.css";
 import "../Profile/Profile.css";
+
+/**
+ * ModifyAdvanced Component
+ * ------------------------
+ * Provides a full-page UI for editing the "Advanced Profile".
+ * Profile details are grouped into 5 sections:
+ *   1) Basics (country, education, experience, age)
+ *   2) Role & Organization
+ *   3) Experience & Satisfaction
+ *   4) Tech Stack A (languages, databases, platforms, web frameworks)
+ *   5) Tech Stack B (tools, OS, employment)
+ *
+ * Each section supports: Edit → Cancel / Save.
+ * State snapshots allow reverting changes on cancel.
+ */
 const ModifyAdvanced = ({
-    toggleSignendIn,
-    toggleScreen,
-    isSignedIn,
-    languages,
-    employments,
-    MainBranchs,
-    RemoteWork,
-    DevType,
-    OrgSize,
-    ICorPM,
-    Industry,
-    countries,
-    educations,
-    ages,
-    databases,
-    platforms,
-    webframesworks,
-    tools,
-    OpSys
+                            toggleSignendIn,
+                            toggleScreen,
+                            isSignedIn,
+                            languages, employments, MainBranchs, RemoteWork,
+                            DevType, OrgSize, ICorPM, Industry, countries,
+                            educations, ages, databases, platforms,
+                            webframesworks, tools, OpSys
 }) => {
     const navigate = useNavigate();
     const [error, setError] = useState('');
-    // const [isEditing, setIsEditing] = useState(false);
 
-    // which rows are open for editing
+    // Track which fields are currently being edited
     const [fieldEditing, setFieldEditing] = useState({
         country: false, education: false, experience: false, age: false,
         MainBranch: false, RemoteWork: false, DevType: false, OrgSize: false,
@@ -39,25 +41,25 @@ const ModifyAdvanced = ({
         OpSys: false, employments: false,
     });
 
-    // helper to open/close one field and show Save/Cancel
+    // --- Helpers to toggle individual fields ---
     const toggleField = (key) => {
         setFieldEditing(s => ({ ...s, [key]: !s[key] }));
-        // setIsEditing(true); // reuse your bottom buttons
     };
 
 
 
-    // const isAnyEditing = Object.values(fieldEditing).some(Boolean);
-    // -------- section management (for the 5 rectangles' Edit/Save/Cancel)
-
+    // --- Section grouping (used for Cancel / Save) ---
     const GROUPS = {
-        basics: ["country", "education", "experience", "age"],                 // 1
-        roleOrg: ["MainBranch", "RemoteWork", "DevType", "OrgSize"],            // 2
-        expSat: ["ICorPM", "Industry", "YearsCode", "YearsCodePro", "JobSat"], // 3
-        stackA: ["languages", "databases", "platforms", "webframesworks"],     // 4
-        stackB: ["tools", "OpSys", "employments"],                             // 5
+        basics: ["country", "education", "experience", "age"],
+        roleOrg: ["MainBranch", "RemoteWork", "DevType", "OrgSize"],
+        expSat: ["ICorPM", "Industry", "YearsCode", "YearsCodePro", "JobSat"],
+        stackA: ["languages", "databases", "platforms", "webframesworks"],
+        stackB: ["tools", "OpSys", "employments"],
     };
+
+    // Snapshots let you restore original values on Cancel
     const sectionSnapshots = useRef({});
+
     // helper: is this section currently editing?
     const isSectionEditing = (key) => GROUPS[key].some((f) => fieldEditing[f]);
     const setFieldsEditing = (keys, on) =>
@@ -80,9 +82,7 @@ const ModifyAdvanced = ({
         sectionSnapshots.current[key] = undefined;
     };
 
-
-
-
+    // --- Lifecycle: auth + scroll ---
     useEffect(() => {
         toggleScreen("modifyAccount");
         if (!isSignedIn) {
@@ -90,12 +90,9 @@ const ModifyAdvanced = ({
         }
     }, [isSignedIn, navigate, toggleScreen]);
 
-    useEffect(() => {
-        window.scrollTo(0, 0);
-    }, []);
+    useEffect(() => { window.scrollTo(0, 0);}, []);
 
-
-
+    // --- Local form state, seeded from isSignedIn ---
     const [formData, setFormData] = useState({
         languages: isSignedIn.languages || [],
         employments: isSignedIn.employments || [],
@@ -119,6 +116,7 @@ const ModifyAdvanced = ({
         JobSat: isSignedIn.JobSat || ''
     });
 
+    // --- Options for react-select + <Form.Control> dropdowns ---
     const languageOptions = languages.map(lang => ({ value: lang, label: lang }));
     const employmentOptions = employments.map(employ => ({ value: employ, label: employ }));
     const databaseOptions = databases.map(db => ({ value: db, label: db }));
@@ -127,6 +125,7 @@ const ModifyAdvanced = ({
     const toolOptions = tools.map(tool => ({ value: tool, label: tool }));
     const OpSysOptions = OpSys.map(opsys => ({ value: opsys, label: opsys }));
 
+    // --- Input change handler (for text/select inputs) ---
     const handleChange = (e) => {
         const { name, value } = e.target;
         setFormData({
@@ -135,7 +134,7 @@ const ModifyAdvanced = ({
         });
     };
 
-    // shared submit function used by Save All or Save Section
+    // --- Save to server ---
     const submitPatch = async () => {
         const payload = { _id: isSignedIn._id, ...formData };
         try {
@@ -155,6 +154,7 @@ const ModifyAdvanced = ({
                 setError(result.message);
                 return false;
             }
+            // refresh user state
             toggleSignendIn(isSignedIn.username);
             return true;
         } catch (err) {
@@ -164,7 +164,7 @@ const ModifyAdvanced = ({
         }
     };
 
-
+    // --- JSX Layout ---
     return (
         <div className="advanced-container">
             <h3 className="advanced-title">Advanced Profile</h3>
@@ -172,10 +172,10 @@ const ModifyAdvanced = ({
                 Explore more profile details here. Don’t forget to Save when you're finished!
             </p>
 
-            {/* SETTINGS LAYOUT (no card) */}
+            {/* Layout: 5 sections with Edit/Cancel/Save */}
             <div className="advanced-layout">
 
-                {/* ===== 1) Country – Age ===== */}
+                {/* ===== Section 1: Basics ===== */}
                 <section className="settings-section">
                     <div className="section-header">
                         <h3 className="section-title">Profile Basics</h3>

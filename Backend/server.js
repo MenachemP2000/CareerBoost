@@ -1,66 +1,82 @@
 const express = require('express');
 const mongoose = require('mongoose');
-const cors = require('cors'); // Import CORS middleware
+const cors = require('cors'); // Middleware for cross-origin requests
 const fileUpload = require('express-fileupload');
 const path = require('path');
+
 const app = express();
 const port = process.env.PORT || 4001;
 const mongodbUri = process.env.MONGODB_URI || "mongodb://localhost:27017/careerboost";
-require("./exchangeRates");
-require("./generateFlagsJson");
-require("./sendJobAlerts");
 
-// Middleware to increase payload size limit
-app.use(express.json({ limit: '1000mb' })); // You can adjust the limit as needed
-app.use(express.urlencoded({ limit: '1000mb', extended: true })); // Also increase for URL-encoded payloads
+// Background scripts (scheduled jobs, etc.)
+require("./exchangeRates");       // Updates exchange rates JSON
+require("./generateFlagsJson");   // Generates currency flags JSON
+require("./sendJobAlerts");       // Sends daily/weekly job alert emails
 
+// ============================
+// Middleware setup
+// ============================
+
+// Increase payload size (useful for file uploads, large JSON)
+app.use(express.json({ limit: '1000mb' }));
+app.use(express.urlencoded({ limit: '1000mb', extended: true }));
+
+// Exit if no MongoDB URI is configured
 if (!mongodbUri) {
   console.error('MONGODB_URI is not defined');
   process.exit(1);
 }
 
-// Use express.json middleware
+// Parse incoming JSON
 app.use(express.json());
 
-// Allow all origins in CORS
+// Allow cross-origin requests (all origins)
 app.use(cors());
 
-// Use express-fileupload middleware
+// File upload support
 app.use(fileUpload());
 
-// Serve static files
+// Serve static files for images
 app.use('/images', express.static(path.join(__dirname, 'public/images')));
 
-// Connect to MongoDB
+// ============================
+// MongoDB connection
+// ============================
 mongoose.connect(mongodbUri, { useNewUrlParser: true, useUnifiedTopology: true })
-  .then(() => console.log('MongoDB connected'))
-  .catch(err => console.log(err));
+    .then(() => console.log('MongoDB connected'))
+    .catch(err => console.log(err));
 
-// Import routes
-const userRoutes = require('./routes/userRoutes');
-const tokenRoutes = require('./routes/tokenRoutes');
-const modelRoutes = require('./routes/modelRoutes');
-const exchangeRoutes = require('./routes/exchangeRoutes');
-const jobRoutes = require('./routes/jobRoutes');
+// ============================
+// Routes
+// ============================
+const userRoutes = require('./routes/userRoutes');       // User CRUD & profile
+const tokenRoutes = require('./routes/tokenRoutes');     // Login / JWT
+const modelRoutes = require('./routes/modelRoutes');     // Salary prediction & recommendations
+const exchangeRoutes = require('./routes/exchangeRoutes'); // Exchange rates & flags
+const jobRoutes = require('./routes/jobRoutes');         // Job search
 
-// Use routes
+// Prefix API routes
 app.use('/api/users', userRoutes);
 app.use('/api/tokens', tokenRoutes);
 app.use('/api/model', modelRoutes);
 app.use('/api/exchange', exchangeRoutes);
 app.use('/api/jobs', jobRoutes);
 
+// ============================
+// React frontend serving
+// ============================
 
-// Serve static files from the React app
+// Serve React build folder
 app.use(express.static(path.join(__dirname, '../Frontend/build')));
 
-// The "catchall" handler: for any request that doesn't
-// match one above, send back React's index.html file.
+// For any other route, return index.html (SPA catch-all)
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, '../Frontend/build', 'index.html'));
 });
 
-// Start the server
+// ============================
+// Start server
+// ============================
 app.listen(port, () => {
   console.log(`Server is running on localhost:${port}`);
 });

@@ -1,64 +1,64 @@
 const User = require("../models/User");
 const jwt = require("jsonwebtoken");
+
+// ⚠️ Store this in .env → process.env.JWT_SECRET
 const key = "Some super secret key";
 
+// ------------------------------------------------------
+// Create a new user
+// ------------------------------------------------------
 exports.createUser = async (req, res) => {
   const { username, password, country, experience, age, education } = req.body;
   try {
-    // Basic validation
+    // 1) Validation
     if (!username || !password || !country || !experience || !age || !education) {
       console.log("Validation failed: Missing fields");
       return res.status(400).json({ message: "All fields are required" });
     }
 
     if (password.length < 8) {
-      console.log("Validation failed: Password too short");
-      return res
-        .status(400)
-        .json({ message: "Password must be at least 8 characters" });
+      return res.status(400).json({ message: "Password must be at least 8 characters" });
     }
 
     const hasLetter = /[a-zA-Z]/.test(password);
     const hasNumber = /[0-9]/.test(password);
-
     if (!hasLetter || !hasNumber) {
-      console.log(
-        "Validation failed: Password does not contain both letters and numbers"
-      );
-      return res
-        .status(400)
-        .json({ message: "Password must contain both letters and numbers" });
+      return res.status(400).json({ message: "Password must contain both letters and numbers" });
     }
 
-    // Check if the username is already taken
-    const existingUser = await User.findOne({ username: username });
+    // 2) Check if username already exists
+    const existingUser = await User.findOne({ username });
     if (existingUser) {
-      console.log("Validation failed: Username already taken");
       return res.status(409).json({ message: "Username already taken" });
     }
 
+    // 3) (Temporary) set predictedSalary = 0
     const predictedSalary = 0;
 
-    // Create and save the new user
+    // 4) Create new user
     const newUser = new User({
       username,
-      password,
+      password,  // ⚠️ should hash before saving
       country,
       experience,
       age,
       education,
-      predictedSalary
+      predictedSalary,
     });
 
     await newUser.save();
-    console.log("new user has been created" + newUser.username);
+    console.log("New user created:", newUser.username);
+
+    // Return user (including password right now, ⚠️ should exclude password in production)
     res.status(201).send(newUser);
   } catch (error) {
     res.status(400).send({ message: "An error occurred", error });
   }
 };
 
-// Get all users
+// ------------------------------------------------------
+// Get all users (excluding passwords)
+// ------------------------------------------------------
 exports.getAllUsers = async (req, res) => {
   try {
     const users = await User.find().select("-password");
@@ -68,96 +68,87 @@ exports.getAllUsers = async (req, res) => {
   }
 };
 
-// Get user by id
+// ------------------------------------------------------
+// Get user by ID
+// ------------------------------------------------------
 exports.getUser = async (req, res) => {
   try {
     const user = await User.findById(req.params.id).select("-password");
-    if (!user) {
-      return res.status(404).send();
-    }
+    if (!user) return res.status(404).send();
     res.send(user);
   } catch (error) {
     res.status(500).send(error);
   }
 };
-// Get user by name
+
+// ------------------------------------------------------
+// Get user by username
+// ------------------------------------------------------
 exports.getUserByUserName = async (req, res) => {
   try {
-    const user = await User.findOne({ username: req.params.username }).select(
-      "-password"
-    );
-    if (!user) {
-      return res.status(404).send({ message: "User not found" });
-    }
+    const user = await User.findOne({ username: req.params.username }).select("-password");
+    if (!user) return res.status(404).send({ message: "User not found" });
     res.send(user);
   } catch (error) {
     res.status(500).send({ error: "Internal Server Error" });
   }
 };
 
-// Update a user (PUT)
+// ------------------------------------------------------
+// Update user (full update, PUT)
+// Requires valid token matching user
+// ------------------------------------------------------
 exports.updateUser = async (req, res) => {
-  const { username, password, country, experience, age, education  } = req.body;
+  const { username, password, country, experience, age, education } = req.body;
   try {
+    // Check user exists
     const test = await User.findById(req.params.id);
-    if (!test) {
-      console.log("id is wrong");
-      return res.status(404).send();
-    }
+    if (!test) return res.status(404).send();
+
+    // Verify token
     const token = req.headers.authorization.split(" ")[1];
     const data = jwt.verify(token, key);
     if (data.username !== test.username) {
-      console.log("user is wrong");
       return res.status(403).send("Forbidden");
     }
-    if (
-      req.body._id !== test._id ||
-      req.body._id !== new String(test._id).valueOf()
-    ) {
-      console.log(req.body._id);
-      console.log(new String(test._id).valueOf());
+
+    // Prevent changing _id
+    if (req.body._id !== test._id.toString()) {
       return res.status(400).send({ message: "Cannot change _id" });
     }
+
+    // Validate fields
     if (!username || !password || !country || !experience || !age || !education) {
-      console.log("empty fields");
       return res.status(400).json({ message: "All fields are required" });
     }
     if (password.length < 8) {
-      console.log("password length is wrong");
-      return res
-        .status(400)
-        .json({ message: "Password must be at least 8 characters" });
+      return res.status(400).json({ message: "Password must be at least 8 characters" });
     }
-
     const hasLetter = /[a-zA-Z]/.test(password);
     const hasNumber = /[0-9]/.test(password);
-
     if (!hasLetter || !hasNumber) {
-      console.log("empty");
-      return res
-        .status(400)
-        .json({ message: "Password must contain both letters and numbers" });
+      return res.status(400).json({ message: "Password must contain both letters and numbers" });
     }
 
+    // Update
     const user = await User.findByIdAndUpdate(req.params.id, req.body, {
       new: true,
       runValidators: true,
     });
-    console.log("no problem...");
+
     res.send(user);
   } catch (error) {
-    console.log(error);
     res.status(400).send(error);
   }
 };
 
-// Update a user
+// ------------------------------------------------------
+// Partial update (PATCH)
+// ------------------------------------------------------
 exports.partialUpdateUser = async (req, res) => {
   try {
     const test = await User.findById(req.params.id);
-    if (!test) {
-      return res.status(404).send();
-    }
+    if (!test) return res.status(404).send();
 
     const token = req.headers.authorization.split(" ")[1];
     const data = jwt.verify(token, key);
@@ -165,51 +156,48 @@ exports.partialUpdateUser = async (req, res) => {
       return res.status(403).send("Forbidden");
     }
 
+    // If password is included in update → validate it
     if (req.body.password) {
       const { password } = req.body;
       if (password.length < 8) {
-        return res
-          .status(400)
-          .json({ message: "Password must be at least 8 characters" });
+        return res.status(400).json({ message: "Password must be at least 8 characters" });
       }
       const hasLetter = /[a-zA-Z]/.test(password);
       const hasNumber = /[0-9]/.test(password);
       if (!hasLetter || !hasNumber) {
-        return res
-          .status(400)
-          .json({ message: "Password must contain both letters and numbers" });
+        return res.status(400).json({ message: "Password must contain both letters and numbers" });
       }
     }
-    console.log(req.body);
 
+    // Apply partial update
     const user = await User.findByIdAndUpdate(req.params.id, req.body, {
       new: true,
       runValidators: true,
     });
+
     res.send(user);
   } catch (error) {
     res.status(400).send(error);
   }
 };
 
-// Delete a user
+// ------------------------------------------------------
+// Delete user
+// ------------------------------------------------------
 exports.deleteUser = async (req, res) => {
   try {
     const test = await User.findById(req.params.id);
-    if (!test) {
-      return res.status(404).send();
-    }
+    if (!test) return res.status(404).send();
+
     const token = req.headers.authorization.split(" ")[1];
     const data = jwt.verify(token, key);
     if (data.username !== test.username) {
       return res.status(403).send("Forbidden");
     }
 
-    // Delete the user
     await User.findByIdAndDelete(req.params.id);
     res.status(204).send("User deleted");
   } catch (error) {
-    console.log(error);
     res.status(500).send(error);
   }
 };

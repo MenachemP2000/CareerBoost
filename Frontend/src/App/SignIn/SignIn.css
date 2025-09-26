@@ -1,5 +1,8 @@
-/* SignIn.css */
+/* ==============================
+   Sign In Page (light mode)
+   ============================== */
 
+/* Full-page container */
 .signin-container {
     display: flex;
     justify-content: center;
@@ -7,7 +10,8 @@
     height: 100vh;
     background-color: white;
 }
-/* Wrapper to align content */
+
+/* Wrapper to align logo (left) and form (right) */
 .careerboost-content {
     display: flex;
     width: 70%;
@@ -15,12 +19,16 @@
     align-items: center;
     justify-content: space-between;
 }
+
+/* ------------------------------
+   Left Side: Logo + tagline
+   ------------------------------ */
 .careerboost-logo {
     flex: 1;
     padding-right: 50px;
 }
 .careerboost-logo h1 {
-    color: #1877f2;
+    color: #1877f2; /* Facebook-style blue */
     font-size: 50px;
     font-weight: bold;
     font-family: Arial, sans-serif;
@@ -31,7 +39,10 @@
     font-family: Arial, sans-serif;
     width: 80%;
 }
-/* Right Side: Sign-in Box */
+
+/* ------------------------------
+   Right Side: Sign-in Box
+   ------------------------------ */
 .signin-box {
     flex: 1;
     display: flex;
@@ -46,6 +57,8 @@
     border-radius: 8px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
+
+/* Input fields */
 .signin-input {
     width: 100%;
     height: 50px;
@@ -55,8 +68,9 @@
     border-radius: 6px;
 }
 
-
-
+/* ------------------------------
+   Buttons
+   ------------------------------ */
 .signin-button {
     width: 100%;
     background-color: #1877f2;
@@ -66,24 +80,24 @@
     border: none;
     border-radius: 6px;
     margin-top: 10px;
-    height: fit-content; /* Set specific height */
+    height: fit-content;
 }
-
 .signin-button:hover {
     background-color: #166fe5;
 }
 
+/* "Forgot password" link */
 .forgot-password {
     color: #1877f2;
     margin-top: 10px;
     cursor: pointer;
     font-size: 14px;
 }
-
 .forgot-password:hover {
     text-decoration: underline;
 }
 
+/* Create account button */
 .create-account {
     width: 100%;
     background-color: #42b72a;
@@ -94,69 +108,72 @@
     border-radius: 6px;
     margin-top: 10px;
 }
-
 .create-account:hover {
     background-color: #36a420;
 }
 
+/* Error message */
 .error-message {
     color: red;
     margin-top: 10px;
 }
 
-/* Dark mode styles */
+/* ==============================
+   Dark Mode
+   ============================== */
 body.dark-mode .signin-container {
     background-color: rgb(12, 12, 12);
 }
+
+/* Logo */
 body.dark-mode .careerboost-logo h1 {
     color: #e4e6eb;
 }
-
 body.dark-mode .careerboost-logo p {
     color: #b0b3b8;
 }
 
+/* Card */
 body.dark-mode .signin-card {
     background-color: #242526;
     color: white;
     box-shadow: 0 2px 10px rgba(255, 255, 255, 0.1);
 }
+
+/* Inputs */
 body.dark-mode .signin-input {
     background-color: #3a3b3c;
     color: white;
     border: 1px solid #4e4f50;
 }
-
 body.dark-mode .signin-input::placeholder {
     color: #b0b3b8;
 }
 
+/* Buttons */
 body.dark-mode .signin-button {
     background-color: #3a5a99;
 }
-
 body.dark-mode .signin-button:hover {
     background-color: #2e4a86;
 }
-
 body.dark-mode .forgot-password {
     color: #3a5a99;
 }
-
 body.dark-mode .create-account {
     background-color: #36a420;
 }
-
 body.dark-mode .create-account:hover {
     background-color: #2e8b1f;
 }
-
 body.dark-mode .error-message {
     color: #ff726f;
 }
 
-
-/* RESPONSIVE DESIGN - Moves Sign-in Box Under Content */
+/* ==============================
+   Responsive Design
+   Stacks form under logo
+   ============================== */
 @media (max-width: 900px) {
     .signin-container {
         flex-direction: column;
@@ -173,7 +190,6 @@ body.dark-mode .error-message {
         width: 100%;
         max-width: 400px;
     }
-
     .signin-card {
         width: 90%;
     }

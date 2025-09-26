@@ -1,8 +1,10 @@
-/* Page shell – match Saved Jobs vibe */
+/* ============================
+   Page shell – matches SavedJobs vibe
+   ============================ */
 .job-search-container {
-    background: #efefef;
+    background: #efefef;           /* light grey background */
     margin-top: 2rem;
-    min-height: 100vh;
+    min-height: 100vh;             /* full viewport height */
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -11,21 +13,26 @@
     box-sizing: border-box;
 }
 
+/* ============================
+   Page titles
+   ============================ */
 .page-title {
     font-size: clamp(28px, 4vw, 36px);
     font-weight: 800;
-    color: #1f2937;
+    color: #1f2937;                /* dark grey text */
     margin: 0 0 6px;
 }
 
 .page-subtitle {
     margin: 0 0 18px;
-    color: #6b7280;
+    color: #6b7280;                /* muted grey */
     font-style: italic;
     font-size: clamp(14px, 2vw, 16px);
 }
 
-/* Top buttons */
+/* ============================
+   Top buttons row (Search / Filters / Alerts)
+   ============================ */
 .top-btns {
     display: flex;
     gap: 10px;
@@ -35,10 +42,12 @@
 }
 
 .top-btn {
-    /* optional spacing helper */
+    /* placeholder class if you need extra spacing */
 }
 
-/* Results list – no cards */
+/* ============================
+   Results list (unstyled list, no cards)
+   ============================ */
 .js-list-shell {
     width: 100%;
 }
@@ -47,14 +56,15 @@
     list-style: none;
     padding: 0;
     margin: 8px auto 0;
-    max-width: 1000px;
+    max-width: 1000px;             /* constrain to readable width */
     display: grid;
     gap: 10px;
 }
 
+/* Each job row */
 .js-row {
     display: grid;
-    grid-template-columns: 1fr auto;
+    grid-template-columns: 1fr auto; /* left: job info, right: actions */
     gap: 10px 16px;
     padding: 12px 10px;
     border-bottom: 1px solid #e5e7eb;
@@ -62,13 +72,15 @@
 }
 
 .js-row:last-child {
-    border-bottom: none;
+    border-bottom: none;           /* remove divider from last row */
 }
 
-/* Title + meta */
+/* ============================
+   Job title & meta info
+   ============================ */
 .js-title {
     grid-column: 1 / 2;
-    color: #2563eb;
+    color: #2563eb;                /* blue link */
     text-decoration: none;
     font-weight: 700;
     font-size: clamp(1rem, 2vw, 1.15rem);
@@ -87,12 +99,11 @@
 }
 
 .js-posted {
-    color: #6b7280;
+    color: #6b7280;                /* lighter grey */
 }
 
 .js-info {
     display: block;
-
 }
 
 .js-info span {
@@ -101,7 +112,9 @@
     margin-bottom: 0.5rem;
 }
 
-/* Actions */
+/* ============================
+   Actions (Save / Saved button)
+   ============================ */
 .js-actions {
     grid-column: 2 / 3;
     display: flex;
@@ -114,7 +127,9 @@
     cursor: not-allowed;
 }
 
-/* Pagination + bottom nav */
+/* ============================
+   Pagination + bottom nav
+   ============================ */
 .pagination-controls {
     margin-top: 22px;
 }
@@ -125,7 +140,11 @@
     margin-top: 18px;
 }
 
-/* Filters dropdown (floating, like Saved Jobs style) */
+/* ============================
+   Filters & Alerts dropdowns
+   ============================ */
+
+/* Semi-transparent backdrop */
 .fd-backdrop {
     position: fixed;
     inset: 0;
@@ -134,12 +153,13 @@
     z-index: 25;
 }
 
+/* Dropdown containers */
 .filter-dropdown,
 .alert-dropdown {
     position: fixed;
     top: 88px;
     right: 24px;
-    width: min(560px, 92vw);
+    width: min(560px, 92vw);        /* responsive max width */
     background: #fff;
     border: 1px solid #e5e7eb;
     border-radius: 14px;
@@ -147,6 +167,7 @@
     z-index: 26;
 }
 
+/* Dropdown header */
 .fd-header {
     display: flex;
     align-items: center;
@@ -156,6 +177,7 @@
     border-bottom: 1px solid #eef0f2;
 }
 
+/* Close button (X) */
 .icon-btn {
     appearance: none;
     border: 1px solid transparent;
@@ -164,7 +186,7 @@
     cursor: pointer;
 }
 
-/* Filter body */
+/* Filter body → checkboxes grid */
 .fd-body {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
@@ -184,17 +206,14 @@
 }
 
 .fd-check input[type="checkbox"] {
-    appearance: auto;
-    /* ensure native checkbox */
+    appearance: auto;              /* force native checkbox */
     width: 16px !important;
     height: 16px !important;
     margin: 0;
-    /* no extra gap on the left */
-    flex: 0 0 auto !important;
-    /* don't stretch */
+    flex: 0 0 auto !important;     /* fixed size, no stretching */
 }
 
-/* Form fields */
+/* Text/Select fields inside dropdown */
 .fd-section {
     padding: 8px 14px;
     display: grid;
@@ -218,7 +237,7 @@
     font-size: .95rem;
 }
 
-/* Footer actions */
+/* Dropdown footer actions */
 .fd-actions {
     display: flex;
     justify-content: flex-end;
@@ -227,7 +246,9 @@
     border-top: 1px solid #eef0f2;
 }
 
-/* Alerts content */
+/* ============================
+   Alerts content
+   ============================ */
 .alert-form {
     padding: 12px 14px;
     display: flex;
@@ -251,7 +272,7 @@
 
 .alert-row {
     display: grid;
-    grid-template-columns: 1fr auto;
+    grid-template-columns: 1fr auto; /* details + delete btn */
     gap: 8px 14px;
     padding: 10px 0;
     border-bottom: 1px solid #eef0f2;
@@ -268,7 +289,7 @@
 
 .alert-delete-btn {
     align-self: start;
-    background: #e11d48;
+    background: #e11d48;           /* red */
     color: #fff;
     border: none;
     border-radius: 10px;
@@ -277,62 +298,47 @@
 }
 
 .alert-delete-btn:hover {
-    background: #be123c;
+    background: #be123c;           /* darker red */
 }
 
-/* Loading/empty text */
+/* ============================
+   Loading/empty messages
+   ============================ */
 .job-list-loading,
 .job-list-empty {
     text-align: center;
     color: #6b7280;
 }
 
-/* Responsive */
+/* ============================
+   Responsive (mobile <640px)
+   ============================ */
 @media (max-width: 640px) {
     .js-row {
-        grid-template-columns: 1fr;
+        grid-template-columns: 1fr;   /* stack info + actions */
     }
-
     .js-actions {
-        grid-column: 1 / -1;
+        grid-column: 1 / -1;          /* move actions below info */
     }
-
     .filter-dropdown,
     .alert-dropdown {
         right: 12px;
         left: 12px;
-        width: auto;
+        width: auto;                  /* full width modal */
     }
 }
 
-/* Dark mode */
-body.dark-mode .job-search-container {
-    background: #181a1b;
-}
+/* ============================
+   Dark mode overrides
+   ============================ */
+body.dark-mode .job-search-container { background: #181a1b; }
+body.dark-mode .page-title { color: #e0e6ed; }
+body.dark-mode .page-subtitle { color: #9aa4af; }
 
-body.dark-mode .page-title {
-    color: #e0e6ed;
-}
-
-body.dark-mode .page-subtitle {
-    color: #9aa4af;
-}
-
-body.dark-mode .js-row {
-    border-bottom: 1px solid #2b2f33;
-}
-
-body.dark-mode .js-title {
-    color: #60a5fa;
-}
-
-body.dark-mode .js-meta {
-    color: #e5e7eb;
-}
-
-body.dark-mode .js-posted {
-    color: #9aa4af;
-}
+body.dark-mode .js-row { border-bottom: 1px solid #2b2f33; }
+body.dark-mode .js-title { color: #60a5fa; }
+body.dark-mode .js-meta { color: #e5e7eb; }
+body.dark-mode .js-posted { color: #9aa4af; }
 
 body.dark-mode .filter-dropdown,
 body.dark-mode .alert-dropdown {

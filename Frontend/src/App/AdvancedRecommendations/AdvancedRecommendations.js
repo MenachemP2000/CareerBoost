@@ -1,31 +1,26 @@
-import React from "react";
-// import {Container, Row, Col, Card, Button} from 'react-bootstrap';
-// import {Link} from "react-router-dom";
-import {useEffect, useState} from "react";
-import {useNavigate} from 'react-router-dom';
-import {Dropdown, DropdownButton, Form} from "react-bootstrap";
+import React, { useEffect, useState } from "react";
+import { useNavigate } from 'react-router-dom';
+import { Dropdown, DropdownButton, Form } from "react-bootstrap";
 import config from '../config';
-import "./AdvancedRecommendations.css"
+import "./AdvancedRecommendations.css";
 
 const AdvancedRecommendations = ({
-                                     // App-level props
+                                     // Props passed from App-level
                                      toggleScreen, isSignedIn, toggleSignendIn,
-                                     // Vocab lists used for filtering by feature family
+                                     // Lists of vocab/features used to filter recommendations
                                      languages, databases, platforms, webframesworks, tools, OpSys, employments,
-                                     // Currency display
+                                     // Currency display props
                                      exchangeRate, selectedCurrency
                                  }) => {
     const navigate = useNavigate();
+
     // ----- Local state -----
     const [error, setError] = useState('');
-    // Whether to reverse the natural order (low → high)
-    const [backwardsort, setBackwardsort] = useState(false);
-    // The currently shown recommendation strings
-    const [recommendations, setRecommendations] = useState([]);
-    // Map: recommendation string → numeric increase (in base currency)
-    const [recommendationsIncrese, setRecommendationsIncrese] = useState({});
+    const [backwardsort, setBackwardsort] = useState(false);   // toggle reverse sorting
+    const [recommendations, setRecommendations] = useState([]); // list of visible recs
+    const [recommendationsIncrese, setRecommendationsIncrese] = useState({}); // rec → increase value map
 
-    // Toggle visibility of feature families
+    // Toggles for each feature family (whether to show/hide that group)
     const [showPath, setShowPath] = useState(true);
     const [showLanguages, setShowLanguages] = useState(true);
     const [showDatabases, setShowDatabases] = useState(true);
@@ -35,17 +30,17 @@ const AdvancedRecommendations = ({
     const [showOpSys, setShowOpSys] = useState(true);
     const [showEmployments, setShowEmployments] = useState(true);
 
-    // Toggle visibility of feature families
+    // All non-tech path-related features
     const paths = [
         "MainBranch", "Age", "RemoteWork", "EdLevel", "YearsCode", "YearsCodePro", "DevType",
         "OrgSize", "Country", "ICorPM", "WorkExp", "Industry", "JobSat"
     ];
 
-    // Guard route + set current page label for navbar highlighting
+    // Filter and sort recommendations whenever toggles or signed-in data changes
     useEffect(() => {
-
         let filteredRecommendations = [];
-        // Build a convenience structure describing which families are on/off
+
+        // Dict: family name → [toggle state, values]
         let dict = {
             languages: [showLanguages, languages],
             databases: [showDatabases, databases],
@@ -57,49 +52,41 @@ const AdvancedRecommendations = ({
             paths: [showPath, paths]
         };
 
-        // Create a map: recommendation string → increase value
-        const inc = {};
-        isSignedIn.recommendations.forEach((value, i) => {
-            inc[value] = isSignedIn.recommendationsIncrese[i];
-        });
-        setRecommendationsIncrese(inc);
-
-        let increaseDictionary = {}
-        setRecommendationsIncrese(increaseDictionary);
-
-        isSignedIn.recommendations.forEach((value, i) => {
+        // Build increase mapping (string → number)
+        const increaseDictionary = {};
+        isSignedIn.recommendations?.forEach((value, i) => {
             increaseDictionary[value] = isSignedIn.recommendationsIncrese[i];
         });
+        setRecommendationsIncrese(increaseDictionary);
 
+        // Filter recs: keep those with a known feature & enabled family
         if (Object.values(dict).some(([show]) => show)) {
             filteredRecommendations = isSignedIn.recommendations?.length
                 ? isSignedIn.recommendations
-                    .map((recommendation, i) => ({recommendation, i}))
-                    .filter(({i}) =>
-                        // Only keep recs with a known source feature
+                    .map((recommendation, i) => ({ recommendation, i }))
+                    .filter(({ i }) =>
                         isSignedIn.recommendationsFeature?.[i] &&
-                        // Keep if its source feature belongs to any enabled family
                         Object.entries(dict).some(([key, [show, values]]) =>
                             show && values.includes(isSignedIn.recommendationsFeature[i])
                         )
                     )
-                    .map(({recommendation}) => recommendation)
+                    .map(({ recommendation }) => recommendation)
                 : [];
         }
 
-        // Copy to avoid mutation
+        // Clone + optionally reverse order
         let sortedRecommendations = [...filteredRecommendations];
-
-        // Optional reverse to “low → high”
         if (backwardsort) {
-            sortedRecommendations.reverse(); // Simply flip the order
+            sortedRecommendations.reverse();
         }
         setRecommendations(sortedRecommendations);
 
-    }, [showPath, showLanguages, showDatabases, showPlatforms, showWebframesworks, showTools, showOpSys,
-        showEmployments, backwardsort, isSignedIn]);
+    }, [
+        showPath, showLanguages, showDatabases, showPlatforms, showWebframesworks, showTools, showOpSys,
+        showEmployments, backwardsort, isSignedIn
+    ]);
 
-    // page guard + set current page name
+    // Set page name for navbar highlighting & guard route
     useEffect(() => {
         toggleScreen("AdvancedRecommendations");
         if (!isSignedIn) {
@@ -107,104 +94,61 @@ const AdvancedRecommendations = ({
         }
     });
 
+    // Scroll to top on mount
     useEffect(() => {
         window.scrollTo(0, 0);
     }, []);
 
     // ----- Handlers -----
 
+    // Sign-out handler
     const handleSignout = () => {
         toggleSignendIn(false);
     }
 
-    // Calls the model to re-generate recommendations, then persists them
+    // Calls backend ML model to re-generate recommendations and persist them
     const handleRecommendations = async (e) => {
         e.preventDefault();
-        const payload = {_id: isSignedIn._id, username: isSignedIn.username};
+        const payload = { _id: isSignedIn._id, username: isSignedIn.username };
 
         try {
-            // Build the feature payload for the ML endpoint
+            // Build user profile features for ML endpoint
             const userprofile = {
                 Country: isSignedIn.country,
                 WorkExp: isSignedIn.experience,
                 EdLevel: isSignedIn.education,
                 Age: isSignedIn.age
             };
-            if (isSignedIn.MainBranch) {
-                userprofile.MainBranch = isSignedIn.MainBranch;
-            }
-            if (isSignedIn.RemoteWork) {
-                userprofile.RemoteWork = isSignedIn.RemoteWork;
-            }
-            if (isSignedIn.DevType) {
-                userprofile.DevType = isSignedIn.DevType;
-            }
-            if (isSignedIn.OrgSize) {
-                userprofile.OrgSize = isSignedIn.OrgSize;
-            }
-            if (isSignedIn.ICorPM) {
-                userprofile.ICorPM = isSignedIn.ICorPM;
-            }
-            if (isSignedIn.Industry) {
-                userprofile.Industry = isSignedIn.Industry;
-            }
-            if (isSignedIn.YearsCode) {
-                userprofile.YearsCode = isSignedIn.YearsCode;
-            }
-            if (isSignedIn.YearsCodePro) {
-                userprofile.YearsCodePro = isSignedIn.YearsCodePro;
-            }
-            if (isSignedIn.JobSat) {
-                userprofile.JobSat = isSignedIn.JobSat;
-            }
-            if (isSignedIn.languages) {
-                for (let i = 0; i < isSignedIn.languages.length; i++) {
-                    userprofile[isSignedIn.languages[i]] = 1;
-                }
-            }
-            if (isSignedIn.employments) {
-                for (let i = 0; i < isSignedIn.employments.length; i++) {
-                    userprofile[isSignedIn.employments[i]] = 1;
-                }
-            }
-            if (isSignedIn.databases) {
-                for (let i = 0; i < isSignedIn.databases.length; i++) {
-                    userprofile[isSignedIn.databases[i]] = 1;
-                }
-            }
-            if (isSignedIn.platforms) {
-                for (let i = 0; i < isSignedIn.platforms.length; i++) {
-                    userprofile[isSignedIn.platforms[i]] = 1;
-                }
-            }
-            if (isSignedIn.webframesworks) {
-                for (let i = 0; i < isSignedIn.webframesworks.length; i++) {
-                    userprofile[isSignedIn.webframesworks[i]] = 1;
-                }
-            }
-            if (isSignedIn.tools) {
-                for (let i = 0; i < isSignedIn.tools.length; i++) {
-                    userprofile[isSignedIn.tools[i]] = 1;
-                }
-            }
-            if (isSignedIn.OpSys) {
-                for (let i = 0; i < isSignedIn.OpSys.length; i++) {
-                    userprofile[isSignedIn.OpSys[i]] = 1;
-                }
-            }
+            // Add optional fields if present
+            if (isSignedIn.MainBranch) userprofile.MainBranch = isSignedIn.MainBranch;
+            if (isSignedIn.RemoteWork) userprofile.RemoteWork = isSignedIn.RemoteWork;
+            if (isSignedIn.DevType) userprofile.DevType = isSignedIn.DevType;
+            if (isSignedIn.OrgSize) userprofile.OrgSize = isSignedIn.OrgSize;
+            if (isSignedIn.ICorPM) userprofile.ICorPM = isSignedIn.ICorPM;
+            if (isSignedIn.Industry) userprofile.Industry = isSignedIn.Industry;
+            if (isSignedIn.YearsCode) userprofile.YearsCode = isSignedIn.YearsCode;
+            if (isSignedIn.YearsCodePro) userprofile.YearsCodePro = isSignedIn.YearsCodePro;
+            if (isSignedIn.JobSat) userprofile.JobSat = isSignedIn.JobSat;
 
-            // Send the registration data to the server
+            // Encode all chosen vocab as 1-hot features
+            ["languages","employments","databases","platforms","webframesworks","tools","OpSys"]
+                .forEach(group => {
+                    if (isSignedIn[group]) {
+                        for (let i = 0; i < isSignedIn[group].length; i++) {
+                            userprofile[isSignedIn[group][i]] = 1;
+                        }
+                    }
+                });
+
+            // Call ML backend for recommendations
             const response = await fetch(`${config.apiBaseUrl}/api/model/recommend`, {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
+                headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(userprofile)
             });
-
             const result = await response.json();
 
-            // Merge result into payload for persistence
+            // Merge into payload for persistence
             payload.topRecommendations = result.topRecommendations;
             payload.combined = result.combined;
             payload.recommendations = result.recommendations;
@@ -212,7 +156,6 @@ const AdvancedRecommendations = ({
             payload.recommendationsFeature = result.recommendationsFeature;
 
             if (!response.ok) {
-                // If the server responds with an error, set the error message
                 setError(result.message);
                 return;
             }
@@ -222,7 +165,7 @@ const AdvancedRecommendations = ({
         }
 
         try {
-            // Send the registration data to the server
+            // Persist updated recommendations to DB
             const response = await fetch(`${config.apiBaseUrl}/api/users/${isSignedIn._id}`, {
                 method: 'PATCH',
                 headers: {
@@ -231,39 +174,40 @@ const AdvancedRecommendations = ({
                 },
                 body: JSON.stringify(payload)
             });
-
             const result = await response.json();
 
             if (!response.ok) {
-                // If the server responds with an error, set the error message
                 setError(result.message);
                 return;
             }
-            // Refresh app-level signed-in state
+            // Refresh signed-in state
             toggleSignendIn(isSignedIn.username);
         } catch (error) {
             setError('An error occurred. Please try again.');
             console.error('Error:', error);
         }
     }
+
     // ----- Render -----
     return (
-
         <div className="advrec-page">
+            {/* Header */}
             <header className="profile-header">
                 <h1 className="profile-title">Advanced Recommendations</h1>
                 <p className="profile-subtitle">Here’s your full recommendations list.</p>
             </header>
 
-
-            {/* Main content block */}
+            {/* Main section */}
             <section className="section">
                 <div className="section-header">
                     <h2 className="section-title">Recommendations</h2>
 
-                    {/* Right-aligned toolbar with a compact dropdown of toggles */}
+                    {/* Toolbar dropdown for toggles */}
                     <div className="toolbar">
-                        <DropdownButton title="Options" align="end" className="toolbar-dropdown">
+                        <DropdownButton  title="Options"
+                                         align="end"
+                                         className="toolbar-dropdown"
+                                         autoClose="outside">
                             {[
                                 { id: "lang", state: showLanguages, set: setShowLanguages, label: "Show Languages" },
                                 { id: "db", state: showDatabases, set: setShowDatabases, label: "Show Databases" },
@@ -289,7 +233,7 @@ const AdvancedRecommendations = ({
                     </div>
                 </div>
 
-                {/* Empty state */}
+                {/* If no recs, show CTA */}
                 {!isSignedIn?.recommendations || recommendations.length === 0 ? (
                     <>
                         <p className="muted">Click the button below to get recommendations based on your profile.</p>
@@ -301,7 +245,7 @@ const AdvancedRecommendations = ({
                     </>
                 ) : (
                     <>
-                        {/* Table-like list with two columns: text + increase */}
+                        {/* Otherwise, show recommendation list */}
                         <div className="list">
                             <div className="list-header">
                                 <div>Recommendation</div>
@@ -310,15 +254,14 @@ const AdvancedRecommendations = ({
 
                             {recommendations.map((rec, i) => (
                                 <div key={`${rec}-${i}`} className="list-row">
-                                    {/* Recommendation text with boilerplate removed */}
+                                    {/* Text column: clean boilerplate words */}
                                     <div className="col-name">
                                         {rec.replace(
                                             /(to |it would |will )?increase your salary by approximately /g,
                                             ""
                                         )}
                                     </div>
-
-                                    {/* Currency pill on the right */}
+                                    {/* Increase column: formatted currency */}
                                     <div className="col-inc">
                     <span className="pill pill-positive">
                       +
@@ -336,7 +279,7 @@ const AdvancedRecommendations = ({
                             ))}
                         </div>
 
-                        {/* Recompute CTA */}
+                        {/* Button to recompute */}
                         <div className="cta-center">
                             <button className="profile-button" onClick={handleRecommendations}>
                                 Re-Recommended
@@ -346,24 +289,20 @@ const AdvancedRecommendations = ({
                 )}
             </section>
 
-
-            {/* Bottom navigation: matches Profile/Prediction ghost buttons */}
-                <div className="profile-buttons">
-                    <button onClick={() => navigate("/Recommendations")} className="profile-button is-outline">
-                        Basic
-                    </button>
-                    <button onClick={() => navigate("/SavedRecommendations")} className="profile-button is-outlineprofile-button is-outline">
-                        Saved
-                    </button>
-                    <button onClick={handleSignout} className="profile-button is-danger-outline">
-                        Sign Out
-                    </button>
-                </div>
-
-
+            {/* Bottom navigation buttons */}
+            <div className="profile-buttons">
+                <button onClick={() => navigate("/Recommendations")} className="profile-button is-outline">
+                    Basic
+                </button>
+                <button onClick={() => navigate("/SavedRecommendations")} className="profile-button is-outline">
+                    Saved
+                </button>
+                <button onClick={handleSignout} className="profile-button is-danger-outline">
+                    Sign Out
+                </button>
+            </div>
         </div>
-    )
-        ;
+    );
 }
 
 export default AdvancedRecommendations;

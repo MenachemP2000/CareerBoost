@@ -2,46 +2,43 @@
    Recommendations.css (FULL)
    =========================== */
 
-/* ---- Shared tokens (align with Profile/Prediction) ---- */
+/* ---- Shared tokens (color + layout variables) ---- */
 :root{
-    --bg:#efefef;
-    --card:#ffffff;
-    --text:#111827;
-    --muted:#6b7280;
-    --border:#e5e7eb;
-    --shadow:0 6px 16px rgba(17,24,39,.06);
-    --accent:#0f766e;            /* KPI accent */
+    --bg:#efefef;                  /* page background */
+    --card:#ffffff;                /* section/card background */
+    --text:#111827;                /* primary text */
+    --muted:#6b7280;               /* muted/secondary text */
+    --border:#e5e7eb;              /* borders */
+    --shadow:0 6px 16px rgba(17,24,39,.06); /* light shadow */
+    --accent:#0f766e;              /* accent color (KPIs, highlights) */
 }
 body.dark-mode{
-    --bg:#0b1220;
-    --card:#0f172a;
-    --text:#e5e7eb;
-    --muted:#94a3b8;
-    --border:#1f2a44;
+    --bg:#0b1220;                  /* darker background */
+    --card:#0f172a;                /* dark card background */
+    --text:#e5e7eb;                /* light text */
+    --muted:#94a3b8;               /* muted gray-blue */
+    --border:#1f2a44;              /* dark border */
     --shadow:0 8px 24px rgba(0,0,0,.45);
-    --accent:#34d399;
+    --accent:#34d399;              /* green accent */
 }
 
-/* ---- Page shell ---- */
+/* ---- Page wrapper ---- */
 .recommendations-page{
     background:#efefef;
     min-height:100vh;
     width:100%;
-    padding:48px 16px 80px;
+    padding:48px 16px 80px;        /* top / sides / bottom spacing */
     display:flex;
     flex-direction:column;
     align-items:center;
 }
-.page-header{ max-width:1120px; margin:0 auto 20px; text-align:center; }
-/*.page-title{*/
-/*    font-size:clamp(1.6rem,3vw,2rem);*/
-/*    font-weight:800;*/
-/*    color:var(--text);*/
-/*    margin:0 0 6px;*/
-/*}*/
-/*.page-subtitle{ color:var(--muted); margin:0; }*/
+.page-header{
+    max-width:1120px;
+    margin:0 auto 20px;
+    text-align:center;
+}
 
-/* ---- Section (replaces Cards) ---- */
+/* ---- Section (like a card) ---- */
 .section{
     max-width:1120px;
     width:100%;
@@ -52,11 +49,19 @@ body.dark-mode{
     padding:20px 22px;
     box-shadow:var(--shadow);
 }
-.section-header{ display:flex; align-items:center; gap:10px; margin-bottom:12px; }
+.section-header{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    margin-bottom:12px;
+}
 .section-title{
     font-size:clamp(1.05rem,1.7vw,1.2rem);
-    font-weight:800; color:var(--text); position:relative;
+    font-weight:800;
+    color:var(--text);
+    position:relative;
 }
+/* underline bar under section titles */
 .section-title::after{
     content:"";
     display:block;
@@ -67,24 +72,57 @@ body.dark-mode{
 }
 
 /* ---- Recommendation list ---- */
-.rec-list{ list-style:none; padding:0; margin:0; }
+.rec-list{
+    list-style:none;
+    padding:0;
+    margin:0;
+}
 .rec-item{
     display:flex;
-    justify-content:space-between;
+    justify-content:space-between; /* text left, salary bump right */
     align-items:center;
     padding:10px 0;
     border-bottom:1px solid var(--border);
 }
 .rec-item:last-child{ border-bottom:0; }
-.rec-text{ flex:1; font-weight:600; color:var(--text); }
-.rec-inc{ color:#16a34a; font-weight:800; white-space:nowrap; }
+.rec-text{
+    flex:1;
+    font-weight:600;
+    color:var(--text);
+}
+/* (was unused in JSX, but could style salary column if needed) */
+.rec-inc{
+    color:#16a34a;
+    font-weight:800;
+    white-space:nowrap;
+}
 
-/* ---- KPI ---- */
-.kpi-wrap{ display:flex; justify-content:center; margin:16px 0; }
-.kpi{ display:flex; gap:10px; align-items:baseline; flex-wrap:wrap; text-align:center; }
-.kpi-lead{ color:var(--muted); font-weight:600; }
-.currency{ font-size:clamp(1.4rem,3vw,1.8rem); font-weight:900; color:var(--accent); }
-.kpi-sub{ color:var(--muted); font-weight:600; }
+/* ---- KPI block ---- */
+.kpi-wrap{
+    display:flex;
+    justify-content:center;
+    margin:16px 0;
+}
+.kpi{
+    display:flex;
+    gap:10px;
+    align-items:baseline;
+    flex-wrap:wrap;
+    text-align:center;
+}
+.kpi-lead{
+    color:var(--muted);
+    font-weight:600;
+}
+.currency{
+    font-size:clamp(1.4rem,3vw,1.8rem);
+    font-weight:900;
+    color:var(--accent);
+}
+.kpi-sub{
+    color:var(--muted);
+    font-weight:600;
+}
 
 /* ---- Chart container ---- */
 .chart-wrap{
@@ -95,7 +133,7 @@ body.dark-mode{
     margin-top:8px;
 }
 
-/* Tooltip for modern chart */
+/* Tooltip box for Recharts */
 .cb-tooltip{
     background:var(--card);
     color:var(--text);
@@ -108,8 +146,14 @@ body.dark-mode{
 .cb-tooltip-value{ color:var(--muted); font-weight:600; }
 
 /* ---- Buttons ---- */
-.btn-row{ display:flex; gap:10px; flex-wrap:wrap; }
+.btn-row{
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
+}
 .btn-row.center{ justify-content:center; }
+
+/* solid button (used for Predict / Get Recommendations) */
 .profile-button{
     appearance:none;
     border:1px solid transparent;
@@ -127,6 +171,7 @@ body.dark-mode{
 }
 .profile-button:active{ transform:translateY(.5px); }
 
+/* ghost (outline) buttons: e.g. Advanced / Saved nav links */
 .btn-ghost{
     appearance:none;
     background:transparent;
@@ -140,20 +185,25 @@ body.dark-mode{
 .btn-ghost:hover{ background:rgba(0,0,0,.03); }
 body.dark-mode .btn-ghost:hover{ background:rgba(255,255,255,.05); }
 
-/* ---- Footer actions ---- */
+/* ---- Footer (optional extra actions) ---- */
 .footer-actions{ text-align:center; }
 
 /* ---- Utilities ---- */
-.muted{ color:var(--muted); }
+.muted{ color:var(--muted); }       /* gray text */
 .center{ text-align:center; }
-.error-msg{ color:#b91c1c; text-align:center; margin-top:14px; }
+.error-msg{
+    color:#b91c1c;                  /* red error text */
+    text-align:center;
+    margin-top:14px;
+}
 
-/* ---- Responsive ---- */
+/* ---- Responsive tweaks ---- */
 @media (max-width: 640px){
     .section{ padding:16px; }
     .currency{ font-size:clamp(1.2rem,4vw,1.5rem); }
 }
-/* Make inline salary visible and themed */
+
+/* Salary estimate inside KPI section */
 .recommendations-page .salary-estimate{
     color: var(--accent);
     font-weight: 900;
@@ -161,7 +211,7 @@ body.dark-mode .btn-ghost:hover{ background:rgba(255,255,255,.05); }
     margin: 0 .25rem;
 }
 
-/* (Optional) force the green used elsewhere in dark mode) */
+/* Force green in dark mode for salary estimate (instead of accent) */
 body.dark-mode .recommendations-page .salary-estimate{
-    color: #22c55e; /* or keep var(--accent) if you prefer */
+    color: #22c55e;
 }

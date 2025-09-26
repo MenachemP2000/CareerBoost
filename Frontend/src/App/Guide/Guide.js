@@ -1,20 +1,32 @@
-import React from "react";
-import {useEffect} from "react";
+import React, { useEffect } from "react";
 import "./Guide.css";
-/* Import JPGs exactly like About.js */
+
+/* Import walkthrough images (similar style as About.js) */
 import step1Image from "../images/step1.jpg";
 import step3Image from "../images/step3.jpg";
-const Guide = ({toggleScreen, isSignedIn, toggleSignendIn}) => {
 
+/**
+ * Guide Component
+ * Displays a step-by-step walkthrough for users on how to use CareerBoost.
+ * Props:
+ *  - toggleScreen: function to update the active screen name in parent
+ *  - isSignedIn: boolean indicating if user is signed in
+ *  - toggleSignendIn: function to update sign-in state (not used here)
+ */
+const Guide = ({ toggleScreen, isSignedIn, toggleSignendIn }) => {
+
+    /* Scroll to top when this page is mounted */
     useEffect(() => {
         window.scrollTo(0, 0);
     }, []);
 
-
+    /* Update screen state in parent when this component is active */
     useEffect(() => {
         toggleScreen("Guide");
     }, [toggleScreen]);
 
+    /* Data for each step in the walkthrough.
+       Each step includes a title, text content, and optionally an image. */
     const steps = [
         {
             title: "Step 1: Getting Started",
@@ -38,30 +50,32 @@ const Guide = ({toggleScreen, isSignedIn, toggleSignendIn}) => {
         }
     ];
 
-
     return (
         <div className="guide-page">
             <div className="guide-inner">
-                {/* Title uses the same classes as Profile */}
+                {/* Page title (reuses Profile.css styles for consistency) */}
                 <h3 className="profile-title">Guide</h3>
                 <p className="profile-subtitle">
                     Here’s a quick walkthrough to get started with CareerBoost.
                 </p>
 
+                {/* Loop through steps array and render each step */}
                 <div className="guide-list">
                     {steps.map((s, i) => {
                         const rowClass = ["guide-section"];
-                        if (!s.img) rowClass.push("no-media");        // center-only row
-                        else if (i % 2) rowClass.push("reverse");     // alternate when there IS an image
+                        if (!s.img) rowClass.push("no-media");        // For steps without an image (center content only)
+                        else if (i % 2) rowClass.push("reverse");     // Alternate layout when there IS an image
 
                         return (
                             <section key={s.title} className={rowClass.join(" ")}>
+                                {/* Step image (if provided) */}
                                 {s.img && (
                                     <div className="guide-media">
                                         <img src={s.img} alt={s.alt || s.title} loading="lazy"/>
                                     </div>
                                 )}
 
+                                {/* Step text */}
                                 <div className="guide-copy">
                                     <h4 className="guide-h4">{s.title}</h4>
                                     <p className="guide-text">{s.content}</p>
@@ -72,9 +86,7 @@ const Guide = ({toggleScreen, isSignedIn, toggleSignendIn}) => {
                 </div>
             </div>
         </div>
-
     );
 };
 
 export default Guide;
-

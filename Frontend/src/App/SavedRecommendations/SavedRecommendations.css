@@ -2,7 +2,9 @@
    SavedRecommendations.css
    ============================== */
 
-/* Theme tokens aligned with Profile/Prediction */
+/* ------------------------------
+   Theme tokens (light mode)
+   ------------------------------ */
 :root{
     --bg:#f7f9fc;
     --card:#ffffff;
@@ -12,17 +14,22 @@
     --shadow:0 6px 16px rgba(17,24,39,.06);
     --accent:#0f766e;
 }
-/*body.dark-mode{*/
-/*    --bg:#0b1220;*/
-/*    --card:#0f172a;*/
-/*    --text:#e5e7eb;*/
-/*    --muted:#94a3b8;*/
-/*    --border:#1f2a44;*/
-/*    --shadow:0 8px 24px rgba(0,0,0,.45);*/
-/*    --accent:#34d399;*/
-/*}*/
 
-/* Page shell */
+/* Uncomment and adapt if you prefer CSS variables for dark mode
+body.dark-mode{
+    --bg:#0b1220;
+    --card:#0f172a;
+    --text:#e5e7eb;
+    --muted:#94a3b8;
+    --border:#1f2a44;
+    --shadow:0 8px 24px rgba(0,0,0,.45);
+    --accent:#34d399;
+}
+*/
+
+/* ------------------------------
+   Page layout
+   ------------------------------ */
 .saved-page{
     background:#efefef;
     min-height:100vh;
@@ -32,6 +39,8 @@
     flex-direction:column;
     align-items:center;
 }
+
+/* Header */
 .page-header{ max-width:1120px; margin:0 auto 20px; text-align:center; }
 .page-title{
     font-size:clamp(1.6rem,3vw,2rem);
@@ -41,7 +50,9 @@
 }
 .page-subtitle{ color:var(--muted); margin:0; }
 
-/* Section */
+/* ------------------------------
+   Section container
+   ------------------------------ */
 .section{
     max-width:1120px;
     width:100%;
@@ -55,17 +66,22 @@
 .section-header{ display:flex; align-items:center; gap:12px; margin-bottom:12px; }
 .section-title{
     font-size:clamp(1.05rem,1.7vw,1.2rem);
-    font-weight:800; color:var(--text); position:relative;
+    font-weight:800;
+    color:var(--text);
+    position:relative;
 }
 .section-title::after{
     content:"";
     display:block;
     height:3px; width:36px;
     background:var(--border);
-    border-radius:999px; margin-top:6px;
+    border-radius:999px;
+    margin-top:6px;
 }
 
-/* Table-like list */
+/* ------------------------------
+   Table-like list of items
+   ------------------------------ */
 .list{
     border:1px solid var(--border);
     border-radius:12px;
@@ -74,7 +90,7 @@
 }
 .list-header{
     display:grid;
-    grid-template-columns: 1fr 180px;
+    grid-template-columns: 1fr 180px;   /* name + increase column */
     padding:12px 16px;
     font-size:12px;
     text-transform:uppercase;
@@ -93,14 +109,21 @@
 }
 .list-row:last-child{ border-bottom:none; }
 .list-row:hover{ background:rgba(17,24,39,.02); }
+
 .col-name{ color:var(--text); font-weight:600; }
 .col-inc{ text-align:right; }
 
-/* Pill badge */
+/* ------------------------------
+   Pill badges for increases
+   ------------------------------ */
 .pill{
-    display:inline-flex; align-items:center; justify-content:center;
-    padding:4px 10px; border-radius:999px;
-    font-size:.85rem; font-weight:800;
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    padding:4px 10px;
+    border-radius:999px;
+    font-size:.85rem;
+    font-weight:800;
     border:1px solid transparent;
 }
 .pill-positive{
@@ -109,9 +132,12 @@
     border-color:rgba(34,197,94,.25);
 }
 
-/* Forms */
+/* ------------------------------
+   Forms: add/remove recommendation
+   ------------------------------ */
 .forms{ display:flex; flex-direction:column; gap:10px; margin-top:14px; }
 .form-row{ display:flex; gap:10px; align-items:center; flex-wrap:wrap; }
+
 .select{
     appearance:none;
     width:100%;
@@ -123,9 +149,14 @@
     padding:.65rem .85rem;
     outline:none;
 }
-.select:focus{ border-color:#97a6ba; box-shadow:0 0 0 3px rgba(147,197,253,.25); }
+.select:focus{
+    border-color:#97a6ba;
+    box-shadow:0 0 0 3px rgba(147,197,253,.25);
+}
 
-/* Buttons (shared style) */
+/* ------------------------------
+   Buttons
+   ------------------------------ */
 .btn-row{ display:flex; gap:10px; flex-wrap:wrap; }
 .btn-row.center{ justify-content:center; }
 
@@ -135,7 +166,7 @@
     border-radius:12px;
     padding:.7rem 1.2rem;
     font-weight:700;
-    background:#111827;
+    background:#111827;   /* dark primary */
     color:#fff;
     box-shadow:0 1px 2px rgba(0,0,0,.04);
     transition:background .2s,color .2s,border-color .2s,box-shadow .25s,transform .02s;
@@ -146,6 +177,7 @@
 }
 .profile-button:active{ transform:translateY(.5px); }
 
+/* Ghost-style button (outlined) */
 .btn-ghost{
     appearance:none;
     background:transparent;
@@ -159,28 +191,31 @@
 .btn-ghost:hover{ background:rgba(0,0,0,.03); }
 body.dark-mode .btn-ghost:hover{ background:rgba(255,255,255,.05); }
 
-/* Footer */
+/* ------------------------------
+   Footer & utilities
+   ------------------------------ */
 .footer-actions{ text-align:center; }
 
-/* Utils */
 .muted{ color:var(--muted); }
 .center{ text-align:center; }
 .error-msg{ color:#b91c1c; text-align:center; margin-top:14px; }
 
-/* Responsive */
+/* ------------------------------
+   Responsive tweaks
+   ------------------------------ */
 @media (max-width: 640px){
     .section{ padding:16px; }
     .list-header,
     .list-row{ grid-template-columns: 1fr 140px; }
 }
-/* ================================
-   Dark mode — match Profile theme
-   ================================ */
+
+/* ==============================
+   Dark Mode overrides
+   Match Profile theme
+   ============================== */
 
 /* Page background */
-body.dark-mode .saved-page{
-    background:#18191a;
-}
+body.dark-mode .saved-page{ background:#18191a; }
 
 /* Section card */
 body.dark-mode .section{
@@ -189,13 +224,13 @@ body.dark-mode .section{
     box-shadow:none;
 }
 
-/* Titles & subtitles */
+/* Titles */
 body.dark-mode .page-title,
 body.dark-mode .section-title{ color:#e4e6eb; }
 body.dark-mode .page-subtitle{ color:#b0b3b8; }
 body.dark-mode .section-title::after{ background:#3a3b3c; }
 
-/* List/table */
+/* List */
 body.dark-mode .list{
     background:#1c1d1f;
     border-color:#2f3031;
@@ -205,12 +240,8 @@ body.dark-mode .list-header{
     color:#b0b3b8;
     border-bottom-color:#2f3031;
 }
-body.dark-mode .list-row{
-    border-bottom-color:#2f3031;
-}
-body.dark-mode .list-row:hover{
-    background:#1f2022;
-}
+body.dark-mode .list-row{ border-bottom-color:#2f3031; }
+body.dark-mode .list-row:hover{ background:#1f2022; }
 body.dark-mode .col-name{ color:#e4e6eb; }
 
 /* Increase pill */
@@ -220,7 +251,7 @@ body.dark-mode .pill-positive{
     border-color:rgba(34,197,94,.35);
 }
 
-/* Select inputs */
+/* Selects */
 body.dark-mode .select{
     background:#1c1d1f;
     color:#e4e6eb;
@@ -240,6 +271,6 @@ body.dark-mode .btn-ghost{
 body.dark-mode .btn-ghost:hover{ background:#2a2b2d; }
 
 body.dark-mode .profile-button{
-    background:#111827;  /* same primary as Profile */
+    background:#111827;  /* same dark primary as Profile */
     color:#fff;
 }

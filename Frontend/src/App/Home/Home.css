@@ -1,22 +1,30 @@
-/* Home.css */
+/* ============================
+   Hero Background
+   ============================ */
 .picture-container {
-    background-image: url('../images/intro-bg.jpg');
+    background-image: url('../images/intro-bg.jpg'); /* hero background image */
     background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center;
-    min-height: 100vh;
+    background-size: cover;       /* cover entire section */
+    background-position: center;  /* center the image */
+    min-height: 100vh;            /* fill viewport height */
 }
 
+/* ============================
+   Home Container
+   ============================ */
 .home-container {
-    padding-top: 5vh; /* Adjust this as needed */
+    padding-top: 5vh;             /* spacing from top (below navbar) */
     display: flex;
     flex-direction: column;
     text-align: center;
-    justify-content: flex-start; /* Important: push card to top */
+    justify-content: flex-start;  /* keep card near the top */
     min-height: 100vh;
     background-color: transparent;
 }
 
+/* ============================
+   Title + Underline
+   ============================ */
 .home-title-container {
     display: flex;
     flex-direction: column;
@@ -24,48 +32,50 @@
 }
 
 .home-title {
-    color: #a6360b;
-    font-size: clamp(1.5rem, 2.5rem, 2.8rem);
+    color: #a6360b;               /* accent color */
+    font-size: clamp(1.5rem, 2.5rem, 2.8rem); /* responsive font size */
     display: flex;
     align-items: center;
 }
 
-.home-card {
-    max-width: 55%;
-    min-width: 25rem;
-    position: relative;      /* Required for z-index to work */
-    /*z-index: 10;             !* Puts it above the background image *!*/
-    border: 2px solid #30467e; /* blue border */
-    border-radius: 16px;
-    padding: 2rem;
-    background-color: white;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    /*margin-top: 1rem;*/
-    margin-left: 5%;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    margin-top: 6vh; /* Add space from the top to avoid touching navbar */
-}
-
-.home-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
-}
-
-
-
 .home-title img {
-    margin-right: 10px; /* Adjust spacing between the logo and the text */
+    margin-right: 10px;           /* space between logo and text */
 }
 
 .home-underline {
     background-color: lightgrey;
     width: 200px;
     height: 4px;
-    margin-top: 10px; 
+    margin-top: 10px;
 }
 
+/* ============================
+   Card Wrapper
+   ============================ */
+.home-card {
+    max-width: 55%;
+    min-width: 25rem;
+    position: relative;           /* needed for z-index */
+    border: 2px solid #30467e;    /* blue border */
+    border-radius: 16px;
+    padding: 2rem;
+    background-color: white;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    margin-left: 5%;
+    margin-top: 6vh;              /* space below navbar */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.home-card:hover {
+    transform: translateY(-5px);  /* lift effect */
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+}
+
+/* ============================
+   Tagline Text
+   ============================ */
 .home-lead1 {
-    color: #0d787a;
+    color: #0d787a;               /* teal accent */
     font-size: clamp(0.3rem, 2vw, 1.3rem);
     margin-bottom: 20px;
 }
@@ -76,6 +86,9 @@
     margin-bottom: 20px;
 }
 
+/* ============================
+   Buttons Row
+   ============================ */
 .button-row {
     display: flex;
     justify-content: center;
@@ -84,63 +97,66 @@
 .button-container {
     display: flex;
     justify-content: center;
-    gap: 10px; /* Add some space between buttons */
+    gap: 10px;                    /* space between buttons */
 }
 
-.lead {
-    text-align: center;
-    margin-bottom: 20px; /* Add some space below the greeting */
-}
-
-.button-row .hello{
+/* ============================
+   Greeting "Hello"
+   ============================ */
+.button-row .hello {
     padding-left: 50px;
     padding-right: 50px;
     max-width: fit-content;
 }
+
 .hello {
-    font-size: clamp(0.5rem, 1.5rem, 2.5rem); /* Increase font size */
-    font-weight: bold; /* Make the text bold */
-    color: #a6360b; /* Green color */
-    text-align: center; /* Center align the text */
-    margin-bottom: 20px; /* Add some space below the paragraph */
-    background-color: #f0f0f0; /* Light grey background */
-    padding: clamp(0.3rem, 1.5vw, 0.3rem) clamp(0.3rem, 1vw, 0.3rem);; /* Add some padding */
-    border-radius: 8px; /* Rounded corners */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    font-size: clamp(0.5rem, 1.5rem, 2.5rem);
+    font-weight: bold;
+    color: #a6360b;
+    text-align: center;
+    margin-bottom: 20px;
+    background-color: #f0f0f0;
+    padding: clamp(0.3rem, 1.5vw, 0.3rem) clamp(0.3rem, 1vw, 0.3rem);
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     max-width: 100px;
 }
 
-
-/* Button styles */
+/* ============================
+   Custom Buttons
+   ============================ */
 .button-container .btn-all {
     width: clamp(3rem, 10rem, 8rem);
     padding: clamp(0.3rem, 1.5vw, 0.3rem) clamp(0.3rem, 1vw, 0.3rem);
     font-size: clamp(0.3rem, 2vw, 1.3rem);
-    background: linear-gradient(45deg, #32a0e4, #c8c9ca); /* Gradient background */
-    border: none; /* Remove border */
-    color: white; /* Text color */
+    background: linear-gradient(45deg, #32a0e4, #c8c9ca); /* gradient */
+    border: none;
+    color: white;
     font-weight: bold;
-    border-radius: 8px; /* Rounded corners */
-    text-align: center; /* Center align text */
-    text-decoration: none; /* Remove underline from links */
-    transition: background 0.3s ease; /* Smooth transition for hover effect */
+    border-radius: 8px;
+    text-align: center;
+    text-decoration: none;
+    transition: background 0.3s ease;
     min-width: fit-content;
-    height: fit-content; /* Set specific height */
+    height: fit-content;
 }
 
 .btn-all:hover {
-    background: linear-gradient(45deg, #c8c9ca, #32a0e4); /* Reverse gradient on hover */
-    color: white; /* Ensure text color remains white on hover */
+    background: linear-gradient(45deg, #c8c9ca, #32a0e4); /* reverse gradient */
+    color: white;
 }
 
-/* Home.css */
-body.dark-mode .picture-container{
-    background-image: url('../images/intro-bg-dark.png');
+/* ============================
+   Dark Mode Overrides
+   ============================ */
+body.dark-mode .picture-container {
+    background-image: url('../images/intro-bg-dark.png'); /* dark bg image */
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
     min-height: 100vh;
 }
+
 body.dark-mode .home-card {
     border: 2px solid #919090;
     background-color: #1e1e1e;
@@ -156,13 +172,12 @@ body.dark-mode .home-title {
     color: #ffffff;
 }
 
-
 body.dark-mode .home-underline {
     background-color: rgba(252, 251, 251, 0.5);
 }
 
 body.dark-mode .home-lead1 {
-    color: #274884;
+    color: #274884;               /* dark blue accent */
 }
 
 body.dark-mode .home-lead {
@@ -170,37 +185,36 @@ body.dark-mode .home-lead {
 }
 
 body.dark-mode .button-container .btn-all {
-    background: linear-gradient(45deg, #274884, #c8c9ca); /* Gradient background */
+    background: linear-gradient(45deg, #274884, #c8c9ca);
 }
 
 body.dark-mode .btn-all:hover {
-    background: linear-gradient(45deg, #c8c9ca, #274884); /* Reverse gradient on hover */
-    color: black; /* Ensure text color remains white on hover */
+    background: linear-gradient(45deg, #c8c9ca, #274884);
+    color: black;
 }
 
-@media screen and (max-width: 768px){
-     h3 img  {
-        display: none;
-
+/* ============================
+   Responsive Styles (<768px)
+   ============================ */
+@media screen and (max-width: 768px) {
+    h3 img {
+        display: none;            /* hide logo image on small screens */
     }
-    p.home-lead, p.home-lead1, h3 img  {
-        font-size: medium;
-
+    p.home-lead,
+    p.home-lead1,
+    h3 img {
+        font-size: medium;        /* adjust text size */
     }
     card.home-card {
         position: static;
         box-sizing: border-box;
         min-width: fit-content;
         margin: 10px;
-
     }
-    .home-container{
-        
+    .home-container {
         justify-content: center;
     }
-    div.about-left{
+    div.about-left {
         display: none;
-
     }
-    
 }

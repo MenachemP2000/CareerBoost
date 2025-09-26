@@ -2,17 +2,20 @@
    AdvancedRecommendations.css
    ============================== */
 
-/* Shared tokens (same as Profile/Prediction) */
-:root{
-    --bg:#efefef;
-    --card:#ffffff;
-    --text:#111827;
-    --muted:#6b7280;
-    --border:#e5e7eb;
-    --shadow:0 6px 16px rgba(17,24,39,.06);
-    --accent:#0f766e;
+/* ---------- Theme Tokens ---------- */
+/* Shared CSS variables for light mode */
+:root {
+    --bg:#efefef;                /* Page background */
+    --card:#ffffff;              /* Card/section background */
+    --text:#111827;              /* Main text color */
+    --muted:#6b7280;             /* Muted/secondary text */
+    --border:#e5e7eb;            /* Border color */
+    --shadow:0 6px 16px rgba(17,24,39,.06); /* Soft card shadow */
+    --accent:#0f766e;            /* Accent color (teal) */
 }
-body.dark-mode{
+
+/* Override tokens for dark mode */
+body.dark-mode {
     --bg:#0b1220;
     --card:#0f172a;
     --text:#e5e7eb;
@@ -22,27 +25,31 @@ body.dark-mode{
     --accent:#34d399;
 }
 
-/* Page shell */
-.advrec-page{
-    background:#efefef;
+/* ---------- Page Shell ---------- */
+.advrec-page {
+    background:#efefef;          /* Default light background */
     min-height:100vh;
     width:100%;
-    padding:48px 16px 80px;
+    padding:48px 16px 80px;      /* Page padding */
     display:flex;
     flex-direction:column;
     align-items:center;
 }
-.page-header{ max-width:1120px; margin:0 auto 20px; text-align:center; }
-.page-title{
+.page-header {
+    max-width:1120px;
+    margin:0 auto 20px;
+    text-align:center;
+}
+.page-title {
     font-size:clamp(1.6rem,3vw,2rem);
     font-weight:800;
     color:var(--text);
     margin:0 0 6px;
 }
-.page-subtitle{ color:var(--muted); margin:0; }
+.page-subtitle { color:var(--muted); margin:0; }
 
-/* Section wrapper (replaces Cards) */
-.section{
+/* ---------- Section Wrapper (card-like) ---------- */
+.section {
     max-width:1120px;
     width:100%;
     margin:14px auto;
@@ -52,25 +59,44 @@ body.dark-mode{
     padding:20px 22px;
     box-shadow:var(--shadow);
 }
-.section-header{ display:flex; align-items:center; justify-content:space-between; gap:12px; margin-bottom:12px; }
-.section-title{
-    font-size:clamp(1.05rem,1.7vw,1.2rem);
-    font-weight:800; color:var(--text); position:relative;
+.section-header {
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:12px;
+    margin-bottom:12px;
 }
-.section-title::after{
+.section-title {
+    font-size:clamp(1.05rem,1.7vw,1.2rem);
+    font-weight:800;
+    color:var(--text);
+    position:relative;
+}
+/* Decorative underline under section titles */
+.section-title::after {
     content:"";
     display:block;
-    height:3px; width:36px; background:var(--border);
-    border-radius:999px; margin-top:6px;
+    height:3px;
+    width:36px;
+    background:var(--border);
+    border-radius:999px;
+    margin-top:6px;
 }
 
-/* Toolbar (Options + actions) */
-.toolbar{ display:flex; align-items:center; justify-content:space-between; gap:10px; flex-wrap:wrap; margin-bottom:10px; }
+/* ---------- Toolbar (Options dropdown) ---------- */
+.toolbar {
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:10px;
+    flex-wrap:wrap;
+    margin-bottom:10px;
+}
 
-/* Make react-bootstrap Dropdown look minimal */
+/* Style react-bootstrap dropdown buttons */
 .toolbar .btn,
 .custom-dropdown .btn,
-.toolbar-dropdown .btn{
+.toolbar-dropdown .btn {
     background:transparent !important;
     color:var(--text) !important;
     border:1px solid var(--border) !important;
@@ -78,10 +104,11 @@ body.dark-mode{
     font-weight:700 !important;
     padding:.6rem 1rem !important;
 }
-.toolbar .btn:hover{ background:rgba(0,0,0,.03) !important; }
-body.dark-mode .toolbar .btn:hover{ background:rgba(255,255,255,.05) !important; }
+.toolbar .btn:hover { background:rgba(0,0,0,.03) !important; }
+body.dark-mode .toolbar .btn:hover { background:rgba(255,255,255,.05) !important; }
 
-.dropdown-menu{
+/* Dropdown menu style */
+.dropdown-menu {
     background:var(--card);
     color:var(--text);
     border:1px solid var(--border);
@@ -90,19 +117,19 @@ body.dark-mode .toolbar .btn:hover{ background:rgba(255,255,255,.05) !important;
     padding:10px;
     min-width:260px;
 }
-.filter-option{ padding:8px; border-radius:8px; }
-.filter-option:hover{ background:rgba(17,24,39,.04); }
+.filter-option { padding:8px; border-radius:8px; }
+.filter-option:hover { background:rgba(17,24,39,.04); }
 
-/* Modern list (table-like) */
-.list{
+/* ---------- Recommendation List (table-like) ---------- */
+.list {
     border:1px solid var(--border);
     border-radius:12px;
     overflow:hidden;
     background:var(--card);
 }
-.list-header{
+.list-header {
     display:grid;
-    grid-template-columns: 1fr 160px;
+    grid-template-columns: 1fr 160px; /* Text column + Increase column */
     padding:12px 16px;
     font-size:12px;
     text-transform:uppercase;
@@ -111,7 +138,7 @@ body.dark-mode .toolbar .btn:hover{ background:rgba(255,255,255,.05) !important;
     background:rgba(17,24,39,.03);
     border-bottom:1px solid var(--border);
 }
-.list-row{
+.list-row {
     display:grid;
     grid-template-columns: 1fr 160px;
     align-items:center;
@@ -119,36 +146,40 @@ body.dark-mode .toolbar .btn:hover{ background:rgba(255,255,255,.05) !important;
     border-bottom:1px solid var(--border);
     transition:background .15s ease;
 }
-.list-row:last-child{ border-bottom:none; }
-.list-row:hover{ background:rgba(17,24,39,.02); }
-.col-name{ color:var(--text); font-weight:600; }
-.col-inc{ text-align:right; }
+.list-row:last-child { border-bottom:none; }
+.list-row:hover { background:rgba(17,24,39,.02); }
+.col-name { color:var(--text); font-weight:600; }
+.col-inc { text-align:right; }
 
-/* Increase pill */
-.pill{
-    display:inline-flex; align-items:center; justify-content:center;
-    padding:4px 10px; border-radius:999px;
-    font-size:.85rem; font-weight:800;
+/* ---------- Increase Pill ---------- */
+.pill {
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    padding:4px 10px;
+    border-radius:999px;
+    font-size:.85rem;
+    font-weight:800;
     border:1px solid transparent;
 }
-.pill-positive{
-    background:rgba(34,197,94,.12);
-    color:#16a34a;
+.pill-positive {
+    background:rgba(34,197,94,.12); /* Light green background */
+    color:#16a34a;                  /* Green text */
     border-color:rgba(34,197,94,.25);
 }
 
-/* KPI / helper text */
-.muted{ color:var(--muted); }
-.center{ text-align:center; }
+/* ---------- Helper Text ---------- */
+.muted { color:var(--muted); }
+.center { text-align:center; }
 
-/* CTA area */
-.cta-center{ display:flex; justify-content:center; margin-top:16px; }
+/* ---------- CTA Buttons ---------- */
+.cta-center { display:flex; justify-content:center; margin-top:16px; }
 
-/* Buttons (reuse profile style) */
-.btn-row{ display:flex; gap:10px; flex-wrap:wrap; }
-.btn-row.center{ justify-content:center; }
+/* ---------- Buttons (shared with profile) ---------- */
+.btn-row { display:flex; gap:10px; flex-wrap:wrap; }
+.btn-row.center { justify-content:center; }
 
-.profile-button{
+.profile-button {
     appearance:none;
     border:1px solid transparent;
     border-radius:12px;
@@ -159,13 +190,13 @@ body.dark-mode .toolbar .btn:hover{ background:rgba(255,255,255,.05) !important;
     box-shadow:0 1px 2px rgba(0,0,0,.04);
     transition:background .2s,color .2s,border-color .2s,box-shadow .25s,transform .02s;
 }
-.profile-button:hover{
+.profile-button:hover {
     filter:brightness(1.06);
     box-shadow:0 6px 16px rgba(17,24,39,.16);
 }
-.profile-button:active{ transform:translateY(.5px); }
+.profile-button:active { transform:translateY(.5px); }
 
-.btn-ghost{
+.btn-ghost {
     appearance:none;
     background:transparent;
     color:var(--text);
@@ -175,32 +206,34 @@ body.dark-mode .toolbar .btn:hover{ background:rgba(255,255,255,.05) !important;
     font-weight:700;
     cursor:pointer;
 }
-.btn-ghost:hover{ background:rgba(0,0,0,.03); }
-body.dark-mode .btn-ghost:hover{ background:rgba(255,255,255,.05); }
+.btn-ghost:hover { background:rgba(0,0,0,.03); }
+body.dark-mode .btn-ghost:hover { background:rgba(255,255,255,.05); }
 
-/* Footer actions */
-.footer-actions{ text-align:center; }
+/* ---------- Footer actions ---------- */
+.footer-actions { text-align:center; }
 
-/* Error */
-.error-msg{ color:#b91c1c; text-align:center; margin-top:14px; }
+/* ---------- Error messages ---------- */
+.error-msg { color:#b91c1c; text-align:center; margin-top:14px; }
 
-/* Responsive */
+/* ---------- Responsive ---------- */
 @media (max-width: 640px){
-    .section{ padding:16px; }
+    .section { padding:16px; }
     .list-header,
-    .list-row{ grid-template-columns: 1fr 120px; }
+    .list-row { grid-template-columns: 1fr 120px; } /* Narrower increase column */
 }
+
 /* ================================
-   Dark mode — match Profile theme
+   Dark mode overrides
+   Match Profile theme
    ================================ */
 
 /* Page background */
-body.dark-mode .advrec-page{
+body.dark-mode .advrec-page {
     background:#18191a;
 }
 
 /* Section cards */
-body.dark-mode .section{
+body.dark-mode .section {
     background:#242526;
     border:1px solid #3a3b3c;
     box-shadow:none;
@@ -208,71 +241,66 @@ body.dark-mode .section{
 
 /* Titles & subtitles */
 body.dark-mode .page-title,
-body.dark-mode .section-title{ color:#e4e6eb; }
-body.dark-mode .page-subtitle{ color:#b0b3b8; }
-body.dark-mode .section-title::after{ background:#3a3b3c; }
+body.dark-mode .section-title { color:#e4e6eb; }
+body.dark-mode .page-subtitle { color:#b0b3b8; }
+body.dark-mode .section-title::after { background:#3a3b3c; }
 
-/* Toolbar buttons (React-Bootstrap) */
+/* Toolbar buttons */
 body.dark-mode .toolbar .btn,
 body.dark-mode .custom-dropdown .btn,
-body.dark-mode .toolbar-dropdown .btn{
+body.dark-mode .toolbar-dropdown .btn {
     color:#e4e6eb !important;
     background:transparent !important;
     border:1px solid #3a3b3c !important;
 }
 body.dark-mode .toolbar .btn:hover,
 body.dark-mode .custom-dropdown .btn:hover,
-body.dark-mode .toolbar-dropdown .btn:hover{
+body.dark-mode .toolbar-dropdown .btn:hover {
     background:#2a2b2d !important;
 }
 
 /* Dropdown menu */
-body.dark-mode .dropdown-menu{
+body.dark-mode .dropdown-menu {
     background:#242526;
     color:#e4e6eb;
     border:1px solid #3a3b3c;
     box-shadow:none;
 }
-body.dark-mode .dropdown-menu .dropdown-item{
-    color:#e4e6eb;
-}
-body.dark-mode .dropdown-menu .dropdown-item:hover{
+body.dark-mode .dropdown-menu .dropdown-item { color:#e4e6eb; }
+body.dark-mode .dropdown-menu .dropdown-item:hover {
     background:#2a2b2d;
     color:#e4e6eb;
 }
 
-/* Table-like list */
-body.dark-mode .list{
+/* Recommendation list */
+body.dark-mode .list {
     background:#1c1d1f;
     border-color:#2f3031;
 }
-body.dark-mode .list-header{
+body.dark-mode .list-header {
     background:#1a1b1d;
     color:#b0b3b8;
     border-bottom-color:#2f3031;
 }
-body.dark-mode .list-row{
-    border-bottom-color:#2f3031;
-}
-body.dark-mode .list-row:hover{ background:#1f2022; }
-body.dark-mode .col-name{ color:#e4e6eb; }
+body.dark-mode .list-row { border-bottom-color:#2f3031; }
+body.dark-mode .list-row:hover { background:#1f2022; }
+body.dark-mode .col-name { color:#e4e6eb; }
 
 /* Increase pill */
-body.dark-mode .pill-positive{
+body.dark-mode .pill-positive {
     background:rgba(34,197,94,.16);
     color:#22c55e;
     border-color:rgba(34,197,94,.35);
 }
 
 /* Buttons */
-body.dark-mode .btn-ghost{
+body.dark-mode .btn-ghost {
     color:#e4e6eb;
     border-color:#3a3b3c;
     background:transparent;
 }
-body.dark-mode .btn-ghost:hover{ background:#2a2b2d; }
-
-body.dark-mode .profile-button{
-    background:#111827;   /* same primary as Profile */
+body.dark-mode .btn-ghost:hover { background:#2a2b2d; }
+body.dark-mode .profile-button {
+    background:#111827;  /* keep same primary style */
     color:#fff;
 }

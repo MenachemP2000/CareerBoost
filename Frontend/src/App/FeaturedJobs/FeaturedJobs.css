@@ -1,4 +1,7 @@
-/* Page container */
+/* ================================
+   Page container
+   Centers the jobs list and gives it spacing
+   ================================ */
 .featured-jobs-container {
     background:#efefef;
     margin-top: 2rem;
@@ -11,48 +14,56 @@
     box-sizing: border-box;
 }
 
+/* Status text: loading or empty state */
 .featured-jobs-loading,
 .featured-jobs-empty {
     text-align: center;
     color: #6b7280;
 }
 
-/* Card-less list (matches Saved Jobs feel) */
+/* ================================
+   Jobs list
+   ================================ */
 .fj-list {
-    list-style: none;
+    list-style: none;          /* remove bullets */
     margin: 0 auto;
     padding: 0;
-    max-width: 980px;
+    max-width: 980px;          /* center + max width */
     width: 100%;
-    display: grid;
+    display: grid;             /* stacked list with spacing */
     gap: 10px;
 }
 
+/* Each job row (title, meta, actions) */
 .fj-row {
     display: grid;
-    grid-template-columns: 1fr auto;
+    grid-template-columns: 1fr auto; /* main info + right actions */
     gap: 10px 16px;
     padding: 12px 10px;
     border-bottom: 1px solid #e5e7eb; /* subtle divider */
     align-items: start;
 }
 
+/* Remove border on last row */
 .fj-row:last-child {
     border-bottom: none;
 }
 
-/* Title/link */
+/* ================================
+   Job title (clickable link)
+   ================================ */
 .fj-title {
-    grid-column: 1 / 2;
+    grid-column: 1 / 2; /* stays in left column */
     color: #2563eb;
     text-decoration: none;
     font-weight: 700;
     font-size: clamp(1rem, 2vw, 1.15rem);
 }
-
 .fj-title:hover { text-decoration: underline; }
 
-/* Meta block beneath title */
+/* ================================
+   Meta info block (posted, company, location)
+   ================================ */
 .fj-meta {
     grid-column: 1 / 2;
     display: grid;
@@ -60,22 +71,21 @@
     font-size: 0.95rem;
     color: #111827;
 }
+.fj-posted { color: #6b7280; } /* “Posted …” date */
 
-.fj-posted { color: #6b7280; }
-
-
+/* Company / job / location lines */
 .fj-info {
     display: block;
-
 }
-
 .fj-info span {
     display: block;
     margin-top: 0.5rem;
     margin-bottom: 0.5rem;
 }
 
-/* Actions column */
+/* ================================
+   Actions (Save button)
+   ================================ */
 .fj-actions {
     grid-column: 2 / 3;
     display: flex;
@@ -83,26 +93,32 @@
     gap: 8px;
 }
 
-/* Bottom nav buttons use your profile-button style */
+/* ================================
+   Bottom nav buttons (Search / Saved)
+   ================================ */
 .fj-nav {
     display: flex;
     gap: 14px;
     margin-top: 28px;
 }
 
-/* Optional: make disabled state obvious if your global CSS lacks it */
+/* Disabled “Saved” button look */
 .profile-button.is-disabled {
     opacity: 0.65;
     cursor: not-allowed;
 }
 
-/* Responsive */
+/* ================================
+   Responsive adjustments
+   ================================ */
 @media (max-width: 640px) {
-    .fj-row { grid-template-columns: 1fr; }
-    .fj-actions { grid-column: 1 / -1; }
+    .fj-row { grid-template-columns: 1fr; } /* stack */
+    .fj-actions { grid-column: 1 / -1; }    /* move actions below */
 }
 
-/* Dark mode */
+/* ================================
+   Dark mode base tweaks
+   ================================ */
 body.dark-mode { background-color: rgb(12,12,12); }
 
 body.dark-mode .featured-jobs-header { color: #f3f4f6; }
@@ -114,16 +130,17 @@ body.dark-mode .fj-title { color: #60a5fa; }
 body.dark-mode .fj-meta { color: #e5e7eb; }
 
 body.dark-mode .fj-posted { color: #9aa4af; }
+
 /* ================================
    Dark mode — match Profile theme
    ================================ */
 
-/* Page bg */
+/* Page background */
 body.dark-mode .featured-jobs-container{
     background:#18191a;
 }
 
-/* Row dividers + hover */
+/* Row dividers and hover highlight */
 body.dark-mode .fj-row{
     border-bottom:1px solid #2f3031;
 }
@@ -131,15 +148,16 @@ body.dark-mode .fj-row:hover{
     background:#1f2022;
 }
 
-/* Titles + meta text */
+/* Title + hover */
 body.dark-mode .fj-title{ color:#93c5fd; }
 body.dark-mode .fj-title:hover{ color:#bfdbfe; text-decoration:underline; }
 
-body.dark-mode .fj-meta{ color:#e5e7eb; }     /* company/job/location line */
+/* Meta text */
+body.dark-mode .fj-meta{ color:#e5e7eb; }
 body.dark-mode .fj-meta strong{ color:#e5e7eb; }
-body.dark-mode .fj-posted{ color:#b0b3b8; }   /* “Posted: …” */
+body.dark-mode .fj-posted{ color:#b0b3b8; }
 
-/* “Save” buttons (and any profile buttons in actions/nav) */
+/* Save / nav buttons (reuse profile-button styling) */
 body.dark-mode .fj-actions .profile-button,
 body.dark-mode .fj-nav .profile-button{
     background:#111827;
@@ -148,14 +166,13 @@ body.dark-mode .fj-nav .profile-button{
     border-radius:12px;
     box-shadow:0 1px 2px rgba(0,0,0,.04);
 }
-
 body.dark-mode .fj-actions .profile-button:hover,
 body.dark-mode .fj-nav .profile-button:hover{
     filter:brightness(1.06);
     box-shadow:0 6px 16px rgba(17,24,39,.16);
 }
 
-/* If your Save uses a plain .btn instead of .profile-button, style it too */
+/* If using plain .btn instead of .profile-button */
 body.dark-mode .fj-actions .btn{
     background:#111827;
     color:#fff;
@@ -164,5 +181,5 @@ body.dark-mode .fj-actions .btn{
 }
 body.dark-mode .fj-actions .btn:hover{ filter:brightness(1.06); }
 
-/* Optional header text (if you render one) */
+/* Header (if rendered) */
 body.dark-mode .featured-jobs-header{ color:#e4e6eb; }

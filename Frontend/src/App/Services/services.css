@@ -1,9 +1,16 @@
+/* ==============================
+   Services Section (light mode)
+   ============================== */
 .services-section {
-  background: linear-gradient(to right, #667eea, #76b2fe);
+  background: linear-gradient(to right, #667eea, #76b2fe); /* blue gradient */
   color: white;
   text-align: center;
   padding: 80px 20px;
 }
+
+/* ------------------------------
+   Section title
+   ------------------------------ */
 .section-title {
   text-align: center;
   margin-bottom: 40px;
@@ -14,45 +21,48 @@
   font-weight: 700;
   margin-bottom: 10px;
   position: relative;
-  display: block; /* or inline-block if you want auto width */
+  display: block;          /* full-width title */
   text-align: center;
-  white-space: nowrap; /* prevents breaking */
+  white-space: nowrap;     /* keep title on one line */
 }
-
 .section-title h2 span {
-  /* border-bottom: 4px solid #fff; */
+  /* underline option:
+  border-bottom: 4px solid #fff; */
   padding-bottom: 4px;
 }
-
 .section-title p {
   font-size: 18px;
   margin-top: 10px;
-  white-space: nowrap; /* ✅ keeps it on one line */
+  white-space: nowrap;     /* prevent wrapping */
   overflow: hidden;
-  text-overflow: ellipsis; 
+  text-overflow: ellipsis; /* truncate if too long */
 }
-
+/* Remove decorative ::after line */
 .section-title p::after {
   content: none !important;
   display: none !important;
 }
 
-
+/* ------------------------------
+   Services grid & cards
+   ------------------------------ */
 .services-grid {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   gap: 40px;
 }
-
 .service-card {
-  flex: 1 1 260px;
+  flex: 1 1 260px;       /* responsive flex basis */
   max-width: 300px;
   background: transparent;
   color: white;
   text-align: center;
 }
 
+/* ------------------------------
+   Service icon bubble
+   ------------------------------ */
 .service-icon {
   width: 100px;
   height: 100px;
@@ -64,46 +74,46 @@
   justify-content: center;
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
 }
-
 .service-icon i {
   font-size: 36px;
   color: white;
 }
 
+/* ------------------------------
+   Card text content
+   ------------------------------ */
 .service-card h3 {
   font-size: 20px;
   margin-bottom: 10px;
   font-weight: 600;
 }
-
 .service-card p {
   font-size: 15px;
   line-height: 1.6;
   color: #e6e6e6;
 }
+
+/* ==============================
+   Dark Mode
+   ============================== */
 body.dark-mode .services-section {
-    background: linear-gradient(to right, #232526, #414345);
-    color: #e6e6e6;
+  background: linear-gradient(to right, #232526, #414345); /* dark gray gradient */
+  color: #e6e6e6;
 }
-
 body.dark-mode .section-title h2::after {
-    background: #e6e6e6;
+  background: #e6e6e6;
 }
-
 body.dark-mode .service-card {
-    color: #e6e6e6;
-    background: transparent;
+  color: #e6e6e6;
+  background: transparent;
 }
-
 body.dark-mode .service-icon {
-    background: radial-gradient(circle at 30% 30%, #232a3a, #2a3a4d);
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5);
+  background: radial-gradient(circle at 30% 30%, #232a3a, #2a3a4d);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5);
 }
-
 body.dark-mode .service-icon i {
-    color: #e6e6e6;
+  color: #e6e6e6;
 }
-
 body.dark-mode .service-card p {
-    color: #b0b0b0;
+  color: #b0b0b0;
 }

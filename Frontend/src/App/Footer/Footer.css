@@ -1,33 +1,40 @@
-/* Footer.css */
-
-/* Footer Section */
+/* ============================
+   Footer Section (default light mode)
+   ============================ */
 .footer {
-    background: white;
-    color: #090909;
-    padding: 40px 20px;
-    text-align: center;
-    transition: background 0.3s;
+    background: white;           /* white background */
+    color: #090909;              /* dark text */
+    padding: 40px 20px;          /* spacing inside footer */
+    text-align: center;          /* center text by default */
+    transition: background 0.3s; /* smooth bg color change */
 }
 
-/* Dark Mode Footer */
+/* ============================
+   Dark Mode Footer
+   ============================ */
 body.dark-mode .footer {
-    background: rgb(12,12,12);
-    color: #e4e6eb;
+    background: rgb(12,12,12);   /* dark background */
+    color: #e4e6eb;              /* light gray text */
 }
 
+/* ============================
+   Links container (Company / Resources)
+   ============================ */
 .footer-links {
     color: black;
-    display: flex;
-    justify-content: center;
-    gap: 40px;
-    flex-wrap: wrap;
-    margin-bottom: 20px;
+    display: flex;               /* horizontal flex layout */
+    justify-content: center;     /* center the groups */
+    gap: 40px;                   /* spacing between groups */
+    flex-wrap: wrap;             /* allow wrapping on small screens */
+    margin-bottom: 20px;         /* spacing below links */
 }
 
+/* Each column of links */
 .footer-links div {
-    text-align: left;
+    text-align: left;            /* align text to left inside each column */
 }
 
+/* Column headings */
 .footer-links h4 {
     font-size: 18px;
     font-weight: bold;
@@ -35,59 +42,71 @@ body.dark-mode .footer {
     color: #090909;
 }
 
+/* Dark mode column heading color */
 body.dark-mode .footer-links h4 {
     color: #e4e6eb;
 }
 
+/* List reset (remove bullets & spacing) */
 .footer-links ul {
     list-style: none;
     padding: 0;
 }
 
+/* Each list item spacing */
 .footer-links ul li {
     margin-bottom: 8px;
 }
 
+/* Link styles */
 .footer-links ul li a {
     color: #090909;
     text-decoration: none;
     font-size: 16px;
-    transition: color 0.3s;
+    transition: color 0.3s;      /* smooth hover effect */
 }
 
+/* Hover effect for links */
 .footer-links ul li a:hover {
     text-decoration: underline;
-    color: #ff8e53;
+    color: #ff8e53;              /* orange highlight */
 }
 
+/* Dark mode links */
 body.dark-mode .footer-links ul li a {
-    color: #b0b3b8;
+    color: #b0b3b8;              /* muted gray */
 }
 
+/* ============================
+   Footer text (copyright line)
+   ============================ */
 .footer-text {
     font-size: 14px;
     color: #090909;
     margin-top: 10px;
-    transition: color 0.3s;
     margin-bottom: 10px;
+    transition: color 0.3s;      /* smooth color change */
 }
 
+/* Dark mode footer text */
 body.dark-mode .footer-text {
     color: #b0b3b8;
 }
 
-/* Responsive Design */
+/* ============================
+   Responsive Design
+   ============================ */
 @media (max-width: 768px) {
     .footer-links {
-        flex-direction: row; /* Keep items in a row */
-        flex-wrap: wrap; /* Allow wrapping if needed */
-        justify-content: space-around; /* Space elements evenly */
+        flex-direction: row;         /* keep items in a row */
+        flex-wrap: wrap;             /* allow wrapping on small screens */
+        justify-content: space-around; /* spread evenly */
         text-align: left;
     }
 
     .footer-links div {
-        flex: 1 1 30%; /* Makes sure items stay evenly distributed */
-        min-width: 150px; /* Prevents them from shrinking too much */
+        flex: 1 1 30%;               /* distribute space evenly */
+        min-width: 150px;            /* don’t shrink too much */
         text-align: left;
     }
 }

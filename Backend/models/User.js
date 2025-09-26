@@ -1,117 +1,114 @@
 const mongoose = require('mongoose');
 
+// Define the User schema for MongoDB
 const userSchema = new mongoose.Schema({
   username: {
     type: String,
-    required: true,
-    unique: true
+    required: true,   // Username is mandatory
+    unique: true      // Each username must be unique
   },
   password: {
     type: String,
-    required: true
+    required: true    // Password is mandatory
   },
   country: {
     type: String,
-    required: true
+    required: true    // Country field is required
   },
   experience: {
     type: String,
-    required: true
+    required: true    // User’s years of experience (currently stored as string)
   },
   age: {
     type: String,
-    required: true
+    required: true    // User’s age (currently stored as string)
   },
   education: {
     type: String,
-    required: true
+    required: true    // Education level is required
   },
   prediction: {
-    type: String
+    type: String      // Salary prediction or similar
   },
   topRecommendations: {
-    type: Object
+    type: Object      // Stores top recommended actions/skills
   },
   MainBranch: {
-    type: String
+    type: String      // Example: Dev, Data, Other main branch info
   },
   RemoteWork: {
-    type: String
+    type: String      // User’s remote work preference
   },
   DevType: {
-    type: String
+    type: String      // Developer type (backend, frontend, etc.)
   },
   OrgSize: {
-    type: String
+    type: String      // Organization size
   },
   ICorPM: {
-    type: String
+    type: String      // Individual Contributor or Project Manager
   },
   Industry: {
-    type: String
+    type: String      // Industry user works in
   },
   YearsCode: {
-    type: String
+    type: String      // Total years coding
   },
   YearsCodePro: {
-    type: String
+    type: String      // Years coding professionally
   },
   JobSat: {
-    type: String
+    type: String      // Job satisfaction
   },
   languages: {
-    type: Object
+    type: Object      // Programming languages known
   },
   employments: {
-    type: Object
+    type: Object      // Employment history or status
   },
   combined: {
-    type: String
+    type: String      // Combined features/summary field
   },
   recommendations: {
-    type: Object
+    type: Object      // All recommendations generated for user
   },
-  experiment:
-  {
-    type: Object
+  experiment: {
+    type: Object      // Experiment data
   },
-  savedRecommendations:
-  {
-    type: Object
+  savedRecommendations: {
+    type: Object      // Saved recommendations chosen by user
   },
-  recommendationsFeature:
-  {
-    type: Object
+  recommendationsFeature: {
+    type: Object      // Feature-specific recommendations
   },
-  recommendationsIncrese:
-  {
-    type: Object
+  recommendationsIncrese: {
+    type: Object      // Recommendations to increase salary/growth
   },
   databases: {
-    type: Object
+    type: Object      // Databases known/used
   },
   platforms: {
-    type: Object
+    type: Object      // Platforms/tools used
   },
   webframesworks: {
-    type: Object
+    type: Object      // Web frameworks known
   },
   tools: {
-    type: Object
+    type: Object      // Developer tools used
   },
   OpSys: {
-    type: Object
+    type: Object      // Operating systems known/used
   },
   savedJobs: {
-    type: Object
+    type: Object      // Jobs saved by user
   },
   impacts: {
-    type: Object
+    type: Object      // Impact-related data (career goals, changes, etc.)
   },
-  alerts:{
-    
+  alerts: {
+    // Alerts/notifications for the user
   }
-
 });
 
+// Export the User model
 module.exports = mongoose.model('User', userSchema);
