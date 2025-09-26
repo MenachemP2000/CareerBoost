@@ -43,9 +43,28 @@ const ModifyAdvanced = ({
 
     // --- Helpers to toggle individual fields ---
     const toggleField = (key) => {
-        setFieldEditing(s => ({ ...s, [key]: !s[key] }));
-    };
+        setFieldEditing((prev) => {
+            const isNowEditing = !prev[key];
 
+            // If turning ON editing for a section, snapshot its current values
+            if (isNowEditing) {
+                const sectionKey = Object.keys(GROUPS).find(sec =>
+                    GROUPS[sec].includes(key)
+                );
+                if (sectionKey && !sectionSnapshots.current[sectionKey]) {
+                    sectionSnapshots.current[sectionKey] = GROUPS[sectionKey].reduce(
+                        (acc, field) => {
+                            acc[field] = formData[field];
+                            return acc;
+                        },
+                        {}
+                    );
+                }
+            }
+
+            return { ...prev, [key]: isNowEditing };
+        });
+    };
 
 
     // --- Section grouping (used for Cancel / Save) ---
