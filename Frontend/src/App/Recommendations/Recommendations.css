@@ -2,26 +2,6 @@
    Recommendations.css (FULL)
    =========================== */
 
-/* ---- Shared tokens (color + layout variables) ---- */
-:root{
-    --bg:#efefef;                  /* page background */
-    --card:#ffffff;                /* section/card background */
-    --text:#111827;                /* primary text */
-    --muted:#6b7280;               /* muted/secondary text */
-    --border:#e5e7eb;              /* borders */
-    --shadow:0 6px 16px rgba(17,24,39,.06); /* light shadow */
-    --accent:#0f766e;              /* accent color (KPIs, highlights) */
-}
-body.dark-mode{
-    --bg:#0b1220;                  /* darker background */
-    --card:#0f172a;                /* dark card background */
-    --text:#e5e7eb;                /* light text */
-    --muted:#94a3b8;               /* muted gray-blue */
-    --border:#1f2a44;              /* dark border */
-    --shadow:0 8px 24px rgba(0,0,0,.45);
-    --accent:#34d399;              /* green accent */
-}
-
 /* ---- Page wrapper ---- */
 .recommendations-page{
     background:#efefef;
@@ -211,6 +191,9 @@ body.dark-mode .btn-ghost:hover{ background:rgba(255,255,255,.05); }
     margin: 0 .25rem;
 }
 
+body.dark-mode .recommendations-page{
+    background:#18191a;
+}
 /* Force green in dark mode for salary estimate (instead of accent) */
 body.dark-mode .recommendations-page .salary-estimate{
     color: #22c55e;
