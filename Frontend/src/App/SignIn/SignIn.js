@@ -154,10 +154,10 @@ const SignIn = ({ toggleScreen, isSignedIn, toggleSignendIn }) => {
                                         </div>
                                     )}
 
-                                    {/* Forgot password link */}
-                                    <div className="forgot-password">Forgot password?</div>
+                                    {/*/!* Forgot password link *!/*/}
+                                    {/*<div className="forgot-password">Forgot password?</div>*/}
 
-                                    <hr/>
+                                    {/*<hr/>*/}
 
                                     {/* Create account button */}
                                     <Button
